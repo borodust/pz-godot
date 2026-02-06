@@ -1,0 +1,3 @@
+[submodule "src/lib/godot"]
+	path = src/lib/godot
+	url = https://github.com/borodust/godot.git

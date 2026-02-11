@@ -4,7 +4,23 @@
   :author "Pavel Korolev"
   :mailto "dev@borodust.org"
   :license "MIT"
-  :depends-on (:pz-godot-bindings))
+  :depends-on (:uiop :cffi :pz-godot/common)
+  :pathname "bindings/"
+  :components ((:file "gdext-types")
+               (:file "gdext-interface")
+               (:file "libgodot")
+               (:file "godot-extensions")))
+
+
+(asdf:defsystem :pz-godot/common
+  :description "Bindings to Godot game engine"
+  :version "1.0.0"
+  :author "Pavel Korolev"
+  :mailto "dev@borodust.org"
+  :license "MIT"
+  :depends-on (:uiop :cffi)
+  :pathname "bindings/"
+  :components ((:file "gdext-common")))
 
 
 (asdf:defsystem :pz-godot/wrapper
@@ -13,11 +29,11 @@
   :author "Pavel Korolev"
   :mailto "dev@borodust.org"
   :license "MIT"
-  :depends-on (:alexandria :cffi :claw :claw-utils)
+  :depends-on (:uiop :alexandria :cl-ppcre :cffi :com.inuoe.jzon :pz-godot/common)
   :serial t
-  :components ((:file "src/claw")
-               (:module :wrapper-includes :pathname "src/lib/include/")
-               (:module :godot-extension-includes :pathname "src/lib/godot/core/extension/")))
+  :pathname "src/"
+  :components ((:file "packages")
+               (:file "clawless")))
 
 
 (asdf:defsystem :pz-godot/example

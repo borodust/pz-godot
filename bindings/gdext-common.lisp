@@ -1,15 +1,35 @@
-(cl:defpackage :%gdext.common
+(cl:defpackage :%gdext.util
   (:use :cl)
+  (:local-nicknames (#:a #:alexandria)
+                    (#:cref #:cffi-c-ref))
   (:export #:wchar
+           #:memcpy
+
            #:defcfunproto
            #:defprotocallback
            #:funcall-prototype
 
            #:defifun
-           #:initialize-interface))
-(cl:defpackage :%%gdext.common~secret
+           #:bind-interface
+
+           #:defgenum
+           #:defgclass
+           #:defgconstructor
+           #:defgdestructor
+           #:defgproperty
+           #:defgmethod
+           #:defgsingleton
+
+           #:method-argument-type-stack-alignment
+           #:method-argument-type-stack-size
+           #:expand-method-argument-translation
+
+           #:godot-extension-bind-name
+           #:godot-extension-variant-kind
+           #:godot-extension-method-bind-name))
+(cl:defpackage :%%gdext.util~secret
   (:use))
-(cl:in-package :%gdext.common)
+(cl:in-package :%gdext.util)
 
 
 (defvar *function-prototype-registry* (make-hash-table))
@@ -17,6 +37,15 @@
 (defvar *interface-registry* (make-hash-table))
 
 (cffi:defctype wchar #+windows :uint16 #-windows :uint32)
+
+(defun format-symbol-into (package control-string &rest args)
+  (uiop:intern* (apply #'format nil control-string args) package))
+
+
+(cffi:defcfun ("memcpy" memcpy) :pointer
+  (dst :pointer)
+  (src :pointer)
+  (size :size))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -32,8 +61,7 @@
 
 
 (defmacro funcall-prototype (ptr name &rest args)
-  (let* ((name (eval name))
-         (proto (gethash name *function-prototype-registry*)))
+  (let* ((proto (gethash name *function-prototype-registry*)))
     (unless proto
       (error "Function prototype for name ~A not found" name))
     (unless (= (length (rest proto)) (length args))
@@ -64,39 +92,82 @@
 ;;
 ;; INTERFACE FUNC
 ;;
-(defun register-interface-function (lisp-name c-name initializer)
-  (setf (gethash lisp-name *interface-registry*) (cons c-name initializer)))
+(defun register-interface-function (lisp-name c-name ptr-var-name)
+  (setf (gethash lisp-name *interface-registry*) (cons c-name ptr-var-name)))
 
 
 (defmacro defifun ((c-name lisp-name) return-type
                    &body parameters)
-  (let ((param-names (mapcar #'first parameters)))
+  (let ((param-names (mapcar #'first parameters))
+        (ptr-var-name (format-symbol-into '%%gdext.util~secret "*~A~~~A*" 'function-pointer lisp-name)))
     `(progn
        (eval-when (:compile-toplevel :load-toplevel :execute)
          (defcfunproto ,lisp-name ,return-type ,@(mapcar #'second parameters)))
-       (let ((%%gdext.common~secret::ptr (cffi:null-pointer)))
-         (declare (type cffi:foreign-pointer %%gdext.common~secret::ptr)
-                  (optimize (safety 0)))
-         (defun ,lisp-name (,@param-names)
-           (funcall-prototype %%gdext.common~secret::ptr ',lisp-name ,@param-names))
-         (register-interface-function
-          ',lisp-name ,c-name
-          (lambda (ptr)
-            (declare (optimize (safety 0))
-                     (type cffi:foreign-pointer ptr))
-            (setf %%gdext.common~secret::ptr ptr)))))))
+       (defvar ,ptr-var-name (cffi:null-pointer))
+       (defun ,lisp-name (,@param-names)
+         (funcall-prototype ,ptr-var-name ,lisp-name ,@param-names))
+       (register-interface-function
+        ',lisp-name ,c-name ',ptr-var-name))))
 
 
-(defun initialize-interface (get-proc-address-ptr)
-  (flet ((%get-proc-address (c-name)
-           (cffi:foreign-funcall-pointer get-proc-address-ptr ()
-                                         :string c-name
-                                         :pointer)))
-    (loop for function-name being the hash-key in *interface-registry*
-            using (hash-value (c-name . initializer))
-          do (let ((function-ptr (%get-proc-address c-name)))
-               (declare (type (function (cffi:foreign-pointer)
-                                        cffi:foreign-pointer)
-                              initializer))
-               (funcall initializer function-ptr))))
-  (values))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; PTRCALL
+;;
+(defgeneric method-argument-type-stack-alignment (type)
+  (:method (type)
+    (if (and (listp type)
+             (eq :pointer (cffi::canonicalize-foreign-type type)))
+        (method-argument-type-stack-alignment :pointer)
+        (error "Failed to get method argument's alignment for argv stack: unrecognized type ~A" type))))
+
+(defgeneric method-argument-type-stack-size (type)
+  (:method (type)
+    (if (and (listp type)
+             (eq :pointer (cffi::canonicalize-foreign-type type)))
+        (method-argument-type-stack-size :pointer)
+        (error "Failed to get method argument size for argv stack: unrecognized type ~A" type))))
+
+(defgeneric expand-method-argument-translation (type src-val-sym argv-ptr-sym stack-ptr-sym)
+  (:method (type src-val-sym argv-ptr-sym stack-ptr-sym)
+    (if (and (listp type)
+             (eq :pointer (cffi::canonicalize-foreign-type type)))
+        (expand-ptrarg-pointer src-val-sym argv-ptr-sym stack-ptr-sym)
+        (error "Failed to expand method argument translation: unrecognized type ~A" type))))
+
+
+(defmethod method-argument-type-stack-alignment ((type (eql :pointer)))
+  (cffi:foreign-type-alignment :pointer))
+
+(defmethod method-argument-type-stack-size ((type (eql :pointer)))
+  (cffi:foreign-type-size :pointer))
+
+(defmethod expand-method-argument-translation ((type (eql :pointer)) src-val-sym argv-ptr-sym stack-ptr-sym)
+  (expand-ptrarg-pointer src-val-sym argv-ptr-sym stack-ptr-sym))
+
+
+(defun expand-ptrarg-with-conversion (arg-type-to src-val-sym argv-ptr-sym stack-ptr-sym)
+  `(setf (cffi:mem-ref ,argv-ptr-sym :pointer) ,stack-ptr-sym
+         (cffi:mem-ref ,stack-ptr-sym ',arg-type-to) ,(a:eswitch (arg-type-to)
+                                                        (:int64 `(truncate ,src-val-sym))
+                                                        (:double `(float ,src-val-sym 0d0))
+                                                        (:uint8 `(truncate ,src-val-sym)))))
+
+(defun expand-ptrarg-blob (arg-type src-val-sym argv-ptr-sym stack-ptr-sym)
+  `(progn
+     (setf (cffi:mem-ref ,argv-ptr-sym :pointer) ,stack-ptr-sym)
+     (memcpy ,stack-ptr-sym ,src-val-sym (cffi:foreign-type-size ',arg-type))))
+
+
+(defun expand-ptrarg-pointer (src-val-sym argv-ptr-sym stack-ptr-sym)
+  `(setf (cffi:mem-ref ,argv-ptr-sym :pointer) ,stack-ptr-sym
+         (cffi:mem-ref ,stack-ptr-sym :pointer) ,src-val-sym))
+
+;;;
+;;; METADATA
+;;;
+(defgeneric godot-extension-bind-name (class-name))
+
+(defgeneric godot-extension-variant-kind (class-name))
+
+(defgeneric godot-extension-method-bind-name (class-name method-name))

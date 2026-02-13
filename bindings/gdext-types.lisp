@@ -144,27 +144,27 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype variant-from-type-constructor-func (:pointer :void))
 
-(%gdext.common:defcfunproto variant-from-type-constructor-func
+(%gdext.util:defcfunproto variant-from-type-constructor-func
     :void
   uninitialized-variant-ptr
   type-ptr)
 
 (cffi:defctype type-from-variant-constructor-func (:pointer :void))
 
-(%gdext.common:defcfunproto type-from-variant-constructor-func
+(%gdext.util:defcfunproto type-from-variant-constructor-func
     :void
   uninitialized-type-ptr
   variant-ptr)
 
 (cffi:defctype variant-get-internal-ptr-func (:pointer :void))
 
-(%gdext.common:defcfunproto variant-get-internal-ptr-func
+(%gdext.util:defcfunproto variant-get-internal-ptr-func
     (:pointer :void)
   variant-ptr)
 
 (cffi:defctype ptr-operator-evaluator (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-operator-evaluator
+(%gdext.util:defcfunproto ptr-operator-evaluator
     :void
   const-type-ptr
   const-type-ptr
@@ -172,7 +172,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype ptr-built-in-method (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-built-in-method
+(%gdext.util:defcfunproto ptr-built-in-method
     :void
   type-ptr
   (:pointer const-type-ptr)
@@ -181,34 +181,34 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype ptr-constructor (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-constructor
+(%gdext.util:defcfunproto ptr-constructor
     :void
   uninitialized-type-ptr
   (:pointer const-type-ptr))
 
 (cffi:defctype ptr-destructor (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-destructor
+(%gdext.util:defcfunproto ptr-destructor
     :void
   type-ptr)
 
 (cffi:defctype ptr-setter (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-setter
+(%gdext.util:defcfunproto ptr-setter
     :void
   type-ptr
   const-type-ptr)
 
 (cffi:defctype ptr-getter (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-getter
+(%gdext.util:defcfunproto ptr-getter
     :void
   const-type-ptr
   type-ptr)
 
 (cffi:defctype ptr-indexed-setter (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-indexed-setter
+(%gdext.util:defcfunproto ptr-indexed-setter
     :void
   type-ptr
   int
@@ -216,7 +216,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype ptr-indexed-getter (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-indexed-getter
+(%gdext.util:defcfunproto ptr-indexed-getter
     :void
   const-type-ptr
   int
@@ -224,7 +224,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype ptr-keyed-setter (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-keyed-setter
+(%gdext.util:defcfunproto ptr-keyed-setter
     :void
   type-ptr
   const-type-ptr
@@ -232,7 +232,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype ptr-keyed-getter (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-keyed-getter
+(%gdext.util:defcfunproto ptr-keyed-getter
     :void
   const-type-ptr
   const-type-ptr
@@ -240,14 +240,14 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype ptr-keyed-checker (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-keyed-checker
+(%gdext.util:defcfunproto ptr-keyed-checker
     :uint32
   const-variant-ptr
   const-variant-ptr)
 
 (cffi:defctype ptr-utility-function (:pointer :void))
 
-(%gdext.common:defcfunproto ptr-utility-function
+(%gdext.util:defcfunproto ptr-utility-function
     :void
   type-ptr
   (:pointer const-type-ptr)
@@ -255,19 +255,19 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-constructor (:pointer :void))
 
-(%gdext.common:defcfunproto class-constructor
+(%gdext.util:defcfunproto class-constructor
     object-ptr)
 
 (cffi:defctype instance-binding-create-callback (:pointer :void))
 
-(%gdext.common:defcfunproto instance-binding-create-callback
+(%gdext.util:defcfunproto instance-binding-create-callback
     (:pointer :void)
   (:pointer :void)
   (:pointer :void))
 
 (cffi:defctype instance-binding-free-callback (:pointer :void))
 
-(%gdext.common:defcfunproto instance-binding-free-callback
+(%gdext.util:defcfunproto instance-binding-free-callback
     :void
   (:pointer :void)
   (:pointer :void)
@@ -275,7 +275,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype instance-binding-reference-callback (:pointer :void))
 
-(%gdext.common:defcfunproto instance-binding-reference-callback
+(%gdext.util:defcfunproto instance-binding-reference-callback
     bool
   (:pointer :void)
   (:pointer :void)
@@ -291,7 +291,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-set (:pointer :void))
 
-(%gdext.common:defcfunproto class-set
+(%gdext.util:defcfunproto class-set
     bool
   class-instance-ptr
   const-string-name-ptr
@@ -299,7 +299,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-get (:pointer :void))
 
-(%gdext.common:defcfunproto class-get
+(%gdext.util:defcfunproto class-get
     bool
   class-instance-ptr
   const-string-name-ptr
@@ -307,7 +307,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-get-rid (:pointer :void))
 
-(%gdext.common:defcfunproto class-get-rid
+(%gdext.util:defcfunproto class-get-rid
     :uint64
   class-instance-ptr)
 
@@ -333,21 +333,21 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-get-property-list (:pointer :void))
 
-(%gdext.common:defcfunproto class-get-property-list
+(%gdext.util:defcfunproto class-get-property-list
     (:pointer property-info)
   class-instance-ptr
   (:pointer :uint32))
 
 (cffi:defctype class-free-property-list (:pointer :void))
 
-(%gdext.common:defcfunproto class-free-property-list
+(%gdext.util:defcfunproto class-free-property-list
     :void
   class-instance-ptr
   (:pointer property-info))
 
 (cffi:defctype class-free-property-list2 (:pointer :void))
 
-(%gdext.common:defcfunproto class-free-property-list2
+(%gdext.util:defcfunproto class-free-property-list2
     :void
   class-instance-ptr
   (:pointer property-info)
@@ -355,14 +355,14 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-property-can-revert (:pointer :void))
 
-(%gdext.common:defcfunproto class-property-can-revert
+(%gdext.util:defcfunproto class-property-can-revert
     bool
   class-instance-ptr
   const-string-name-ptr)
 
 (cffi:defctype class-property-get-revert (:pointer :void))
 
-(%gdext.common:defcfunproto class-property-get-revert
+(%gdext.util:defcfunproto class-property-get-revert
     bool
   class-instance-ptr
   const-string-name-ptr
@@ -370,21 +370,21 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-validate-property (:pointer :void))
 
-(%gdext.common:defcfunproto class-validate-property
+(%gdext.util:defcfunproto class-validate-property
     bool
   class-instance-ptr
   (:pointer property-info))
 
 (cffi:defctype class-notification (:pointer :void) "DEPRECATED since 4.2")
 
-(%gdext.common:defcfunproto class-notification
+(%gdext.util:defcfunproto class-notification
     :void
   class-instance-ptr
   :int32)
 
 (cffi:defctype class-notification2 (:pointer :void))
 
-(%gdext.common:defcfunproto class-notification2
+(%gdext.util:defcfunproto class-notification2
     :void
   class-instance-ptr
   :int32
@@ -392,7 +392,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-to-string (:pointer :void))
 
-(%gdext.common:defcfunproto class-to-string
+(%gdext.util:defcfunproto class-to-string
     :void
   class-instance-ptr
   (:pointer bool)
@@ -400,19 +400,19 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-reference (:pointer :void))
 
-(%gdext.common:defcfunproto class-reference
+(%gdext.util:defcfunproto class-reference
     :void
   class-instance-ptr)
 
 (cffi:defctype class-unreference (:pointer :void))
 
-(%gdext.common:defcfunproto class-unreference
+(%gdext.util:defcfunproto class-unreference
     :void
   class-instance-ptr)
 
 (cffi:defctype class-call-virtual (:pointer :void))
 
-(%gdext.common:defcfunproto class-call-virtual
+(%gdext.util:defcfunproto class-call-virtual
     :void
   class-instance-ptr
   (:pointer const-type-ptr)
@@ -420,41 +420,41 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-create-instance (:pointer :void))
 
-(%gdext.common:defcfunproto class-create-instance
+(%gdext.util:defcfunproto class-create-instance
     object-ptr
   (:pointer :void))
 
 (cffi:defctype class-create-instance2 (:pointer :void))
 
-(%gdext.common:defcfunproto class-create-instance2
+(%gdext.util:defcfunproto class-create-instance2
     object-ptr
   (:pointer :void)
   bool)
 
 (cffi:defctype class-free-instance (:pointer :void))
 
-(%gdext.common:defcfunproto class-free-instance
+(%gdext.util:defcfunproto class-free-instance
     :void
   (:pointer :void)
   class-instance-ptr)
 
 (cffi:defctype class-recreate-instance (:pointer :void))
 
-(%gdext.common:defcfunproto class-recreate-instance
+(%gdext.util:defcfunproto class-recreate-instance
     class-instance-ptr
   (:pointer :void)
   object-ptr)
 
 (cffi:defctype class-get-virtual (:pointer :void))
 
-(%gdext.common:defcfunproto class-get-virtual
+(%gdext.util:defcfunproto class-get-virtual
     class-call-virtual
   (:pointer :void)
   const-string-name-ptr)
 
 (cffi:defctype class-get-virtual2 (:pointer :void))
 
-(%gdext.common:defcfunproto class-get-virtual2
+(%gdext.util:defcfunproto class-get-virtual2
     class-call-virtual
   (:pointer :void)
   const-string-name-ptr
@@ -462,14 +462,14 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-get-virtual-call-data (:pointer :void))
 
-(%gdext.common:defcfunproto class-get-virtual-call-data
+(%gdext.util:defcfunproto class-get-virtual-call-data
     (:pointer :void)
   (:pointer :void)
   const-string-name-ptr)
 
 (cffi:defctype class-get-virtual-call-data2 (:pointer :void))
 
-(%gdext.common:defcfunproto class-get-virtual-call-data2
+(%gdext.util:defcfunproto class-get-virtual-call-data2
     (:pointer :void)
   (:pointer :void)
   const-string-name-ptr
@@ -477,7 +477,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-call-virtual-with-data (:pointer :void))
 
-(%gdext.common:defcfunproto class-call-virtual-with-data
+(%gdext.util:defcfunproto class-call-virtual-with-data
     :void
   class-instance-ptr
   const-string-name-ptr
@@ -592,19 +592,19 @@ them it is always safe to skip the constructor for the return value if you are i
 (cffi:defctype editor-get-classes-used-callback (:pointer :void)
                "Passed a pointer to a PackedStringArray that should be filled with the classes that may be used by the GDExtension.")
 
-(%gdext.common:defcfunproto editor-get-classes-used-callback
+(%gdext.util:defcfunproto editor-get-classes-used-callback
     :void
   type-ptr)
 
 (cffi:defbitfield class-method-flags
-  (:-normal 1)
-  (:-editor 2)
-  (:-const 4)
-  (:-virtual 8)
-  (:-vararg 16)
-  (:-static 32)
-  (:-virtual-required 128)
-  (:s-default 1))
+  (:flag-normal 1)
+  (:flag-editor 2)
+  (:flag-const 4)
+  (:flag-virtual 8)
+  (:flag-vararg 16)
+  (:flag-static 32)
+  (:flag-virtual-required 128)
+  (:flags-default 1))
 
 (cffi:defcenum class-method-argument-metadata
   (:none 0)
@@ -624,7 +624,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-method-call (:pointer :void))
 
-(%gdext.common:defcfunproto class-method-call
+(%gdext.util:defcfunproto class-method-call
     :void
   (:pointer :void)
   class-instance-ptr
@@ -635,7 +635,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-method-validated-call (:pointer :void))
 
-(%gdext.common:defcfunproto class-method-validated-call
+(%gdext.util:defcfunproto class-method-validated-call
     :void
   (:pointer :void)
   class-instance-ptr
@@ -644,7 +644,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-method-ptr-call (:pointer :void))
 
-(%gdext.common:defcfunproto class-method-ptr-call
+(%gdext.util:defcfunproto class-method-ptr-call
     :void
   (:pointer :void)
   class-instance-ptr
@@ -679,7 +679,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype callable-custom-call (:pointer :void))
 
-(%gdext.common:defcfunproto callable-custom-call
+(%gdext.util:defcfunproto callable-custom-call
     :void
   (:pointer :void)
   (:pointer const-variant-ptr)
@@ -689,39 +689,39 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype callable-custom-is-valid (:pointer :void))
 
-(%gdext.common:defcfunproto callable-custom-is-valid
+(%gdext.util:defcfunproto callable-custom-is-valid
     bool
   (:pointer :void))
 
 (cffi:defctype callable-custom-free (:pointer :void))
 
-(%gdext.common:defcfunproto callable-custom-free
+(%gdext.util:defcfunproto callable-custom-free
     :void
   (:pointer :void))
 
 (cffi:defctype callable-custom-hash (:pointer :void))
 
-(%gdext.common:defcfunproto callable-custom-hash
+(%gdext.util:defcfunproto callable-custom-hash
     :uint32
   (:pointer :void))
 
 (cffi:defctype callable-custom-equal (:pointer :void))
 
-(%gdext.common:defcfunproto callable-custom-equal
+(%gdext.util:defcfunproto callable-custom-equal
     bool
   (:pointer :void)
   (:pointer :void))
 
 (cffi:defctype callable-custom-less-than (:pointer :void))
 
-(%gdext.common:defcfunproto callable-custom-less-than
+(%gdext.util:defcfunproto callable-custom-less-than
     bool
   (:pointer :void)
   (:pointer :void))
 
 (cffi:defctype callable-custom-to-string (:pointer :void))
 
-(%gdext.common:defcfunproto callable-custom-to-string
+(%gdext.util:defcfunproto callable-custom-to-string
     :void
   (:pointer :void)
   (:pointer bool)
@@ -729,7 +729,7 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype callable-custom-get-argument-count (:pointer :void))
 
-(%gdext.common:defcfunproto callable-custom-get-argument-count
+(%gdext.util:defcfunproto callable-custom-get-argument-count
     int
   (:pointer :void)
   (:pointer bool))
@@ -783,7 +783,7 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-set (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-set
+(%gdext.util:defcfunproto script-instance-set
     bool
   script-instance-data-ptr
   const-string-name-ptr
@@ -791,7 +791,7 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-get (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get
+(%gdext.util:defcfunproto script-instance-get
     bool
   script-instance-data-ptr
   const-string-name-ptr
@@ -799,7 +799,7 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-get-property-list (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get-property-list
+(%gdext.util:defcfunproto script-instance-get-property-list
     (:pointer property-info)
   script-instance-data-ptr
   (:pointer :uint32))
@@ -807,14 +807,14 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 (cffi:defctype script-instance-free-property-list (:pointer :void)
                "DEPRECATED since 4.3")
 
-(%gdext.common:defcfunproto script-instance-free-property-list
+(%gdext.util:defcfunproto script-instance-free-property-list
     :void
   script-instance-data-ptr
   (:pointer property-info))
 
 (cffi:defctype script-instance-free-property-list2 (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-free-property-list2
+(%gdext.util:defcfunproto script-instance-free-property-list2
     :void
   script-instance-data-ptr
   (:pointer property-info)
@@ -822,14 +822,14 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-get-class-category (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get-class-category
+(%gdext.util:defcfunproto script-instance-get-class-category
     bool
   script-instance-data-ptr
   (:pointer property-info))
 
 (cffi:defctype script-instance-get-property-type (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get-property-type
+(%gdext.util:defcfunproto script-instance-get-property-type
     variant-type
   script-instance-data-ptr
   const-string-name-ptr
@@ -837,21 +837,21 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-validate-property (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-validate-property
+(%gdext.util:defcfunproto script-instance-validate-property
     bool
   script-instance-data-ptr
   (:pointer property-info))
 
 (cffi:defctype script-instance-property-can-revert (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-property-can-revert
+(%gdext.util:defcfunproto script-instance-property-can-revert
     bool
   script-instance-data-ptr
   const-string-name-ptr)
 
 (cffi:defctype script-instance-property-get-revert (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-property-get-revert
+(%gdext.util:defcfunproto script-instance-property-get-revert
     bool
   script-instance-data-ptr
   const-string-name-ptr
@@ -859,13 +859,13 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-get-owner (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get-owner
+(%gdext.util:defcfunproto script-instance-get-owner
     object-ptr
   script-instance-data-ptr)
 
 (cffi:defctype script-instance-property-state-add (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-property-state-add
+(%gdext.util:defcfunproto script-instance-property-state-add
     :void
   const-string-name-ptr
   const-variant-ptr
@@ -873,7 +873,7 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-get-property-state (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get-property-state
+(%gdext.util:defcfunproto script-instance-get-property-state
     :void
   script-instance-data-ptr
   script-instance-property-state-add
@@ -881,7 +881,7 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-get-method-list (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get-method-list
+(%gdext.util:defcfunproto script-instance-get-method-list
     (:pointer method-info)
   script-instance-data-ptr
   (:pointer :uint32))
@@ -889,14 +889,14 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 (cffi:defctype script-instance-free-method-list (:pointer :void)
                "DEPRECATED since 4.3")
 
-(%gdext.common:defcfunproto script-instance-free-method-list
+(%gdext.util:defcfunproto script-instance-free-method-list
     :void
   script-instance-data-ptr
   (:pointer method-info))
 
 (cffi:defctype script-instance-free-method-list2 (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-free-method-list2
+(%gdext.util:defcfunproto script-instance-free-method-list2
     :void
   script-instance-data-ptr
   (:pointer method-info)
@@ -904,14 +904,14 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-has-method (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-has-method
+(%gdext.util:defcfunproto script-instance-has-method
     bool
   script-instance-data-ptr
   const-string-name-ptr)
 
 (cffi:defctype script-instance-get-method-argument-count (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get-method-argument-count
+(%gdext.util:defcfunproto script-instance-get-method-argument-count
     int
   script-instance-data-ptr
   const-string-name-ptr
@@ -919,7 +919,7 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-call (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-call
+(%gdext.util:defcfunproto script-instance-call
     :void
   script-instance-data-ptr
   const-string-name-ptr
@@ -931,14 +931,14 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 (cffi:defctype script-instance-notification (:pointer :void)
                "DEPRECATED since 4.2")
 
-(%gdext.common:defcfunproto script-instance-notification
+(%gdext.util:defcfunproto script-instance-notification
     :void
   script-instance-data-ptr
   :int32)
 
 (cffi:defctype script-instance-notification2 (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-notification2
+(%gdext.util:defcfunproto script-instance-notification2
     :void
   script-instance-data-ptr
   :int32
@@ -946,7 +946,7 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-to-string (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-to-string
+(%gdext.util:defcfunproto script-instance-to-string
     :void
   script-instance-data-ptr
   (:pointer bool)
@@ -954,25 +954,25 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-ref-count-incremented (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-ref-count-incremented
+(%gdext.util:defcfunproto script-instance-ref-count-incremented
     :void
   script-instance-data-ptr)
 
 (cffi:defctype script-instance-ref-count-decremented (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-ref-count-decremented
+(%gdext.util:defcfunproto script-instance-ref-count-decremented
     bool
   script-instance-data-ptr)
 
 (cffi:defctype script-instance-get-script (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get-script
+(%gdext.util:defcfunproto script-instance-get-script
     object-ptr
   script-instance-data-ptr)
 
 (cffi:defctype script-instance-is-placeholder (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-is-placeholder
+(%gdext.util:defcfunproto script-instance-is-placeholder
     bool
   script-instance-data-ptr)
 
@@ -980,13 +980,13 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-get-language (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-get-language
+(%gdext.util:defcfunproto script-instance-get-language
     script-language-ptr
   script-instance-data-ptr)
 
 (cffi:defctype script-instance-free (:pointer :void))
 
-(%gdext.common:defcfunproto script-instance-free
+(%gdext.util:defcfunproto script-instance-free
     :void
   script-instance-data-ptr)
 
@@ -1080,14 +1080,14 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype worker-thread-pool-group-task (:pointer :void))
 
-(%gdext.common:defcfunproto worker-thread-pool-group-task
+(%gdext.util:defcfunproto worker-thread-pool-group-task
     :void
   (:pointer :void)
   :uint32)
 
 (cffi:defctype worker-thread-pool-task (:pointer :void))
 
-(%gdext.common:defcfunproto worker-thread-pool-task
+(%gdext.util:defcfunproto worker-thread-pool-task
     :void
   (:pointer :void))
 
@@ -1100,14 +1100,14 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype initialize-callback (:pointer :void))
 
-(%gdext.common:defcfunproto initialize-callback
+(%gdext.util:defcfunproto initialize-callback
     :void
   (:pointer :void)
   initialization-level)
 
 (cffi:defctype deinitialize-callback (:pointer :void))
 
-(%gdext.common:defcfunproto deinitialize-callback
+(%gdext.util:defcfunproto deinitialize-callback
     :void
   (:pointer :void)
   initialization-level)
@@ -1121,12 +1121,12 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype interface-function-ptr (:pointer :void))
 
-(%gdext.common:defcfunproto interface-function-ptr
+(%gdext.util:defcfunproto interface-function-ptr
     :void)
 
 (cffi:defctype interface-get-proc-address (:pointer :void))
 
-(%gdext.common:defcfunproto interface-get-proc-address
+(%gdext.util:defcfunproto interface-get-proc-address
     interface-function-ptr
   (:pointer :char))
 
@@ -1152,7 +1152,7 @@ You can then call it like a normal function:
 All of these interface functions are described below, together with the name that's used to load it,
 and the function pointer typedef that shows its signature.")
 
-(%gdext.common:defcfunproto initialization-function
+(%gdext.util:defcfunproto initialization-function
     bool
   interface-get-proc-address
   class-library-ptr
@@ -1180,19 +1180,19 @@ and the function pointer typedef that shows its signature.")
 (cffi:defctype main-loop-startup-callback (:pointer :void)
                "Called when starting the main loop.")
 
-(%gdext.common:defcfunproto main-loop-startup-callback
+(%gdext.util:defcfunproto main-loop-startup-callback
     :void)
 
 (cffi:defctype main-loop-shutdown-callback (:pointer :void)
                "Called when shutting down the main loop.")
 
-(%gdext.common:defcfunproto main-loop-shutdown-callback
+(%gdext.util:defcfunproto main-loop-shutdown-callback
     :void)
 
 (cffi:defctype main-loop-frame-callback (:pointer :void)
                "Called for every frame iteration of the main loop.")
 
-(%gdext.common:defcfunproto main-loop-frame-callback
+(%gdext.util:defcfunproto main-loop-frame-callback
     :void)
 
 (cffi:defcstruct main-loop-callbacks
@@ -1208,47 +1208,103 @@ and the function pointer typedef that shows its signature.")
    uninitialized-string-ptr object-ptr const-object-ptr
    uninitialized-object-ptr type-ptr const-type-ptr uninitialized-type-ptr
    method-bind-ptr int bool instance-id ref-ptr const-ref-ptr call-error-type
-   call-error variant-from-type-constructor-func
+   call-error error argument expected variant-from-type-constructor-func
    type-from-variant-constructor-func variant-get-internal-ptr-func
    ptr-operator-evaluator ptr-built-in-method ptr-constructor ptr-destructor
    ptr-setter ptr-getter ptr-indexed-setter ptr-indexed-getter ptr-keyed-setter
    ptr-keyed-getter ptr-keyed-checker ptr-utility-function class-constructor
    instance-binding-create-callback instance-binding-free-callback
    instance-binding-reference-callback instance-binding-callbacks
-   class-instance-ptr class-set class-get class-get-rid property-info
-   method-info class-get-property-list class-free-property-list
-   class-free-property-list2 class-property-can-revert
+   create-callback free-callback reference-callback class-instance-ptr
+   class-set class-get class-get-rid property-info type name class-name hint
+   hint-string usage method-info name return-value flags id argument-count
+   arguments default-argument-count default-arguments class-get-property-list
+   class-free-property-list class-free-property-list2 class-property-can-revert
    class-property-get-revert class-validate-property class-notification
    class-notification2 class-to-string class-reference class-unreference
    class-call-virtual class-create-instance class-create-instance2
    class-free-instance class-recreate-instance class-get-virtual
    class-get-virtual2 class-get-virtual-call-data class-get-virtual-call-data2
-   class-call-virtual-with-data class-creation-info class-creation-info2
-   class-creation-info3 class-creation-info4 class-creation-info5
+   class-call-virtual-with-data class-creation-info is-virtual is-abstract
+   set-func get-func get-property-list-func free-property-list-func
+   property-can-revert-func property-get-revert-func notification-func
+   to-string-func reference-func unreference-func create-instance-func
+   free-instance-func get-virtual-func get-rid-func class-userdata
+   class-creation-info2 is-virtual is-abstract is-exposed set-func get-func
+   get-property-list-func free-property-list-func property-can-revert-func
+   property-get-revert-func validate-property-func notification-func
+   to-string-func reference-func unreference-func create-instance-func
+   free-instance-func recreate-instance-func get-virtual-func
+   get-virtual-call-data-func call-virtual-with-data-func get-rid-func
+   class-userdata class-creation-info3 is-virtual is-abstract is-exposed
+   is-runtime set-func get-func get-property-list-func free-property-list-func
+   property-can-revert-func property-get-revert-func validate-property-func
+   notification-func to-string-func reference-func unreference-func
+   create-instance-func free-instance-func recreate-instance-func
+   get-virtual-func get-virtual-call-data-func call-virtual-with-data-func
+   get-rid-func class-userdata class-creation-info4 is-virtual is-abstract
+   is-exposed is-runtime icon-path set-func get-func get-property-list-func
+   free-property-list-func property-can-revert-func property-get-revert-func
+   validate-property-func notification-func to-string-func reference-func
+   unreference-func create-instance-func free-instance-func
+   recreate-instance-func get-virtual-func get-virtual-call-data-func
+   call-virtual-with-data-func class-userdata class-creation-info5
    class-library-ptr editor-get-classes-used-callback class-method-flags
    class-method-argument-metadata class-method-call class-method-validated-call
-   class-method-ptr-call class-method-info class-virtual-method-info
-   callable-custom-call callable-custom-is-valid callable-custom-free
-   callable-custom-hash callable-custom-equal callable-custom-less-than
-   callable-custom-to-string callable-custom-get-argument-count
-   callable-custom-info callable-custom-info2 script-instance-data-ptr
-   script-instance-set script-instance-get script-instance-get-property-list
-   script-instance-free-property-list script-instance-free-property-list2
-   script-instance-get-class-category script-instance-get-property-type
-   script-instance-validate-property script-instance-property-can-revert
-   script-instance-property-get-revert script-instance-get-owner
-   script-instance-property-state-add script-instance-get-property-state
-   script-instance-get-method-list script-instance-free-method-list
-   script-instance-free-method-list2 script-instance-has-method
-   script-instance-get-method-argument-count script-instance-call
-   script-instance-notification script-instance-notification2
-   script-instance-to-string script-instance-ref-count-incremented
-   script-instance-ref-count-decremented script-instance-get-script
-   script-instance-is-placeholder script-language-ptr
-   script-instance-get-language script-instance-free script-instance-ptr
-   script-instance-info script-instance-info2 script-instance-info3
-   worker-thread-pool-group-task worker-thread-pool-task initialization-level
-   initialize-callback deinitialize-callback initialization
+   class-method-ptr-call class-method-info name method-userdata call-func
+   ptrcall-func method-flags has-return-value return-value-info
+   return-value-metadata argument-count arguments-info arguments-metadata
+   default-argument-count default-arguments class-virtual-method-info name
+   method-flags return-value return-value-metadata argument-count arguments
+   arguments-metadata callable-custom-call callable-custom-is-valid
+   callable-custom-free callable-custom-hash callable-custom-equal
+   callable-custom-less-than callable-custom-to-string
+   callable-custom-get-argument-count callable-custom-info callable-userdata
+   token object-id call-func is-valid-func free-func hash-func equal-func
+   less-than-func to-string-func callable-custom-info2 callable-userdata token
+   object-id call-func is-valid-func free-func hash-func equal-func
+   less-than-func to-string-func get-argument-count-func
+   script-instance-data-ptr script-instance-set script-instance-get
+   script-instance-get-property-list script-instance-free-property-list
+   script-instance-free-property-list2 script-instance-get-class-category
+   script-instance-get-property-type script-instance-validate-property
+   script-instance-property-can-revert script-instance-property-get-revert
+   script-instance-get-owner script-instance-property-state-add
+   script-instance-get-property-state script-instance-get-method-list
+   script-instance-free-method-list script-instance-free-method-list2
+   script-instance-has-method script-instance-get-method-argument-count
+   script-instance-call script-instance-notification
+   script-instance-notification2 script-instance-to-string
+   script-instance-ref-count-incremented script-instance-ref-count-decremented
+   script-instance-get-script script-instance-is-placeholder
+   script-language-ptr script-instance-get-language script-instance-free
+   script-instance-ptr script-instance-info set-func get-func
+   get-property-list-func free-property-list-func property-can-revert-func
+   property-get-revert-func get-owner-func get-property-state-func
+   get-method-list-func free-method-list-func get-property-type-func
+   has-method-func call-func notification-func to-string-func
+   refcount-incremented-func refcount-decremented-func get-script-func
+   is-placeholder-func set-fallback-func get-fallback-func get-language-func
+   free-func script-instance-info2 set-func get-func get-property-list-func
+   free-property-list-func get-class-category-func property-can-revert-func
+   property-get-revert-func get-owner-func get-property-state-func
+   get-method-list-func free-method-list-func get-property-type-func
+   validate-property-func has-method-func call-func notification-func
+   to-string-func refcount-incremented-func refcount-decremented-func
+   get-script-func is-placeholder-func set-fallback-func get-fallback-func
+   get-language-func free-func script-instance-info3 set-func get-func
+   get-property-list-func free-property-list-func get-class-category-func
+   property-can-revert-func property-get-revert-func get-owner-func
+   get-property-state-func get-method-list-func free-method-list-func
+   get-property-type-func validate-property-func has-method-func
+   get-method-argument-count-func call-func notification-func to-string-func
+   refcount-incremented-func refcount-decremented-func get-script-func
+   is-placeholder-func set-fallback-func get-fallback-func get-language-func
+   free-func worker-thread-pool-group-task worker-thread-pool-task
+   initialization-level initialize-callback deinitialize-callback
+   initialization minimum-initialization-level userdata initialize deinitialize
    interface-function-ptr interface-get-proc-address initialization-function
-   godot-version godot-version2 main-loop-startup-callback
-   main-loop-shutdown-callback main-loop-frame-callback main-loop-callbacks))
+   godot-version major minor patch string godot-version2 major minor patch hex
+   status build hash timestamp string main-loop-startup-callback
+   main-loop-shutdown-callback main-loop-frame-callback main-loop-callbacks
+   startup-func shutdown-func frame-func))

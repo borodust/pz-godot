@@ -1,4 +1,4 @@
-(cl:defpackage :%gdext.common
+(cl:defpackage :%gdext.util
   (:use :cl)
   (:export #:wchar
            #:defcfunproto
@@ -6,10 +6,15 @@
            #:funcall-prototype
 
            #:defifun
-           #:initialize-interface))
-(cl:defpackage :%%gdext.common~secret
+           #:initialize-interface
+
+           #:defgclass
+           #:defgenum
+           #:defgmethod
+           #:initialize-extension))
+(cl:defpackage :%%gdext.util~secret
   (:use))
-(cl:in-package :%gdext.common)
+(cl:in-package :%gdext.util)
 
 
 (defvar *function-prototype-registry* (make-hash-table))
@@ -17,6 +22,10 @@
 (defvar *interface-registry* (make-hash-table))
 
 (cffi:defctype wchar #+windows :uint16 #-windows :uint32)
+
+
+(defun format-symbol-into (package control-string &rest args)
+  (uiop:intern* (apply #'format nil control-string args) package))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -32,8 +41,7 @@
 
 
 (defmacro funcall-prototype (ptr name &rest args)
-  (let* ((name (eval name))
-         (proto (gethash name *function-prototype-registry*)))
+  (let* ((proto (gethash name *function-prototype-registry*)))
     (unless proto
       (error "Function prototype for name ~A not found" name))
     (unless (= (length (rest proto)) (length args))
@@ -64,39 +72,19 @@
 ;;
 ;; INTERFACE FUNC
 ;;
-(defun register-interface-function (lisp-name c-name initializer)
-  (setf (gethash lisp-name *interface-registry*) (cons c-name initializer)))
+(defun register-interface-function (lisp-name c-name ptr-var-name)
+  (setf (gethash lisp-name *interface-registry*) (cons c-name ptr-var-name)))
 
 
 (defmacro defifun ((c-name lisp-name) return-type
                    &body parameters)
-  (let ((param-names (mapcar #'first parameters)))
+  (let ((param-names (mapcar #'first parameters))
+        (ptr-var-name (format-symbol-into '%%gdext.util~secret "*~A~~~A*" 'function-pointer lisp-name)))
     `(progn
        (eval-when (:compile-toplevel :load-toplevel :execute)
          (defcfunproto ,lisp-name ,return-type ,@(mapcar #'second parameters)))
-       (let ((%%gdext.common~secret::ptr (cffi:null-pointer)))
-         (declare (type cffi:foreign-pointer %%gdext.common~secret::ptr)
-                  (optimize (safety 0)))
-         (defun ,lisp-name (,@param-names)
-           (funcall-prototype %%gdext.common~secret::ptr ',lisp-name ,@param-names))
-         (register-interface-function
-          ',lisp-name ,c-name
-          (lambda (ptr)
-            (declare (optimize (safety 0))
-                     (type cffi:foreign-pointer ptr))
-            (setf %%gdext.common~secret::ptr ptr)))))))
-
-
-(defun initialize-interface (get-proc-address-ptr)
-  (flet ((%get-proc-address (c-name)
-           (cffi:foreign-funcall-pointer get-proc-address-ptr ()
-                                         :string c-name
-                                         :pointer)))
-    (loop for function-name being the hash-key in *interface-registry*
-            using (hash-value (c-name . initializer))
-          do (let ((function-ptr (%get-proc-address c-name)))
-               (declare (type (function (cffi:foreign-pointer)
-                                        cffi:foreign-pointer)
-                              initializer))
-               (funcall initializer function-ptr))))
-  (values))
+       (defvar ,ptr-var-name (cffi:null-pointer))
+       (defun ,lisp-name (,@param-names)
+         (funcall-prototype ,ptr-var-name ,lisp-name ,@param-names))
+       (register-interface-function
+        ',lisp-name ,c-name ',ptr-var-name))))

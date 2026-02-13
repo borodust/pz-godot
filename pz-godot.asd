@@ -4,12 +4,14 @@
   :author "Pavel Korolev"
   :mailto "dev@borodust.org"
   :license "MIT"
-  :depends-on (:uiop :cffi :pz-godot/common)
+  :depends-on (:alexandria :uiop :static-vectors :cffi :cffi-c-ref :pz-godot/common)
   :pathname "bindings/"
+  :serial t
   :components ((:file "gdext-types")
                (:file "gdext-interface")
-               (:file "libgodot")
-               (:file "godot-extensions")))
+               (:file "gdext-utils")
+               (:file "godot-extensions")
+               (:file "libgodot")))
 
 
 (asdf:defsystem :pz-godot/common

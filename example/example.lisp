@@ -55,7 +55,7 @@
                                  %gdext.types:initialization-function)
     (get-proc-addr-ptr class-lib-ptr init-record-ptr)
   (declare (ignore class-lib-ptr))
-  (%gdext.util:initialize-interface get-proc-addr-ptr)
+  (%gdext.util:bind-interface get-proc-addr-ptr)
   (init-godot init-record-ptr)
   1)
 
@@ -64,13 +64,13 @@
   (format *standard-output* "~&Yay! We have an instance: ~A" godot-instance)
   (finish-output *standard-output*)
 
-  (%gdext.util:initialize-extension '%godot:vector2)
+  (%gdext.util:bind-extension '%godot:vector2)
   (cffi:with-foreign-object (angle :double)
     (setf (cffi:mem-ref angle :double) pi)
     (format *standard-output* "~&VEC: ~A"
             (%godot:vector2+from-angle@epfztb angle)))
 
-  (%gdext.util:initialize-extension '%godot:godot-instance)
+  (%gdext.util:bind-extension '%godot:godot-instance)
   (%godot:godot-instance+start@1126i1g godot-instance)
   (loop while (not *initialized-p*)
         do (sleep 3))

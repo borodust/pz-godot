@@ -10,7 +10,7 @@
   :components ((:file "gdext-types")
                (:file "gdext-interface")
                (:file "gdext-utils")
-               (:file "godot-extensions")
+               #++(:file "godot-extensions")
                (:file "libgodot")))
 
 
@@ -20,7 +20,7 @@
   :author "Pavel Korolev"
   :mailto "dev@borodust.org"
   :license "MIT"
-  :depends-on (:uiop :cffi)
+  :depends-on (:alexandria :uiop :cffi :cffi-c-ref)
   :pathname "bindings/"
   :components ((:file "gdext-common")))
 

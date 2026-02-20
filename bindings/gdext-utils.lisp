@@ -47,7 +47,7 @@
 ;;
 ;; INTERFACE
 ;;
-(defun initialize-interface (get-proc-address-ptr)
+(defun bind-interface (get-proc-address-ptr)
   (flet ((%get-proc-addr (c-name)
            (cffi:with-foreign-string (c-name-ptr c-name :encoding :latin1)
              (funcall-prototype get-proc-address-ptr
@@ -67,7 +67,7 @@
    (hash :initarg :hash :reader hash-of)
    (bind-var :initarg :bind-var :reader bind-var-of)
    (return-type :initarg :return-type :reader return-type-of)
-   (parameters :initarg :parameters :reader parameters-of)))
+   (parameter-types :initarg :parameter-types :reader parameter-types-of)))
 
 
 (defclass extension-class ()
@@ -77,11 +77,13 @@
    (builtin-p :initform nil
               :initarg :builtin
               :reader builtinp)
-   (variant-kind :initform nil :reader variant-kind-of)))
+   (variant-kind :initform nil :reader variant-kind-of)
+   (size :initarg :size :reader size-of)
+   (primitive :initform nil :reader primitivep)))
 
 
 (defmethod initialize-instance :after ((this extension-class) &key builtin)
-  (with-slots (variant-kind bind-name) this
+  (with-slots (variant-kind bind-name primitive) this
     (setf
      variant-kind
      (if builtin
@@ -89,16 +91,18 @@
                                          :test #'string=))))
            kind
            (error "Unknown Builtin type ~A" bind-name))
-         :object))))
+         :object))
+
+    (setf primitive (and (member variant-kind '(:float :int :bool)) t))))
 
 
-(defun register-extension-class (name bind &key builtin)
+(defun register-extension-class (name bind &rest keys &key &allow-other-keys)
   (unless (gethash name *extension-registry*)
     (setf
      (gethash name *extension-registry*)
-     (make-instance 'extension-class
-                    :bind bind
-                    :builtin builtin))))
+     (apply #'make-instance 'extension-class
+            :bind bind
+            keys))))
 
 
 (defun get-extension-class (name)
@@ -107,30 +111,97 @@
     (error "Extension class ~A not found" name)))
 
 
-(defun register-extension-method (class-name method-name hash bind-name bind-var)
+(defun register-extension-method (class-name method-name hash bind-name bind-var
+                                  &rest keys &key &allow-other-keys)
   (setf
    (gethash method-name (method-table-of (get-extension-class class-name)))
-   (make-instance 'extension-method
-                  :bind bind-name
-                  :hash hash
-                  :bind-var bind-var)))
+   (apply #'make-instance 'extension-method
+          :bind bind-name
+          :hash hash
+          :bind-var bind-var
+          keys)))
 
 
 (defun get-extension-method (class-name method-name)
   (uiop:if-let ((extension (gethash class-name *extension-registry*)))
     (uiop:if-let ((method (gethash method-name (method-table-of extension))))
       method
-      (error "Method ~A not found in extension clas ~A" method-name class-name))
+      (error "Method ~A not found in extension class ~A" method-name class-name))
     (error "Extension class ~A not found" class-name)))
+
+
+(cffi:defcfun ("memcpy" memcpy) :pointer
+  (dst :pointer)
+  (src :pointer)
+  (size :size))
+
+
+(defun calc-memory-layout (alignment types)
+  (loop with cur-offset = 0
+        for type in types
+        for type-size = (size-of type)
+        for padding = (mod (- alignment (mod cur-offset alignment)) alignment)
+        unless (zerop padding)
+          append (list :pad padding) into layout
+        append (list :value type-size) into layout
+        do (incf cur-offset (+ padding type-size))
+        finally (return (values layout cur-offset))))
+
+
+(defgeneric expand-type-translation (type value ptr)
+  (:method (type value ptr)
+    (a:once-only (ptr)
+      `(memcpy ,ptr ,value ,(size-of type)))))
+
+
+(defmacro with-method-argv ((ptr-var arg-count-var &rest args) &body body)
+  (let ((alignment (cffi:foreign-type-alignment :pointer))
+        (size (cffi:foreign-type-size :pointer)))
+    (multiple-value-bind (argc vals types)
+        (loop for (type val) on args by #'cddr
+              collect (get-extension-class (eval type)) into types
+              collect val into vals
+              finally (return (values (length vals) vals types)))
+      (multiple-value-bind (layout total-size)
+          (calc-memory-layout alignment types)
+        (a:with-gensyms (ptr array arg-ptr)
+          `(let ((,array (make-array ,(+ argc (ceiling total-size size))
+                                     :element-type '(signed-byte ,(* size 8)))))
+             (declare (dynamic-extent ,array))
+             (cffi:with-pointer-to-vector-data (,ptr ,array)
+               ,@(loop with offset = 0
+                       and idx = 0
+                       for (mem-kind bytes) on layout by #'cddr
+                       when (eq mem-kind :value)
+                         collect (let ((type (nth idx types))
+                                       (val (nth idx vals)))
+                                   `(let ((,arg-ptr (cffi:inc-pointer ,ptr ,offset)))
+                                      (setf (cffi:mem-aref ,ptr :pointer ,idx) ,arg-ptr)
+                                      ,(expand-type-translation type val arg-ptr)))
+                         and do (incf idx)
+                       do (incf offset bytes))
+               (let ((,ptr-var ,ptr)
+                     (,arg-count-var ,argc))
+                 ,@body))))))))
 
 
 (defmacro defgclass (name-and-opts &body properties)
   (declare (ignore properties))
-  (destructuring-bind (name &key bind builtin) (uiop:ensure-list name-and-opts)
-    `(progn
-       (cffi:defctype ,name (:pointer :void))
-       (eval-when (:compile-toplevel :load-toplevel :execute)
-         (register-extension-class ',name ,bind :builtin ,builtin)))))
+  (destructuring-bind (name &key bind builtin size) (uiop:ensure-list name-and-opts)
+    (let ((size (eval size)))
+     `(progn
+        (cffi:defctype ,name ,(a:switch (bind :test #'equal)
+                                ("float" (assert (= size 8))
+                                         :double)
+                                ("int" (assert (= size 8))
+                                       :int64)
+                                ("bool" (assert (= size 1))
+                                        :bool)
+                                (t '(:pointer :void))) )
+        (eval-when (:compile-toplevel :load-toplevel :execute)
+          (register-extension-class ',name ,bind
+                                    :builtin ,builtin
+                                    :size ,size))))))
 
 
 (defmacro defgenum (name-and-opts &body values)
@@ -145,27 +216,43 @@
   (destructuring-bind (lisp-name &key bind ((:class class-name)) hash static)
       (uiop:ensure-list name-and-opts)
     (let* ((class-name (eval class-name))
+           (extension (get-extension-class class-name))
            (bind (eval bind))
            (ptr-var-name (format-symbol-into '%%gdext.util~secret "*~A~~~A*"
                                              'extension-method lisp-name))
            (instance-var (format-symbol-into '%%gdext.util~secret "~A" 'class-instance))
-           (params (loop for (name) in arguments
-                         collect name)))
-      `(progn
-         (defvar ,ptr-var-name (cffi:null-pointer))
-         (defun ,lisp-name (,@(unless static
-                                (list instance-var))
-                            ,@params)
-           (,(if (builtinp (get-extension-class class-name))
-                 'call-builtin-method
-                 'call-method-bind)
-            (get-extension-method ',class-name ',lisp-name)
-            ,ptr-var-name ,(if static
-                               (cffi:null-pointer)
-                               instance-var)
-            ,@params))
-         (register-extension-method ',class-name ',lisp-name
-                                    ,hash ,bind ',ptr-var-name)))))
+           (ret-class (unless (eq :void return-type)
+                        (get-extension-class return-type)))
+           (ret-var (format-symbol-into '%%gdext.util~secret "~A" 'result) ))
+      (multiple-value-bind (params param-types)
+          (loop for (name type) in arguments
+                collect name into names
+                collect type into types
+                finally (return (values names types)))
+        `(progn
+           (eval-when (:compile-toplevel :load-toplevel :execute)
+             (register-extension-method ',class-name ',lisp-name
+                                        ,hash ,bind ',ptr-var-name
+                                        :parameter-types ',param-types
+                                        :return-type ',return-type))
+           (defvar ,ptr-var-name (cffi:null-pointer))
+           (defun ,lisp-name (,@(unless static
+                                  (list instance-var))
+                              ,@(when (and ret-class
+                                           (not (primitivep ret-class)))
+                                  (list ret-var))
+                              ,@params)
+             (,(if (builtinp (get-extension-class class-name))
+                   'call-builtin-method
+                   'call-method-bind)
+              ,class-name ,lisp-name
+              ,ptr-var-name ,(if static
+                                 (cffi:null-pointer)
+                                 instance-var)
+              ,(when (and ret-class
+                          (not (primitivep ret-class)))
+                 ret-var)
+              ,@params)))))))
 
 
 (cffi:defcstruct (string-name :size 8))
@@ -202,18 +289,27 @@
                                                      hash)))
 
 
-(defun call-builtin-method (method method-ptr object &rest args)
-  (cffi:with-foreign-object (argv :pointer (length args))
-    (loop for arg in args
-          for i from 0
-          do (setf (cffi:mem-ref argv :pointer i) arg))
-    (cffi:with-foreign-object (ret :pointer)
-      (funcall-prototype method-ptr %gdext.types:ptr-built-in-method
-                         object
-                         argv
-                         ret
-                         (length args))
-      ret)))
+(defmacro call-builtin-method (class-name method-name method-ptr object ret
+                               &rest args)
+  (let* ((method (get-extension-method class-name method-name))
+         (param-types (parameter-types-of method))
+         (return-type (return-type-of method)))
+    (a:with-gensyms (argv argc)
+      `(with-method-argv (,argv ,argc ,@(loop for param-type in param-types
+                                              for arg in args
+                                              append `(',param-type ,arg))
+                                ,@(when ret
+                                    `(',return-type ,ret)))
+         (funcall-prototype ,method-ptr %gdext.types:ptr-built-in-method
+                            ,object
+                            ,argv
+                            ,@(if ret
+                                  `((cffi:inc-pointer
+                                     ,argv (* ,(cffi:foreign-type-size :pointer)
+                                              (1- ,argc)))
+                                    (1- ,argc))
+                                  `((cffi:null-pointer)
+                                    ,argc)))))))
 
 
 (defun get-method-bind (class-name method-name hash)
@@ -224,7 +320,8 @@
                                               hash)))
 
 
-(defun call-method-bind (method method-bind object &rest args)
+(defmacro call-method-bind (class-name method-name method-bind object ret
+                            &rest args)
   (cffi:with-foreign-object (argv :pointer (length args))
     (loop for arg in args
           for i from 0
@@ -237,7 +334,7 @@
       ret)))
 
 
-(defun initialize-extension (extension-class)
+(defun bind-extension (extension-class)
   (let ((extension (get-extension-class extension-class)))
     (loop for method being the hash-value in (method-table-of extension)
           for bind = (if (builtinp extension)

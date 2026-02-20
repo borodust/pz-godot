@@ -1,6 +1,8 @@
 (cl:in-package :pz-godot)
 
-(declaim (special *exports*))
+(declaim (special *exports*
+                  *builtin-size-table*
+                  *class-method-table*))
 
 (defparameter *gdextension-interface-file* (asdf:system-relative-pathname :pz-godot/wrapper "src/api/gdextension_interface.json"))
 
@@ -409,7 +411,8 @@
      `(%gdext.util:defgclass (,namesym
                               :bind ,name
                               ,@(when builtin-p
-                                  '(:builtin t))))
+                                  `(:builtin t
+                                    :size ,(gethash name *builtin-size-table*)))))
      out)
     (when enums
       (loop for enum-def across enums
@@ -417,9 +420,7 @@
                                        :class namesym
                                        :prefix (a:symbolicate namesym '+))))
     (when methods
-      (loop for method-def across methods
-            do (explode-extension-method out namesym method-def
-                                         :prefix (a:symbolicate namesym '+))))))
+      (setf (gethash namesym *class-method-table*) methods))))
 
 
 (defun explode-extension-enum (out enum-def &key prefix ((:class class-name)))
@@ -454,7 +455,20 @@
          (header (gethash "header" root))
          (precision (a:eswitch ((gethash "precision" header) :test #'equal)
                       ("single" :single)
-                      ("double" :double))))
+                      ("double" :double)))
+         (builtin-class-sizes (loop for build-config
+                                      across (gethash "builtin_class_sizes" root)
+                                    when (string= "float_64"
+                                                  (gethash "build_configuration" build-config))
+                                      do (return build-config)))
+         (*builtin-size-table* (loop with table = (make-hash-table :test 'equal)
+                                     for size-info
+                                       across (gethash "sizes" builtin-class-sizes)
+                                     for type = (gethash "name" size-info)
+                                     for size = (gethash "size" size-info)
+                                     do (setf (gethash type table) size)
+                                     finally (return table)))
+         (*class-method-table* (make-hash-table :test 'eq)))
     (a:with-output-to-file (out *extension-api-bindings-file*
                                 :if-exists :supersede)
       (let ((*print-case* :downcase)
@@ -470,6 +484,13 @@
               do (explode-extension-class out class-def :builtin t))
         (loop for class-def across (gethash "classes" root)
               do (explode-extension-class out class-def))
+
+        (loop for class-name being the hash-key in *class-method-table*
+                using (hash-value methods)
+              do (loop for method-def across methods
+                       do (explode-extension-method
+                           out class-name method-def
+                           :prefix (a:symbolicate class-name '+))))
         (terpri out)
         (terpri out)
         (prin1 `(cl:export '(,@(nreverse *exports*))) out)))))

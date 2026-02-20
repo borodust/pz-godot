@@ -1,17 +1,19 @@
 (cl:defpackage :%gdext.util
   (:use :cl)
+  (:local-nicknames (#:a #:alexandria)
+                    (#:cref #:cffi-c-ref))
   (:export #:wchar
            #:defcfunproto
            #:defprotocallback
            #:funcall-prototype
 
            #:defifun
-           #:initialize-interface
+           #:bind-interface
 
            #:defgclass
            #:defgenum
            #:defgmethod
-           #:initialize-extension))
+           #:bind-extension))
 (cl:defpackage :%%gdext.util~secret
   (:use))
 (cl:in-package :%gdext.util)

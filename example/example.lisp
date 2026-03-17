@@ -9,16 +9,11 @@
   (:linux "libgodot.so"))
 
 
-(defvar *initialized-p* nil)
-
-
 (%gdext.util:defprotocallback (level-init-func
-                                 %gdext.types:initialize-callback)
+                               %gdext.types:initialize-callback)
     (userdata init-level)
   (declare (ignore userdata))
-  (format *standard-output* "~&Initializing ~A" init-level)
-  (when (eq init-level :initialization-editor)
-    (setf *initialized-p* t))
+  (format *standard-output* "~&LibGodot Init: ~A" init-level)
   (values))
 
 
@@ -26,33 +21,34 @@
                                  %gdext.types:deinitialize-callback)
     (userdata deinit-level)
   (declare (ignore userdata))
-  (format *standard-output* "~&Deinitializing ~A" deinit-level)
+  (format *standard-output* "~&LibGodot Deinit: ~A" deinit-level)
   (values))
 
 
 (defun init-godot (init-record-ptr)
-  (cffi:with-foreign-object (godot-version '%gdext.types:godot-version2)
+  (cffi:with-foreign-object (godot-version '%gdext.types:godot-version-2)
     (%gdext.interface:get-godot-version2 godot-version)
     (cffi:with-foreign-slots (((major %gdext.types:major)
                                (minor %gdext.types:minor)
                                (patch %gdext.types:patch))
-                              godot-version %gdext.types:godot-version2)
+                              godot-version %gdext.types:godot-version-2)
       (format *standard-output* "~&Godot version: ~A.~A.~A"
               major minor patch)))
 
   (cffi:with-foreign-slots (((min-init-level %gdext.types:minimum-initialization-level)
-                               (userdata %gdext.types:userdata)
-                               (level-init-func %gdext.types:initialize)
-                               (level-deinit-func %gdext.types:deinitialize))
-                              init-record-ptr %gdext.types:initialization)
-      (setf min-init-level 4
-            userdata (cffi:null-pointer)
-            level-init-func (cffi:callback level-init-func)
-            level-deinit-func (cffi:callback level-deinit-func))))
+                             (userdata %gdext.types:userdata)
+                             (level-init-func %gdext.types:initialize)
+                             (level-deinit-func %gdext.types:deinitialize))
+                            init-record-ptr %gdext.types:initialization)
+    (setf min-init-level (cffi:foreign-enum-value '%gdext.types:initialization-level
+                                                  :initialization-servers)
+          userdata (cffi:null-pointer)
+          level-init-func (cffi:callback level-init-func)
+          level-deinit-func (cffi:callback level-deinit-func))))
 
 
 (%gdext.util:defprotocallback (libgodot-init
-                                 %gdext.types:initialization-function)
+                               %gdext.types:initialization-function)
     (get-proc-addr-ptr class-lib-ptr init-record-ptr)
   (declare (ignore class-lib-ptr))
   (%gdext.util:bind-interface get-proc-addr-ptr)
@@ -61,22 +57,13 @@
 
 
 (defun handle-instance (godot-instance)
-  (format *standard-output* "~&Yay! We have an instance: ~A" godot-instance)
-  (finish-output *standard-output*)
-
-  (%gdext.util:bind-extension '%godot:vector2)
-  (cffi:with-foreign-object (angle :double)
-    (setf (cffi:mem-ref angle :double) pi)
-    (format *standard-output* "~&VEC: ~A"
-            (%godot:vector2+from-angle@epfztb angle)))
-
-  (%gdext.util:bind-extension '%godot:godot-instance)
-  (%godot:godot-instance+start@1126i1g godot-instance)
-  (loop while (not *initialized-p*)
-        do (sleep 3))
-  (loop repeat 15
-        do (%godot::godot-instance+iteration@1126i1g godot-instance)
-           (sleep 1)))
+  (cffi:with-foreign-object (bool-result '%godot:bool)
+    (symbol-macrolet ((zero-p (zerop (cffi:mem-ref bool-result '%godot:bool))))
+      (%godot:godot-instance+start godot-instance bool-result)
+      (when zero-p
+        (error "Failed to start Godot instance"))
+      (loop do (%godot:godot-instance+iteration godot-instance bool-result)
+            while zero-p))))
 
 
 (defun run-with-godot-instance ()
@@ -84,9 +71,9 @@
                     (asdf:system-relative-pathname :pz-godot/example "."))))
     (cffi:with-foreign-string (exec-path-ptr exec-path)
       (cffi:with-foreign-object (argv :pointer)
-        (setf (cffi:mem-ref argv :pointer) exec-path-ptr
-              *initialized-p* nil)
-        (let ((instance (%libgodot:create-godot-instance 1 argv (cffi:callback libgodot-init))))
+        (setf (cffi:mem-ref argv :pointer) exec-path-ptr)
+        (let ((instance (%libgodot:create-godot-instance 1 argv
+                                                         (cffi:callback libgodot-init))))
           (if (cffi:null-pointer-p instance)
               (error "Failed to create Godot instance")
               (unwind-protect
@@ -97,6 +84,7 @@
 (defun run ()
   (cffi:load-foreign-library 'godot)
   (unwind-protect
-       (float-features:with-float-traps-masked t
-         (run-with-godot-instance))
+       (trivial-main-thread:with-body-in-main-thread ()
+         (float-features:with-float-traps-masked t
+           (run-with-godot-instance)))
     (cffi:close-foreign-library 'godot)))

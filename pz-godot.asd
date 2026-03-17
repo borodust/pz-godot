@@ -44,7 +44,7 @@
   :author "Pavel Korolev"
   :mailto "dev@borodust.org"
   :license "MIT"
-  :depends-on (:float-features :cffi :pz-godot)
+  :depends-on (:float-features :trivial-main-thread :cffi :pz-godot)
   :serial t
   :pathname "example/"
   :components ((:file "example")))

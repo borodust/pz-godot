@@ -1,1 +1,3 @@
 src/lib/ linguist-vendored
+*.lisp linguist-language=lisp
+*.asd linguist-language=lisp

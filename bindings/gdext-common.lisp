@@ -162,12 +162,3 @@
 (defun expand-ptrarg-pointer (src-val-sym argv-ptr-sym stack-ptr-sym)
   `(setf (cffi:mem-ref ,argv-ptr-sym :pointer) ,stack-ptr-sym
          (cffi:mem-ref ,stack-ptr-sym :pointer) ,src-val-sym))
-
-;;;
-;;; METADATA
-;;;
-(defgeneric godot-extension-bind-name (class-name))
-
-(defgeneric godot-extension-variant-kind (class-name))
-
-(defgeneric godot-extension-method-bind-name (class-name method-name))

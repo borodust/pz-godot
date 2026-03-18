@@ -64,6 +64,7 @@
           do (setf (symbol-value ptr-var-name) (%get-proc-addr c-name))))
   (values))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; EXTENSIONS
@@ -328,12 +329,6 @@
                                                                        argv-ptr-sym
                                                                        stack-ptr-sym)
                           (expand-ptrarg-pointer src-val-sym argv-ptr-sym stack-ptr-sym)))))))
-         (defmethod godot-extension-bind-name ((class-name (eql ',name)))
-           (declare (ignore class-name))
-           ,bind)
-         (defmethod godot-extension-variant-kind ((class-name (eql ',name)))
-           (declare (ignore class-name))
-           ,variant-kind)
          (eval-when (:compile-toplevel :load-toplevel :execute)
            (register-godot-class ',name ,bind
                                  ,variant-kind
@@ -409,10 +404,6 @@
                                                        ,bind
                                                        ,hash))))
             `(progn
-               (defmethod godot-extension-method-bind-name ((class-name (eql ',class-name))
-                                                            (method-name (eql ',lisp-name)))
-                 (declare (ignore method-name class-name))
-                 ,bind)
                (eval-when (:compile-toplevel :load-toplevel :execute)
                  (register-godot-method ',class-name ',lisp-name
                                         ,hash ,bind
@@ -718,3 +709,20 @@
           ,(if ret ret '(cffi:null-pointer))
           (cffi:null-pointer))
          ,(when ret ret)))))
+
+
+;;;
+;;; METADATA
+;;;
+;
+; Don't make these generic functions.
+; The compilation/loading performance is atrocious (especially for multidispatch one)
+;
+(defun godot-extension-bind-name (class-name)
+  (bind-of (get-godot-class class-name)))
+
+(defun godot-extension-variant-kind (class-name)
+  (variant-kind-of (get-godot-class class-name)))
+
+(defun godot-extension-method-bind-name (class-name method-name)
+  (bind-of (get-godot-method class-name method-name)))

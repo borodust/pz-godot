@@ -104,6 +104,7 @@
        (eval-when (:compile-toplevel :load-toplevel :execute)
          (defcfunproto ,lisp-name ,return-type ,@(mapcar #'second parameters)))
        (defvar ,ptr-var-name (cffi:null-pointer))
+       (declaim (inline ,lisp-name))
        (defun ,lisp-name (,@param-names)
          (funcall-prototype ,ptr-var-name ,lisp-name ,@param-names))
        (register-interface-function

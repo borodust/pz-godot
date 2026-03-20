@@ -351,6 +351,7 @@
       `(progn
          (eval-when (:compile-toplevel :load-toplevel :execute)
            (register-godot-singleton ',name ',class-name))
+         (declaim (inline ,name))
          (defun ,name ()
            (let ((,instance-var (get-singleton ,(bind-of extension))))
              (funcall (compile ',name (lambda () ,instance-var)))))))))
@@ -411,6 +412,7 @@
                                         :return-type ',return-type
                                         :vararg ,vararg
                                         :virtual ,virtual))
+               (declaim (inline ,lisp-name))
                ,(if vararg
                     `(defun ,lisp-name (,@lambda-list &rest variants)
                        (let ((,fun-ptr-var ,bind-extractor))
@@ -463,6 +465,7 @@
              (eval-when (:compile-toplevel :load-toplevel :execute)
                (register-godot-constructor ',class-name ,index
                                            :parameter-types ',param-types))
+             (declaim (inline ,lisp-name))
              (defun ,lisp-name (,instance-var ,@params)
                (let ((,ptr-var (get-constructor-bind ,(variant-kind-of extension) ,index)))
                  (funcall
@@ -483,6 +486,7 @@
         `(progn
            (eval-when (:compile-toplevel :load-toplevel :execute)
              (register-godot-destructor ',class-name))
+           (declaim (inline ,lisp-name))
            (defun ,lisp-name (,instance-var)
              (let ((,dtor-ptr-var (%gdext.interface:variant-get-ptr-destructor ,(variant-kind-of extension))))
                (funcall

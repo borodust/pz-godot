@@ -7,6 +7,7 @@
 
            #:defcfunproto
            #:defprotocallback
+           #:get-protocallback
            #:funcall-prototype
 
            #:defifun
@@ -76,8 +77,40 @@
                                      ,(first proto)))))
 
 
+#+sbcl
+(progn
+  (defun get-protocallback (callback-name)
+    (sb-alien:alien-sap (sb-alien:alien-callable-function callback-name)))
+  (defun expand-defcallback (callback-name return-type arg-names-and-types body)
+    (multiple-value-bind (body declarations)
+        (a:parse-body body :documentation t)
+      `(sb-alien:define-alien-callable ,callback-name
+           ,(cffi-sys::convert-foreign-type
+             (cffi::canonicalize-foreign-type return-type))
+           (,@(loop for (name type) in arg-names-and-types
+                    collect (list name (cffi-sys::convert-foreign-type
+                                        (cffi::canonicalize-foreign-type type)))))
+         ,(multiple-value-bind (arg-names arg-types)
+              (loop for (name type) in arg-names-and-types
+                    collect name into arg-names
+                    collect type into arg-types
+                    finally (return (values arg-names arg-types)))
+            (cffi::inverse-translate-objects
+             arg-names arg-types declarations return-type
+             `(block ,callback-name ,@body)))))))
+
+#-(or sbcl)
+(progn
+  (defun get-protocallback (callback-name)
+    (cffi:get-callback callback-name))
+  (defun expand-defcallback (callback-name return-type arg-types body)
+    `(cffi:defcallback ,callback-name ,return-type (,@arg-types)
+       ,@body)))
+
+
 (defmacro defprotocallback (name (&rest args) &body body)
-  (destructuring-bind (callback-name &optional prototype-name) (if (listp name) name (list name))
+  (destructuring-bind (callback-name &optional prototype-name)
+      (if (listp name) name (list name))
     (let* ((prototype-name (or prototype-name callback-name))
            (proto (gethash prototype-name *function-prototype-registry*)))
       (unless proto
@@ -87,8 +120,7 @@
                (length (rest proto))
                (length args)))
       (let ((arg-types (mapcar #'list args (rest proto))))
-        `(cffi:defcallback ,callback-name ,(first proto) (,@arg-types)
-           ,@body)))))
+        (expand-defcallback callback-name (first proto) arg-types body)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

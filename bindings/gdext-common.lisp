@@ -36,6 +36,8 @@
 
 (defvar *interface-registry* (make-hash-table))
 
+(defvar *godot-method-argument-metadata* (make-hash-table :test 'eq))
+
 (cffi:defctype wchar #+windows :uint16 #-windows :uint32)
 
 (defun format-symbol-into (package control-string &rest args)
@@ -115,36 +117,49 @@
 ;;
 ;; PTRCALL
 ;;
-(defgeneric method-argument-type-stack-alignment (type)
-  (:method (type)
+(defclass godot-method-argument-metadata ()
+  ((size :initarg :size
+         :reader size-of)
+   (alignment :initarg :alignment
+              :reader alignment-of)
+   (translation-expander :initarg :translation-expander
+                         :reader translation-expander-of)))
+
+
+(defun register-godot-method-argument-metadata (type &rest keys
+                                                &key &allow-other-keys)
+  (setf
+   (gethash type *godot-method-argument-metadata*)
+   (apply #'make-instance 'godot-method-argument-metadata keys)))
+
+
+(defun method-argument-type-stack-alignment (type)
+  (a:if-let ((metadata (gethash type *godot-method-argument-metadata*)))
+    (alignment-of metadata)
     (if (and (listp type)
              (eq :pointer (cffi::canonicalize-foreign-type type)))
         (method-argument-type-stack-alignment :pointer)
         (error "Failed to get method argument's alignment for argv stack: unrecognized type ~A" type))))
 
-(defgeneric method-argument-type-stack-size (type)
-  (:method (type)
+
+(defun method-argument-type-stack-size (type)
+  (a:if-let ((metadata (gethash type *godot-method-argument-metadata*)))
+    (size-of metadata)
     (if (and (listp type)
              (eq :pointer (cffi::canonicalize-foreign-type type)))
         (method-argument-type-stack-size :pointer)
         (error "Failed to get method argument size for argv stack: unrecognized type ~A" type))))
 
-(defgeneric expand-method-argument-translation (type src-val-sym argv-ptr-sym stack-ptr-sym)
-  (:method (type src-val-sym argv-ptr-sym stack-ptr-sym)
+
+(defun expand-method-argument-translation (type src-val-sym argv-ptr-sym stack-ptr-sym)
+  (a:if-let ((metadata (gethash type *godot-method-argument-metadata*)))
+    (funcall (translation-expander-of metadata)
+             src-val-sym argv-ptr-sym stack-ptr-sym)
     (if (and (listp type)
              (eq :pointer (cffi::canonicalize-foreign-type type)))
-        (expand-ptrarg-pointer src-val-sym argv-ptr-sym stack-ptr-sym)
+        (expand-method-argument-translation :pointer
+                                            src-val-sym argv-ptr-sym stack-ptr-sym)
         (error "Failed to expand method argument translation: unrecognized type ~A" type))))
-
-
-(defmethod method-argument-type-stack-alignment ((type (eql :pointer)))
-  (cffi:foreign-type-alignment :pointer))
-
-(defmethod method-argument-type-stack-size ((type (eql :pointer)))
-  (cffi:foreign-type-size :pointer))
-
-(defmethod expand-method-argument-translation ((type (eql :pointer)) src-val-sym argv-ptr-sym stack-ptr-sym)
-  (expand-ptrarg-pointer src-val-sym argv-ptr-sym stack-ptr-sym))
 
 
 (defun expand-ptrarg-with-conversion (arg-type-to src-val-sym argv-ptr-sym stack-ptr-sym)

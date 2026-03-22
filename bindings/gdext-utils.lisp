@@ -268,68 +268,57 @@
                                                  :bool)
                                          (t '(:pointer :void))))))
 
-         (eval-when (:compile-toplevel)
+         (eval-when (:compile-toplevel :load-toplevel :execute)
            ,@(a:switch (bind :test #'equal)
                ("Nil" (list))
                ("float"
                 (loop for type in (list :float :double name)
-                      append `((defmethod method-argument-type-stack-alignment ((type (eql ',type)))
-                                 (cffi:foreign-type-alignment :double))
-                               (defmethod method-argument-type-stack-size ((type (eql ',type)))
-                                 (cffi:foreign-type-size :double))
-                               (defmethod expand-method-argument-translation ((type (eql ',type))
-                                                                              src-val-sym
-                                                                              argv-ptr-sym
-                                                                              stack-ptr-sym)
-                                 (expand-ptrarg-with-conversion
-                                  :double src-val-sym argv-ptr-sym stack-ptr-sym)))))
+                      collect `(register-godot-method-argument-metadata
+                                ',type
+                                :alignment ,(cffi:foreign-type-alignment :double)
+                                :size ,(cffi:foreign-type-size :double)
+                                :translation-expander (lambda (src-val-sym argv-ptr-sym stack-ptr-sym)
+                                                        (expand-ptrarg-with-conversion :double
+                                                                                       src-val-sym
+                                                                                       argv-ptr-sym
+                                                                                       stack-ptr-sym)) )))
 
                ("int"
                 (loop for type in (list :uint8 :int8 :uint16 :int16 :uint32 :int32 :int64 :uint64
                                         :int :size 'wchar name)
-                      append `((defmethod method-argument-type-stack-alignment ((type (eql ',type)))
-                                 (cffi:foreign-type-alignment :int64))
-                               (defmethod method-argument-type-stack-size ((type (eql ',type)))
-                                 (cffi:foreign-type-size :int64))
-                               (defmethod expand-method-argument-translation ((type (eql ',type))
-                                                                              src-val-sym
-                                                                              argv-ptr-sym
-                                                                              stack-ptr-sym)
-                                 (expand-ptrarg-with-conversion
-                                  :int64 src-val-sym argv-ptr-sym stack-ptr-sym)))))
+                      collect `(register-godot-method-argument-metadata
+                                ',type
+                                :alignment ,(cffi:foreign-type-alignment :int64)
+                                :size ,(cffi:foreign-type-size :int64)
+                                :translation-expander (lambda (src-val-sym argv-ptr-sym stack-ptr-sym)
+                                                        (expand-ptrarg-with-conversion :int64
+                                                                                       src-val-sym
+                                                                                       argv-ptr-sym
+                                                                                       stack-ptr-sym)))))
                ("bool"
                 (loop for type in (list :bool name)
-                      append `((defmethod method-argument-type-stack-alignment ((type (eql ',type)))
-                                 (cffi:foreign-type-alignment :uint8))
-                               (defmethod method-argument-type-stack-size ((type (eql ',type)))
-                                 (cffi:foreign-type-size :uint8))
-                               (defmethod expand-method-argument-translation ((type (eql ',type))
-                                                                              src-val-sym
-                                                                              argv-ptr-sym
-                                                                              stack-ptr-sym)
-                                 (expand-ptrarg-with-conversion
-                                  :uint8 src-val-sym argv-ptr-sym stack-ptr-sym)))))
+                      collect `(register-godot-method-argument-metadata
+                                ',type
+                                :alignment ,(cffi:foreign-type-alignment :uint8)
+                                :size ,(cffi:foreign-type-size :uint8)
+                                :translation-expander (lambda (src-val-sym argv-ptr-sym stack-ptr-sym)
+                                                        (expand-ptrarg-with-conversion :uint8
+                                                                                       src-val-sym
+                                                                                       argv-ptr-sym
+                                                                                       stack-ptr-sym)))))
                (t (if builtin
-                      `((defmethod method-argument-type-stack-alignment ((type (eql ',name)))
-                          (cffi:foreign-type-alignment ',name))
-                        (defmethod method-argument-type-stack-size ((type (eql ',name)))
-                          (cffi:foreign-type-size ',name))
-                        (defmethod expand-method-argument-translation ((type (eql ',name))
-                                                                       src-val-sym
-                                                                       argv-ptr-sym
-                                                                       stack-ptr-sym)
-                          (expand-ptrarg-blob ',name src-val-sym argv-ptr-sym stack-ptr-sym)))
+                      `((register-godot-method-argument-metadata
+                         ',name
+                         :alignment (cffi:foreign-type-alignment ',name)
+                         :size (cffi:foreign-type-size ',name)
+                         :translation-expander (lambda (src-val-sym argv-ptr-sym stack-ptr-sym)
+                                                 (expand-ptrarg-blob ',name src-val-sym argv-ptr-sym stack-ptr-sym))))
 
-                      `((defmethod method-argument-type-stack-alignment ((type (eql ',name)))
-                          0)
-                        (defmethod method-argument-type-stack-size ((type (eql ',name)))
-                          0)
-                        (defmethod expand-method-argument-translation ((type (eql ',name))
-                                                                       src-val-sym
-                                                                       argv-ptr-sym
-                                                                       stack-ptr-sym)
-                          (expand-ptrarg-pointer src-val-sym argv-ptr-sym stack-ptr-sym)))))))
-         (eval-when (:compile-toplevel :load-toplevel :execute)
+                      `((register-godot-method-argument-metadata
+                         ',name
+                         :alignment 0
+                         :size 0
+                         :translation-expander #'expand-ptrarg-pointer)))))
            (register-godot-class ',name ,bind
                                  ,variant-kind
                                  :api ,api
@@ -365,17 +354,14 @@
        (,(if bitfield-p 'cffi:defbitfield 'cffi:defcenum)  ,name
         ,@values)
 
-       (eval-when (:compile-toplevel)
-         (defmethod method-argument-type-stack-alignment ((type (eql ',name)))
-           (cffi:foreign-type-alignment :int64))
-         (defmethod method-argument-type-stack-size ((type (eql ',name)))
-           (cffi:foreign-type-size :int64))
-         (defmethod expand-method-argument-translation ((type (eql ',name))
-                                                        src-val-sym
-                                                        argv-ptr-sym
-                                                        stack-ptr-sym)
-           (expand-ptrarg-with-conversion
-            :int64 src-val-sym argv-ptr-sym stack-ptr-sym))))))
+       (eval-when (:compile-toplevel :load-toplevel :execute)
+         (register-godot-method-argument-metadata
+          ',name
+          :alignment ,(cffi:foreign-type-alignment :int64)
+          :size ,(cffi:foreign-type-size :int64)
+          :translation-expander (lambda (src-val-sym argv-ptr-sym stack-ptr-sym)
+                                  (expand-ptrarg-with-conversion
+                                   :int64 src-val-sym argv-ptr-sym stack-ptr-sym)))))))
 
 
 (defmacro defgmethod (name-and-opts return-type &body arguments)
@@ -730,3 +716,10 @@
 
 (defun godot-extension-method-bind-name (class-name method-name)
   (bind-of (get-godot-method class-name method-name)))
+
+
+(register-godot-method-argument-metadata
+ :pointer
+ :alignment (cffi:foreign-type-alignment :pointer)
+ :size (cffi:foreign-type-size :pointer)
+ :translation-expander #'expand-ptrarg-pointer)

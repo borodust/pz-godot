@@ -1,6 +1,7 @@
 (cl:in-package :pz-godot)
 
 (declaim (special *exports*
+                  *files*
                   *builtin-size-table*
                   *builtin-field-table*
                   *class-method-table*
@@ -8,6 +9,10 @@
                   *class-destructor-table*
                   *class-properties-table*
                   *precision*))
+
+(defparameter *project-root-directory* (asdf:system-relative-pathname :pz-godot/wrapper "./"))
+
+(defparameter *bindings-root-directory* (asdf:system-relative-pathname :pz-godot/wrapper "bindings/"))
 
 (defparameter *gdextension-interface-file* (asdf:system-relative-pathname :pz-godot/wrapper "src/api/gdextension_interface.json"))
 
@@ -230,7 +235,7 @@
                               (loop for arg-def across arguments
                                     collect (parse-type-string (gethash "type" arg-def))))))
       (prin1
-       `(%gdext.util:defcfunproto ,namesym ,cffi-return-type
+       `(%%pz-godot~gdext:defcfunproto ,namesym ,cffi-return-type
           ,@cffi-param-types)
        out))))
 
@@ -271,22 +276,6 @@
              (apply #'explode-gdext-type out kind rest-def))))
 
 
-(defun generate-gdext-type-bindings (types)
-  (a:with-output-to-file (out *gdextension-type-bindings-file*
-                              :if-exists :supersede)
-    (let ((*print-case* :downcase)
-          (*print-pretty* t)
-          (*package* (find-package :pz-godot-pristine))
-          (*exports*))
-      (prin1 '(uiop:define-package :%gdext.types (:use)) out)
-      (terpri out)
-      (prin1 '(cl:in-package :%gdext.types) out)
-      (explode-gdext-types out types)
-      (terpri out)
-      (terpri out)
-      (prin1 `(cl:export '(,@(nreverse *exports*))) out))))
-
-
 (defun explode-gdext-interface-function (out function-def)
   (let* ((function-name (gethash "name" function-def))
          (namesym (symbolicate-gdext-snake-case function-name
@@ -297,15 +286,15 @@
                                       :skip-first nil)
                           for type = (parse-type-string
                                       (gethash "type" arg-def)
-                                      :package (find-package :%gdext.types))
+                                      :package (find-package :%gdext))
                           collect (list name type))))
     (push namesym *exports*)
     (prin1
-     `(%gdext.util:defifun
+     `(%%pz-godot~gdext:defifun
           (,function-name ,namesym)
           ,(a:if-let ((return-type (gethash "return_value" function-def)))
              (parse-type-string (gethash "type" return-type)
-                                :package (find-package :%gdext.types))
+                                :package (find-package :%gdext))
              :void)
         ,@arguments)
      out)))
@@ -317,31 +306,63 @@
            (explode-gdext-interface-function out function)))
 
 
-(defun generate-gdext-interface-bindings (interface)
-  (a:with-output-to-file (out *gdextension-interface-bindings-file*
-                              :if-exists :supersede)
-    (let ((*print-case* :downcase)
-          (*print-pretty* t)
-          (*package* (find-package :cl))
-          (*exports*))
-      (prin1 '(uiop:define-package :%gdext.interface (:use :cl)) out)
-      (terpri out)
-      (let ((*package* (find-package :pz-godot-pristine)))
-        (prin1 '(cl:in-package :%gdext.interface) out))
-      (explode-gdext-interface out interface)
-      (terpri out)
-      (terpri out)
-      (prin1 `(cl:export '(,@(nreverse *exports*))) out))))
-
-
 (defun generate-gdext-bindings ()
   (let* ((root (jzon:parse *gdextension-interface-file*))
          (format-version (gethash "format_version" root)))
     (unless (= format-version 1)
       (error "Unsupported version format: ~A" format-version))
-    (uiop:ensure-package :%gdext.types)
-    (generate-gdext-type-bindings (gethash "types" root))
-    (generate-gdext-interface-bindings (gethash "interface" root))))
+    (let ((gdext-bindings-dir (fad:merge-pathnames-as-directory *bindings-root-directory*
+                                                                "gdext/"))
+          (*print-case* :downcase)
+          (*print-pretty* t)
+          (*package* (find-package :%%pz-godot~gdext))
+          (*exports*))
+      (uiop:delete-directory-tree gdext-bindings-dir :validate t :if-does-not-exist :ignore)
+      (ensure-directories-exist gdext-bindings-dir)
+
+      (flet ((%print-header (out)
+               (prin1 '(cl:in-package :%gdext) out)
+               (terpri out)
+               (terpri out)))
+        (a:with-output-to-file (out (fad:merge-pathnames-as-file gdext-bindings-dir "types.lisp"))
+          (%print-header out)
+          (explode-gdext-types out (gethash "types" root)))
+        (a:with-output-to-file (out (fad:merge-pathnames-as-file gdext-bindings-dir "interface.lisp"))
+          (%print-header out)
+          (explode-gdext-interface out (gethash "interface" root)))
+
+        (a:nreversef *exports*)
+
+        (a:with-output-to-file (out (fad:merge-pathnames-as-file gdext-bindings-dir "packages.lisp"))
+          (prin1 `(cl:defpackage :%gdext
+                    (:use)
+                    (:import-from #:%gdext.util
+                                  #:defifun
+                                  #:defcfunproto)
+                    (:export ,@(mapcar #'uiop:make-symbol* *exports*)))
+                 out)))
+
+      (let ((*package* (find-package :cl)))
+        (a:with-output-to-file (out (fad:merge-pathnames-as-file *project-root-directory*
+                                                                 "pz-godot-gdext.asd")
+                                    :if-exists :supersede)
+          (format out "(asdf:defsystem :pz-godot-gdext")
+          (loop for (name value)
+                  on `(:description "Bindings to GDExtension API"
+                       :version "1.0.0"
+                       :author "Pavel Korolev"
+                       :mailto "dev@borodust.org"
+                       :license "MIT"
+                       :depends-on (:cffi :pz-godot/common)
+                       :pathname ,(uiop:unix-namestring
+                                   (uiop:enough-pathname gdext-bindings-dir *project-root-directory*))
+                       :serial t
+                       :components ((:file "packages")
+                                    (:file "types")
+                                    (:file "interface")))
+                    by #'cddr
+                do (format out "~%  ~S ~S" name value))
+          (format out ")"))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -369,7 +390,7 @@
              ("float" (a:format-symbol *package* "~A" 'float))
              ("int" (a:format-symbol *package* "~A" 'int))
              (t (let ((parsed-type (if (search "GDExtension" type)
-                                       (parse-type-string type :package (find-package :%gdext.types))
+                                       (parse-type-string type :package (find-package :%gdext))
                                        (parse-type-string type :skip-first nil))))
                   (if (and (symbolp parsed-type)
                            (not (keywordp parsed-type)))
@@ -402,16 +423,16 @@
     (push namesym *exports*)
     (format out "~&~%")
     (prin1
-     `(%gdext.util:defgmethod (,namesym
-                               :class ',class-name
-                               :bind ,name
-                               :hash ,hash
-                               ,@(when static-p
-                                   '(:static t))
-                               ,@(when vararg-p
-                                   '(:vararg t))
-                               ,@(when virtual-p
-                                   '(:virtual t)))
+     `(%%pz-godot~godot:defgmethod (,namesym
+                                    :class ',class-name
+                                    :bind ,name
+                                    :hash ,hash
+                                    ,@(when static-p
+                                        '(:static t))
+                                    ,@(when vararg-p
+                                        '(:vararg t))
+                                    ,@(when virtual-p
+                                        '(:virtual t)))
           ,(if return-type
                (parse-extension-type-string return-type)
                :void)
@@ -436,9 +457,9 @@
     (push namesym *exports*)
     (format out "~&~%")
     (prin1
-     `(%gdext.util:defgconstructor (,namesym
-                                    :class ',class-name
-                                    :index ,idx)
+     `(%%pz-godot~godot::defgconstructor (,namesym
+                                          :class ',class-name
+                                          :index ,idx)
         ,@(when parameters
             (loop for param-def across parameters
                   for param-name = (gethash "name" param-def)
@@ -457,7 +478,7 @@
     (push namesym *exports*)
     (format out "~&~%")
     (prin1
-     `(%gdext.util:defgdestructor (,namesym :class ',class-name))
+     `(%%pz-godot~godot::defgdestructor (,namesym :class ',class-name))
      out)))
 
 
@@ -478,7 +499,7 @@
       (push namesym *exports*)
       (format out "~&~%")
       (prin1
-       `(%gdext.util:defgproperty ,namesym ',class-name
+       `(%%pz-godot~godot::defgproperty ,namesym ',class-name
           ,@(when index `(:index ,index))
           ,@(when getter `(:get ',getter))
           ,@(when setter `(:set ',setter)))
@@ -503,15 +524,15 @@
     (push namesym *exports*)
     (format out "~&~%")
     (prin1
-     `(%gdext.util:defgclass (,namesym
-                              :bind ,name
-                              :api ,(if builtin-p
-                                        :builtin
-                                        (a:eswitch (api-type :test #'string=)
-                                          ("core" :core)
-                                          ("editor" :editor)))
-                              ,@(when builtin-p
-                                  `(:size ,(gethash name *builtin-size-table*))))
+     `(%%pz-godot~godot::defgclass (,namesym
+                                    :bind ,name
+                                    :api ,(if builtin-p
+                                              :builtin
+                                              (a:eswitch (api-type :test #'string=)
+                                                ("core" :core)
+                                                ("editor" :editor)))
+                                    ,@(when builtin-p
+                                        `(:size ,(gethash name *builtin-size-table*))))
         ,@(a:when-let ((fields (gethash name *builtin-field-table*)))
             `((:fields ,@(loop for (field-name field-offset field-type) in fields
                                collect (list (symbolicate-gdext-snake-case field-name :skip-first nil)
@@ -591,7 +612,7 @@
     (push namesym *exports*)
     (format out "~&~%")
     (prin1
-     `(%gdext.util:defgsingleton ,namesym ',typesym)
+     `(%%pz-godot~godot::defgsingleton ,namesym ',typesym)
      out)))
 
 
@@ -612,9 +633,9 @@
      (let ((name-and-opts `(,namesym
                             ,@(when bitfield-p '(:bitfield t))
                             ,@(when class-name `(:class ',class-name)))))
-       `(%gdext.util:defgenum ,(if (rest name-and-opts)
-                                   name-and-opts
-                                   (first name-and-opts))
+       `(%%pz-godot~godot::defgenum ,(if (rest name-and-opts)
+                                         name-and-opts
+                                         (first name-and-opts))
           ,@(loop for value across values
                   for name = (subseq (gethash "name" value) common-prefix-idx)
                   collect `(,(keywordify (symbolicate-gdext-snake-case name
@@ -658,50 +679,134 @@
          (*class-method-table* (make-hash-table :test 'eq))
          (*class-constructor-table* (make-hash-table :test 'eq))
          (*class-destructor-table* (make-hash-table :test 'eq))
-         (*class-properties-table* (make-hash-table :test 'eq)))
-    (a:with-output-to-file (out *extension-api-bindings-file*
-                                :if-exists :supersede)
-      (let ((*print-case* :downcase)
-            (*print-pretty* t)
-            (*package* (find-package :pz-godot-pristine))
-            (*exports*))
-        (prin1 '(uiop:define-package :%godot (:use)) out)
-        (terpri out)
-        (prin1 '(cl:in-package :%godot) out)
-        (loop for enum-def across (gethash "global_enums" root)
-              do (explode-extension-enum out enum-def))
-        (loop for class-def across (gethash "builtin_classes" root)
-              do (explode-extension-class out class-def :builtin t))
-        (explode-extension-class out (a:plist-hash-table '("name" "Variant"
-                                                           "api_type" "core"))
-                                 :builtin t)
-        (loop for class-def across (gethash "classes" root)
-              do (explode-extension-class out class-def))
-        (loop for struct-def across (gethash "native_structures" root)
-              do (explode-native-structures out struct-def))
-        (loop for singleton-def across (gethash "singletons" root)
-              do (explode-singleton out singleton-def))
-        (loop for class-name being the hash-key in *class-constructor-table*
-                using (hash-value constructors)
-              when constructors
-                do (loop for constructor-def across constructors
-                         do (explode-extension-constructor out class-name constructor-def)))
-        (loop for class-name being the hash-key in *class-destructor-table*
-              do (explode-extension-destructor out class-name))
-        (loop for class-name being the hash-key in *class-method-table*
-                using (hash-value methods)
-              when methods
-                do (loop for method-def across methods
-                         do (explode-extension-method
-                             out class-name method-def)))
-        (loop for class-name being the hash-key in *class-properties-table*
-                using (hash-value properties)
-              when properties
-                do (loop for property-def across properties
-                         do (explode-extension-property out class-name property-def)))
-        (terpri out)
-        (terpri out)
-        (prin1 `(cl:export '(,@(nreverse *exports*))) out)))))
+         (*class-properties-table* (make-hash-table :test 'eq))
+         (godot-bindings-dir (fad:merge-pathnames-as-directory *bindings-root-directory* "godot/")))
+    (uiop:delete-directory-tree godot-bindings-dir :validate t :if-does-not-exist :ignore)
+    (ensure-directories-exist godot-bindings-dir)
+    (let ((*print-case* :downcase)
+          (*print-pretty* t)
+          (*package* (find-package :%%pz-godot~godot))
+          (*exports*)
+          (*files*))
+      (flet ((%print-header (out)
+               (prin1 '(cl:in-package :%godot) out)
+               (terpri out)
+               (terpri out)))
+        (let ((global-enums-file (fad:merge-pathnames-as-file godot-bindings-dir "global-enums.lisp")))
+          (push global-enums-file *files*)
+          (a:with-output-to-file (out global-enums-file)
+            (%print-header out)
+            (loop for enum-def across (gethash "global_enums" root)
+                  do (explode-extension-enum out enum-def))))
+        (let ((builtins-file (fad:merge-pathnames-as-file godot-bindings-dir "builtins.lisp")))
+          (push builtins-file *files*)
+          (a:with-output-to-file (out builtins-file)
+            (%print-header out)
+            (loop for class-def across (gethash "builtin_classes" root)
+                  do (explode-extension-class out class-def :builtin t))
+            (explode-extension-class out (a:plist-hash-table '("name" "Variant"
+                                                               "api_type" "core"))
+                                     :builtin t)))
+        (let ((classes-file (fad:merge-pathnames-as-file godot-bindings-dir "classes.lisp")))
+          (push classes-file *files*)
+          (a:with-output-to-file (out classes-file)
+            (%print-header out)
+            (loop for class-def across (gethash "classes" root)
+                  do (explode-extension-class out class-def))))
+        (let ((native-structures-file (fad:merge-pathnames-as-file godot-bindings-dir "native-structures.lisp")))
+          (push native-structures-file *files*)
+          (a:with-output-to-file (out native-structures-file)
+            (%print-header out)
+            (loop for struct-def across (gethash "native_structures" root)
+                  do (explode-native-structures out struct-def))))
+        (let ((singletons-file (fad:merge-pathnames-as-file godot-bindings-dir "singletons.lisp")))
+          (push singletons-file *files*)
+          (a:with-output-to-file (out singletons-file)
+            (%print-header out)
+            (loop for singleton-def across (gethash "singletons" root)
+                  do (explode-singleton out singleton-def))))
+        (let ((method-bindings-dir (fad:merge-pathnames-as-directory godot-bindings-dir "methods/")))
+          (ensure-directories-exist method-bindings-dir)
+          (let ((constructors-file (fad:merge-pathnames-as-file method-bindings-dir "constructors.lisp")))
+            (push constructors-file *files*)
+            (a:with-output-to-file (out constructors-file)
+              (%print-header out)
+              (loop for class-name being the hash-key in *class-constructor-table*
+                      using (hash-value constructors)
+                    when constructors
+                      do (loop for constructor-def across constructors
+                               do (explode-extension-constructor out class-name constructor-def)))))
+          (let ((destructors-file (fad:merge-pathnames-as-file method-bindings-dir "destructors.lisp")))
+            (push destructors-file *files*)
+            (a:with-output-to-file (out destructors-file)
+              (%print-header out)
+              (loop for class-name being the hash-key in *class-destructor-table*
+                    do (explode-extension-destructor out class-name))))
+          (loop for class-name being the hash-key in *class-method-table*
+                  using (hash-value methods)
+                when methods
+                  do (let ((method-file (fad:merge-pathnames-as-file
+                                         method-bindings-dir
+                                         (format nil "~(~A~).lisp" class-name))))
+                       (push method-file *files*)
+                       (a:with-output-to-file (out method-file)
+                         (%print-header out)
+                         (loop for method-def across methods
+                               do (explode-extension-method
+                                   out class-name method-def))))))
+        (let ((props-bindings-dir (fad:merge-pathnames-as-directory godot-bindings-dir "properties/")))
+          (ensure-directories-exist props-bindings-dir)
+          (loop for class-name being the hash-key in *class-properties-table*
+                  using (hash-value properties)
+                when properties
+                  do (let ((props-file (fad:merge-pathnames-as-file
+                                        props-bindings-dir
+                                        (format nil "~(~A~).lisp" class-name))))
+                       (push props-file *files*)
+                       (a:with-output-to-file (out props-file)
+                         (%print-header out)
+                         (loop for property-def across properties
+                               do (explode-extension-property out class-name property-def)))))))
+      (a:nreversef *exports*)
+      (a:nreversef *files*)
+      (a:with-output-to-file (out (fad:merge-pathnames-as-file godot-bindings-dir "packages.lisp")
+                                  :if-exists :supersede)
+        (prin1 `(cl:defpackage :%godot
+                  (:use)
+                  (:import-from #:%godot.util
+                                #:defgenum
+                                #:defgclass
+                                #:defgconstructor
+                                #:defgdestructor
+                                #:defgproperty
+                                #:defgmethod
+                                #:defgsingleton)
+                  (:export ,@(mapcar #'uiop:make-symbol* *exports*)))
+               out))
+      (let ((*package* (find-package :cl)))
+        (a:with-output-to-file (out (fad:merge-pathnames-as-file *project-root-directory* "pz-godot-api.asd")
+                                    :if-exists :supersede)
+          (format out "(asdf:defsystem :pz-godot-api")
+          (loop for (name value)
+                  on `(:description "Bindings to Godot API"
+                       :version "1.0.0"
+                       :author "Pavel Korolev"
+                       :mailto "dev@borodust.org"
+                       :license "MIT"
+                       :depends-on (:cffi :pz-godot/ext)
+                       :pathname ,(uiop:unix-namestring
+                                   (uiop:enough-pathname godot-bindings-dir *project-root-directory*))
+                       :serial t
+                       :components ((:file "packages")
+                                    ,@(loop for file in *files*
+                                            collect `(:file ,(uiop:unix-namestring
+                                                              (make-pathname :type nil
+                                                                             :defaults (uiop:enough-pathname
+                                                                                        file
+                                                                                        godot-bindings-dir)))))))
+                    by #'cddr
+                do (format out "~%  ~S ~S" name value))
+          (format out ")"))))))
 
 
 (defun regenerate-bindings ()

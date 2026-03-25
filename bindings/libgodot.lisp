@@ -6,7 +6,7 @@
 
 
 (cffi:defcfun ("libgodot_create_godot_instance" create-godot-instance)
-    %gdext.types:object-ptr
+    %gdext:object-ptr
   "
  * @name libgodot_create_godot_instance
  * @since 4.6
@@ -21,7 +21,7 @@
 "
   (argc :int)
   (argv :pointer)
-  (init-func %gdext.types:initialization-function))
+  (init-func %gdext:initialization-function))
 
 
 (cffi:defcfun ("libgodot_destroy_godot_instance" destroy-godot-instance)
@@ -33,4 +33,4 @@
  * Destroys an existing Godot instance.
  *
  * @param p_godot_instance The reference to the GodotInstance object to destroy."
-  (godot-instance %gdext.types:object-ptr))
+  (godot-instance %gdext:object-ptr))

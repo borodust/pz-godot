@@ -4,5 +4,18 @@
                     (:jzon :com.inuoe.jzon))
   (:export #:regenerate-bindings))
 
-(cl:defpackage :pz-godot-pristine
-  (:use))
+
+(cl:defpackage :%%pz-godot~gdext
+  (:use)
+  (:export defifun
+           defcfunproto))
+
+(cl:defpackage :%%pz-godot~godot
+  (:use)
+  (:export defgenum
+           defgclass
+           defgconstructor
+           defgdestructor
+           defgproperty
+           defgmethod
+           defgsingleton))

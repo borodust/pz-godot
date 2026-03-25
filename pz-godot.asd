@@ -4,34 +4,38 @@
   :author "Pavel Korolev"
   :mailto "dev@borodust.org"
   :license "MIT"
-  :depends-on (:alexandria :uiop :static-vectors :cffi :cffi-c-ref :pz-godot/common)
+  :depends-on (:pz-godot-gdext :pz-godot-lib :pz-godot-api))
+
+
+(asdf:defsystem :pz-godot/ext
+  :description "Utilities to use with Godot extension API"
+  :version "1.0.0"
+  :author "Pavel Korolev"
+  :mailto "dev@borodust.org"
+  :license "MIT"
+  :depends-on (:alexandria :uiop :cffi :cffi-c-ref :pz-godot/common :pz-godot-gdext)
   :pathname "bindings/"
-  :serial t
-  :components ((:file "gdext-types")
-               (:file "gdext-interface")
-               (:file "gdext-utils")
-               (:file "godot-extensions")
-               (:file "libgodot")))
+  :components ((:file "ext")))
 
 
 (asdf:defsystem :pz-godot/common
-  :description "Bindings to Godot game engine"
+  :description "Common utilities to use with the bindings"
   :version "1.0.0"
   :author "Pavel Korolev"
   :mailto "dev@borodust.org"
   :license "MIT"
   :depends-on (:alexandria :uiop :cffi :cffi-c-ref)
   :pathname "bindings/"
-  :components ((:file "gdext-common")))
+  :components ((:file "common")))
 
 
 (asdf:defsystem :pz-godot/wrapper
-  :description "ClAW wrapper over Godot game engine"
+  :description "Bindings generator for GDExtension API and Godot extensions"
   :version "1.0.0"
   :author "Pavel Korolev"
   :mailto "dev@borodust.org"
   :license "MIT"
-  :depends-on (:uiop :alexandria :cl-ppcre :cffi :com.inuoe.jzon :pz-godot/common)
+  :depends-on (:uiop :alexandria :cl-ppcre :cffi :com.inuoe.jzon :cl-fad :pz-godot/common)
   :serial t
   :pathname "src/"
   :components ((:file "packages")

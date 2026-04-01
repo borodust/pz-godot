@@ -2,12 +2,12 @@
 
 
 (defgmethod
- (base-button+-pressed :class 'base-button :bind "_pressed" :hash 3218959716
+ (base-button+%pressed :class 'base-button :bind "_pressed" :hash 3218959716
   :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (base-button+-toggled :class 'base-button :bind "_toggled" :hash 2586408642
+ (base-button+%toggled :class 'base-button :bind "_toggled" :hash 2586408642
   :virtual common-lisp:t)
  :void (toggled-on bool))
 

@@ -2,17 +2,17 @@
 
 
 (defgmethod
- (editor-dock+-update-layout :class 'editor-dock :bind "_update_layout" :hash
+ (editor-dock+%update-layout :class 'editor-dock :bind "_update_layout" :hash
   1286410249 :virtual common-lisp:t)
  :void (layout int))
 
 (defgmethod
- (editor-dock+-save-layout-to-config :class 'editor-dock :bind
+ (editor-dock+%save-layout-to-config :class 'editor-dock :bind
   "_save_layout_to_config" :hash 3076455711 :virtual common-lisp:t)
  :void (config config-file) (section string))
 
 (defgmethod
- (editor-dock+-load-layout-from-config :class 'editor-dock :bind
+ (editor-dock+%load-layout-from-config :class 'editor-dock :bind
   "_load_layout_from_config" :hash 2838822993 :virtual common-lisp:t)
  :void (config config-file) (section string))
 

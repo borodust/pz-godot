@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (range+-value-changed :class 'range :bind "_value_changed" :hash 373806689
+ (range+%value-changed :class 'range :bind "_value_changed" :hash 373806689
   :virtual common-lisp:t)
  :void (new-value float))
 

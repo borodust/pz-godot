@@ -2,72 +2,72 @@
 
 
 (defgmethod
- (mesh+-get-surface-count :class 'mesh :bind "_get_surface_count" :hash
+ (mesh+%get-surface-count :class 'mesh :bind "_get_surface_count" :hash
   3905245786 :virtual common-lisp:t)
  int)
 
 (defgmethod
- (mesh+-surface-get-array-len :class 'mesh :bind "_surface_get_array_len" :hash
+ (mesh+%surface-get-array-len :class 'mesh :bind "_surface_get_array_len" :hash
   923996154 :virtual common-lisp:t)
  int (index int))
 
 (defgmethod
- (mesh+-surface-get-array-index-len :class 'mesh :bind
+ (mesh+%surface-get-array-index-len :class 'mesh :bind
   "_surface_get_array_index_len" :hash 923996154 :virtual common-lisp:t)
  int (index int))
 
 (defgmethod
- (mesh+-surface-get-arrays :class 'mesh :bind "_surface_get_arrays" :hash
+ (mesh+%surface-get-arrays :class 'mesh :bind "_surface_get_arrays" :hash
   663333327 :virtual common-lisp:t)
  array (index int))
 
 (defgmethod
- (mesh+-surface-get-blend-shape-arrays :class 'mesh :bind
+ (mesh+%surface-get-blend-shape-arrays :class 'mesh :bind
   "_surface_get_blend_shape_arrays" :hash 663333327 :virtual common-lisp:t)
  array (index int))
 
 (defgmethod
- (mesh+-surface-get-lods :class 'mesh :bind "_surface_get_lods" :hash
+ (mesh+%surface-get-lods :class 'mesh :bind "_surface_get_lods" :hash
   3485342025 :virtual common-lisp:t)
  dictionary (index int))
 
 (defgmethod
- (mesh+-surface-get-format :class 'mesh :bind "_surface_get_format" :hash
+ (mesh+%surface-get-format :class 'mesh :bind "_surface_get_format" :hash
   923996154 :virtual common-lisp:t)
  int (index int))
 
 (defgmethod
- (mesh+-surface-get-primitive-type :class 'mesh :bind
+ (mesh+%surface-get-primitive-type :class 'mesh :bind
   "_surface_get_primitive_type" :hash 923996154 :virtual common-lisp:t)
  int (index int))
 
 (defgmethod
- (mesh+-surface-set-material :class 'mesh :bind "_surface_set_material" :hash
+ (mesh+%surface-set-material :class 'mesh :bind "_surface_set_material" :hash
   3671737478 :virtual common-lisp:t)
  :void (index int) (material material))
 
 (defgmethod
- (mesh+-surface-get-material :class 'mesh :bind "_surface_get_material" :hash
+ (mesh+%surface-get-material :class 'mesh :bind "_surface_get_material" :hash
   2897466400 :virtual common-lisp:t)
  material (index int))
 
 (defgmethod
- (mesh+-get-blend-shape-count :class 'mesh :bind "_get_blend_shape_count" :hash
+ (mesh+%get-blend-shape-count :class 'mesh :bind "_get_blend_shape_count" :hash
   3905245786 :virtual common-lisp:t)
  int)
 
 (defgmethod
- (mesh+-get-blend-shape-name :class 'mesh :bind "_get_blend_shape_name" :hash
+ (mesh+%get-blend-shape-name :class 'mesh :bind "_get_blend_shape_name" :hash
   659327637 :virtual common-lisp:t)
  string-name (index int))
 
 (defgmethod
- (mesh+-set-blend-shape-name :class 'mesh :bind "_set_blend_shape_name" :hash
+ (mesh+%set-blend-shape-name :class 'mesh :bind "_set_blend_shape_name" :hash
   3780747571 :virtual common-lisp:t)
  :void (index int) (name string-name))
 
 (defgmethod
- (mesh+-get-aabb :class 'mesh :bind "_get_aabb" :hash 1068685055 :virtual
+ (mesh+%get-aabb :class 'mesh :bind "_get_aabb" :hash 1068685055 :virtual
   common-lisp:t)
  aabb)
 

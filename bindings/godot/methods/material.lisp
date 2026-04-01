@@ -2,22 +2,22 @@
 
 
 (defgmethod
- (material+-get-shader-rid :class 'material :bind "_get_shader_rid" :hash
+ (material+%get-shader-rid :class 'material :bind "_get_shader_rid" :hash
   2944877500 :virtual common-lisp:t)
  rid)
 
 (defgmethod
- (material+-get-shader-mode :class 'material :bind "_get_shader_mode" :hash
+ (material+%get-shader-mode :class 'material :bind "_get_shader_mode" :hash
   3392948163 :virtual common-lisp:t)
  shader+mode)
 
 (defgmethod
- (material+-can-do-next-pass :class 'material :bind "_can_do_next_pass" :hash
+ (material+%can-do-next-pass :class 'material :bind "_can_do_next_pass" :hash
   36873697 :virtual common-lisp:t)
  bool)
 
 (defgmethod
- (material+-can-use-render-priority :class 'material :bind
+ (material+%can-use-render-priority :class 'material :bind
   "_can_use_render_priority" :hash 36873697 :virtual common-lisp:t)
  bool)
 

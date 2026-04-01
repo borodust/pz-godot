@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (sub-viewport-container+-propagate-input-event :class 'sub-viewport-container
+ (sub-viewport-container+%propagate-input-event :class 'sub-viewport-container
   :bind "_propagate_input_event" :hash 3738334489 :virtual common-lisp:t)
  bool (event input-event))
 

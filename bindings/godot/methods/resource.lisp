@@ -2,22 +2,22 @@
 
 
 (defgmethod
- (resource+-setup-local-to-scene :class 'resource :bind "_setup_local_to_scene"
+ (resource+%setup-local-to-scene :class 'resource :bind "_setup_local_to_scene"
   :hash 3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (resource+-get-rid :class 'resource :bind "_get_rid" :hash 2944877500 :virtual
+ (resource+%get-rid :class 'resource :bind "_get_rid" :hash 2944877500 :virtual
   common-lisp:t)
  rid)
 
 (defgmethod
- (resource+-reset-state :class 'resource :bind "_reset_state" :hash 3218959716
+ (resource+%reset-state :class 'resource :bind "_reset_state" :hash 3218959716
   :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (resource+-set-path-cache :class 'resource :bind "_set_path_cache" :hash
+ (resource+%set-path-cache :class 'resource :bind "_set_path_cache" :hash
   3089850668 :virtual common-lisp:t)
  :void (path string))
 

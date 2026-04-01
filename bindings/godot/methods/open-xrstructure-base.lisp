@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (open-xrstructure-base+-get-header :class 'open-xrstructure-base :bind
+ (open-xrstructure-base+%get-header :class 'open-xrstructure-base :bind
   "_get_header" :hash 3744713108 :virtual common-lisp:t)
  int (next int))
 

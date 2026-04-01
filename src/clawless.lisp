@@ -60,7 +60,14 @@
                                             (skip-first t)
                                             prefix
                                             postfix)
-  (let ((parts (ppcre:split "_" name)))
+  (let ((parts (loop with parts = (ppcre:split "_" name)
+                     for (part . rest) = parts
+                     while part
+                     collect (if (a:emptyp part)
+                                 (prog1 (concatenate 'string "%" (first rest))
+                                   (setf parts (rest rest)))
+                                 (prog1 part
+                                   (setf parts rest))))))
     (a:format-symbol package "~@[~A~]~{~A~^-~}~@[~A~]"
                      prefix
                      (mapcar #'uiop:standard-case-symbol-name

@@ -2,22 +2,22 @@
 
 
 (defgmethod
- (graph-edit+-is-in-input-hotzone :class 'graph-edit :bind
+ (graph-edit+%is-in-input-hotzone :class 'graph-edit :bind
   "_is_in_input_hotzone" :hash 1779768129 :virtual common-lisp:t)
  bool (in-node object) (in-port int) (mouse-position vector-2))
 
 (defgmethod
- (graph-edit+-is-in-output-hotzone :class 'graph-edit :bind
+ (graph-edit+%is-in-output-hotzone :class 'graph-edit :bind
   "_is_in_output_hotzone" :hash 1779768129 :virtual common-lisp:t)
  bool (in-node object) (in-port int) (mouse-position vector-2))
 
 (defgmethod
- (graph-edit+-get-connection-line :class 'graph-edit :bind
+ (graph-edit+%get-connection-line :class 'graph-edit :bind
   "_get_connection_line" :hash 3932192302 :virtual common-lisp:t)
  packed-vector-2array (from-position vector-2) (to-position vector-2))
 
 (defgmethod
- (graph-edit+-is-node-hover-valid :class 'graph-edit :bind
+ (graph-edit+%is-node-hover-valid :class 'graph-edit :bind
   "_is_node_hover_valid" :hash 4216241294 :virtual common-lisp:t)
  bool (from-node string-name) (from-port int) (to-node string-name)
  (to-port int))

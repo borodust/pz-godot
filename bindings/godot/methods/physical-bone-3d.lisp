@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (physical-bone-3d+-integrate-forces :class 'physical-bone-3d :bind
+ (physical-bone-3d+%integrate-forces :class 'physical-bone-3d :bind
   "_integrate_forces" :hash 420958145 :virtual common-lisp:t)
  :void (state physics-direct-body-state-3d))
 

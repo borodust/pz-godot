@@ -2,32 +2,32 @@
 
 
 (defgmethod
- (text-edit+-handle-unicode-input :class 'text-edit :bind
+ (text-edit+%handle-unicode-input :class 'text-edit :bind
   "_handle_unicode_input" :hash 3937882851 :virtual common-lisp:t)
  :void (unicode-char int) (caret-index int))
 
 (defgmethod
- (text-edit+-backspace :class 'text-edit :bind "_backspace" :hash 1286410249
+ (text-edit+%backspace :class 'text-edit :bind "_backspace" :hash 1286410249
   :virtual common-lisp:t)
  :void (caret-index int))
 
 (defgmethod
- (text-edit+-cut :class 'text-edit :bind "_cut" :hash 1286410249 :virtual
+ (text-edit+%cut :class 'text-edit :bind "_cut" :hash 1286410249 :virtual
   common-lisp:t)
  :void (caret-index int))
 
 (defgmethod
- (text-edit+-copy :class 'text-edit :bind "_copy" :hash 1286410249 :virtual
+ (text-edit+%copy :class 'text-edit :bind "_copy" :hash 1286410249 :virtual
   common-lisp:t)
  :void (caret-index int))
 
 (defgmethod
- (text-edit+-paste :class 'text-edit :bind "_paste" :hash 1286410249 :virtual
+ (text-edit+%paste :class 'text-edit :bind "_paste" :hash 1286410249 :virtual
   common-lisp:t)
  :void (caret-index int))
 
 (defgmethod
- (text-edit+-paste-primary-clipboard :class 'text-edit :bind
+ (text-edit+%paste-primary-clipboard :class 'text-edit :bind
   "_paste_primary_clipboard" :hash 1286410249 :virtual common-lisp:t)
  :void (caret-index int))
 

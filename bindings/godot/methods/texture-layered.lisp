@@ -2,37 +2,37 @@
 
 
 (defgmethod
- (texture-layered+-get-format :class 'texture-layered :bind "_get_format" :hash
+ (texture-layered+%get-format :class 'texture-layered :bind "_get_format" :hash
   3847873762 :virtual common-lisp:t)
  image+format)
 
 (defgmethod
- (texture-layered+-get-layered-type :class 'texture-layered :bind
+ (texture-layered+%get-layered-type :class 'texture-layered :bind
   "_get_layered_type" :hash 3905245786 :virtual common-lisp:t)
  int)
 
 (defgmethod
- (texture-layered+-get-width :class 'texture-layered :bind "_get_width" :hash
+ (texture-layered+%get-width :class 'texture-layered :bind "_get_width" :hash
   3905245786 :virtual common-lisp:t)
  int)
 
 (defgmethod
- (texture-layered+-get-height :class 'texture-layered :bind "_get_height" :hash
+ (texture-layered+%get-height :class 'texture-layered :bind "_get_height" :hash
   3905245786 :virtual common-lisp:t)
  int)
 
 (defgmethod
- (texture-layered+-get-layers :class 'texture-layered :bind "_get_layers" :hash
+ (texture-layered+%get-layers :class 'texture-layered :bind "_get_layers" :hash
   3905245786 :virtual common-lisp:t)
  int)
 
 (defgmethod
- (texture-layered+-has-mipmaps :class 'texture-layered :bind "_has_mipmaps"
+ (texture-layered+%has-mipmaps :class 'texture-layered :bind "_has_mipmaps"
   :hash 36873697 :virtual common-lisp:t)
  bool)
 
 (defgmethod
- (texture-layered+-get-layer-data :class 'texture-layered :bind
+ (texture-layered+%get-layer-data :class 'texture-layered :bind
   "_get_layer_data" :hash 3655284255 :virtual common-lisp:t)
  image (layer-index int))
 

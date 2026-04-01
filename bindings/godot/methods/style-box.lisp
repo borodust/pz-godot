@@ -2,22 +2,22 @@
 
 
 (defgmethod
- (style-box+-draw :class 'style-box :bind "_draw" :hash 2275962004 :virtual
+ (style-box+%draw :class 'style-box :bind "_draw" :hash 2275962004 :virtual
   common-lisp:t)
  :void (to-canvas-item rid) (rect rect-2))
 
 (defgmethod
- (style-box+-get-draw-rect :class 'style-box :bind "_get_draw_rect" :hash
+ (style-box+%get-draw-rect :class 'style-box :bind "_get_draw_rect" :hash
   408950903 :virtual common-lisp:t)
  rect-2 (rect rect-2))
 
 (defgmethod
- (style-box+-get-minimum-size :class 'style-box :bind "_get_minimum_size" :hash
+ (style-box+%get-minimum-size :class 'style-box :bind "_get_minimum_size" :hash
   3341600327 :virtual common-lisp:t)
  vector-2)
 
 (defgmethod
- (style-box+-test-mask :class 'style-box :bind "_test_mask" :hash 3735564539
+ (style-box+%test-mask :class 'style-box :bind "_test_mask" :hash 3735564539
   :virtual common-lisp:t)
  bool (point vector-2) (rect rect-2))
 

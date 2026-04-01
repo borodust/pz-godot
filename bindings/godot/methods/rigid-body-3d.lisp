@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (rigid-body-3d+-integrate-forces :class 'rigid-body-3d :bind
+ (rigid-body-3d+%integrate-forces :class 'rigid-body-3d :bind
   "_integrate_forces" :hash 420958145 :virtual common-lisp:t)
  :void (state physics-direct-body-state-3d))
 

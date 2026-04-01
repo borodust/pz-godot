@@ -162,6 +162,13 @@
                                                         (:double `(float ,src-val-sym 0d0))
                                                         (:uint8 `(truncate ,src-val-sym)))))
 
+
+(defun expand-ptrarg-enum (enum src-val-sym argv-ptr-sym stack-ptr-sym)
+  `(setf (cffi:mem-ref ,argv-ptr-sym :pointer) ,stack-ptr-sym
+         (cffi:mem-ref ,stack-ptr-sym :int64) ,(if (keywordp src-val-sym)
+                                                   (cffi:foreign-enum-value enum src-val-sym)
+                                                   `(cffi:foreign-enum-value ',enum ,src-val-sym))))
+
 (defun expand-ptrarg-blob (arg-type src-val-sym argv-ptr-sym stack-ptr-sym)
   `(progn
      (setf (cffi:mem-ref ,argv-ptr-sym :pointer) ,stack-ptr-sym)
@@ -316,8 +323,8 @@
                                                          `(cffi:inc-pointer ,arg-data-ptr ,stack-byte-offset))))
                                     ,(expand-method-argument-translation type val argv-ptr stack-ptr)))
                        and do (incf arg-idx)
-                     do (incf stack-byte-offset bytes)
-                        (incf argv-byte-offset +default-alignment+))
+                              (incf argv-byte-offset +default-alignment+)
+                     do (incf stack-byte-offset bytes))
              (let ((,ptr-var ,arg-data-ptr)
                    (,arg-count-var ,argc))
                ,@body)))))))
@@ -429,8 +436,8 @@
 
                       `((register-godot-method-argument-metadata
                          ',name
-                         :alignment 0
-                         :size 0
+                         :alignment (cffi:foreign-type-alignment ',name)
+                         :size (cffi:foreign-type-size ',name)
                          :translation-expander #'expand-ptrarg-pointer)))))
            (register-godot-class ',name ,bind
                                  ,variant-kind
@@ -471,8 +478,8 @@
           :alignment ,(cffi:foreign-type-alignment :int64)
           :size ,(cffi:foreign-type-size :int64)
           :translation-expander (lambda (src-val-sym argv-ptr-sym stack-ptr-sym)
-                                  (expand-ptrarg-with-conversion
-                                   :int64 src-val-sym argv-ptr-sym stack-ptr-sym)))))))
+                                  (expand-ptrarg-enum
+                                   ',name src-val-sym argv-ptr-sym stack-ptr-sym)))))))
 
 
 (defun expand-vararg-compiler-macro (method-ptr-var bind-extractor args variants)
@@ -781,8 +788,8 @@
   (with-godot-string-names ((class-string-name class-name)
                             (method-string-name method-name))
     (%gdext:classdb-get-method-bind class-string-name
-                                              method-string-name
-                                              hash)))
+                                    method-string-name
+                                    hash)))
 
 
 (declaim (inline get-constructor-bind))

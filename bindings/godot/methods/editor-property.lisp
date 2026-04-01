@@ -2,12 +2,12 @@
 
 
 (defgmethod
- (editor-property+-update-property :class 'editor-property :bind
+ (editor-property+%update-property :class 'editor-property :bind
   "_update_property" :hash 3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (editor-property+-set-read-only :class 'editor-property :bind "_set_read_only"
+ (editor-property+%set-read-only :class 'editor-property :bind "_set_read_only"
   :hash 2586408642 :virtual common-lisp:t)
  :void (read-only bool))
 

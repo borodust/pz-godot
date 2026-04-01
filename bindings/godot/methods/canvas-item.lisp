@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (canvas-item+-draw :class 'canvas-item :bind "_draw" :hash 3218959716 :virtual
+ (canvas-item+%draw :class 'canvas-item :bind "_draw" :hash 3218959716 :virtual
   common-lisp:t)
  :void)
 

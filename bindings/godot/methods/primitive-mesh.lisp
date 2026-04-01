@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (primitive-mesh+-create-mesh-array :class 'primitive-mesh :bind
+ (primitive-mesh+%create-mesh-array :class 'primitive-mesh :bind
   "_create_mesh_array" :hash 3995934104 :virtual common-lisp:t)
  array)
 

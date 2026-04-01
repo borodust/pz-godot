@@ -2,13 +2,13 @@
 
 
 (defgmethod
- (image-format-loader-extension+-get-recognized-extensions :class
+ (image-format-loader-extension+%get-recognized-extensions :class
   'image-format-loader-extension :bind "_get_recognized_extensions" :hash
   1139954409 :virtual common-lisp:t)
  packed-string-array)
 
 (defgmethod
- (image-format-loader-extension+-load-image :class
+ (image-format-loader-extension+%load-image :class
   'image-format-loader-extension :bind "_load_image" :hash 3760540541 :virtual
   common-lisp:t)
  error (image image) (fileaccess file-access)

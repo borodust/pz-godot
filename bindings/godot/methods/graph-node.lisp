@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (graph-node+-draw-port :class 'graph-node :bind "_draw_port" :hash 93366828
+ (graph-node+%draw-port :class 'graph-node :bind "_draw_port" :hash 93366828
   :virtual common-lisp:t)
  :void (slot-index int) (position vector-2i) (left bool) (color color))
 

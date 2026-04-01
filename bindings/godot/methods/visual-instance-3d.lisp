@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (visual-instance-3d+-get-aabb :class 'visual-instance-3d :bind "_get_aabb"
+ (visual-instance-3d+%get-aabb :class 'visual-instance-3d :bind "_get_aabb"
   :hash 1068685055 :virtual common-lisp:t)
  aabb)
 

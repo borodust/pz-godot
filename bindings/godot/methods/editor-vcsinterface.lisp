@@ -2,118 +2,118 @@
 
 
 (defgmethod
- (editor-vcsinterface+-initialize :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%initialize :class 'editor-vcsinterface :bind
   "_initialize" :hash 2323990056 :virtual common-lisp:t)
  bool (project-path string))
 
 (defgmethod
- (editor-vcsinterface+-set-credentials :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%set-credentials :class 'editor-vcsinterface :bind
   "_set_credentials" :hash 1336744649 :virtual common-lisp:t)
  :void (username string) (password string) (ssh-public-key-path string)
  (ssh-private-key-path string) (ssh-passphrase string))
 
 (defgmethod
- (editor-vcsinterface+-get-modified-files-data :class 'editor-vcsinterface
+ (editor-vcsinterface+%get-modified-files-data :class 'editor-vcsinterface
   :bind "_get_modified_files_data" :hash 2915620761 :virtual common-lisp:t)
  array)
 
 (defgmethod
- (editor-vcsinterface+-stage-file :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%stage-file :class 'editor-vcsinterface :bind
   "_stage_file" :hash 83702148 :virtual common-lisp:t)
  :void (file-path string))
 
 (defgmethod
- (editor-vcsinterface+-unstage-file :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%unstage-file :class 'editor-vcsinterface :bind
   "_unstage_file" :hash 83702148 :virtual common-lisp:t)
  :void (file-path string))
 
 (defgmethod
- (editor-vcsinterface+-discard-file :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%discard-file :class 'editor-vcsinterface :bind
   "_discard_file" :hash 83702148 :virtual common-lisp:t)
  :void (file-path string))
 
 (defgmethod
- (editor-vcsinterface+-commit :class 'editor-vcsinterface :bind "_commit" :hash
+ (editor-vcsinterface+%commit :class 'editor-vcsinterface :bind "_commit" :hash
   83702148 :virtual common-lisp:t)
  :void (msg string))
 
 (defgmethod
- (editor-vcsinterface+-get-diff :class 'editor-vcsinterface :bind "_get_diff"
+ (editor-vcsinterface+%get-diff :class 'editor-vcsinterface :bind "_get_diff"
   :hash 1366379175 :virtual common-lisp:t)
  array (identifier string) (area int))
 
 (defgmethod
- (editor-vcsinterface+-shut-down :class 'editor-vcsinterface :bind "_shut_down"
+ (editor-vcsinterface+%shut-down :class 'editor-vcsinterface :bind "_shut_down"
   :hash 2240911060 :virtual common-lisp:t)
  bool)
 
 (defgmethod
- (editor-vcsinterface+-get-vcs-name :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%get-vcs-name :class 'editor-vcsinterface :bind
   "_get_vcs_name" :hash 2841200299 :virtual common-lisp:t)
  string)
 
 (defgmethod
- (editor-vcsinterface+-get-previous-commits :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%get-previous-commits :class 'editor-vcsinterface :bind
   "_get_previous_commits" :hash 1171824711 :virtual common-lisp:t)
  array (max-commits int))
 
 (defgmethod
- (editor-vcsinterface+-get-branch-list :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%get-branch-list :class 'editor-vcsinterface :bind
   "_get_branch_list" :hash 2915620761 :virtual common-lisp:t)
  array)
 
 (defgmethod
- (editor-vcsinterface+-get-remotes :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%get-remotes :class 'editor-vcsinterface :bind
   "_get_remotes" :hash 2915620761 :virtual common-lisp:t)
  array)
 
 (defgmethod
- (editor-vcsinterface+-create-branch :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%create-branch :class 'editor-vcsinterface :bind
   "_create_branch" :hash 83702148 :virtual common-lisp:t)
  :void (branch-name string))
 
 (defgmethod
- (editor-vcsinterface+-remove-branch :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%remove-branch :class 'editor-vcsinterface :bind
   "_remove_branch" :hash 83702148 :virtual common-lisp:t)
  :void (branch-name string))
 
 (defgmethod
- (editor-vcsinterface+-create-remote :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%create-remote :class 'editor-vcsinterface :bind
   "_create_remote" :hash 3186203200 :virtual common-lisp:t)
  :void (remote-name string) (remote-url string))
 
 (defgmethod
- (editor-vcsinterface+-remove-remote :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%remove-remote :class 'editor-vcsinterface :bind
   "_remove_remote" :hash 83702148 :virtual common-lisp:t)
  :void (remote-name string))
 
 (defgmethod
- (editor-vcsinterface+-get-current-branch-name :class 'editor-vcsinterface
+ (editor-vcsinterface+%get-current-branch-name :class 'editor-vcsinterface
   :bind "_get_current_branch_name" :hash 2841200299 :virtual common-lisp:t)
  string)
 
 (defgmethod
- (editor-vcsinterface+-checkout-branch :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%checkout-branch :class 'editor-vcsinterface :bind
   "_checkout_branch" :hash 2323990056 :virtual common-lisp:t)
  bool (branch-name string))
 
 (defgmethod
- (editor-vcsinterface+-pull :class 'editor-vcsinterface :bind "_pull" :hash
+ (editor-vcsinterface+%pull :class 'editor-vcsinterface :bind "_pull" :hash
   83702148 :virtual common-lisp:t)
  :void (remote string))
 
 (defgmethod
- (editor-vcsinterface+-push :class 'editor-vcsinterface :bind "_push" :hash
+ (editor-vcsinterface+%push :class 'editor-vcsinterface :bind "_push" :hash
   2678287736 :virtual common-lisp:t)
  :void (remote string) (force bool))
 
 (defgmethod
- (editor-vcsinterface+-fetch :class 'editor-vcsinterface :bind "_fetch" :hash
+ (editor-vcsinterface+%fetch :class 'editor-vcsinterface :bind "_fetch" :hash
   83702148 :virtual common-lisp:t)
  :void (remote string))
 
 (defgmethod
- (editor-vcsinterface+-get-line-diff :class 'editor-vcsinterface :bind
+ (editor-vcsinterface+%get-line-diff :class 'editor-vcsinterface :bind
   "_get_line_diff" :hash 2796572089 :virtual common-lisp:t)
  array (file-path string) (text string))
 

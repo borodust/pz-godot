@@ -2,17 +2,17 @@
 
 
 (defgmethod
- (skeleton-modification-2d+-execute :class 'skeleton-modification-2d :bind
+ (skeleton-modification-2d+%execute :class 'skeleton-modification-2d :bind
   "_execute" :hash 373806689 :virtual common-lisp:t)
  :void (delta float))
 
 (defgmethod
- (skeleton-modification-2d+-setup-modification :class 'skeleton-modification-2d
+ (skeleton-modification-2d+%setup-modification :class 'skeleton-modification-2d
   :bind "_setup_modification" :hash 3907307132 :virtual common-lisp:t)
  :void (modification-stack skeleton-modification-stack-2d))
 
 (defgmethod
- (skeleton-modification-2d+-draw-editor-gizmo :class 'skeleton-modification-2d
+ (skeleton-modification-2d+%draw-editor-gizmo :class 'skeleton-modification-2d
   :bind "_draw_editor_gizmo" :hash 3218959716 :virtual common-lisp:t)
  :void)
 

@@ -2,17 +2,17 @@
 
 
 (defgmethod
- (astar-3d+-filter-neighbor :class 'astar-3d :bind "_filter_neighbor" :hash
+ (astar-3d+%filter-neighbor :class 'astar-3d :bind "_filter_neighbor" :hash
   2522259332 :virtual common-lisp:t)
  bool (from-id int) (neighbor-id int))
 
 (defgmethod
- (astar-3d+-estimate-cost :class 'astar-3d :bind "_estimate_cost" :hash
+ (astar-3d+%estimate-cost :class 'astar-3d :bind "_estimate_cost" :hash
   3085491603 :virtual common-lisp:t)
  float (from-id int) (end-id int))
 
 (defgmethod
- (astar-3d+-compute-cost :class 'astar-3d :bind "_compute_cost" :hash
+ (astar-3d+%compute-cost :class 'astar-3d :bind "_compute_cost" :hash
   3085491603 :virtual common-lisp:t)
  float (from-id int) (to-id int))
 

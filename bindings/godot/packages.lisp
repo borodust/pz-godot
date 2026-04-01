@@ -3067,7 +3067,7 @@
            #:animation-tree+get-animation-player
            #:animation-tree+set-process-callback
            #:animation-tree+get-process-callback
-           #:animation-mixer+-post-process-key-value
+           #:animation-mixer+%post-process-key-value
            #:animation-mixer+add-animation-library
            #:animation-mixer+remove-animation-library
            #:animation-mixer+rename-animation-library
@@ -3170,10 +3170,10 @@
            #:foldable-group+get-containers
            #:foldable-group+set-allow-folding-all
            #:foldable-group+is-allow-folding-all
-           #:graph-edit+-is-in-input-hotzone
-           #:graph-edit+-is-in-output-hotzone
-           #:graph-edit+-get-connection-line
-           #:graph-edit+-is-node-hover-valid
+           #:graph-edit+%is-in-input-hotzone
+           #:graph-edit+%is-in-output-hotzone
+           #:graph-edit+%get-connection-line
+           #:graph-edit+%is-node-hover-valid
            #:graph-edit+connect-node
            #:graph-edit+is-node-connected
            #:graph-edit+disconnect-node
@@ -3299,7 +3299,7 @@
            #:split-container+get-drag-area-control
            #:split-container+set-split-offset
            #:split-container+get-split-offset
-           #:sub-viewport-container+-propagate-input-event
+           #:sub-viewport-container+%propagate-input-event
            #:sub-viewport-container+set-stretch
            #:sub-viewport-container+is-stretch-enabled
            #:sub-viewport-container+set-stretch-shrink
@@ -3332,7 +3332,7 @@
            #:char-fxtransform+set-glyph-flags
            #:char-fxtransform+get-font
            #:char-fxtransform+set-font
-           #:rich-text-effect+-process-custom-fx
+           #:rich-text-effect+%process-custom-fx
            #:color-picker-button+set-pick-color
            #:color-picker-button+get-pick-color
            #:color-picker-button+get-picker
@@ -3448,9 +3448,9 @@
            #:code-highlighter+get-symbol-color
            #:code-highlighter+set-member-variable-color
            #:code-highlighter+get-member-variable-color
-           #:syntax-highlighter+-get-line-syntax-highlighting
-           #:syntax-highlighter+-clear-highlighting-cache
-           #:syntax-highlighter+-update-cache
+           #:syntax-highlighter+%get-line-syntax-highlighting
+           #:syntax-highlighter+%clear-highlighting-cache
+           #:syntax-highlighter+%update-cache
            #:syntax-highlighter+get-line-syntax-highlighting
            #:syntax-highlighter+update-cache
            #:syntax-highlighter+clear-highlighting-cache
@@ -3458,7 +3458,7 @@
            #:confirmation-dialog+get-cancel-button
            #:confirmation-dialog+set-cancel-button-text
            #:confirmation-dialog+get-cancel-button-text
-           #:video-stream+-instantiate-playback
+           #:video-stream+%instantiate-playback
            #:video-stream+set-file
            #:video-stream+get-file
            #:video-stream-player+set-stream
@@ -3826,8 +3826,8 @@
            #:texture-rect+is-flipped-v
            #:texture-rect+set-stretch-mode
            #:texture-rect+get-stretch-mode
-           #:container+-get-allowed-size-flags-horizontal
-           #:container+-get-allowed-size-flags-vertical
+           #:container+%get-allowed-size-flags-horizontal
+           #:container+%get-allowed-size-flags-vertical
            #:container+queue-sort
            #:container+fit-child-in-rect
            #:link-button+set-text
@@ -3868,7 +3868,7 @@
            #:progress-bar+is-editor-preview-indeterminate-enabled
            #:scroll-bar+set-custom-step
            #:scroll-bar+get-custom-step
-           #:range+-value-changed
+           #:range+%value-changed
            #:range+get-value
            #:range+get-min
            #:range+get-max
@@ -4011,8 +4011,8 @@
            #:button-group+get-buttons
            #:button-group+set-allow-unpress
            #:button-group+is-allow-unpress
-           #:base-button+-pressed
-           #:base-button+-toggled
+           #:base-button+%pressed
+           #:base-button+%toggled
            #:base-button+set-pressed
            #:base-button+is-pressed
            #:base-button+set-pressed-no-signal
@@ -4158,39 +4158,39 @@
            #:timer+get-time-left
            #:timer+set-timer-process-callback
            #:timer+get-timer-process-callback
-           #:multiplayer-apiextension+-poll
-           #:multiplayer-apiextension+-set-multiplayer-peer
-           #:multiplayer-apiextension+-get-multiplayer-peer
-           #:multiplayer-apiextension+-get-unique-id
-           #:multiplayer-apiextension+-get-peer-ids
-           #:multiplayer-apiextension+-rpc
-           #:multiplayer-apiextension+-get-remote-sender-id
-           #:multiplayer-apiextension+-object-configuration-add
-           #:multiplayer-apiextension+-object-configuration-remove
-           #:multiplayer-peer-extension+-get-packet
-           #:multiplayer-peer-extension+-put-packet
-           #:multiplayer-peer-extension+-get-available-packet-count
-           #:multiplayer-peer-extension+-get-max-packet-size
-           #:multiplayer-peer-extension+-get-packet-script
-           #:multiplayer-peer-extension+-put-packet-script
-           #:multiplayer-peer-extension+-get-packet-channel
-           #:multiplayer-peer-extension+-get-packet-mode
-           #:multiplayer-peer-extension+-set-transfer-channel
-           #:multiplayer-peer-extension+-get-transfer-channel
-           #:multiplayer-peer-extension+-set-transfer-mode
-           #:multiplayer-peer-extension+-get-transfer-mode
-           #:multiplayer-peer-extension+-set-target-peer
-           #:multiplayer-peer-extension+-get-packet-peer
-           #:multiplayer-peer-extension+-is-server
-           #:multiplayer-peer-extension+-poll
-           #:multiplayer-peer-extension+-close
-           #:multiplayer-peer-extension+-disconnect-peer
-           #:multiplayer-peer-extension+-get-unique-id
-           #:multiplayer-peer-extension+-set-refuse-new-connections
-           #:multiplayer-peer-extension+-is-refusing-new-connections
-           #:multiplayer-peer-extension+-is-server-relay-supported
-           #:multiplayer-peer-extension+-get-connection-status
-           #:compositor-effect+-render-callback
+           #:multiplayer-apiextension+%poll
+           #:multiplayer-apiextension+%set-multiplayer-peer
+           #:multiplayer-apiextension+%get-multiplayer-peer
+           #:multiplayer-apiextension+%get-unique-id
+           #:multiplayer-apiextension+%get-peer-ids
+           #:multiplayer-apiextension+%rpc
+           #:multiplayer-apiextension+%get-remote-sender-id
+           #:multiplayer-apiextension+%object-configuration-add
+           #:multiplayer-apiextension+%object-configuration-remove
+           #:multiplayer-peer-extension+%get-packet
+           #:multiplayer-peer-extension+%put-packet
+           #:multiplayer-peer-extension+%get-available-packet-count
+           #:multiplayer-peer-extension+%get-max-packet-size
+           #:multiplayer-peer-extension+%get-packet-script
+           #:multiplayer-peer-extension+%put-packet-script
+           #:multiplayer-peer-extension+%get-packet-channel
+           #:multiplayer-peer-extension+%get-packet-mode
+           #:multiplayer-peer-extension+%set-transfer-channel
+           #:multiplayer-peer-extension+%get-transfer-channel
+           #:multiplayer-peer-extension+%set-transfer-mode
+           #:multiplayer-peer-extension+%get-transfer-mode
+           #:multiplayer-peer-extension+%set-target-peer
+           #:multiplayer-peer-extension+%get-packet-peer
+           #:multiplayer-peer-extension+%is-server
+           #:multiplayer-peer-extension+%poll
+           #:multiplayer-peer-extension+%close
+           #:multiplayer-peer-extension+%disconnect-peer
+           #:multiplayer-peer-extension+%get-unique-id
+           #:multiplayer-peer-extension+%set-refuse-new-connections
+           #:multiplayer-peer-extension+%is-refusing-new-connections
+           #:multiplayer-peer-extension+%is-server-relay-supported
+           #:multiplayer-peer-extension+%get-connection-status
+           #:compositor-effect+%render-callback
            #:compositor-effect+set-enabled
            #:compositor-effect+get-enabled
            #:compositor-effect+set-effect-callback-type
@@ -4279,9 +4279,9 @@
            #:skeleton-modification-2dlook-at+get-constraint-angle-max
            #:skeleton-modification-2dlook-at+set-constraint-angle-invert
            #:skeleton-modification-2dlook-at+get-constraint-angle-invert
-           #:skeleton-modification-2d+-execute
-           #:skeleton-modification-2d+-setup-modification
-           #:skeleton-modification-2d+-draw-editor-gizmo
+           #:skeleton-modification-2d+%execute
+           #:skeleton-modification-2d+%setup-modification
+           #:skeleton-modification-2d+%draw-editor-gizmo
            #:skeleton-modification-2d+set-enabled
            #:skeleton-modification-2d+get-enabled
            #:skeleton-modification-2d+get-modification-stack
@@ -4836,11 +4836,11 @@
            #:static-body-2d+get-constant-angular-velocity
            #:static-body-2d+set-physics-material-override
            #:static-body-2d+get-physics-material-override
-           #:collision-object-2d+-input-event
-           #:collision-object-2d+-mouse-enter
-           #:collision-object-2d+-mouse-exit
-           #:collision-object-2d+-mouse-shape-enter
-           #:collision-object-2d+-mouse-shape-exit
+           #:collision-object-2d+%input-event
+           #:collision-object-2d+%mouse-enter
+           #:collision-object-2d+%mouse-exit
+           #:collision-object-2d+%mouse-shape-enter
+           #:collision-object-2d+%mouse-shape-exit
            #:collision-object-2d+get-rid
            #:collision-object-2d+set-collision-layer
            #:collision-object-2d+get-collision-layer
@@ -5363,27 +5363,27 @@
            #:visual-shader-node-input+set-input-name
            #:visual-shader-node-input+get-input-name
            #:visual-shader-node-input+get-input-real-name
-           #:visual-shader-node-custom+-get-name
-           #:visual-shader-node-custom+-get-description
-           #:visual-shader-node-custom+-get-category
-           #:visual-shader-node-custom+-get-return-icon-type
-           #:visual-shader-node-custom+-get-input-port-count
-           #:visual-shader-node-custom+-get-input-port-type
-           #:visual-shader-node-custom+-get-input-port-name
-           #:visual-shader-node-custom+-get-input-port-default-value
-           #:visual-shader-node-custom+-get-default-input-port
-           #:visual-shader-node-custom+-get-output-port-count
-           #:visual-shader-node-custom+-get-output-port-type
-           #:visual-shader-node-custom+-get-output-port-name
-           #:visual-shader-node-custom+-get-property-count
-           #:visual-shader-node-custom+-get-property-name
-           #:visual-shader-node-custom+-get-property-default-index
-           #:visual-shader-node-custom+-get-property-options
-           #:visual-shader-node-custom+-get-code
-           #:visual-shader-node-custom+-get-func-code
-           #:visual-shader-node-custom+-get-global-code
-           #:visual-shader-node-custom+-is-highend
-           #:visual-shader-node-custom+-is-available
+           #:visual-shader-node-custom+%get-name
+           #:visual-shader-node-custom+%get-description
+           #:visual-shader-node-custom+%get-category
+           #:visual-shader-node-custom+%get-return-icon-type
+           #:visual-shader-node-custom+%get-input-port-count
+           #:visual-shader-node-custom+%get-input-port-type
+           #:visual-shader-node-custom+%get-input-port-name
+           #:visual-shader-node-custom+%get-input-port-default-value
+           #:visual-shader-node-custom+%get-default-input-port
+           #:visual-shader-node-custom+%get-output-port-count
+           #:visual-shader-node-custom+%get-output-port-type
+           #:visual-shader-node-custom+%get-output-port-name
+           #:visual-shader-node-custom+%get-property-count
+           #:visual-shader-node-custom+%get-property-name
+           #:visual-shader-node-custom+%get-property-default-index
+           #:visual-shader-node-custom+%get-property-options
+           #:visual-shader-node-custom+%get-code
+           #:visual-shader-node-custom+%get-func-code
+           #:visual-shader-node-custom+%get-global-code
+           #:visual-shader-node-custom+%is-highend
+           #:visual-shader-node-custom+%is-available
            #:visual-shader-node-custom+get-option-index
            #:visual-shader-node+get-default-input-port
            #:visual-shader-node+set-output-port-for-preview
@@ -6194,9 +6194,9 @@
            #:static-body-3d+get-constant-angular-velocity
            #:static-body-3d+set-physics-material-override
            #:static-body-3d+get-physics-material-override
-           #:collision-object-3d+-input-event
-           #:collision-object-3d+-mouse-enter
-           #:collision-object-3d+-mouse-exit
+           #:collision-object-3d+%input-event
+           #:collision-object-3d+%mouse-enter
+           #:collision-object-3d+%mouse-exit
            #:collision-object-3d+set-collision-layer
            #:collision-object-3d+get-collision-layer
            #:collision-object-3d+set-collision-mask
@@ -6621,10 +6621,10 @@
            #:modifier-bone-target-3d+get-bone-name
            #:modifier-bone-target-3d+set-bone
            #:modifier-bone-target-3d+get-bone
-           #:skeleton-modifier-3d+-process-modification-with-delta
-           #:skeleton-modifier-3d+-process-modification
-           #:skeleton-modifier-3d+-skeleton-changed
-           #:skeleton-modifier-3d+-validate-bone-names
+           #:skeleton-modifier-3d+%process-modification-with-delta
+           #:skeleton-modifier-3d+%process-modification
+           #:skeleton-modifier-3d+%skeleton-changed
+           #:skeleton-modifier-3d+%validate-bone-names
            #:skeleton-modifier-3d+get-skeleton
            #:skeleton-modifier-3d+set-active
            #:skeleton-modifier-3d+is-active
@@ -6777,12 +6777,12 @@
            #:gpuparticles-collision-height-field-3d+get-heightfield-mask-value
            #:gpuparticles-collision-height-field-3d+set-follow-camera-enabled
            #:gpuparticles-collision-height-field-3d+is-follow-camera-enabled
-           #:texture-3d+-get-format
-           #:texture-3d+-get-width
-           #:texture-3d+-get-height
-           #:texture-3d+-get-depth
-           #:texture-3d+-has-mipmaps
-           #:texture-3d+-get-data
+           #:texture-3d+%get-format
+           #:texture-3d+%get-width
+           #:texture-3d+%get-height
+           #:texture-3d+%get-depth
+           #:texture-3d+%has-mipmaps
+           #:texture-3d+%get-data
            #:texture-3d+get-format
            #:texture-3d+get-width
            #:texture-3d+get-height
@@ -6867,13 +6867,13 @@
            #:gpuparticles-3d+set-amount-ratio
            #:gpuparticles-3d+get-amount-ratio
            #:gpuparticles-3d+request-particles-process
-           #:texture-layered+-get-format
-           #:texture-layered+-get-layered-type
-           #:texture-layered+-get-width
-           #:texture-layered+-get-height
-           #:texture-layered+-get-layers
-           #:texture-layered+-has-mipmaps
-           #:texture-layered+-get-layer-data
+           #:texture-layered+%get-format
+           #:texture-layered+%get-layered-type
+           #:texture-layered+%get-width
+           #:texture-layered+%get-height
+           #:texture-layered+%get-layers
+           #:texture-layered+%has-mipmaps
+           #:texture-layered+%get-layer-data
            #:texture-layered+get-format
            #:texture-layered+get-layered-type
            #:texture-layered+get-width
@@ -7197,20 +7197,20 @@
            #:occluder-instance-3d+get-bake-simplification-distance
            #:occluder-instance-3d+set-occluder
            #:occluder-instance-3d+get-occluder
-           #:mesh+-get-surface-count
-           #:mesh+-surface-get-array-len
-           #:mesh+-surface-get-array-index-len
-           #:mesh+-surface-get-arrays
-           #:mesh+-surface-get-blend-shape-arrays
-           #:mesh+-surface-get-lods
-           #:mesh+-surface-get-format
-           #:mesh+-surface-get-primitive-type
-           #:mesh+-surface-set-material
-           #:mesh+-surface-get-material
-           #:mesh+-get-blend-shape-count
-           #:mesh+-get-blend-shape-name
-           #:mesh+-set-blend-shape-name
-           #:mesh+-get-aabb
+           #:mesh+%get-surface-count
+           #:mesh+%surface-get-array-len
+           #:mesh+%surface-get-array-index-len
+           #:mesh+%surface-get-arrays
+           #:mesh+%surface-get-blend-shape-arrays
+           #:mesh+%surface-get-lods
+           #:mesh+%surface-get-format
+           #:mesh+%surface-get-primitive-type
+           #:mesh+%surface-set-material
+           #:mesh+%surface-get-material
+           #:mesh+%get-blend-shape-count
+           #:mesh+%get-blend-shape-name
+           #:mesh+%set-blend-shape-name
+           #:mesh+%get-aabb
            #:mesh+set-lightmap-size-hint
            #:mesh+get-lightmap-size-hint
            #:mesh+get-aabb
@@ -7525,7 +7525,7 @@
            #:geometry-instance-3d+is-ignoring-occlusion-culling
            #:geometry-instance-3d+set-custom-aabb
            #:geometry-instance-3d+get-custom-aabb
-           #:visual-instance-3d+-get-aabb
+           #:visual-instance-3d+%get-aabb
            #:visual-instance-3d+set-base
            #:visual-instance-3d+get-base
            #:visual-instance-3d+get-instance
@@ -7642,7 +7642,7 @@
            #:animation-node-state-machine-transition+get-advance-expression
            #:animation-node-sync+set-use-sync
            #:animation-node-sync+is-using-sync
-           #:animation-node-extension+-process-animation-node
+           #:animation-node-extension+%process-animation-node
            #:animation-node-extension+is-looping
            #:animation-node-extension+get-remaining-time
            #:gltfphysics-shape+from-node
@@ -7834,29 +7834,29 @@
            #:gltfnode+get-additional-data
            #:gltfnode+set-additional-data
            #:gltfnode+get-scene-node-path
-           #:gltfdocument-extension+-import-preflight
-           #:gltfdocument-extension+-get-supported-extensions
-           #:gltfdocument-extension+-parse-node-extensions
-           #:gltfdocument-extension+-parse-image-data
-           #:gltfdocument-extension+-get-image-file-extension
-           #:gltfdocument-extension+-parse-texture-json
-           #:gltfdocument-extension+-import-object-model-property
-           #:gltfdocument-extension+-import-post-parse
-           #:gltfdocument-extension+-import-pre-generate
-           #:gltfdocument-extension+-generate-scene-node
-           #:gltfdocument-extension+-import-node
-           #:gltfdocument-extension+-import-post
-           #:gltfdocument-extension+-export-preflight
-           #:gltfdocument-extension+-convert-scene-node
-           #:gltfdocument-extension+-export-post-convert
-           #:gltfdocument-extension+-export-preserialize
-           #:gltfdocument-extension+-export-object-model-property
-           #:gltfdocument-extension+-get-saveable-image-formats
-           #:gltfdocument-extension+-serialize-image-to-bytes
-           #:gltfdocument-extension+-save-image-at-path
-           #:gltfdocument-extension+-serialize-texture-json
-           #:gltfdocument-extension+-export-node
-           #:gltfdocument-extension+-export-post
+           #:gltfdocument-extension+%import-preflight
+           #:gltfdocument-extension+%get-supported-extensions
+           #:gltfdocument-extension+%parse-node-extensions
+           #:gltfdocument-extension+%parse-image-data
+           #:gltfdocument-extension+%get-image-file-extension
+           #:gltfdocument-extension+%parse-texture-json
+           #:gltfdocument-extension+%import-object-model-property
+           #:gltfdocument-extension+%import-post-parse
+           #:gltfdocument-extension+%import-pre-generate
+           #:gltfdocument-extension+%generate-scene-node
+           #:gltfdocument-extension+%import-node
+           #:gltfdocument-extension+%import-post
+           #:gltfdocument-extension+%export-preflight
+           #:gltfdocument-extension+%convert-scene-node
+           #:gltfdocument-extension+%export-post-convert
+           #:gltfdocument-extension+%export-preserialize
+           #:gltfdocument-extension+%export-object-model-property
+           #:gltfdocument-extension+%get-saveable-image-formats
+           #:gltfdocument-extension+%serialize-image-to-bytes
+           #:gltfdocument-extension+%save-image-at-path
+           #:gltfdocument-extension+%serialize-texture-json
+           #:gltfdocument-extension+%export-node
+           #:gltfdocument-extension+%export-post
            #:fbxstate+get-allow-geometry-helper-nodes
            #:fbxstate+set-allow-geometry-helper-nodes
            #:gltfstate+add-used-extension
@@ -9235,7 +9235,7 @@
            #:box-mesh+get-subdivide-height
            #:box-mesh+set-subdivide-depth
            #:box-mesh+get-subdivide-depth
-           #:primitive-mesh+-create-mesh-array
+           #:primitive-mesh+%create-mesh-array
            #:primitive-mesh+set-material
            #:primitive-mesh+get-material
            #:primitive-mesh+get-mesh-arrays
@@ -9557,31 +9557,31 @@
            #:grid-map-editor-plugin+get-selected-cells
            #:grid-map-editor-plugin+set-selected-palette-item
            #:grid-map-editor-plugin+get-selected-palette-item
-           #:editor-debugger-plugin+-setup-session
-           #:editor-debugger-plugin+-has-capture
-           #:editor-debugger-plugin+-capture
-           #:editor-debugger-plugin+-goto-script-line
-           #:editor-debugger-plugin+-breakpoints-cleared-in-tree
-           #:editor-debugger-plugin+-breakpoint-set-in-tree
+           #:editor-debugger-plugin+%setup-session
+           #:editor-debugger-plugin+%has-capture
+           #:editor-debugger-plugin+%capture
+           #:editor-debugger-plugin+%goto-script-line
+           #:editor-debugger-plugin+%breakpoints-cleared-in-tree
+           #:editor-debugger-plugin+%breakpoint-set-in-tree
            #:editor-debugger-plugin+get-session
            #:editor-debugger-plugin+get-sessions
-           #:editor-scene-post-import+-post-import
+           #:editor-scene-post-import+%post-import
            #:editor-scene-post-import+get-source-file
-           #:editor-file-system-import-format-support-query+-is-active
-           #:editor-file-system-import-format-support-query+-get-file-extensions
-           #:editor-file-system-import-format-support-query+-query
+           #:editor-file-system-import-format-support-query+%is-active
+           #:editor-file-system-import-format-support-query+%get-file-extensions
+           #:editor-file-system-import-format-support-query+%query
            #:file-system-dock+navigate-to-path
            #:file-system-dock+add-resource-tooltip-plugin
            #:file-system-dock+remove-resource-tooltip-plugin
-           #:editor-context-menu-plugin+-popup-menu
+           #:editor-context-menu-plugin+%popup-menu
            #:editor-context-menu-plugin+add-menu-shortcut
            #:editor-context-menu-plugin+add-context-menu-item
            #:editor-context-menu-plugin+add-context-menu-item-from-shortcut
            #:editor-context-menu-plugin+add-context-submenu-item
            #:editor-script-picker+set-script-owner
            #:editor-script-picker+get-script-owner
-           #:editor-resource-picker+-set-create-options
-           #:editor-resource-picker+-handle-menu-selected
+           #:editor-resource-picker+%set-create-options
+           #:editor-resource-picker+%handle-menu-selected
            #:editor-resource-picker+set-base-type
            #:editor-resource-picker+get-base-type
            #:editor-resource-picker+get-allowed-types
@@ -9617,12 +9617,12 @@
            #:editor-feature-profile+get-feature-name
            #:editor-feature-profile+save-to-file
            #:editor-feature-profile+load-from-file
-           #:editor-inspector-plugin+-can-handle
-           #:editor-inspector-plugin+-parse-begin
-           #:editor-inspector-plugin+-parse-category
-           #:editor-inspector-plugin+-parse-group
-           #:editor-inspector-plugin+-parse-property
-           #:editor-inspector-plugin+-parse-end
+           #:editor-inspector-plugin+%can-handle
+           #:editor-inspector-plugin+%parse-begin
+           #:editor-inspector-plugin+%parse-category
+           #:editor-inspector-plugin+%parse-group
+           #:editor-inspector-plugin+%parse-property
+           #:editor-inspector-plugin+%parse-end
            #:editor-inspector-plugin+add-custom-control
            #:editor-inspector-plugin+add-property-editor
            #:editor-inspector-plugin+add-property-editor-for-multiple-properties
@@ -9630,15 +9630,15 @@
            #:editor-inspector+get-selected-path
            #:editor-inspector+get-edited-object
            #:editor-inspector+instantiate-property-editor
-           #:editor-scene-format-importer+-get-extensions
-           #:editor-scene-format-importer+-import-scene
-           #:editor-scene-format-importer+-get-import-options
-           #:editor-scene-format-importer+-get-option-visibility
+           #:editor-scene-format-importer+%get-extensions
+           #:editor-scene-format-importer+%import-scene
+           #:editor-scene-format-importer+%get-import-options
+           #:editor-scene-format-importer+%get-option-visibility
            #:editor-scene-format-importer+add-import-option
            #:editor-scene-format-importer+add-import-option-advanced
-           #:editor-resource-conversion-plugin+-converts-to
-           #:editor-resource-conversion-plugin+-handles
-           #:editor-resource-conversion-plugin+-convert
+           #:editor-resource-conversion-plugin+%converts-to
+           #:editor-resource-conversion-plugin+%handles
+           #:editor-resource-conversion-plugin+%convert
            #:editor-export-preset+has
            #:editor-export-preset+get-files-to-export
            #:editor-export-preset+get-customized-files
@@ -9664,66 +9664,66 @@
            #:editor-export-preset+get-script-export-mode
            #:editor-export-preset+get-or-env
            #:editor-export-preset+get-version
-           #:editor-export-platform-extension+-get-preset-features
-           #:editor-export-platform-extension+-is-executable
-           #:editor-export-platform-extension+-get-export-options
-           #:editor-export-platform-extension+-should-update-export-options
-           #:editor-export-platform-extension+-get-export-option-visibility
-           #:editor-export-platform-extension+-get-export-option-warning
-           #:editor-export-platform-extension+-get-os-name
-           #:editor-export-platform-extension+-get-name
-           #:editor-export-platform-extension+-get-logo
-           #:editor-export-platform-extension+-poll-export
-           #:editor-export-platform-extension+-get-options-count
-           #:editor-export-platform-extension+-get-options-tooltip
-           #:editor-export-platform-extension+-get-option-icon
-           #:editor-export-platform-extension+-get-option-label
-           #:editor-export-platform-extension+-get-option-tooltip
-           #:editor-export-platform-extension+-get-device-architecture
-           #:editor-export-platform-extension+-cleanup
-           #:editor-export-platform-extension+-run
-           #:editor-export-platform-extension+-get-run-icon
-           #:editor-export-platform-extension+-can-export
-           #:editor-export-platform-extension+-has-valid-export-configuration
-           #:editor-export-platform-extension+-has-valid-project-configuration
-           #:editor-export-platform-extension+-get-binary-extensions
-           #:editor-export-platform-extension+-export-project
-           #:editor-export-platform-extension+-export-pack
-           #:editor-export-platform-extension+-export-zip
-           #:editor-export-platform-extension+-export-pack-patch
-           #:editor-export-platform-extension+-export-zip-patch
-           #:editor-export-platform-extension+-get-platform-features
-           #:editor-export-platform-extension+-get-debug-protocol
-           #:editor-export-platform-extension+-initialize
+           #:editor-export-platform-extension+%get-preset-features
+           #:editor-export-platform-extension+%is-executable
+           #:editor-export-platform-extension+%get-export-options
+           #:editor-export-platform-extension+%should-update-export-options
+           #:editor-export-platform-extension+%get-export-option-visibility
+           #:editor-export-platform-extension+%get-export-option-warning
+           #:editor-export-platform-extension+%get-os-name
+           #:editor-export-platform-extension+%get-name
+           #:editor-export-platform-extension+%get-logo
+           #:editor-export-platform-extension+%poll-export
+           #:editor-export-platform-extension+%get-options-count
+           #:editor-export-platform-extension+%get-options-tooltip
+           #:editor-export-platform-extension+%get-option-icon
+           #:editor-export-platform-extension+%get-option-label
+           #:editor-export-platform-extension+%get-option-tooltip
+           #:editor-export-platform-extension+%get-device-architecture
+           #:editor-export-platform-extension+%cleanup
+           #:editor-export-platform-extension+%run
+           #:editor-export-platform-extension+%get-run-icon
+           #:editor-export-platform-extension+%can-export
+           #:editor-export-platform-extension+%has-valid-export-configuration
+           #:editor-export-platform-extension+%has-valid-project-configuration
+           #:editor-export-platform-extension+%get-binary-extensions
+           #:editor-export-platform-extension+%export-project
+           #:editor-export-platform-extension+%export-pack
+           #:editor-export-platform-extension+%export-zip
+           #:editor-export-platform-extension+%export-pack-patch
+           #:editor-export-platform-extension+%export-zip-patch
+           #:editor-export-platform-extension+%get-platform-features
+           #:editor-export-platform-extension+%get-debug-protocol
+           #:editor-export-platform-extension+%initialize
            #:editor-export-platform-extension+set-config-error
            #:editor-export-platform-extension+get-config-error
            #:editor-export-platform-extension+set-config-missing-templates
            #:editor-export-platform-extension+get-config-missing-templates
-           #:editor-export-plugin+-export-file
-           #:editor-export-plugin+-export-begin
-           #:editor-export-plugin+-export-end
-           #:editor-export-plugin+-begin-customize-resources
-           #:editor-export-plugin+-customize-resource
-           #:editor-export-plugin+-begin-customize-scenes
-           #:editor-export-plugin+-customize-scene
-           #:editor-export-plugin+-get-customization-configuration-hash
-           #:editor-export-plugin+-end-customize-scenes
-           #:editor-export-plugin+-end-customize-resources
-           #:editor-export-plugin+-get-export-options
-           #:editor-export-plugin+-get-export-options-overrides
-           #:editor-export-plugin+-should-update-export-options
-           #:editor-export-plugin+-get-export-option-visibility
-           #:editor-export-plugin+-get-export-option-warning
-           #:editor-export-plugin+-get-export-features
-           #:editor-export-plugin+-get-name
-           #:editor-export-plugin+-supports-platform
-           #:editor-export-plugin+-get-android-dependencies
-           #:editor-export-plugin+-get-android-dependencies-maven-repos
-           #:editor-export-plugin+-get-android-libraries
-           #:editor-export-plugin+-get-android-manifest-activity-element-contents
-           #:editor-export-plugin+-get-android-manifest-application-element-contents
-           #:editor-export-plugin+-get-android-manifest-element-contents
-           #:editor-export-plugin+-update-android-prebuilt-manifest
+           #:editor-export-plugin+%export-file
+           #:editor-export-plugin+%export-begin
+           #:editor-export-plugin+%export-end
+           #:editor-export-plugin+%begin-customize-resources
+           #:editor-export-plugin+%customize-resource
+           #:editor-export-plugin+%begin-customize-scenes
+           #:editor-export-plugin+%customize-scene
+           #:editor-export-plugin+%get-customization-configuration-hash
+           #:editor-export-plugin+%end-customize-scenes
+           #:editor-export-plugin+%end-customize-resources
+           #:editor-export-plugin+%get-export-options
+           #:editor-export-plugin+%get-export-options-overrides
+           #:editor-export-plugin+%should-update-export-options
+           #:editor-export-plugin+%get-export-option-visibility
+           #:editor-export-plugin+%get-export-option-warning
+           #:editor-export-plugin+%get-export-features
+           #:editor-export-plugin+%get-name
+           #:editor-export-plugin+%supports-platform
+           #:editor-export-plugin+%get-android-dependencies
+           #:editor-export-plugin+%get-android-dependencies-maven-repos
+           #:editor-export-plugin+%get-android-libraries
+           #:editor-export-plugin+%get-android-manifest-activity-element-contents
+           #:editor-export-plugin+%get-android-manifest-application-element-contents
+           #:editor-export-plugin+%get-android-manifest-element-contents
+           #:editor-export-plugin+%update-android-prebuilt-manifest
            #:editor-export-plugin+add-shared-object
            #:editor-export-plugin+add-file
            #:editor-export-plugin+add-apple-embedded-platform-project-static-lib
@@ -9745,9 +9745,9 @@
            #:editor-export-plugin+get-option
            #:editor-export-plugin+get-export-preset
            #:editor-export-plugin+get-export-platform
-           #:editor-syntax-highlighter+-get-name
-           #:editor-syntax-highlighter+-get-supported-languages
-           #:editor-syntax-highlighter+-create
+           #:editor-syntax-highlighter+%get-name
+           #:editor-syntax-highlighter+%get-supported-languages
+           #:editor-syntax-highlighter+%create
            #:script-editor-base+get-base-editor
            #:script-editor-base+add-syntax-highlighter
            #:script-editor+get-current-editor
@@ -9762,29 +9762,29 @@
            #:script-editor+goto-help
            #:script-editor+update-docs-from-script
            #:script-editor+clear-docs-from-script
-           #:editor-vcsinterface+-initialize
-           #:editor-vcsinterface+-set-credentials
-           #:editor-vcsinterface+-get-modified-files-data
-           #:editor-vcsinterface+-stage-file
-           #:editor-vcsinterface+-unstage-file
-           #:editor-vcsinterface+-discard-file
-           #:editor-vcsinterface+-commit
-           #:editor-vcsinterface+-get-diff
-           #:editor-vcsinterface+-shut-down
-           #:editor-vcsinterface+-get-vcs-name
-           #:editor-vcsinterface+-get-previous-commits
-           #:editor-vcsinterface+-get-branch-list
-           #:editor-vcsinterface+-get-remotes
-           #:editor-vcsinterface+-create-branch
-           #:editor-vcsinterface+-remove-branch
-           #:editor-vcsinterface+-create-remote
-           #:editor-vcsinterface+-remove-remote
-           #:editor-vcsinterface+-get-current-branch-name
-           #:editor-vcsinterface+-checkout-branch
-           #:editor-vcsinterface+-pull
-           #:editor-vcsinterface+-push
-           #:editor-vcsinterface+-fetch
-           #:editor-vcsinterface+-get-line-diff
+           #:editor-vcsinterface+%initialize
+           #:editor-vcsinterface+%set-credentials
+           #:editor-vcsinterface+%get-modified-files-data
+           #:editor-vcsinterface+%stage-file
+           #:editor-vcsinterface+%unstage-file
+           #:editor-vcsinterface+%discard-file
+           #:editor-vcsinterface+%commit
+           #:editor-vcsinterface+%get-diff
+           #:editor-vcsinterface+%shut-down
+           #:editor-vcsinterface+%get-vcs-name
+           #:editor-vcsinterface+%get-previous-commits
+           #:editor-vcsinterface+%get-branch-list
+           #:editor-vcsinterface+%get-remotes
+           #:editor-vcsinterface+%create-branch
+           #:editor-vcsinterface+%remove-branch
+           #:editor-vcsinterface+%create-remote
+           #:editor-vcsinterface+%remove-remote
+           #:editor-vcsinterface+%get-current-branch-name
+           #:editor-vcsinterface+%checkout-branch
+           #:editor-vcsinterface+%pull
+           #:editor-vcsinterface+%push
+           #:editor-vcsinterface+%fetch
+           #:editor-vcsinterface+%get-line-diff
            #:editor-vcsinterface+create-diff-line
            #:editor-vcsinterface+create-diff-hunk
            #:editor-vcsinterface+create-diff-file
@@ -9816,14 +9816,14 @@
            #:editor-file-system+get-filesystem-path
            #:editor-file-system+get-file-type
            #:editor-file-system+reimport-files
-           #:editor-resource-tooltip-plugin+-handles
-           #:editor-resource-tooltip-plugin+-make-tooltip-for-path
+           #:editor-resource-tooltip-plugin+%handles
+           #:editor-resource-tooltip-plugin+%make-tooltip-for-path
            #:editor-resource-tooltip-plugin+request-thumbnail
-           #:editor-resource-preview-generator+-handles
-           #:editor-resource-preview-generator+-generate
-           #:editor-resource-preview-generator+-generate-from-path
-           #:editor-resource-preview-generator+-generate-small-preview-automatically
-           #:editor-resource-preview-generator+-can-generate-small-preview
+           #:editor-resource-preview-generator+%handles
+           #:editor-resource-preview-generator+%generate
+           #:editor-resource-preview-generator+%generate-from-path
+           #:editor-resource-preview-generator+%generate-small-preview-automatically
+           #:editor-resource-preview-generator+%can-generate-small-preview
            #:editor-resource-preview-generator+request-draw-and-wait
            #:editor-resource-preview+queue-resource-preview
            #:editor-resource-preview+queue-edited-resource-preview
@@ -9859,9 +9859,9 @@
            #:editor-selection+get-selected-nodes
            #:editor-selection+get-top-selected-nodes
            #:editor-selection+get-transformable-selected-nodes
-           #:editor-dock+-update-layout
-           #:editor-dock+-save-layout-to-config
-           #:editor-dock+-load-layout-from-config
+           #:editor-dock+%update-layout
+           #:editor-dock+%save-layout-to-config
+           #:editor-dock+%load-layout-from-config
            #:editor-dock+open
            #:editor-dock+make-visible
            #:editor-dock+close
@@ -9889,35 +9889,35 @@
            #:editor-dock+get-default-slot
            #:editor-dock+set-available-layouts
            #:editor-dock+get-available-layouts
-           #:editor-script+-run
+           #:editor-script+%run
            #:editor-script+add-root-node
            #:editor-script+get-scene
            #:editor-script+get-editor-interface
-           #:editor-plugin+-forward-canvas-gui-input
-           #:editor-plugin+-forward-canvas-draw-over-viewport
-           #:editor-plugin+-forward-canvas-force-draw-over-viewport
-           #:editor-plugin+-forward-3d-gui-input
-           #:editor-plugin+-forward-3d-draw-over-viewport
-           #:editor-plugin+-forward-3d-force-draw-over-viewport
-           #:editor-plugin+-get-plugin-name
-           #:editor-plugin+-get-plugin-icon
-           #:editor-plugin+-has-main-screen
-           #:editor-plugin+-make-visible
-           #:editor-plugin+-edit
-           #:editor-plugin+-handles
-           #:editor-plugin+-get-state
-           #:editor-plugin+-set-state
-           #:editor-plugin+-clear
-           #:editor-plugin+-get-unsaved-status
-           #:editor-plugin+-save-external-data
-           #:editor-plugin+-apply-changes
-           #:editor-plugin+-get-breakpoints
-           #:editor-plugin+-set-window-layout
-           #:editor-plugin+-get-window-layout
-           #:editor-plugin+-build
-           #:editor-plugin+-run-scene
-           #:editor-plugin+-enable-plugin
-           #:editor-plugin+-disable-plugin
+           #:editor-plugin+%forward-canvas-gui-input
+           #:editor-plugin+%forward-canvas-draw-over-viewport
+           #:editor-plugin+%forward-canvas-force-draw-over-viewport
+           #:editor-plugin+%forward-3d-gui-input
+           #:editor-plugin+%forward-3d-draw-over-viewport
+           #:editor-plugin+%forward-3d-force-draw-over-viewport
+           #:editor-plugin+%get-plugin-name
+           #:editor-plugin+%get-plugin-icon
+           #:editor-plugin+%has-main-screen
+           #:editor-plugin+%make-visible
+           #:editor-plugin+%edit
+           #:editor-plugin+%handles
+           #:editor-plugin+%get-state
+           #:editor-plugin+%set-state
+           #:editor-plugin+%clear
+           #:editor-plugin+%get-unsaved-status
+           #:editor-plugin+%save-external-data
+           #:editor-plugin+%apply-changes
+           #:editor-plugin+%get-breakpoints
+           #:editor-plugin+%set-window-layout
+           #:editor-plugin+%get-window-layout
+           #:editor-plugin+%build
+           #:editor-plugin+%run-scene
+           #:editor-plugin+%enable-plugin
+           #:editor-plugin+%disable-plugin
            #:editor-plugin+add-dock
            #:editor-plugin+remove-dock
            #:editor-plugin+add-control-to-container
@@ -9987,35 +9987,35 @@
            #:web-xrinterface+get-display-refresh-rate
            #:web-xrinterface+set-display-refresh-rate
            #:web-xrinterface+get-available-display-refresh-rates
-           #:web-rtcdata-channel-extension+-get-packet
-           #:web-rtcdata-channel-extension+-put-packet
-           #:web-rtcdata-channel-extension+-get-available-packet-count
-           #:web-rtcdata-channel-extension+-get-max-packet-size
-           #:web-rtcdata-channel-extension+-poll
-           #:web-rtcdata-channel-extension+-close
-           #:web-rtcdata-channel-extension+-set-write-mode
-           #:web-rtcdata-channel-extension+-get-write-mode
-           #:web-rtcdata-channel-extension+-was-string-packet
-           #:web-rtcdata-channel-extension+-get-ready-state
-           #:web-rtcdata-channel-extension+-get-label
-           #:web-rtcdata-channel-extension+-is-ordered
-           #:web-rtcdata-channel-extension+-get-id
-           #:web-rtcdata-channel-extension+-get-max-packet-life-time
-           #:web-rtcdata-channel-extension+-get-max-retransmits
-           #:web-rtcdata-channel-extension+-get-protocol
-           #:web-rtcdata-channel-extension+-is-negotiated
-           #:web-rtcdata-channel-extension+-get-buffered-amount
-           #:web-rtcpeer-connection-extension+-get-connection-state
-           #:web-rtcpeer-connection-extension+-get-gathering-state
-           #:web-rtcpeer-connection-extension+-get-signaling-state
-           #:web-rtcpeer-connection-extension+-initialize
-           #:web-rtcpeer-connection-extension+-create-data-channel
-           #:web-rtcpeer-connection-extension+-create-offer
-           #:web-rtcpeer-connection-extension+-set-remote-description
-           #:web-rtcpeer-connection-extension+-set-local-description
-           #:web-rtcpeer-connection-extension+-add-ice-candidate
-           #:web-rtcpeer-connection-extension+-poll
-           #:web-rtcpeer-connection-extension+-close
+           #:web-rtcdata-channel-extension+%get-packet
+           #:web-rtcdata-channel-extension+%put-packet
+           #:web-rtcdata-channel-extension+%get-available-packet-count
+           #:web-rtcdata-channel-extension+%get-max-packet-size
+           #:web-rtcdata-channel-extension+%poll
+           #:web-rtcdata-channel-extension+%close
+           #:web-rtcdata-channel-extension+%set-write-mode
+           #:web-rtcdata-channel-extension+%get-write-mode
+           #:web-rtcdata-channel-extension+%was-string-packet
+           #:web-rtcdata-channel-extension+%get-ready-state
+           #:web-rtcdata-channel-extension+%get-label
+           #:web-rtcdata-channel-extension+%is-ordered
+           #:web-rtcdata-channel-extension+%get-id
+           #:web-rtcdata-channel-extension+%get-max-packet-life-time
+           #:web-rtcdata-channel-extension+%get-max-retransmits
+           #:web-rtcdata-channel-extension+%get-protocol
+           #:web-rtcdata-channel-extension+%is-negotiated
+           #:web-rtcdata-channel-extension+%get-buffered-amount
+           #:web-rtcpeer-connection-extension+%get-connection-state
+           #:web-rtcpeer-connection-extension+%get-gathering-state
+           #:web-rtcpeer-connection-extension+%get-signaling-state
+           #:web-rtcpeer-connection-extension+%initialize
+           #:web-rtcpeer-connection-extension+%create-data-channel
+           #:web-rtcpeer-connection-extension+%create-offer
+           #:web-rtcpeer-connection-extension+%set-remote-description
+           #:web-rtcpeer-connection-extension+%set-local-description
+           #:web-rtcpeer-connection-extension+%add-ice-candidate
+           #:web-rtcpeer-connection-extension+%poll
+           #:web-rtcpeer-connection-extension+%close
            #:web-rtcdata-channel+poll
            #:web-rtcdata-channel+close
            #:web-rtcdata-channel+was-string-packet
@@ -10075,9 +10075,9 @@
            #:open-xrspatial-component-bounded-3dlist+get-size
            #:open-xrspatial-component-bounded-2dlist+get-center-pose
            #:open-xrspatial-component-bounded-2dlist+get-size
-           #:open-xrspatial-component-data+-set-capacity
-           #:open-xrspatial-component-data+-get-component-type
-           #:open-xrspatial-component-data+-get-structure-data
+           #:open-xrspatial-component-data+%set-capacity
+           #:open-xrspatial-component-data+%get-component-type
+           #:open-xrspatial-component-data+%get-structure-data
            #:open-xrspatial-component-data+set-capacity
            #:open-xrspatial-capability-configuration-plane-tracking+supports-mesh-2d
            #:open-xrspatial-capability-configuration-plane-tracking+supports-polygons
@@ -10094,10 +10094,10 @@
            #:open-xrspatial-capability-configuration-micro-qr-code+get-enabled-components
            #:open-xrspatial-capability-configuration-qr-code+get-enabled-components
            #:open-xrspatial-capability-configuration-anchor+get-enabled-components
-           #:open-xrspatial-capability-configuration-base-header+-has-valid-configuration
-           #:open-xrspatial-capability-configuration-base-header+-get-configuration
+           #:open-xrspatial-capability-configuration-base-header+%has-valid-configuration
+           #:open-xrspatial-capability-configuration-base-header+%get-configuration
            #:open-xrspatial-capability-configuration-base-header+has-valid-configuration
-           #:open-xrstructure-base+-get-header
+           #:open-xrstructure-base+%get-header
            #:open-xrstructure-base+get-structure-type
            #:open-xrstructure-base+set-next
            #:open-xrstructure-base+get-next
@@ -10260,8 +10260,8 @@
            #:open-xranalog-threshold-modifier+get-on-haptic
            #:open-xranalog-threshold-modifier+set-off-haptic
            #:open-xranalog-threshold-modifier+get-off-haptic
-           #:open-xrbinding-modifier+-get-description
-           #:open-xrbinding-modifier+-get-ip-modification
+           #:open-xrbinding-modifier+%get-description
+           #:open-xrbinding-modifier+%get-ip-modification
            #:open-xripbinding+set-action
            #:open-xripbinding+get-action
            #:open-xripbinding+set-binding-path
@@ -10681,10 +10681,10 @@
            #:viewport+get-vrs-update-mode
            #:viewport+set-vrs-texture
            #:viewport+get-vrs-texture
-           #:material+-get-shader-rid
-           #:material+-get-shader-mode
-           #:material+-can-do-next-pass
-           #:material+-can-use-render-priority
+           #:material+%get-shader-rid
+           #:material+%get-shader-mode
+           #:material+%can-do-next-pass
+           #:material+%can-use-render-priority
            #:material+set-next-pass
            #:material+get-next-pass
            #:material+set-render-priority
@@ -10702,10 +10702,10 @@
            #:missing-node+is-recording-properties
            #:missing-node+set-recording-signals
            #:missing-node+is-recording-signals
-           #:style-box+-draw
-           #:style-box+-get-draw-rect
-           #:style-box+-get-minimum-size
-           #:style-box+-test-mask
+           #:style-box+%draw
+           #:style-box+%get-draw-rect
+           #:style-box+%get-minimum-size
+           #:style-box+%test-mask
            #:style-box+get-minimum-size
            #:style-box+set-content-margin
            #:style-box+set-content-margin-all
@@ -10727,8 +10727,8 @@
            #:theme-db+get-fallback-icon
            #:theme-db+set-fallback-stylebox
            #:theme-db+get-fallback-stylebox
-           #:editor-translation-parser-plugin+-parse-file
-           #:editor-translation-parser-plugin+-get-recognized-extensions
+           #:editor-translation-parser-plugin+%parse-file
+           #:editor-translation-parser-plugin+%get-recognized-extensions
            #:gdscript+new
            #:xrserver+get-world-scale
            #:xrserver+set-world-scale
@@ -10752,38 +10752,38 @@
            #:xrserver+get-tracker
            #:xrserver+get-primary-interface
            #:xrserver+set-primary-interface
-           #:xrinterface-extension+-get-name
-           #:xrinterface-extension+-get-capabilities
-           #:xrinterface-extension+-is-initialized
-           #:xrinterface-extension+-initialize
-           #:xrinterface-extension+-uninitialize
-           #:xrinterface-extension+-get-system-info
-           #:xrinterface-extension+-supports-play-area-mode
-           #:xrinterface-extension+-get-play-area-mode
-           #:xrinterface-extension+-set-play-area-mode
-           #:xrinterface-extension+-get-play-area
-           #:xrinterface-extension+-get-render-target-size
-           #:xrinterface-extension+-get-view-count
-           #:xrinterface-extension+-get-camera-transform
-           #:xrinterface-extension+-get-transform-for-view
-           #:xrinterface-extension+-get-projection-for-view
-           #:xrinterface-extension+-get-vrs-texture
-           #:xrinterface-extension+-get-vrs-texture-format
-           #:xrinterface-extension+-process
-           #:xrinterface-extension+-pre-render
-           #:xrinterface-extension+-pre-draw-viewport
-           #:xrinterface-extension+-post-draw-viewport
-           #:xrinterface-extension+-end-frame
-           #:xrinterface-extension+-get-suggested-tracker-names
-           #:xrinterface-extension+-get-suggested-pose-names
-           #:xrinterface-extension+-get-tracking-status
-           #:xrinterface-extension+-trigger-haptic-pulse
-           #:xrinterface-extension+-get-anchor-detection-is-enabled
-           #:xrinterface-extension+-set-anchor-detection-is-enabled
-           #:xrinterface-extension+-get-camera-feed-id
-           #:xrinterface-extension+-get-color-texture
-           #:xrinterface-extension+-get-depth-texture
-           #:xrinterface-extension+-get-velocity-texture
+           #:xrinterface-extension+%get-name
+           #:xrinterface-extension+%get-capabilities
+           #:xrinterface-extension+%is-initialized
+           #:xrinterface-extension+%initialize
+           #:xrinterface-extension+%uninitialize
+           #:xrinterface-extension+%get-system-info
+           #:xrinterface-extension+%supports-play-area-mode
+           #:xrinterface-extension+%get-play-area-mode
+           #:xrinterface-extension+%set-play-area-mode
+           #:xrinterface-extension+%get-play-area
+           #:xrinterface-extension+%get-render-target-size
+           #:xrinterface-extension+%get-view-count
+           #:xrinterface-extension+%get-camera-transform
+           #:xrinterface-extension+%get-transform-for-view
+           #:xrinterface-extension+%get-projection-for-view
+           #:xrinterface-extension+%get-vrs-texture
+           #:xrinterface-extension+%get-vrs-texture-format
+           #:xrinterface-extension+%process
+           #:xrinterface-extension+%pre-render
+           #:xrinterface-extension+%pre-draw-viewport
+           #:xrinterface-extension+%post-draw-viewport
+           #:xrinterface-extension+%end-frame
+           #:xrinterface-extension+%get-suggested-tracker-names
+           #:xrinterface-extension+%get-suggested-pose-names
+           #:xrinterface-extension+%get-tracking-status
+           #:xrinterface-extension+%trigger-haptic-pulse
+           #:xrinterface-extension+%get-anchor-detection-is-enabled
+           #:xrinterface-extension+%set-anchor-detection-is-enabled
+           #:xrinterface-extension+%get-camera-feed-id
+           #:xrinterface-extension+%get-color-texture
+           #:xrinterface-extension+%get-depth-texture
+           #:xrinterface-extension+%get-velocity-texture
            #:xrinterface-extension+get-color-texture
            #:xrinterface-extension+get-depth-texture
            #:xrinterface-extension+get-velocity-texture
@@ -10942,264 +10942,264 @@
            #:physics-point-query-parameters-3d+is-collide-with-bodies-enabled
            #:physics-point-query-parameters-3d+set-collide-with-areas
            #:physics-point-query-parameters-3d+is-collide-with-areas-enabled
-           #:physics-direct-space-state-3dextension+-intersect-ray
-           #:physics-direct-space-state-3dextension+-intersect-point
-           #:physics-direct-space-state-3dextension+-intersect-shape
-           #:physics-direct-space-state-3dextension+-cast-motion
-           #:physics-direct-space-state-3dextension+-collide-shape
-           #:physics-direct-space-state-3dextension+-rest-info
-           #:physics-direct-space-state-3dextension+-get-closest-point-to-object-volume
+           #:physics-direct-space-state-3dextension+%intersect-ray
+           #:physics-direct-space-state-3dextension+%intersect-point
+           #:physics-direct-space-state-3dextension+%intersect-shape
+           #:physics-direct-space-state-3dextension+%cast-motion
+           #:physics-direct-space-state-3dextension+%collide-shape
+           #:physics-direct-space-state-3dextension+%rest-info
+           #:physics-direct-space-state-3dextension+%get-closest-point-to-object-volume
            #:physics-direct-space-state-3dextension+is-body-excluded-from-query
-           #:physics-direct-body-state-3dextension+-get-total-gravity
-           #:physics-direct-body-state-3dextension+-get-total-linear-damp
-           #:physics-direct-body-state-3dextension+-get-total-angular-damp
-           #:physics-direct-body-state-3dextension+-get-center-of-mass
-           #:physics-direct-body-state-3dextension+-get-center-of-mass-local
-           #:physics-direct-body-state-3dextension+-get-principal-inertia-axes
-           #:physics-direct-body-state-3dextension+-get-inverse-mass
-           #:physics-direct-body-state-3dextension+-get-inverse-inertia
-           #:physics-direct-body-state-3dextension+-get-inverse-inertia-tensor
-           #:physics-direct-body-state-3dextension+-set-linear-velocity
-           #:physics-direct-body-state-3dextension+-get-linear-velocity
-           #:physics-direct-body-state-3dextension+-set-angular-velocity
-           #:physics-direct-body-state-3dextension+-get-angular-velocity
-           #:physics-direct-body-state-3dextension+-set-transform
-           #:physics-direct-body-state-3dextension+-get-transform
-           #:physics-direct-body-state-3dextension+-get-velocity-at-local-position
-           #:physics-direct-body-state-3dextension+-apply-central-impulse
-           #:physics-direct-body-state-3dextension+-apply-impulse
-           #:physics-direct-body-state-3dextension+-apply-torque-impulse
-           #:physics-direct-body-state-3dextension+-apply-central-force
-           #:physics-direct-body-state-3dextension+-apply-force
-           #:physics-direct-body-state-3dextension+-apply-torque
-           #:physics-direct-body-state-3dextension+-add-constant-central-force
-           #:physics-direct-body-state-3dextension+-add-constant-force
-           #:physics-direct-body-state-3dextension+-add-constant-torque
-           #:physics-direct-body-state-3dextension+-set-constant-force
-           #:physics-direct-body-state-3dextension+-get-constant-force
-           #:physics-direct-body-state-3dextension+-set-constant-torque
-           #:physics-direct-body-state-3dextension+-get-constant-torque
-           #:physics-direct-body-state-3dextension+-set-sleep-state
-           #:physics-direct-body-state-3dextension+-is-sleeping
-           #:physics-direct-body-state-3dextension+-set-collision-layer
-           #:physics-direct-body-state-3dextension+-get-collision-layer
-           #:physics-direct-body-state-3dextension+-set-collision-mask
-           #:physics-direct-body-state-3dextension+-get-collision-mask
-           #:physics-direct-body-state-3dextension+-get-contact-count
-           #:physics-direct-body-state-3dextension+-get-contact-local-position
-           #:physics-direct-body-state-3dextension+-get-contact-local-normal
-           #:physics-direct-body-state-3dextension+-get-contact-impulse
-           #:physics-direct-body-state-3dextension+-get-contact-local-shape
-           #:physics-direct-body-state-3dextension+-get-contact-local-velocity-at-position
-           #:physics-direct-body-state-3dextension+-get-contact-collider
-           #:physics-direct-body-state-3dextension+-get-contact-collider-position
-           #:physics-direct-body-state-3dextension+-get-contact-collider-id
-           #:physics-direct-body-state-3dextension+-get-contact-collider-object
-           #:physics-direct-body-state-3dextension+-get-contact-collider-shape
-           #:physics-direct-body-state-3dextension+-get-contact-collider-velocity-at-position
-           #:physics-direct-body-state-3dextension+-get-step
-           #:physics-direct-body-state-3dextension+-integrate-forces
-           #:physics-direct-body-state-3dextension+-get-space-state
-           #:physics-server-3drendering-server-handler+-set-vertex
-           #:physics-server-3drendering-server-handler+-set-normal
-           #:physics-server-3drendering-server-handler+-set-aabb
+           #:physics-direct-body-state-3dextension+%get-total-gravity
+           #:physics-direct-body-state-3dextension+%get-total-linear-damp
+           #:physics-direct-body-state-3dextension+%get-total-angular-damp
+           #:physics-direct-body-state-3dextension+%get-center-of-mass
+           #:physics-direct-body-state-3dextension+%get-center-of-mass-local
+           #:physics-direct-body-state-3dextension+%get-principal-inertia-axes
+           #:physics-direct-body-state-3dextension+%get-inverse-mass
+           #:physics-direct-body-state-3dextension+%get-inverse-inertia
+           #:physics-direct-body-state-3dextension+%get-inverse-inertia-tensor
+           #:physics-direct-body-state-3dextension+%set-linear-velocity
+           #:physics-direct-body-state-3dextension+%get-linear-velocity
+           #:physics-direct-body-state-3dextension+%set-angular-velocity
+           #:physics-direct-body-state-3dextension+%get-angular-velocity
+           #:physics-direct-body-state-3dextension+%set-transform
+           #:physics-direct-body-state-3dextension+%get-transform
+           #:physics-direct-body-state-3dextension+%get-velocity-at-local-position
+           #:physics-direct-body-state-3dextension+%apply-central-impulse
+           #:physics-direct-body-state-3dextension+%apply-impulse
+           #:physics-direct-body-state-3dextension+%apply-torque-impulse
+           #:physics-direct-body-state-3dextension+%apply-central-force
+           #:physics-direct-body-state-3dextension+%apply-force
+           #:physics-direct-body-state-3dextension+%apply-torque
+           #:physics-direct-body-state-3dextension+%add-constant-central-force
+           #:physics-direct-body-state-3dextension+%add-constant-force
+           #:physics-direct-body-state-3dextension+%add-constant-torque
+           #:physics-direct-body-state-3dextension+%set-constant-force
+           #:physics-direct-body-state-3dextension+%get-constant-force
+           #:physics-direct-body-state-3dextension+%set-constant-torque
+           #:physics-direct-body-state-3dextension+%get-constant-torque
+           #:physics-direct-body-state-3dextension+%set-sleep-state
+           #:physics-direct-body-state-3dextension+%is-sleeping
+           #:physics-direct-body-state-3dextension+%set-collision-layer
+           #:physics-direct-body-state-3dextension+%get-collision-layer
+           #:physics-direct-body-state-3dextension+%set-collision-mask
+           #:physics-direct-body-state-3dextension+%get-collision-mask
+           #:physics-direct-body-state-3dextension+%get-contact-count
+           #:physics-direct-body-state-3dextension+%get-contact-local-position
+           #:physics-direct-body-state-3dextension+%get-contact-local-normal
+           #:physics-direct-body-state-3dextension+%get-contact-impulse
+           #:physics-direct-body-state-3dextension+%get-contact-local-shape
+           #:physics-direct-body-state-3dextension+%get-contact-local-velocity-at-position
+           #:physics-direct-body-state-3dextension+%get-contact-collider
+           #:physics-direct-body-state-3dextension+%get-contact-collider-position
+           #:physics-direct-body-state-3dextension+%get-contact-collider-id
+           #:physics-direct-body-state-3dextension+%get-contact-collider-object
+           #:physics-direct-body-state-3dextension+%get-contact-collider-shape
+           #:physics-direct-body-state-3dextension+%get-contact-collider-velocity-at-position
+           #:physics-direct-body-state-3dextension+%get-step
+           #:physics-direct-body-state-3dextension+%integrate-forces
+           #:physics-direct-body-state-3dextension+%get-space-state
+           #:physics-server-3drendering-server-handler+%set-vertex
+           #:physics-server-3drendering-server-handler+%set-normal
+           #:physics-server-3drendering-server-handler+%set-aabb
            #:physics-server-3drendering-server-handler+set-vertex
            #:physics-server-3drendering-server-handler+set-normal
            #:physics-server-3drendering-server-handler+set-aabb
-           #:physics-server-3dextension+-world-boundary-shape-create
-           #:physics-server-3dextension+-separation-ray-shape-create
-           #:physics-server-3dextension+-sphere-shape-create
-           #:physics-server-3dextension+-box-shape-create
-           #:physics-server-3dextension+-capsule-shape-create
-           #:physics-server-3dextension+-cylinder-shape-create
-           #:physics-server-3dextension+-convex-polygon-shape-create
-           #:physics-server-3dextension+-concave-polygon-shape-create
-           #:physics-server-3dextension+-heightmap-shape-create
-           #:physics-server-3dextension+-custom-shape-create
-           #:physics-server-3dextension+-shape-set-data
-           #:physics-server-3dextension+-shape-set-custom-solver-bias
-           #:physics-server-3dextension+-shape-set-margin
-           #:physics-server-3dextension+-shape-get-margin
-           #:physics-server-3dextension+-shape-get-type
-           #:physics-server-3dextension+-shape-get-data
-           #:physics-server-3dextension+-shape-get-custom-solver-bias
-           #:physics-server-3dextension+-space-create
-           #:physics-server-3dextension+-space-set-active
-           #:physics-server-3dextension+-space-is-active
-           #:physics-server-3dextension+-space-set-param
-           #:physics-server-3dextension+-space-get-param
-           #:physics-server-3dextension+-space-get-direct-state
-           #:physics-server-3dextension+-space-set-debug-contacts
-           #:physics-server-3dextension+-space-get-contacts
-           #:physics-server-3dextension+-space-get-contact-count
-           #:physics-server-3dextension+-area-create
-           #:physics-server-3dextension+-area-set-space
-           #:physics-server-3dextension+-area-get-space
-           #:physics-server-3dextension+-area-add-shape
-           #:physics-server-3dextension+-area-set-shape
-           #:physics-server-3dextension+-area-set-shape-transform
-           #:physics-server-3dextension+-area-set-shape-disabled
-           #:physics-server-3dextension+-area-get-shape-count
-           #:physics-server-3dextension+-area-get-shape
-           #:physics-server-3dextension+-area-get-shape-transform
-           #:physics-server-3dextension+-area-remove-shape
-           #:physics-server-3dextension+-area-clear-shapes
-           #:physics-server-3dextension+-area-attach-object-instance-id
-           #:physics-server-3dextension+-area-get-object-instance-id
-           #:physics-server-3dextension+-area-set-param
-           #:physics-server-3dextension+-area-set-transform
-           #:physics-server-3dextension+-area-get-param
-           #:physics-server-3dextension+-area-get-transform
-           #:physics-server-3dextension+-area-set-collision-layer
-           #:physics-server-3dextension+-area-get-collision-layer
-           #:physics-server-3dextension+-area-set-collision-mask
-           #:physics-server-3dextension+-area-get-collision-mask
-           #:physics-server-3dextension+-area-set-monitorable
-           #:physics-server-3dextension+-area-set-ray-pickable
-           #:physics-server-3dextension+-area-set-monitor-callback
-           #:physics-server-3dextension+-area-set-area-monitor-callback
-           #:physics-server-3dextension+-body-create
-           #:physics-server-3dextension+-body-set-space
-           #:physics-server-3dextension+-body-get-space
-           #:physics-server-3dextension+-body-set-mode
-           #:physics-server-3dextension+-body-get-mode
-           #:physics-server-3dextension+-body-add-shape
-           #:physics-server-3dextension+-body-set-shape
-           #:physics-server-3dextension+-body-set-shape-transform
-           #:physics-server-3dextension+-body-set-shape-disabled
-           #:physics-server-3dextension+-body-get-shape-count
-           #:physics-server-3dextension+-body-get-shape
-           #:physics-server-3dextension+-body-get-shape-transform
-           #:physics-server-3dextension+-body-remove-shape
-           #:physics-server-3dextension+-body-clear-shapes
-           #:physics-server-3dextension+-body-attach-object-instance-id
-           #:physics-server-3dextension+-body-get-object-instance-id
-           #:physics-server-3dextension+-body-set-enable-continuous-collision-detection
-           #:physics-server-3dextension+-body-is-continuous-collision-detection-enabled
-           #:physics-server-3dextension+-body-set-collision-layer
-           #:physics-server-3dextension+-body-get-collision-layer
-           #:physics-server-3dextension+-body-set-collision-mask
-           #:physics-server-3dextension+-body-get-collision-mask
-           #:physics-server-3dextension+-body-set-collision-priority
-           #:physics-server-3dextension+-body-get-collision-priority
-           #:physics-server-3dextension+-body-set-user-flags
-           #:physics-server-3dextension+-body-get-user-flags
-           #:physics-server-3dextension+-body-set-param
-           #:physics-server-3dextension+-body-get-param
-           #:physics-server-3dextension+-body-reset-mass-properties
-           #:physics-server-3dextension+-body-set-state
-           #:physics-server-3dextension+-body-get-state
-           #:physics-server-3dextension+-body-apply-central-impulse
-           #:physics-server-3dextension+-body-apply-impulse
-           #:physics-server-3dextension+-body-apply-torque-impulse
-           #:physics-server-3dextension+-body-apply-central-force
-           #:physics-server-3dextension+-body-apply-force
-           #:physics-server-3dextension+-body-apply-torque
-           #:physics-server-3dextension+-body-add-constant-central-force
-           #:physics-server-3dextension+-body-add-constant-force
-           #:physics-server-3dextension+-body-add-constant-torque
-           #:physics-server-3dextension+-body-set-constant-force
-           #:physics-server-3dextension+-body-get-constant-force
-           #:physics-server-3dextension+-body-set-constant-torque
-           #:physics-server-3dextension+-body-get-constant-torque
-           #:physics-server-3dextension+-body-set-axis-velocity
-           #:physics-server-3dextension+-body-set-axis-lock
-           #:physics-server-3dextension+-body-is-axis-locked
-           #:physics-server-3dextension+-body-add-collision-exception
-           #:physics-server-3dextension+-body-remove-collision-exception
-           #:physics-server-3dextension+-body-get-collision-exceptions
-           #:physics-server-3dextension+-body-set-max-contacts-reported
-           #:physics-server-3dextension+-body-get-max-contacts-reported
-           #:physics-server-3dextension+-body-set-contacts-reported-depth-threshold
-           #:physics-server-3dextension+-body-get-contacts-reported-depth-threshold
-           #:physics-server-3dextension+-body-set-omit-force-integration
-           #:physics-server-3dextension+-body-is-omitting-force-integration
-           #:physics-server-3dextension+-body-set-state-sync-callback
-           #:physics-server-3dextension+-body-set-force-integration-callback
-           #:physics-server-3dextension+-body-set-ray-pickable
-           #:physics-server-3dextension+-body-test-motion
-           #:physics-server-3dextension+-body-get-direct-state
-           #:physics-server-3dextension+-soft-body-create
-           #:physics-server-3dextension+-soft-body-update-rendering-server
-           #:physics-server-3dextension+-soft-body-set-space
-           #:physics-server-3dextension+-soft-body-get-space
-           #:physics-server-3dextension+-soft-body-set-ray-pickable
-           #:physics-server-3dextension+-soft-body-set-collision-layer
-           #:physics-server-3dextension+-soft-body-get-collision-layer
-           #:physics-server-3dextension+-soft-body-set-collision-mask
-           #:physics-server-3dextension+-soft-body-get-collision-mask
-           #:physics-server-3dextension+-soft-body-add-collision-exception
-           #:physics-server-3dextension+-soft-body-remove-collision-exception
-           #:physics-server-3dextension+-soft-body-get-collision-exceptions
-           #:physics-server-3dextension+-soft-body-set-state
-           #:physics-server-3dextension+-soft-body-get-state
-           #:physics-server-3dextension+-soft-body-set-transform
-           #:physics-server-3dextension+-soft-body-set-simulation-precision
-           #:physics-server-3dextension+-soft-body-get-simulation-precision
-           #:physics-server-3dextension+-soft-body-set-total-mass
-           #:physics-server-3dextension+-soft-body-get-total-mass
-           #:physics-server-3dextension+-soft-body-set-linear-stiffness
-           #:physics-server-3dextension+-soft-body-get-linear-stiffness
-           #:physics-server-3dextension+-soft-body-set-shrinking-factor
-           #:physics-server-3dextension+-soft-body-get-shrinking-factor
-           #:physics-server-3dextension+-soft-body-set-pressure-coefficient
-           #:physics-server-3dextension+-soft-body-get-pressure-coefficient
-           #:physics-server-3dextension+-soft-body-set-damping-coefficient
-           #:physics-server-3dextension+-soft-body-get-damping-coefficient
-           #:physics-server-3dextension+-soft-body-set-drag-coefficient
-           #:physics-server-3dextension+-soft-body-get-drag-coefficient
-           #:physics-server-3dextension+-soft-body-set-mesh
-           #:physics-server-3dextension+-soft-body-get-bounds
-           #:physics-server-3dextension+-soft-body-move-point
-           #:physics-server-3dextension+-soft-body-get-point-global-position
-           #:physics-server-3dextension+-soft-body-remove-all-pinned-points
-           #:physics-server-3dextension+-soft-body-pin-point
-           #:physics-server-3dextension+-soft-body-is-point-pinned
-           #:physics-server-3dextension+-soft-body-apply-point-impulse
-           #:physics-server-3dextension+-soft-body-apply-point-force
-           #:physics-server-3dextension+-soft-body-apply-central-impulse
-           #:physics-server-3dextension+-soft-body-apply-central-force
-           #:physics-server-3dextension+-joint-create
-           #:physics-server-3dextension+-joint-clear
-           #:physics-server-3dextension+-joint-make-pin
-           #:physics-server-3dextension+-pin-joint-set-param
-           #:physics-server-3dextension+-pin-joint-get-param
-           #:physics-server-3dextension+-pin-joint-set-local-a
-           #:physics-server-3dextension+-pin-joint-get-local-a
-           #:physics-server-3dextension+-pin-joint-set-local-b
-           #:physics-server-3dextension+-pin-joint-get-local-b
-           #:physics-server-3dextension+-joint-make-hinge
-           #:physics-server-3dextension+-joint-make-hinge-simple
-           #:physics-server-3dextension+-hinge-joint-set-param
-           #:physics-server-3dextension+-hinge-joint-get-param
-           #:physics-server-3dextension+-hinge-joint-set-flag
-           #:physics-server-3dextension+-hinge-joint-get-flag
-           #:physics-server-3dextension+-joint-make-slider
-           #:physics-server-3dextension+-slider-joint-set-param
-           #:physics-server-3dextension+-slider-joint-get-param
-           #:physics-server-3dextension+-joint-make-cone-twist
-           #:physics-server-3dextension+-cone-twist-joint-set-param
-           #:physics-server-3dextension+-cone-twist-joint-get-param
-           #:physics-server-3dextension+-joint-make-generic-6dof
-           #:physics-server-3dextension+-generic-6dof-joint-set-param
-           #:physics-server-3dextension+-generic-6dof-joint-get-param
-           #:physics-server-3dextension+-generic-6dof-joint-set-flag
-           #:physics-server-3dextension+-generic-6dof-joint-get-flag
-           #:physics-server-3dextension+-joint-get-type
-           #:physics-server-3dextension+-joint-set-solver-priority
-           #:physics-server-3dextension+-joint-get-solver-priority
-           #:physics-server-3dextension+-joint-disable-collisions-between-bodies
-           #:physics-server-3dextension+-joint-is-disabled-collisions-between-bodies
-           #:physics-server-3dextension+-free-rid
-           #:physics-server-3dextension+-set-active
-           #:physics-server-3dextension+-init
-           #:physics-server-3dextension+-step
-           #:physics-server-3dextension+-sync
-           #:physics-server-3dextension+-flush-queries
-           #:physics-server-3dextension+-end-sync
-           #:physics-server-3dextension+-finish
-           #:physics-server-3dextension+-is-flushing-queries
-           #:physics-server-3dextension+-get-process-info
+           #:physics-server-3dextension+%world-boundary-shape-create
+           #:physics-server-3dextension+%separation-ray-shape-create
+           #:physics-server-3dextension+%sphere-shape-create
+           #:physics-server-3dextension+%box-shape-create
+           #:physics-server-3dextension+%capsule-shape-create
+           #:physics-server-3dextension+%cylinder-shape-create
+           #:physics-server-3dextension+%convex-polygon-shape-create
+           #:physics-server-3dextension+%concave-polygon-shape-create
+           #:physics-server-3dextension+%heightmap-shape-create
+           #:physics-server-3dextension+%custom-shape-create
+           #:physics-server-3dextension+%shape-set-data
+           #:physics-server-3dextension+%shape-set-custom-solver-bias
+           #:physics-server-3dextension+%shape-set-margin
+           #:physics-server-3dextension+%shape-get-margin
+           #:physics-server-3dextension+%shape-get-type
+           #:physics-server-3dextension+%shape-get-data
+           #:physics-server-3dextension+%shape-get-custom-solver-bias
+           #:physics-server-3dextension+%space-create
+           #:physics-server-3dextension+%space-set-active
+           #:physics-server-3dextension+%space-is-active
+           #:physics-server-3dextension+%space-set-param
+           #:physics-server-3dextension+%space-get-param
+           #:physics-server-3dextension+%space-get-direct-state
+           #:physics-server-3dextension+%space-set-debug-contacts
+           #:physics-server-3dextension+%space-get-contacts
+           #:physics-server-3dextension+%space-get-contact-count
+           #:physics-server-3dextension+%area-create
+           #:physics-server-3dextension+%area-set-space
+           #:physics-server-3dextension+%area-get-space
+           #:physics-server-3dextension+%area-add-shape
+           #:physics-server-3dextension+%area-set-shape
+           #:physics-server-3dextension+%area-set-shape-transform
+           #:physics-server-3dextension+%area-set-shape-disabled
+           #:physics-server-3dextension+%area-get-shape-count
+           #:physics-server-3dextension+%area-get-shape
+           #:physics-server-3dextension+%area-get-shape-transform
+           #:physics-server-3dextension+%area-remove-shape
+           #:physics-server-3dextension+%area-clear-shapes
+           #:physics-server-3dextension+%area-attach-object-instance-id
+           #:physics-server-3dextension+%area-get-object-instance-id
+           #:physics-server-3dextension+%area-set-param
+           #:physics-server-3dextension+%area-set-transform
+           #:physics-server-3dextension+%area-get-param
+           #:physics-server-3dextension+%area-get-transform
+           #:physics-server-3dextension+%area-set-collision-layer
+           #:physics-server-3dextension+%area-get-collision-layer
+           #:physics-server-3dextension+%area-set-collision-mask
+           #:physics-server-3dextension+%area-get-collision-mask
+           #:physics-server-3dextension+%area-set-monitorable
+           #:physics-server-3dextension+%area-set-ray-pickable
+           #:physics-server-3dextension+%area-set-monitor-callback
+           #:physics-server-3dextension+%area-set-area-monitor-callback
+           #:physics-server-3dextension+%body-create
+           #:physics-server-3dextension+%body-set-space
+           #:physics-server-3dextension+%body-get-space
+           #:physics-server-3dextension+%body-set-mode
+           #:physics-server-3dextension+%body-get-mode
+           #:physics-server-3dextension+%body-add-shape
+           #:physics-server-3dextension+%body-set-shape
+           #:physics-server-3dextension+%body-set-shape-transform
+           #:physics-server-3dextension+%body-set-shape-disabled
+           #:physics-server-3dextension+%body-get-shape-count
+           #:physics-server-3dextension+%body-get-shape
+           #:physics-server-3dextension+%body-get-shape-transform
+           #:physics-server-3dextension+%body-remove-shape
+           #:physics-server-3dextension+%body-clear-shapes
+           #:physics-server-3dextension+%body-attach-object-instance-id
+           #:physics-server-3dextension+%body-get-object-instance-id
+           #:physics-server-3dextension+%body-set-enable-continuous-collision-detection
+           #:physics-server-3dextension+%body-is-continuous-collision-detection-enabled
+           #:physics-server-3dextension+%body-set-collision-layer
+           #:physics-server-3dextension+%body-get-collision-layer
+           #:physics-server-3dextension+%body-set-collision-mask
+           #:physics-server-3dextension+%body-get-collision-mask
+           #:physics-server-3dextension+%body-set-collision-priority
+           #:physics-server-3dextension+%body-get-collision-priority
+           #:physics-server-3dextension+%body-set-user-flags
+           #:physics-server-3dextension+%body-get-user-flags
+           #:physics-server-3dextension+%body-set-param
+           #:physics-server-3dextension+%body-get-param
+           #:physics-server-3dextension+%body-reset-mass-properties
+           #:physics-server-3dextension+%body-set-state
+           #:physics-server-3dextension+%body-get-state
+           #:physics-server-3dextension+%body-apply-central-impulse
+           #:physics-server-3dextension+%body-apply-impulse
+           #:physics-server-3dextension+%body-apply-torque-impulse
+           #:physics-server-3dextension+%body-apply-central-force
+           #:physics-server-3dextension+%body-apply-force
+           #:physics-server-3dextension+%body-apply-torque
+           #:physics-server-3dextension+%body-add-constant-central-force
+           #:physics-server-3dextension+%body-add-constant-force
+           #:physics-server-3dextension+%body-add-constant-torque
+           #:physics-server-3dextension+%body-set-constant-force
+           #:physics-server-3dextension+%body-get-constant-force
+           #:physics-server-3dextension+%body-set-constant-torque
+           #:physics-server-3dextension+%body-get-constant-torque
+           #:physics-server-3dextension+%body-set-axis-velocity
+           #:physics-server-3dextension+%body-set-axis-lock
+           #:physics-server-3dextension+%body-is-axis-locked
+           #:physics-server-3dextension+%body-add-collision-exception
+           #:physics-server-3dextension+%body-remove-collision-exception
+           #:physics-server-3dextension+%body-get-collision-exceptions
+           #:physics-server-3dextension+%body-set-max-contacts-reported
+           #:physics-server-3dextension+%body-get-max-contacts-reported
+           #:physics-server-3dextension+%body-set-contacts-reported-depth-threshold
+           #:physics-server-3dextension+%body-get-contacts-reported-depth-threshold
+           #:physics-server-3dextension+%body-set-omit-force-integration
+           #:physics-server-3dextension+%body-is-omitting-force-integration
+           #:physics-server-3dextension+%body-set-state-sync-callback
+           #:physics-server-3dextension+%body-set-force-integration-callback
+           #:physics-server-3dextension+%body-set-ray-pickable
+           #:physics-server-3dextension+%body-test-motion
+           #:physics-server-3dextension+%body-get-direct-state
+           #:physics-server-3dextension+%soft-body-create
+           #:physics-server-3dextension+%soft-body-update-rendering-server
+           #:physics-server-3dextension+%soft-body-set-space
+           #:physics-server-3dextension+%soft-body-get-space
+           #:physics-server-3dextension+%soft-body-set-ray-pickable
+           #:physics-server-3dextension+%soft-body-set-collision-layer
+           #:physics-server-3dextension+%soft-body-get-collision-layer
+           #:physics-server-3dextension+%soft-body-set-collision-mask
+           #:physics-server-3dextension+%soft-body-get-collision-mask
+           #:physics-server-3dextension+%soft-body-add-collision-exception
+           #:physics-server-3dextension+%soft-body-remove-collision-exception
+           #:physics-server-3dextension+%soft-body-get-collision-exceptions
+           #:physics-server-3dextension+%soft-body-set-state
+           #:physics-server-3dextension+%soft-body-get-state
+           #:physics-server-3dextension+%soft-body-set-transform
+           #:physics-server-3dextension+%soft-body-set-simulation-precision
+           #:physics-server-3dextension+%soft-body-get-simulation-precision
+           #:physics-server-3dextension+%soft-body-set-total-mass
+           #:physics-server-3dextension+%soft-body-get-total-mass
+           #:physics-server-3dextension+%soft-body-set-linear-stiffness
+           #:physics-server-3dextension+%soft-body-get-linear-stiffness
+           #:physics-server-3dextension+%soft-body-set-shrinking-factor
+           #:physics-server-3dextension+%soft-body-get-shrinking-factor
+           #:physics-server-3dextension+%soft-body-set-pressure-coefficient
+           #:physics-server-3dextension+%soft-body-get-pressure-coefficient
+           #:physics-server-3dextension+%soft-body-set-damping-coefficient
+           #:physics-server-3dextension+%soft-body-get-damping-coefficient
+           #:physics-server-3dextension+%soft-body-set-drag-coefficient
+           #:physics-server-3dextension+%soft-body-get-drag-coefficient
+           #:physics-server-3dextension+%soft-body-set-mesh
+           #:physics-server-3dextension+%soft-body-get-bounds
+           #:physics-server-3dextension+%soft-body-move-point
+           #:physics-server-3dextension+%soft-body-get-point-global-position
+           #:physics-server-3dextension+%soft-body-remove-all-pinned-points
+           #:physics-server-3dextension+%soft-body-pin-point
+           #:physics-server-3dextension+%soft-body-is-point-pinned
+           #:physics-server-3dextension+%soft-body-apply-point-impulse
+           #:physics-server-3dextension+%soft-body-apply-point-force
+           #:physics-server-3dextension+%soft-body-apply-central-impulse
+           #:physics-server-3dextension+%soft-body-apply-central-force
+           #:physics-server-3dextension+%joint-create
+           #:physics-server-3dextension+%joint-clear
+           #:physics-server-3dextension+%joint-make-pin
+           #:physics-server-3dextension+%pin-joint-set-param
+           #:physics-server-3dextension+%pin-joint-get-param
+           #:physics-server-3dextension+%pin-joint-set-local-a
+           #:physics-server-3dextension+%pin-joint-get-local-a
+           #:physics-server-3dextension+%pin-joint-set-local-b
+           #:physics-server-3dextension+%pin-joint-get-local-b
+           #:physics-server-3dextension+%joint-make-hinge
+           #:physics-server-3dextension+%joint-make-hinge-simple
+           #:physics-server-3dextension+%hinge-joint-set-param
+           #:physics-server-3dextension+%hinge-joint-get-param
+           #:physics-server-3dextension+%hinge-joint-set-flag
+           #:physics-server-3dextension+%hinge-joint-get-flag
+           #:physics-server-3dextension+%joint-make-slider
+           #:physics-server-3dextension+%slider-joint-set-param
+           #:physics-server-3dextension+%slider-joint-get-param
+           #:physics-server-3dextension+%joint-make-cone-twist
+           #:physics-server-3dextension+%cone-twist-joint-set-param
+           #:physics-server-3dextension+%cone-twist-joint-get-param
+           #:physics-server-3dextension+%joint-make-generic-6dof
+           #:physics-server-3dextension+%generic-6dof-joint-set-param
+           #:physics-server-3dextension+%generic-6dof-joint-get-param
+           #:physics-server-3dextension+%generic-6dof-joint-set-flag
+           #:physics-server-3dextension+%generic-6dof-joint-get-flag
+           #:physics-server-3dextension+%joint-get-type
+           #:physics-server-3dextension+%joint-set-solver-priority
+           #:physics-server-3dextension+%joint-get-solver-priority
+           #:physics-server-3dextension+%joint-disable-collisions-between-bodies
+           #:physics-server-3dextension+%joint-is-disabled-collisions-between-bodies
+           #:physics-server-3dextension+%free-rid
+           #:physics-server-3dextension+%set-active
+           #:physics-server-3dextension+%init
+           #:physics-server-3dextension+%step
+           #:physics-server-3dextension+%sync
+           #:physics-server-3dextension+%flush-queries
+           #:physics-server-3dextension+%end-sync
+           #:physics-server-3dextension+%finish
+           #:physics-server-3dextension+%is-flushing-queries
+           #:physics-server-3dextension+%get-process-info
            #:physics-server-3dextension+body-test-motion-is-excluding-body
            #:physics-server-3dextension+body-test-motion-is-excluding-object
            #:navigation-path-query-result-3d+set-path
@@ -11308,199 +11308,199 @@
            #:physics-point-query-parameters-2d+is-collide-with-bodies-enabled
            #:physics-point-query-parameters-2d+set-collide-with-areas
            #:physics-point-query-parameters-2d+is-collide-with-areas-enabled
-           #:physics-direct-space-state-2dextension+-intersect-ray
-           #:physics-direct-space-state-2dextension+-intersect-point
-           #:physics-direct-space-state-2dextension+-intersect-shape
-           #:physics-direct-space-state-2dextension+-cast-motion
-           #:physics-direct-space-state-2dextension+-collide-shape
-           #:physics-direct-space-state-2dextension+-rest-info
+           #:physics-direct-space-state-2dextension+%intersect-ray
+           #:physics-direct-space-state-2dextension+%intersect-point
+           #:physics-direct-space-state-2dextension+%intersect-shape
+           #:physics-direct-space-state-2dextension+%cast-motion
+           #:physics-direct-space-state-2dextension+%collide-shape
+           #:physics-direct-space-state-2dextension+%rest-info
            #:physics-direct-space-state-2dextension+is-body-excluded-from-query
-           #:physics-direct-body-state-2dextension+-get-total-gravity
-           #:physics-direct-body-state-2dextension+-get-total-linear-damp
-           #:physics-direct-body-state-2dextension+-get-total-angular-damp
-           #:physics-direct-body-state-2dextension+-get-center-of-mass
-           #:physics-direct-body-state-2dextension+-get-center-of-mass-local
-           #:physics-direct-body-state-2dextension+-get-inverse-mass
-           #:physics-direct-body-state-2dextension+-get-inverse-inertia
-           #:physics-direct-body-state-2dextension+-set-linear-velocity
-           #:physics-direct-body-state-2dextension+-get-linear-velocity
-           #:physics-direct-body-state-2dextension+-set-angular-velocity
-           #:physics-direct-body-state-2dextension+-get-angular-velocity
-           #:physics-direct-body-state-2dextension+-set-transform
-           #:physics-direct-body-state-2dextension+-get-transform
-           #:physics-direct-body-state-2dextension+-get-velocity-at-local-position
-           #:physics-direct-body-state-2dextension+-apply-central-impulse
-           #:physics-direct-body-state-2dextension+-apply-impulse
-           #:physics-direct-body-state-2dextension+-apply-torque-impulse
-           #:physics-direct-body-state-2dextension+-apply-central-force
-           #:physics-direct-body-state-2dextension+-apply-force
-           #:physics-direct-body-state-2dextension+-apply-torque
-           #:physics-direct-body-state-2dextension+-add-constant-central-force
-           #:physics-direct-body-state-2dextension+-add-constant-force
-           #:physics-direct-body-state-2dextension+-add-constant-torque
-           #:physics-direct-body-state-2dextension+-set-constant-force
-           #:physics-direct-body-state-2dextension+-get-constant-force
-           #:physics-direct-body-state-2dextension+-set-constant-torque
-           #:physics-direct-body-state-2dextension+-get-constant-torque
-           #:physics-direct-body-state-2dextension+-set-sleep-state
-           #:physics-direct-body-state-2dextension+-is-sleeping
-           #:physics-direct-body-state-2dextension+-set-collision-layer
-           #:physics-direct-body-state-2dextension+-get-collision-layer
-           #:physics-direct-body-state-2dextension+-set-collision-mask
-           #:physics-direct-body-state-2dextension+-get-collision-mask
-           #:physics-direct-body-state-2dextension+-get-contact-count
-           #:physics-direct-body-state-2dextension+-get-contact-local-position
-           #:physics-direct-body-state-2dextension+-get-contact-local-normal
-           #:physics-direct-body-state-2dextension+-get-contact-local-shape
-           #:physics-direct-body-state-2dextension+-get-contact-local-velocity-at-position
-           #:physics-direct-body-state-2dextension+-get-contact-collider
-           #:physics-direct-body-state-2dextension+-get-contact-collider-position
-           #:physics-direct-body-state-2dextension+-get-contact-collider-id
-           #:physics-direct-body-state-2dextension+-get-contact-collider-object
-           #:physics-direct-body-state-2dextension+-get-contact-collider-shape
-           #:physics-direct-body-state-2dextension+-get-contact-collider-velocity-at-position
-           #:physics-direct-body-state-2dextension+-get-contact-impulse
-           #:physics-direct-body-state-2dextension+-get-step
-           #:physics-direct-body-state-2dextension+-integrate-forces
-           #:physics-direct-body-state-2dextension+-get-space-state
-           #:physics-server-2dextension+-world-boundary-shape-create
-           #:physics-server-2dextension+-separation-ray-shape-create
-           #:physics-server-2dextension+-segment-shape-create
-           #:physics-server-2dextension+-circle-shape-create
-           #:physics-server-2dextension+-rectangle-shape-create
-           #:physics-server-2dextension+-capsule-shape-create
-           #:physics-server-2dextension+-convex-polygon-shape-create
-           #:physics-server-2dextension+-concave-polygon-shape-create
-           #:physics-server-2dextension+-shape-set-data
-           #:physics-server-2dextension+-shape-set-custom-solver-bias
-           #:physics-server-2dextension+-shape-get-type
-           #:physics-server-2dextension+-shape-get-data
-           #:physics-server-2dextension+-shape-get-custom-solver-bias
-           #:physics-server-2dextension+-shape-collide
-           #:physics-server-2dextension+-space-create
-           #:physics-server-2dextension+-space-set-active
-           #:physics-server-2dextension+-space-is-active
-           #:physics-server-2dextension+-space-set-param
-           #:physics-server-2dextension+-space-get-param
-           #:physics-server-2dextension+-space-get-direct-state
-           #:physics-server-2dextension+-space-set-debug-contacts
-           #:physics-server-2dextension+-space-get-contacts
-           #:physics-server-2dextension+-space-get-contact-count
-           #:physics-server-2dextension+-area-create
-           #:physics-server-2dextension+-area-set-space
-           #:physics-server-2dextension+-area-get-space
-           #:physics-server-2dextension+-area-add-shape
-           #:physics-server-2dextension+-area-set-shape
-           #:physics-server-2dextension+-area-set-shape-transform
-           #:physics-server-2dextension+-area-set-shape-disabled
-           #:physics-server-2dextension+-area-get-shape-count
-           #:physics-server-2dextension+-area-get-shape
-           #:physics-server-2dextension+-area-get-shape-transform
-           #:physics-server-2dextension+-area-remove-shape
-           #:physics-server-2dextension+-area-clear-shapes
-           #:physics-server-2dextension+-area-attach-object-instance-id
-           #:physics-server-2dextension+-area-get-object-instance-id
-           #:physics-server-2dextension+-area-attach-canvas-instance-id
-           #:physics-server-2dextension+-area-get-canvas-instance-id
-           #:physics-server-2dextension+-area-set-param
-           #:physics-server-2dextension+-area-set-transform
-           #:physics-server-2dextension+-area-get-param
-           #:physics-server-2dextension+-area-get-transform
-           #:physics-server-2dextension+-area-set-collision-layer
-           #:physics-server-2dextension+-area-get-collision-layer
-           #:physics-server-2dextension+-area-set-collision-mask
-           #:physics-server-2dextension+-area-get-collision-mask
-           #:physics-server-2dextension+-area-set-monitorable
-           #:physics-server-2dextension+-area-set-pickable
-           #:physics-server-2dextension+-area-set-monitor-callback
-           #:physics-server-2dextension+-area-set-area-monitor-callback
-           #:physics-server-2dextension+-body-create
-           #:physics-server-2dextension+-body-set-space
-           #:physics-server-2dextension+-body-get-space
-           #:physics-server-2dextension+-body-set-mode
-           #:physics-server-2dextension+-body-get-mode
-           #:physics-server-2dextension+-body-add-shape
-           #:physics-server-2dextension+-body-set-shape
-           #:physics-server-2dextension+-body-set-shape-transform
-           #:physics-server-2dextension+-body-get-shape-count
-           #:physics-server-2dextension+-body-get-shape
-           #:physics-server-2dextension+-body-get-shape-transform
-           #:physics-server-2dextension+-body-set-shape-disabled
-           #:physics-server-2dextension+-body-set-shape-as-one-way-collision
-           #:physics-server-2dextension+-body-remove-shape
-           #:physics-server-2dextension+-body-clear-shapes
-           #:physics-server-2dextension+-body-attach-object-instance-id
-           #:physics-server-2dextension+-body-get-object-instance-id
-           #:physics-server-2dextension+-body-attach-canvas-instance-id
-           #:physics-server-2dextension+-body-get-canvas-instance-id
-           #:physics-server-2dextension+-body-set-continuous-collision-detection-mode
-           #:physics-server-2dextension+-body-get-continuous-collision-detection-mode
-           #:physics-server-2dextension+-body-set-collision-layer
-           #:physics-server-2dextension+-body-get-collision-layer
-           #:physics-server-2dextension+-body-set-collision-mask
-           #:physics-server-2dextension+-body-get-collision-mask
-           #:physics-server-2dextension+-body-set-collision-priority
-           #:physics-server-2dextension+-body-get-collision-priority
-           #:physics-server-2dextension+-body-set-param
-           #:physics-server-2dextension+-body-get-param
-           #:physics-server-2dextension+-body-reset-mass-properties
-           #:physics-server-2dextension+-body-set-state
-           #:physics-server-2dextension+-body-get-state
-           #:physics-server-2dextension+-body-apply-central-impulse
-           #:physics-server-2dextension+-body-apply-torque-impulse
-           #:physics-server-2dextension+-body-apply-impulse
-           #:physics-server-2dextension+-body-apply-central-force
-           #:physics-server-2dextension+-body-apply-force
-           #:physics-server-2dextension+-body-apply-torque
-           #:physics-server-2dextension+-body-add-constant-central-force
-           #:physics-server-2dextension+-body-add-constant-force
-           #:physics-server-2dextension+-body-add-constant-torque
-           #:physics-server-2dextension+-body-set-constant-force
-           #:physics-server-2dextension+-body-get-constant-force
-           #:physics-server-2dextension+-body-set-constant-torque
-           #:physics-server-2dextension+-body-get-constant-torque
-           #:physics-server-2dextension+-body-set-axis-velocity
-           #:physics-server-2dextension+-body-add-collision-exception
-           #:physics-server-2dextension+-body-remove-collision-exception
-           #:physics-server-2dextension+-body-get-collision-exceptions
-           #:physics-server-2dextension+-body-set-max-contacts-reported
-           #:physics-server-2dextension+-body-get-max-contacts-reported
-           #:physics-server-2dextension+-body-set-contacts-reported-depth-threshold
-           #:physics-server-2dextension+-body-get-contacts-reported-depth-threshold
-           #:physics-server-2dextension+-body-set-omit-force-integration
-           #:physics-server-2dextension+-body-is-omitting-force-integration
-           #:physics-server-2dextension+-body-set-state-sync-callback
-           #:physics-server-2dextension+-body-set-force-integration-callback
-           #:physics-server-2dextension+-body-collide-shape
-           #:physics-server-2dextension+-body-set-pickable
-           #:physics-server-2dextension+-body-get-direct-state
-           #:physics-server-2dextension+-body-test-motion
-           #:physics-server-2dextension+-joint-create
-           #:physics-server-2dextension+-joint-clear
-           #:physics-server-2dextension+-joint-set-param
-           #:physics-server-2dextension+-joint-get-param
-           #:physics-server-2dextension+-joint-disable-collisions-between-bodies
-           #:physics-server-2dextension+-joint-is-disabled-collisions-between-bodies
-           #:physics-server-2dextension+-joint-make-pin
-           #:physics-server-2dextension+-joint-make-groove
-           #:physics-server-2dextension+-joint-make-damped-spring
-           #:physics-server-2dextension+-pin-joint-set-flag
-           #:physics-server-2dextension+-pin-joint-get-flag
-           #:physics-server-2dextension+-pin-joint-set-param
-           #:physics-server-2dextension+-pin-joint-get-param
-           #:physics-server-2dextension+-damped-spring-joint-set-param
-           #:physics-server-2dextension+-damped-spring-joint-get-param
-           #:physics-server-2dextension+-joint-get-type
-           #:physics-server-2dextension+-free-rid
-           #:physics-server-2dextension+-set-active
-           #:physics-server-2dextension+-init
-           #:physics-server-2dextension+-step
-           #:physics-server-2dextension+-sync
-           #:physics-server-2dextension+-flush-queries
-           #:physics-server-2dextension+-end-sync
-           #:physics-server-2dextension+-finish
-           #:physics-server-2dextension+-is-flushing-queries
-           #:physics-server-2dextension+-get-process-info
+           #:physics-direct-body-state-2dextension+%get-total-gravity
+           #:physics-direct-body-state-2dextension+%get-total-linear-damp
+           #:physics-direct-body-state-2dextension+%get-total-angular-damp
+           #:physics-direct-body-state-2dextension+%get-center-of-mass
+           #:physics-direct-body-state-2dextension+%get-center-of-mass-local
+           #:physics-direct-body-state-2dextension+%get-inverse-mass
+           #:physics-direct-body-state-2dextension+%get-inverse-inertia
+           #:physics-direct-body-state-2dextension+%set-linear-velocity
+           #:physics-direct-body-state-2dextension+%get-linear-velocity
+           #:physics-direct-body-state-2dextension+%set-angular-velocity
+           #:physics-direct-body-state-2dextension+%get-angular-velocity
+           #:physics-direct-body-state-2dextension+%set-transform
+           #:physics-direct-body-state-2dextension+%get-transform
+           #:physics-direct-body-state-2dextension+%get-velocity-at-local-position
+           #:physics-direct-body-state-2dextension+%apply-central-impulse
+           #:physics-direct-body-state-2dextension+%apply-impulse
+           #:physics-direct-body-state-2dextension+%apply-torque-impulse
+           #:physics-direct-body-state-2dextension+%apply-central-force
+           #:physics-direct-body-state-2dextension+%apply-force
+           #:physics-direct-body-state-2dextension+%apply-torque
+           #:physics-direct-body-state-2dextension+%add-constant-central-force
+           #:physics-direct-body-state-2dextension+%add-constant-force
+           #:physics-direct-body-state-2dextension+%add-constant-torque
+           #:physics-direct-body-state-2dextension+%set-constant-force
+           #:physics-direct-body-state-2dextension+%get-constant-force
+           #:physics-direct-body-state-2dextension+%set-constant-torque
+           #:physics-direct-body-state-2dextension+%get-constant-torque
+           #:physics-direct-body-state-2dextension+%set-sleep-state
+           #:physics-direct-body-state-2dextension+%is-sleeping
+           #:physics-direct-body-state-2dextension+%set-collision-layer
+           #:physics-direct-body-state-2dextension+%get-collision-layer
+           #:physics-direct-body-state-2dextension+%set-collision-mask
+           #:physics-direct-body-state-2dextension+%get-collision-mask
+           #:physics-direct-body-state-2dextension+%get-contact-count
+           #:physics-direct-body-state-2dextension+%get-contact-local-position
+           #:physics-direct-body-state-2dextension+%get-contact-local-normal
+           #:physics-direct-body-state-2dextension+%get-contact-local-shape
+           #:physics-direct-body-state-2dextension+%get-contact-local-velocity-at-position
+           #:physics-direct-body-state-2dextension+%get-contact-collider
+           #:physics-direct-body-state-2dextension+%get-contact-collider-position
+           #:physics-direct-body-state-2dextension+%get-contact-collider-id
+           #:physics-direct-body-state-2dextension+%get-contact-collider-object
+           #:physics-direct-body-state-2dextension+%get-contact-collider-shape
+           #:physics-direct-body-state-2dextension+%get-contact-collider-velocity-at-position
+           #:physics-direct-body-state-2dextension+%get-contact-impulse
+           #:physics-direct-body-state-2dextension+%get-step
+           #:physics-direct-body-state-2dextension+%integrate-forces
+           #:physics-direct-body-state-2dextension+%get-space-state
+           #:physics-server-2dextension+%world-boundary-shape-create
+           #:physics-server-2dextension+%separation-ray-shape-create
+           #:physics-server-2dextension+%segment-shape-create
+           #:physics-server-2dextension+%circle-shape-create
+           #:physics-server-2dextension+%rectangle-shape-create
+           #:physics-server-2dextension+%capsule-shape-create
+           #:physics-server-2dextension+%convex-polygon-shape-create
+           #:physics-server-2dextension+%concave-polygon-shape-create
+           #:physics-server-2dextension+%shape-set-data
+           #:physics-server-2dextension+%shape-set-custom-solver-bias
+           #:physics-server-2dextension+%shape-get-type
+           #:physics-server-2dextension+%shape-get-data
+           #:physics-server-2dextension+%shape-get-custom-solver-bias
+           #:physics-server-2dextension+%shape-collide
+           #:physics-server-2dextension+%space-create
+           #:physics-server-2dextension+%space-set-active
+           #:physics-server-2dextension+%space-is-active
+           #:physics-server-2dextension+%space-set-param
+           #:physics-server-2dextension+%space-get-param
+           #:physics-server-2dextension+%space-get-direct-state
+           #:physics-server-2dextension+%space-set-debug-contacts
+           #:physics-server-2dextension+%space-get-contacts
+           #:physics-server-2dextension+%space-get-contact-count
+           #:physics-server-2dextension+%area-create
+           #:physics-server-2dextension+%area-set-space
+           #:physics-server-2dextension+%area-get-space
+           #:physics-server-2dextension+%area-add-shape
+           #:physics-server-2dextension+%area-set-shape
+           #:physics-server-2dextension+%area-set-shape-transform
+           #:physics-server-2dextension+%area-set-shape-disabled
+           #:physics-server-2dextension+%area-get-shape-count
+           #:physics-server-2dextension+%area-get-shape
+           #:physics-server-2dextension+%area-get-shape-transform
+           #:physics-server-2dextension+%area-remove-shape
+           #:physics-server-2dextension+%area-clear-shapes
+           #:physics-server-2dextension+%area-attach-object-instance-id
+           #:physics-server-2dextension+%area-get-object-instance-id
+           #:physics-server-2dextension+%area-attach-canvas-instance-id
+           #:physics-server-2dextension+%area-get-canvas-instance-id
+           #:physics-server-2dextension+%area-set-param
+           #:physics-server-2dextension+%area-set-transform
+           #:physics-server-2dextension+%area-get-param
+           #:physics-server-2dextension+%area-get-transform
+           #:physics-server-2dextension+%area-set-collision-layer
+           #:physics-server-2dextension+%area-get-collision-layer
+           #:physics-server-2dextension+%area-set-collision-mask
+           #:physics-server-2dextension+%area-get-collision-mask
+           #:physics-server-2dextension+%area-set-monitorable
+           #:physics-server-2dextension+%area-set-pickable
+           #:physics-server-2dextension+%area-set-monitor-callback
+           #:physics-server-2dextension+%area-set-area-monitor-callback
+           #:physics-server-2dextension+%body-create
+           #:physics-server-2dextension+%body-set-space
+           #:physics-server-2dextension+%body-get-space
+           #:physics-server-2dextension+%body-set-mode
+           #:physics-server-2dextension+%body-get-mode
+           #:physics-server-2dextension+%body-add-shape
+           #:physics-server-2dextension+%body-set-shape
+           #:physics-server-2dextension+%body-set-shape-transform
+           #:physics-server-2dextension+%body-get-shape-count
+           #:physics-server-2dextension+%body-get-shape
+           #:physics-server-2dextension+%body-get-shape-transform
+           #:physics-server-2dextension+%body-set-shape-disabled
+           #:physics-server-2dextension+%body-set-shape-as-one-way-collision
+           #:physics-server-2dextension+%body-remove-shape
+           #:physics-server-2dextension+%body-clear-shapes
+           #:physics-server-2dextension+%body-attach-object-instance-id
+           #:physics-server-2dextension+%body-get-object-instance-id
+           #:physics-server-2dextension+%body-attach-canvas-instance-id
+           #:physics-server-2dextension+%body-get-canvas-instance-id
+           #:physics-server-2dextension+%body-set-continuous-collision-detection-mode
+           #:physics-server-2dextension+%body-get-continuous-collision-detection-mode
+           #:physics-server-2dextension+%body-set-collision-layer
+           #:physics-server-2dextension+%body-get-collision-layer
+           #:physics-server-2dextension+%body-set-collision-mask
+           #:physics-server-2dextension+%body-get-collision-mask
+           #:physics-server-2dextension+%body-set-collision-priority
+           #:physics-server-2dextension+%body-get-collision-priority
+           #:physics-server-2dextension+%body-set-param
+           #:physics-server-2dextension+%body-get-param
+           #:physics-server-2dextension+%body-reset-mass-properties
+           #:physics-server-2dextension+%body-set-state
+           #:physics-server-2dextension+%body-get-state
+           #:physics-server-2dextension+%body-apply-central-impulse
+           #:physics-server-2dextension+%body-apply-torque-impulse
+           #:physics-server-2dextension+%body-apply-impulse
+           #:physics-server-2dextension+%body-apply-central-force
+           #:physics-server-2dextension+%body-apply-force
+           #:physics-server-2dextension+%body-apply-torque
+           #:physics-server-2dextension+%body-add-constant-central-force
+           #:physics-server-2dextension+%body-add-constant-force
+           #:physics-server-2dextension+%body-add-constant-torque
+           #:physics-server-2dextension+%body-set-constant-force
+           #:physics-server-2dextension+%body-get-constant-force
+           #:physics-server-2dextension+%body-set-constant-torque
+           #:physics-server-2dextension+%body-get-constant-torque
+           #:physics-server-2dextension+%body-set-axis-velocity
+           #:physics-server-2dextension+%body-add-collision-exception
+           #:physics-server-2dextension+%body-remove-collision-exception
+           #:physics-server-2dextension+%body-get-collision-exceptions
+           #:physics-server-2dextension+%body-set-max-contacts-reported
+           #:physics-server-2dextension+%body-get-max-contacts-reported
+           #:physics-server-2dextension+%body-set-contacts-reported-depth-threshold
+           #:physics-server-2dextension+%body-get-contacts-reported-depth-threshold
+           #:physics-server-2dextension+%body-set-omit-force-integration
+           #:physics-server-2dextension+%body-is-omitting-force-integration
+           #:physics-server-2dextension+%body-set-state-sync-callback
+           #:physics-server-2dextension+%body-set-force-integration-callback
+           #:physics-server-2dextension+%body-collide-shape
+           #:physics-server-2dextension+%body-set-pickable
+           #:physics-server-2dextension+%body-get-direct-state
+           #:physics-server-2dextension+%body-test-motion
+           #:physics-server-2dextension+%joint-create
+           #:physics-server-2dextension+%joint-clear
+           #:physics-server-2dextension+%joint-set-param
+           #:physics-server-2dextension+%joint-get-param
+           #:physics-server-2dextension+%joint-disable-collisions-between-bodies
+           #:physics-server-2dextension+%joint-is-disabled-collisions-between-bodies
+           #:physics-server-2dextension+%joint-make-pin
+           #:physics-server-2dextension+%joint-make-groove
+           #:physics-server-2dextension+%joint-make-damped-spring
+           #:physics-server-2dextension+%pin-joint-set-flag
+           #:physics-server-2dextension+%pin-joint-get-flag
+           #:physics-server-2dextension+%pin-joint-set-param
+           #:physics-server-2dextension+%pin-joint-get-param
+           #:physics-server-2dextension+%damped-spring-joint-set-param
+           #:physics-server-2dextension+%damped-spring-joint-get-param
+           #:physics-server-2dextension+%joint-get-type
+           #:physics-server-2dextension+%free-rid
+           #:physics-server-2dextension+%set-active
+           #:physics-server-2dextension+%init
+           #:physics-server-2dextension+%step
+           #:physics-server-2dextension+%sync
+           #:physics-server-2dextension+%flush-queries
+           #:physics-server-2dextension+%end-sync
+           #:physics-server-2dextension+%finish
+           #:physics-server-2dextension+%is-flushing-queries
+           #:physics-server-2dextension+%get-process-info
            #:physics-server-2dextension+body-test-motion-is-excluding-body
            #:physics-server-2dextension+body-test-motion-is-excluding-object
            #:navigation-path-query-result-2d+set-path
@@ -11544,15 +11544,15 @@
            #:navigation-path-query-parameters-2d+get-path-search-max-polygons
            #:navigation-path-query-parameters-2d+set-path-search-max-distance
            #:navigation-path-query-parameters-2d+get-path-search-max-distance
-           #:movie-writer+-get-audio-mix-rate
-           #:movie-writer+-get-audio-speaker-mode
-           #:movie-writer+-handles-file
-           #:movie-writer+-write-begin
-           #:movie-writer+-write-frame
-           #:movie-writer+-write-end
+           #:movie-writer+%get-audio-mix-rate
+           #:movie-writer+%get-audio-speaker-mode
+           #:movie-writer+%handles-file
+           #:movie-writer+%write-begin
+           #:movie-writer+%write-frame
+           #:movie-writer+%write-end
            #:movie-writer+add-writer
-           #:camera-feed+-activate-feed
-           #:camera-feed+-deactivate-feed
+           #:camera-feed+%activate-feed
+           #:camera-feed+%deactivate-feed
            #:camera-feed+get-id
            #:camera-feed+is-active
            #:camera-feed+set-active
@@ -11599,11 +11599,11 @@
            #:render-scene-buffers-rd+get-screen-space-aa
            #:render-scene-buffers-rd+get-use-taa
            #:render-scene-buffers-rd+get-use-debanding
-           #:render-scene-buffers-extension+-configure
-           #:render-scene-buffers-extension+-set-fsr-sharpness
-           #:render-scene-buffers-extension+-set-texture-mipmap-bias
-           #:render-scene-buffers-extension+-set-anisotropic-filtering-level
-           #:render-scene-buffers-extension+-set-use-debanding
+           #:render-scene-buffers-extension+%configure
+           #:render-scene-buffers-extension+%set-fsr-sharpness
+           #:render-scene-buffers-extension+%set-texture-mipmap-bias
+           #:render-scene-buffers-extension+%set-anisotropic-filtering-level
+           #:render-scene-buffers-extension+%set-use-debanding
            #:render-scene-buffers-configuration+get-render-target
            #:render-scene-buffers-configuration+set-render-target
            #:render-scene-buffers-configuration+get-internal-size
@@ -11624,12 +11624,12 @@
            #:render-scene-buffers-configuration+set-texture-mipmap-bias
            #:render-scene-buffers-configuration+get-anisotropic-filtering-level
            #:render-scene-buffers-configuration+set-anisotropic-filtering-level
-           #:render-scene-data-extension+-get-cam-transform
-           #:render-scene-data-extension+-get-cam-projection
-           #:render-scene-data-extension+-get-view-count
-           #:render-scene-data-extension+-get-view-eye-offset
-           #:render-scene-data-extension+-get-view-projection
-           #:render-scene-data-extension+-get-uniform-buffer
+           #:render-scene-data-extension+%get-cam-transform
+           #:render-scene-data-extension+%get-cam-projection
+           #:render-scene-data-extension+%get-view-count
+           #:render-scene-data-extension+%get-view-eye-offset
+           #:render-scene-data-extension+%get-view-projection
+           #:render-scene-data-extension+%get-uniform-buffer
            #:render-scene-data+get-cam-transform
            #:render-scene-data+get-cam-projection
            #:render-scene-data+get-view-count
@@ -11637,10 +11637,10 @@
            #:render-scene-data+get-view-projection
            #:render-scene-data+get-uniform-buffer
            #:render-scene-buffers+configure
-           #:render-data-extension+-get-render-scene-buffers
-           #:render-data-extension+-get-render-scene-data
-           #:render-data-extension+-get-environment
-           #:render-data-extension+-get-camera-attributes
+           #:render-data-extension+%get-render-scene-buffers
+           #:render-data-extension+%get-render-scene-data
+           #:render-data-extension+%get-environment
+           #:render-data-extension+%get-camera-attributes
            #:render-data+get-render-scene-buffers
            #:render-data+get-render-scene-data
            #:render-data+get-environment
@@ -12031,22 +12031,22 @@
            #:audio-effect-eq+set-band-gain-db
            #:audio-effect-eq+get-band-gain-db
            #:audio-effect-eq+get-band-count
-           #:audio-effect-instance+-process
-           #:audio-effect-instance+-process-silence
-           #:audio-effect+-instantiate
-           #:audio-stream-playback-resampled+-mix-resampled
-           #:audio-stream-playback-resampled+-get-stream-sampling-rate
+           #:audio-effect-instance+%process
+           #:audio-effect-instance+%process-silence
+           #:audio-effect+%instantiate
+           #:audio-stream-playback-resampled+%mix-resampled
+           #:audio-stream-playback-resampled+%get-stream-sampling-rate
            #:audio-stream-playback-resampled+begin-resample
-           #:audio-stream-playback+-start
-           #:audio-stream-playback+-stop
-           #:audio-stream-playback+-is-playing
-           #:audio-stream-playback+-get-loop-count
-           #:audio-stream-playback+-get-playback-position
-           #:audio-stream-playback+-seek
-           #:audio-stream-playback+-mix
-           #:audio-stream-playback+-tag-used-streams
-           #:audio-stream-playback+-set-parameter
-           #:audio-stream-playback+-get-parameter
+           #:audio-stream-playback+%start
+           #:audio-stream-playback+%stop
+           #:audio-stream-playback+%is-playing
+           #:audio-stream-playback+%get-loop-count
+           #:audio-stream-playback+%get-playback-position
+           #:audio-stream-playback+%seek
+           #:audio-stream-playback+%mix
+           #:audio-stream-playback+%tag-used-streams
+           #:audio-stream-playback+%set-parameter
+           #:audio-stream-playback+%get-parameter
            #:audio-stream-playback+set-sample-playback
            #:audio-stream-playback+get-sample-playback
            #:audio-stream-playback+mix-audio
@@ -12056,16 +12056,16 @@
            #:audio-stream-playback+get-loop-count
            #:audio-stream-playback+get-playback-position
            #:audio-stream-playback+is-playing
-           #:audio-stream+-instantiate-playback
-           #:audio-stream+-get-stream-name
-           #:audio-stream+-get-length
-           #:audio-stream+-is-monophonic
-           #:audio-stream+-get-bpm
-           #:audio-stream+-get-beat-count
-           #:audio-stream+-get-tags
-           #:audio-stream+-get-parameter-list
-           #:audio-stream+-has-loop
-           #:audio-stream+-get-bar-beats
+           #:audio-stream+%instantiate-playback
+           #:audio-stream+%get-stream-name
+           #:audio-stream+%get-length
+           #:audio-stream+%is-monophonic
+           #:audio-stream+%get-bpm
+           #:audio-stream+%get-beat-count
+           #:audio-stream+%get-tags
+           #:audio-stream+%get-parameter-list
+           #:audio-stream+%has-loop
+           #:audio-stream+%get-bar-beats
            #:audio-stream+get-length
            #:audio-stream+is-monophonic
            #:audio-stream+instantiate-playback
@@ -12091,247 +12091,247 @@
            #:physics-server-2dmanager+set-default-server
            #:physics-server-3dmanager+register-server
            #:physics-server-3dmanager+set-default-server
-           #:text-server-extension+-has-feature
-           #:text-server-extension+-get-name
-           #:text-server-extension+-get-features
-           #:text-server-extension+-free-rid
-           #:text-server-extension+-has
-           #:text-server-extension+-load-support-data
-           #:text-server-extension+-get-support-data-filename
-           #:text-server-extension+-get-support-data-info
-           #:text-server-extension+-save-support-data
-           #:text-server-extension+-get-support-data
-           #:text-server-extension+-is-locale-using-support-data
-           #:text-server-extension+-is-locale-right-to-left
-           #:text-server-extension+-name-to-tag
-           #:text-server-extension+-tag-to-name
-           #:text-server-extension+-create-font
-           #:text-server-extension+-create-font-linked-variation
-           #:text-server-extension+-font-set-data
-           #:text-server-extension+-font-set-data-ptr
-           #:text-server-extension+-font-set-face-index
-           #:text-server-extension+-font-get-face-index
-           #:text-server-extension+-font-get-face-count
-           #:text-server-extension+-font-set-style
-           #:text-server-extension+-font-get-style
-           #:text-server-extension+-font-set-name
-           #:text-server-extension+-font-get-name
-           #:text-server-extension+-font-get-ot-name-strings
-           #:text-server-extension+-font-set-style-name
-           #:text-server-extension+-font-get-style-name
-           #:text-server-extension+-font-set-weight
-           #:text-server-extension+-font-get-weight
-           #:text-server-extension+-font-set-stretch
-           #:text-server-extension+-font-get-stretch
-           #:text-server-extension+-font-set-antialiasing
-           #:text-server-extension+-font-get-antialiasing
-           #:text-server-extension+-font-set-disable-embedded-bitmaps
-           #:text-server-extension+-font-get-disable-embedded-bitmaps
-           #:text-server-extension+-font-set-generate-mipmaps
-           #:text-server-extension+-font-get-generate-mipmaps
-           #:text-server-extension+-font-set-multichannel-signed-distance-field
-           #:text-server-extension+-font-is-multichannel-signed-distance-field
-           #:text-server-extension+-font-set-msdf-pixel-range
-           #:text-server-extension+-font-get-msdf-pixel-range
-           #:text-server-extension+-font-set-msdf-size
-           #:text-server-extension+-font-get-msdf-size
-           #:text-server-extension+-font-set-fixed-size
-           #:text-server-extension+-font-get-fixed-size
-           #:text-server-extension+-font-set-fixed-size-scale-mode
-           #:text-server-extension+-font-get-fixed-size-scale-mode
-           #:text-server-extension+-font-set-allow-system-fallback
-           #:text-server-extension+-font-is-allow-system-fallback
-           #:text-server-extension+-font-clear-system-fallback-cache
-           #:text-server-extension+-font-set-force-autohinter
-           #:text-server-extension+-font-is-force-autohinter
-           #:text-server-extension+-font-set-modulate-color-glyphs
-           #:text-server-extension+-font-is-modulate-color-glyphs
-           #:text-server-extension+-font-set-hinting
-           #:text-server-extension+-font-get-hinting
-           #:text-server-extension+-font-set-subpixel-positioning
-           #:text-server-extension+-font-get-subpixel-positioning
-           #:text-server-extension+-font-set-keep-rounding-remainders
-           #:text-server-extension+-font-get-keep-rounding-remainders
-           #:text-server-extension+-font-set-embolden
-           #:text-server-extension+-font-get-embolden
-           #:text-server-extension+-font-set-spacing
-           #:text-server-extension+-font-get-spacing
-           #:text-server-extension+-font-set-baseline-offset
-           #:text-server-extension+-font-get-baseline-offset
-           #:text-server-extension+-font-set-transform
-           #:text-server-extension+-font-get-transform
-           #:text-server-extension+-font-set-variation-coordinates
-           #:text-server-extension+-font-get-variation-coordinates
-           #:text-server-extension+-font-set-oversampling
-           #:text-server-extension+-font-get-oversampling
-           #:text-server-extension+-font-get-size-cache-list
-           #:text-server-extension+-font-clear-size-cache
-           #:text-server-extension+-font-remove-size-cache
-           #:text-server-extension+-font-get-size-cache-info
-           #:text-server-extension+-font-set-ascent
-           #:text-server-extension+-font-get-ascent
-           #:text-server-extension+-font-set-descent
-           #:text-server-extension+-font-get-descent
-           #:text-server-extension+-font-set-underline-position
-           #:text-server-extension+-font-get-underline-position
-           #:text-server-extension+-font-set-underline-thickness
-           #:text-server-extension+-font-get-underline-thickness
-           #:text-server-extension+-font-set-scale
-           #:text-server-extension+-font-get-scale
-           #:text-server-extension+-font-get-texture-count
-           #:text-server-extension+-font-clear-textures
-           #:text-server-extension+-font-remove-texture
-           #:text-server-extension+-font-set-texture-image
-           #:text-server-extension+-font-get-texture-image
-           #:text-server-extension+-font-set-texture-offsets
-           #:text-server-extension+-font-get-texture-offsets
-           #:text-server-extension+-font-get-glyph-list
-           #:text-server-extension+-font-clear-glyphs
-           #:text-server-extension+-font-remove-glyph
-           #:text-server-extension+-font-get-glyph-advance
-           #:text-server-extension+-font-set-glyph-advance
-           #:text-server-extension+-font-get-glyph-offset
-           #:text-server-extension+-font-set-glyph-offset
-           #:text-server-extension+-font-get-glyph-size
-           #:text-server-extension+-font-set-glyph-size
-           #:text-server-extension+-font-get-glyph-uv-rect
-           #:text-server-extension+-font-set-glyph-uv-rect
-           #:text-server-extension+-font-get-glyph-texture-idx
-           #:text-server-extension+-font-set-glyph-texture-idx
-           #:text-server-extension+-font-get-glyph-texture-rid
-           #:text-server-extension+-font-get-glyph-texture-size
-           #:text-server-extension+-font-get-glyph-contours
-           #:text-server-extension+-font-get-kerning-list
-           #:text-server-extension+-font-clear-kerning-map
-           #:text-server-extension+-font-remove-kerning
-           #:text-server-extension+-font-set-kerning
-           #:text-server-extension+-font-get-kerning
-           #:text-server-extension+-font-get-glyph-index
-           #:text-server-extension+-font-get-char-from-glyph-index
-           #:text-server-extension+-font-has-char
-           #:text-server-extension+-font-get-supported-chars
-           #:text-server-extension+-font-get-supported-glyphs
-           #:text-server-extension+-font-render-range
-           #:text-server-extension+-font-render-glyph
-           #:text-server-extension+-font-draw-glyph
-           #:text-server-extension+-font-draw-glyph-outline
-           #:text-server-extension+-font-is-language-supported
-           #:text-server-extension+-font-set-language-support-override
-           #:text-server-extension+-font-get-language-support-override
-           #:text-server-extension+-font-remove-language-support-override
-           #:text-server-extension+-font-get-language-support-overrides
-           #:text-server-extension+-font-is-script-supported
-           #:text-server-extension+-font-set-script-support-override
-           #:text-server-extension+-font-get-script-support-override
-           #:text-server-extension+-font-remove-script-support-override
-           #:text-server-extension+-font-get-script-support-overrides
-           #:text-server-extension+-font-set-opentype-feature-overrides
-           #:text-server-extension+-font-get-opentype-feature-overrides
-           #:text-server-extension+-font-supported-feature-list
-           #:text-server-extension+-font-supported-variation-list
-           #:text-server-extension+-font-get-global-oversampling
-           #:text-server-extension+-font-set-global-oversampling
-           #:text-server-extension+-reference-oversampling-level
-           #:text-server-extension+-unreference-oversampling-level
-           #:text-server-extension+-get-hex-code-box-size
-           #:text-server-extension+-draw-hex-code-box
-           #:text-server-extension+-create-shaped-text
-           #:text-server-extension+-shaped-text-clear
-           #:text-server-extension+-shaped-text-duplicate
-           #:text-server-extension+-shaped-text-set-direction
-           #:text-server-extension+-shaped-text-get-direction
-           #:text-server-extension+-shaped-text-get-inferred-direction
-           #:text-server-extension+-shaped-text-set-bidi-override
-           #:text-server-extension+-shaped-text-set-custom-punctuation
-           #:text-server-extension+-shaped-text-get-custom-punctuation
-           #:text-server-extension+-shaped-text-set-custom-ellipsis
-           #:text-server-extension+-shaped-text-get-custom-ellipsis
-           #:text-server-extension+-shaped-text-set-orientation
-           #:text-server-extension+-shaped-text-get-orientation
-           #:text-server-extension+-shaped-text-set-preserve-invalid
-           #:text-server-extension+-shaped-text-get-preserve-invalid
-           #:text-server-extension+-shaped-text-set-preserve-control
-           #:text-server-extension+-shaped-text-get-preserve-control
-           #:text-server-extension+-shaped-text-set-spacing
-           #:text-server-extension+-shaped-text-get-spacing
-           #:text-server-extension+-shaped-text-add-string
-           #:text-server-extension+-shaped-text-add-object
-           #:text-server-extension+-shaped-text-resize-object
-           #:text-server-extension+-shaped-text-has-object
-           #:text-server-extension+-shaped-get-text
-           #:text-server-extension+-shaped-get-span-count
-           #:text-server-extension+-shaped-get-span-meta
-           #:text-server-extension+-shaped-get-span-embedded-object
-           #:text-server-extension+-shaped-get-span-text
-           #:text-server-extension+-shaped-get-span-object
-           #:text-server-extension+-shaped-set-span-update-font
-           #:text-server-extension+-shaped-get-run-count
-           #:text-server-extension+-shaped-get-run-text
-           #:text-server-extension+-shaped-get-run-range
-           #:text-server-extension+-shaped-get-run-font-rid
-           #:text-server-extension+-shaped-get-run-font-size
-           #:text-server-extension+-shaped-get-run-language
-           #:text-server-extension+-shaped-get-run-direction
-           #:text-server-extension+-shaped-get-run-object
-           #:text-server-extension+-shaped-text-substr
-           #:text-server-extension+-shaped-text-get-parent
-           #:text-server-extension+-shaped-text-fit-to-width
-           #:text-server-extension+-shaped-text-tab-align
-           #:text-server-extension+-shaped-text-shape
-           #:text-server-extension+-shaped-text-update-breaks
-           #:text-server-extension+-shaped-text-update-justification-ops
-           #:text-server-extension+-shaped-text-is-ready
-           #:text-server-extension+-shaped-text-get-glyphs
-           #:text-server-extension+-shaped-text-sort-logical
-           #:text-server-extension+-shaped-text-get-glyph-count
-           #:text-server-extension+-shaped-text-get-range
-           #:text-server-extension+-shaped-text-get-line-breaks-adv
-           #:text-server-extension+-shaped-text-get-line-breaks
-           #:text-server-extension+-shaped-text-get-word-breaks
-           #:text-server-extension+-shaped-text-get-trim-pos
-           #:text-server-extension+-shaped-text-get-ellipsis-pos
-           #:text-server-extension+-shaped-text-get-ellipsis-glyph-count
-           #:text-server-extension+-shaped-text-get-ellipsis-glyphs
-           #:text-server-extension+-shaped-text-overrun-trim-to-width
-           #:text-server-extension+-shaped-text-get-objects
-           #:text-server-extension+-shaped-text-get-object-rect
-           #:text-server-extension+-shaped-text-get-object-range
-           #:text-server-extension+-shaped-text-get-object-glyph
-           #:text-server-extension+-shaped-text-get-size
-           #:text-server-extension+-shaped-text-get-ascent
-           #:text-server-extension+-shaped-text-get-descent
-           #:text-server-extension+-shaped-text-get-width
-           #:text-server-extension+-shaped-text-get-underline-position
-           #:text-server-extension+-shaped-text-get-underline-thickness
-           #:text-server-extension+-shaped-text-get-dominant-direction-in-range
-           #:text-server-extension+-shaped-text-get-carets
-           #:text-server-extension+-shaped-text-get-selection
-           #:text-server-extension+-shaped-text-hit-test-grapheme
-           #:text-server-extension+-shaped-text-hit-test-position
-           #:text-server-extension+-shaped-text-draw
-           #:text-server-extension+-shaped-text-draw-outline
-           #:text-server-extension+-shaped-text-get-grapheme-bounds
-           #:text-server-extension+-shaped-text-next-grapheme-pos
-           #:text-server-extension+-shaped-text-prev-grapheme-pos
-           #:text-server-extension+-shaped-text-get-character-breaks
-           #:text-server-extension+-shaped-text-next-character-pos
-           #:text-server-extension+-shaped-text-prev-character-pos
-           #:text-server-extension+-shaped-text-closest-character-pos
-           #:text-server-extension+-format-number
-           #:text-server-extension+-parse-number
-           #:text-server-extension+-percent-sign
-           #:text-server-extension+-strip-diacritics
-           #:text-server-extension+-is-valid-identifier
-           #:text-server-extension+-is-valid-letter
-           #:text-server-extension+-string-get-word-breaks
-           #:text-server-extension+-string-get-character-breaks
-           #:text-server-extension+-is-confusable
-           #:text-server-extension+-spoof-check
-           #:text-server-extension+-string-to-upper
-           #:text-server-extension+-string-to-lower
-           #:text-server-extension+-string-to-title
-           #:text-server-extension+-parse-structured-text
-           #:text-server-extension+-cleanup
+           #:text-server-extension+%has-feature
+           #:text-server-extension+%get-name
+           #:text-server-extension+%get-features
+           #:text-server-extension+%free-rid
+           #:text-server-extension+%has
+           #:text-server-extension+%load-support-data
+           #:text-server-extension+%get-support-data-filename
+           #:text-server-extension+%get-support-data-info
+           #:text-server-extension+%save-support-data
+           #:text-server-extension+%get-support-data
+           #:text-server-extension+%is-locale-using-support-data
+           #:text-server-extension+%is-locale-right-to-left
+           #:text-server-extension+%name-to-tag
+           #:text-server-extension+%tag-to-name
+           #:text-server-extension+%create-font
+           #:text-server-extension+%create-font-linked-variation
+           #:text-server-extension+%font-set-data
+           #:text-server-extension+%font-set-data-ptr
+           #:text-server-extension+%font-set-face-index
+           #:text-server-extension+%font-get-face-index
+           #:text-server-extension+%font-get-face-count
+           #:text-server-extension+%font-set-style
+           #:text-server-extension+%font-get-style
+           #:text-server-extension+%font-set-name
+           #:text-server-extension+%font-get-name
+           #:text-server-extension+%font-get-ot-name-strings
+           #:text-server-extension+%font-set-style-name
+           #:text-server-extension+%font-get-style-name
+           #:text-server-extension+%font-set-weight
+           #:text-server-extension+%font-get-weight
+           #:text-server-extension+%font-set-stretch
+           #:text-server-extension+%font-get-stretch
+           #:text-server-extension+%font-set-antialiasing
+           #:text-server-extension+%font-get-antialiasing
+           #:text-server-extension+%font-set-disable-embedded-bitmaps
+           #:text-server-extension+%font-get-disable-embedded-bitmaps
+           #:text-server-extension+%font-set-generate-mipmaps
+           #:text-server-extension+%font-get-generate-mipmaps
+           #:text-server-extension+%font-set-multichannel-signed-distance-field
+           #:text-server-extension+%font-is-multichannel-signed-distance-field
+           #:text-server-extension+%font-set-msdf-pixel-range
+           #:text-server-extension+%font-get-msdf-pixel-range
+           #:text-server-extension+%font-set-msdf-size
+           #:text-server-extension+%font-get-msdf-size
+           #:text-server-extension+%font-set-fixed-size
+           #:text-server-extension+%font-get-fixed-size
+           #:text-server-extension+%font-set-fixed-size-scale-mode
+           #:text-server-extension+%font-get-fixed-size-scale-mode
+           #:text-server-extension+%font-set-allow-system-fallback
+           #:text-server-extension+%font-is-allow-system-fallback
+           #:text-server-extension+%font-clear-system-fallback-cache
+           #:text-server-extension+%font-set-force-autohinter
+           #:text-server-extension+%font-is-force-autohinter
+           #:text-server-extension+%font-set-modulate-color-glyphs
+           #:text-server-extension+%font-is-modulate-color-glyphs
+           #:text-server-extension+%font-set-hinting
+           #:text-server-extension+%font-get-hinting
+           #:text-server-extension+%font-set-subpixel-positioning
+           #:text-server-extension+%font-get-subpixel-positioning
+           #:text-server-extension+%font-set-keep-rounding-remainders
+           #:text-server-extension+%font-get-keep-rounding-remainders
+           #:text-server-extension+%font-set-embolden
+           #:text-server-extension+%font-get-embolden
+           #:text-server-extension+%font-set-spacing
+           #:text-server-extension+%font-get-spacing
+           #:text-server-extension+%font-set-baseline-offset
+           #:text-server-extension+%font-get-baseline-offset
+           #:text-server-extension+%font-set-transform
+           #:text-server-extension+%font-get-transform
+           #:text-server-extension+%font-set-variation-coordinates
+           #:text-server-extension+%font-get-variation-coordinates
+           #:text-server-extension+%font-set-oversampling
+           #:text-server-extension+%font-get-oversampling
+           #:text-server-extension+%font-get-size-cache-list
+           #:text-server-extension+%font-clear-size-cache
+           #:text-server-extension+%font-remove-size-cache
+           #:text-server-extension+%font-get-size-cache-info
+           #:text-server-extension+%font-set-ascent
+           #:text-server-extension+%font-get-ascent
+           #:text-server-extension+%font-set-descent
+           #:text-server-extension+%font-get-descent
+           #:text-server-extension+%font-set-underline-position
+           #:text-server-extension+%font-get-underline-position
+           #:text-server-extension+%font-set-underline-thickness
+           #:text-server-extension+%font-get-underline-thickness
+           #:text-server-extension+%font-set-scale
+           #:text-server-extension+%font-get-scale
+           #:text-server-extension+%font-get-texture-count
+           #:text-server-extension+%font-clear-textures
+           #:text-server-extension+%font-remove-texture
+           #:text-server-extension+%font-set-texture-image
+           #:text-server-extension+%font-get-texture-image
+           #:text-server-extension+%font-set-texture-offsets
+           #:text-server-extension+%font-get-texture-offsets
+           #:text-server-extension+%font-get-glyph-list
+           #:text-server-extension+%font-clear-glyphs
+           #:text-server-extension+%font-remove-glyph
+           #:text-server-extension+%font-get-glyph-advance
+           #:text-server-extension+%font-set-glyph-advance
+           #:text-server-extension+%font-get-glyph-offset
+           #:text-server-extension+%font-set-glyph-offset
+           #:text-server-extension+%font-get-glyph-size
+           #:text-server-extension+%font-set-glyph-size
+           #:text-server-extension+%font-get-glyph-uv-rect
+           #:text-server-extension+%font-set-glyph-uv-rect
+           #:text-server-extension+%font-get-glyph-texture-idx
+           #:text-server-extension+%font-set-glyph-texture-idx
+           #:text-server-extension+%font-get-glyph-texture-rid
+           #:text-server-extension+%font-get-glyph-texture-size
+           #:text-server-extension+%font-get-glyph-contours
+           #:text-server-extension+%font-get-kerning-list
+           #:text-server-extension+%font-clear-kerning-map
+           #:text-server-extension+%font-remove-kerning
+           #:text-server-extension+%font-set-kerning
+           #:text-server-extension+%font-get-kerning
+           #:text-server-extension+%font-get-glyph-index
+           #:text-server-extension+%font-get-char-from-glyph-index
+           #:text-server-extension+%font-has-char
+           #:text-server-extension+%font-get-supported-chars
+           #:text-server-extension+%font-get-supported-glyphs
+           #:text-server-extension+%font-render-range
+           #:text-server-extension+%font-render-glyph
+           #:text-server-extension+%font-draw-glyph
+           #:text-server-extension+%font-draw-glyph-outline
+           #:text-server-extension+%font-is-language-supported
+           #:text-server-extension+%font-set-language-support-override
+           #:text-server-extension+%font-get-language-support-override
+           #:text-server-extension+%font-remove-language-support-override
+           #:text-server-extension+%font-get-language-support-overrides
+           #:text-server-extension+%font-is-script-supported
+           #:text-server-extension+%font-set-script-support-override
+           #:text-server-extension+%font-get-script-support-override
+           #:text-server-extension+%font-remove-script-support-override
+           #:text-server-extension+%font-get-script-support-overrides
+           #:text-server-extension+%font-set-opentype-feature-overrides
+           #:text-server-extension+%font-get-opentype-feature-overrides
+           #:text-server-extension+%font-supported-feature-list
+           #:text-server-extension+%font-supported-variation-list
+           #:text-server-extension+%font-get-global-oversampling
+           #:text-server-extension+%font-set-global-oversampling
+           #:text-server-extension+%reference-oversampling-level
+           #:text-server-extension+%unreference-oversampling-level
+           #:text-server-extension+%get-hex-code-box-size
+           #:text-server-extension+%draw-hex-code-box
+           #:text-server-extension+%create-shaped-text
+           #:text-server-extension+%shaped-text-clear
+           #:text-server-extension+%shaped-text-duplicate
+           #:text-server-extension+%shaped-text-set-direction
+           #:text-server-extension+%shaped-text-get-direction
+           #:text-server-extension+%shaped-text-get-inferred-direction
+           #:text-server-extension+%shaped-text-set-bidi-override
+           #:text-server-extension+%shaped-text-set-custom-punctuation
+           #:text-server-extension+%shaped-text-get-custom-punctuation
+           #:text-server-extension+%shaped-text-set-custom-ellipsis
+           #:text-server-extension+%shaped-text-get-custom-ellipsis
+           #:text-server-extension+%shaped-text-set-orientation
+           #:text-server-extension+%shaped-text-get-orientation
+           #:text-server-extension+%shaped-text-set-preserve-invalid
+           #:text-server-extension+%shaped-text-get-preserve-invalid
+           #:text-server-extension+%shaped-text-set-preserve-control
+           #:text-server-extension+%shaped-text-get-preserve-control
+           #:text-server-extension+%shaped-text-set-spacing
+           #:text-server-extension+%shaped-text-get-spacing
+           #:text-server-extension+%shaped-text-add-string
+           #:text-server-extension+%shaped-text-add-object
+           #:text-server-extension+%shaped-text-resize-object
+           #:text-server-extension+%shaped-text-has-object
+           #:text-server-extension+%shaped-get-text
+           #:text-server-extension+%shaped-get-span-count
+           #:text-server-extension+%shaped-get-span-meta
+           #:text-server-extension+%shaped-get-span-embedded-object
+           #:text-server-extension+%shaped-get-span-text
+           #:text-server-extension+%shaped-get-span-object
+           #:text-server-extension+%shaped-set-span-update-font
+           #:text-server-extension+%shaped-get-run-count
+           #:text-server-extension+%shaped-get-run-text
+           #:text-server-extension+%shaped-get-run-range
+           #:text-server-extension+%shaped-get-run-font-rid
+           #:text-server-extension+%shaped-get-run-font-size
+           #:text-server-extension+%shaped-get-run-language
+           #:text-server-extension+%shaped-get-run-direction
+           #:text-server-extension+%shaped-get-run-object
+           #:text-server-extension+%shaped-text-substr
+           #:text-server-extension+%shaped-text-get-parent
+           #:text-server-extension+%shaped-text-fit-to-width
+           #:text-server-extension+%shaped-text-tab-align
+           #:text-server-extension+%shaped-text-shape
+           #:text-server-extension+%shaped-text-update-breaks
+           #:text-server-extension+%shaped-text-update-justification-ops
+           #:text-server-extension+%shaped-text-is-ready
+           #:text-server-extension+%shaped-text-get-glyphs
+           #:text-server-extension+%shaped-text-sort-logical
+           #:text-server-extension+%shaped-text-get-glyph-count
+           #:text-server-extension+%shaped-text-get-range
+           #:text-server-extension+%shaped-text-get-line-breaks-adv
+           #:text-server-extension+%shaped-text-get-line-breaks
+           #:text-server-extension+%shaped-text-get-word-breaks
+           #:text-server-extension+%shaped-text-get-trim-pos
+           #:text-server-extension+%shaped-text-get-ellipsis-pos
+           #:text-server-extension+%shaped-text-get-ellipsis-glyph-count
+           #:text-server-extension+%shaped-text-get-ellipsis-glyphs
+           #:text-server-extension+%shaped-text-overrun-trim-to-width
+           #:text-server-extension+%shaped-text-get-objects
+           #:text-server-extension+%shaped-text-get-object-rect
+           #:text-server-extension+%shaped-text-get-object-range
+           #:text-server-extension+%shaped-text-get-object-glyph
+           #:text-server-extension+%shaped-text-get-size
+           #:text-server-extension+%shaped-text-get-ascent
+           #:text-server-extension+%shaped-text-get-descent
+           #:text-server-extension+%shaped-text-get-width
+           #:text-server-extension+%shaped-text-get-underline-position
+           #:text-server-extension+%shaped-text-get-underline-thickness
+           #:text-server-extension+%shaped-text-get-dominant-direction-in-range
+           #:text-server-extension+%shaped-text-get-carets
+           #:text-server-extension+%shaped-text-get-selection
+           #:text-server-extension+%shaped-text-hit-test-grapheme
+           #:text-server-extension+%shaped-text-hit-test-position
+           #:text-server-extension+%shaped-text-draw
+           #:text-server-extension+%shaped-text-draw-outline
+           #:text-server-extension+%shaped-text-get-grapheme-bounds
+           #:text-server-extension+%shaped-text-next-grapheme-pos
+           #:text-server-extension+%shaped-text-prev-grapheme-pos
+           #:text-server-extension+%shaped-text-get-character-breaks
+           #:text-server-extension+%shaped-text-next-character-pos
+           #:text-server-extension+%shaped-text-prev-character-pos
+           #:text-server-extension+%shaped-text-closest-character-pos
+           #:text-server-extension+%format-number
+           #:text-server-extension+%parse-number
+           #:text-server-extension+%percent-sign
+           #:text-server-extension+%strip-diacritics
+           #:text-server-extension+%is-valid-identifier
+           #:text-server-extension+%is-valid-letter
+           #:text-server-extension+%string-get-word-breaks
+           #:text-server-extension+%string-get-character-breaks
+           #:text-server-extension+%is-confusable
+           #:text-server-extension+%spoof-check
+           #:text-server-extension+%string-to-upper
+           #:text-server-extension+%string-to-lower
+           #:text-server-extension+%string-to-title
+           #:text-server-extension+%parse-structured-text
+           #:text-server-extension+%cleanup
            #:text-server-manager+add-interface
            #:text-server-manager+get-interface-count
            #:text-server-manager+remove-interface
@@ -12391,50 +12391,50 @@
            #:open-xrfuture-result+cancel-future
            #:open-xrfuture-result+set-result-value
            #:open-xrfuture-result+get-result-value
-           #:open-xrextension-wrapper+-get-requested-extensions
-           #:open-xrextension-wrapper+-set-system-properties-and-get-next-pointer
-           #:open-xrextension-wrapper+-set-instance-create-info-and-get-next-pointer
-           #:open-xrextension-wrapper+-set-session-create-and-get-next-pointer
-           #:open-xrextension-wrapper+-set-swapchain-create-info-and-get-next-pointer
-           #:open-xrextension-wrapper+-set-hand-joint-locations-and-get-next-pointer
-           #:open-xrextension-wrapper+-set-projection-views-and-get-next-pointer
-           #:open-xrextension-wrapper+-set-frame-wait-info-and-get-next-pointer
-           #:open-xrextension-wrapper+-set-frame-end-info-and-get-next-pointer
-           #:open-xrextension-wrapper+-set-view-locate-info-and-get-next-pointer
-           #:open-xrextension-wrapper+-set-reference-space-create-info-and-get-next-pointer
-           #:open-xrextension-wrapper+-prepare-view-configuration
-           #:open-xrextension-wrapper+-set-view-configuration-and-get-next-pointer
-           #:open-xrextension-wrapper+-print-view-configuration-info
-           #:open-xrextension-wrapper+-get-composition-layer-count
-           #:open-xrextension-wrapper+-get-composition-layer
-           #:open-xrextension-wrapper+-get-composition-layer-order
-           #:open-xrextension-wrapper+-get-suggested-tracker-names
-           #:open-xrextension-wrapper+-on-register-metadata
-           #:open-xrextension-wrapper+-on-before-instance-created
-           #:open-xrextension-wrapper+-on-instance-created
-           #:open-xrextension-wrapper+-on-instance-destroyed
-           #:open-xrextension-wrapper+-on-session-created
-           #:open-xrextension-wrapper+-on-process
-           #:open-xrextension-wrapper+-on-sync-actions
-           #:open-xrextension-wrapper+-on-pre-render
-           #:open-xrextension-wrapper+-on-main-swapchains-created
-           #:open-xrextension-wrapper+-on-pre-draw-viewport
-           #:open-xrextension-wrapper+-on-post-draw-viewport
-           #:open-xrextension-wrapper+-on-session-destroyed
-           #:open-xrextension-wrapper+-on-state-idle
-           #:open-xrextension-wrapper+-on-state-ready
-           #:open-xrextension-wrapper+-on-state-synchronized
-           #:open-xrextension-wrapper+-on-state-visible
-           #:open-xrextension-wrapper+-on-state-focused
-           #:open-xrextension-wrapper+-on-state-stopping
-           #:open-xrextension-wrapper+-on-state-loss-pending
-           #:open-xrextension-wrapper+-on-state-exiting
-           #:open-xrextension-wrapper+-on-event-polled
-           #:open-xrextension-wrapper+-set-viewport-composition-layer-and-get-next-pointer
-           #:open-xrextension-wrapper+-get-viewport-composition-layer-extension-properties
-           #:open-xrextension-wrapper+-get-viewport-composition-layer-extension-property-defaults
-           #:open-xrextension-wrapper+-on-viewport-composition-layer-destroyed
-           #:open-xrextension-wrapper+-set-android-surface-swapchain-create-info-and-get-next-pointer
+           #:open-xrextension-wrapper+%get-requested-extensions
+           #:open-xrextension-wrapper+%set-system-properties-and-get-next-pointer
+           #:open-xrextension-wrapper+%set-instance-create-info-and-get-next-pointer
+           #:open-xrextension-wrapper+%set-session-create-and-get-next-pointer
+           #:open-xrextension-wrapper+%set-swapchain-create-info-and-get-next-pointer
+           #:open-xrextension-wrapper+%set-hand-joint-locations-and-get-next-pointer
+           #:open-xrextension-wrapper+%set-projection-views-and-get-next-pointer
+           #:open-xrextension-wrapper+%set-frame-wait-info-and-get-next-pointer
+           #:open-xrextension-wrapper+%set-frame-end-info-and-get-next-pointer
+           #:open-xrextension-wrapper+%set-view-locate-info-and-get-next-pointer
+           #:open-xrextension-wrapper+%set-reference-space-create-info-and-get-next-pointer
+           #:open-xrextension-wrapper+%prepare-view-configuration
+           #:open-xrextension-wrapper+%set-view-configuration-and-get-next-pointer
+           #:open-xrextension-wrapper+%print-view-configuration-info
+           #:open-xrextension-wrapper+%get-composition-layer-count
+           #:open-xrextension-wrapper+%get-composition-layer
+           #:open-xrextension-wrapper+%get-composition-layer-order
+           #:open-xrextension-wrapper+%get-suggested-tracker-names
+           #:open-xrextension-wrapper+%on-register-metadata
+           #:open-xrextension-wrapper+%on-before-instance-created
+           #:open-xrextension-wrapper+%on-instance-created
+           #:open-xrextension-wrapper+%on-instance-destroyed
+           #:open-xrextension-wrapper+%on-session-created
+           #:open-xrextension-wrapper+%on-process
+           #:open-xrextension-wrapper+%on-sync-actions
+           #:open-xrextension-wrapper+%on-pre-render
+           #:open-xrextension-wrapper+%on-main-swapchains-created
+           #:open-xrextension-wrapper+%on-pre-draw-viewport
+           #:open-xrextension-wrapper+%on-post-draw-viewport
+           #:open-xrextension-wrapper+%on-session-destroyed
+           #:open-xrextension-wrapper+%on-state-idle
+           #:open-xrextension-wrapper+%on-state-ready
+           #:open-xrextension-wrapper+%on-state-synchronized
+           #:open-xrextension-wrapper+%on-state-visible
+           #:open-xrextension-wrapper+%on-state-focused
+           #:open-xrextension-wrapper+%on-state-stopping
+           #:open-xrextension-wrapper+%on-state-loss-pending
+           #:open-xrextension-wrapper+%on-state-exiting
+           #:open-xrextension-wrapper+%on-event-polled
+           #:open-xrextension-wrapper+%set-viewport-composition-layer-and-get-next-pointer
+           #:open-xrextension-wrapper+%get-viewport-composition-layer-extension-properties
+           #:open-xrextension-wrapper+%get-viewport-composition-layer-extension-property-defaults
+           #:open-xrextension-wrapper+%on-viewport-composition-layer-destroyed
+           #:open-xrextension-wrapper+%set-android-surface-swapchain-create-info-and-get-next-pointer
            #:open-xrextension-wrapper+get-openxr-api
            #:open-xrextension-wrapper+register-extension-wrapper
            #:marshalls+variant-to-base64
@@ -12527,7 +12527,7 @@
            #:zippacker+write-file
            #:zippacker+close-file
            #:zippacker+close
-           #:window+-get-contents-minimum-size
+           #:window+%get-contents-minimum-size
            #:window+set-title
            #:window+get-title
            #:window+set-initial-position
@@ -12721,19 +12721,19 @@
            #:web-rtcmultiplayer-peer+has-peer
            #:web-rtcmultiplayer-peer+get-peer
            #:web-rtcmultiplayer-peer+get-peers
-           #:video-stream-playback+-stop
-           #:video-stream-playback+-play
-           #:video-stream-playback+-is-playing
-           #:video-stream-playback+-set-paused
-           #:video-stream-playback+-is-paused
-           #:video-stream-playback+-get-length
-           #:video-stream-playback+-get-playback-position
-           #:video-stream-playback+-seek
-           #:video-stream-playback+-set-audio-track
-           #:video-stream-playback+-get-texture
-           #:video-stream-playback+-update
-           #:video-stream-playback+-get-channels
-           #:video-stream-playback+-get-mix-rate
+           #:video-stream-playback+%stop
+           #:video-stream-playback+%play
+           #:video-stream-playback+%is-playing
+           #:video-stream-playback+%set-paused
+           #:video-stream-playback+%is-paused
+           #:video-stream-playback+%get-length
+           #:video-stream-playback+%get-playback-position
+           #:video-stream-playback+%seek
+           #:video-stream-playback+%set-audio-track
+           #:video-stream-playback+%get-texture
+           #:video-stream-playback+%update
+           #:video-stream-playback+%get-channels
+           #:video-stream-playback+%get-mix-rate
            #:video-stream-playback+mix-audio
            #:upnpdevice+is-valid-gateway
            #:upnpdevice+query-external-address
@@ -13145,9 +13145,9 @@
            #:tile-map-pattern+get-size
            #:tile-map-pattern+set-size
            #:tile-map-pattern+is-empty
-           #:tile-map-layer+-use-tile-data-runtime-update
-           #:tile-map-layer+-tile-data-runtime-update
-           #:tile-map-layer+-update-cells
+           #:tile-map-layer+%use-tile-data-runtime-update
+           #:tile-map-layer+%tile-data-runtime-update
+           #:tile-map-layer+%update-cells
            #:tile-map-layer+set-cell
            #:tile-map-layer+erase-cell
            #:tile-map-layer+fix-invalid-tiles
@@ -13203,8 +13203,8 @@
            #:tile-map-layer+get-navigation-map
            #:tile-map-layer+set-navigation-visibility-mode
            #:tile-map-layer+get-navigation-visibility-mode
-           #:tile-map+-use-tile-data-runtime-update
-           #:tile-map+-tile-data-runtime-update
+           #:tile-map+%use-tile-data-runtime-update
+           #:tile-map+%tile-data-runtime-update
            #:tile-map+set-navigation-map
            #:tile-map+get-navigation-map
            #:tile-map+force-update
@@ -13266,13 +13266,13 @@
            #:tile-map+map-to-local
            #:tile-map+local-to-map
            #:tile-map+get-neighbor-cell
-           #:texture-2d+-get-width
-           #:texture-2d+-get-height
-           #:texture-2d+-is-pixel-opaque
-           #:texture-2d+-has-alpha
-           #:texture-2d+-draw
-           #:texture-2d+-draw-rect
-           #:texture-2d+-draw-rect-region
+           #:texture-2d+%get-width
+           #:texture-2d+%get-height
+           #:texture-2d+%is-pixel-opaque
+           #:texture-2d+%has-alpha
+           #:texture-2d+%draw
+           #:texture-2d+%draw-rect
+           #:texture-2d+%draw-rect-region
            #:texture-2d+get-width
            #:texture-2d+get-height
            #:texture-2d+get-size
@@ -13619,12 +13619,12 @@
            #:text-line+draw
            #:text-line+draw-outline
            #:text-line+hit-test
-           #:text-edit+-handle-unicode-input
-           #:text-edit+-backspace
-           #:text-edit+-cut
-           #:text-edit+-copy
-           #:text-edit+-paste
-           #:text-edit+-paste-primary-clipboard
+           #:text-edit+%handle-unicode-input
+           #:text-edit+%backspace
+           #:text-edit+%cut
+           #:text-edit+%copy
+           #:text-edit+%paste
+           #:text-edit+%paste-primary-clipboard
            #:text-edit+has-ime-text
            #:text-edit+cancel-ime
            #:text-edit+apply-ime
@@ -14070,7 +14070,7 @@
            #:scene-multiplayer+set-max-sync-packet-size
            #:scene-multiplayer+get-max-delta-packet-size
            #:scene-multiplayer+set-max-delta-packet-size
-           #:rigid-body-3d+-integrate-forces
+           #:rigid-body-3d+%integrate-forces
            #:rigid-body-3d+set-mass
            #:rigid-body-3d+get-mass
            #:rigid-body-3d+set-inertia
@@ -14130,7 +14130,7 @@
            #:rigid-body-3d+set-freeze-mode
            #:rigid-body-3d+get-freeze-mode
            #:rigid-body-3d+get-colliding-bodies
-           #:rigid-body-2d+-integrate-forces
+           #:rigid-body-2d+%integrate-forces
            #:rigid-body-2d+set-mass
            #:rigid-body-2d+get-mass
            #:rigid-body-2d+get-inertia
@@ -15580,7 +15580,7 @@
            #:physics-body-2d+get-collision-exceptions
            #:physics-body-2d+add-collision-exception-with
            #:physics-body-2d+remove-collision-exception-with
-           #:physical-bone-3d+-integrate-forces
+           #:physical-bone-3d+%integrate-forces
            #:physical-bone-3d+apply-central-impulse
            #:physical-bone-3d+apply-impulse
            #:physical-bone-3d+set-joint-type
@@ -15872,18 +15872,18 @@
            #:node-3d+look-at-from-position
            #:node-3d+to-local
            #:node-3d+to-global
-           #:node+-process
-           #:node+-physics-process
-           #:node+-enter-tree
-           #:node+-exit-tree
-           #:node+-ready
-           #:node+-get-configuration-warnings
-           #:node+-get-accessibility-configuration-warnings
-           #:node+-input
-           #:node+-shortcut-input
-           #:node+-unhandled-input
-           #:node+-unhandled-key-input
-           #:node+-get-focused-accessibility-element
+           #:node+%process
+           #:node+%physics-process
+           #:node+%enter-tree
+           #:node+%exit-tree
+           #:node+%ready
+           #:node+%get-configuration-warnings
+           #:node+%get-accessibility-configuration-warnings
+           #:node+%input
+           #:node+%shortcut-input
+           #:node+%unhandled-input
+           #:node+%unhandled-key-input
+           #:node+%get-focused-accessibility-element
            #:node+print-orphan-nodes
            #:node+get-orphan-node-ids
            #:node+add-sibling
@@ -16696,7 +16696,7 @@
            #:grid-map+get-bake-mesh-instance
            #:grid-map+clear-baked-meshes
            #:grid-map+make-baked-meshes
-           #:graph-node+-draw-port
+           #:graph-node+%draw-port
            #:graph-node+set-title
            #:graph-node+get-title
            #:graph-node+get-titlebar-hbox
@@ -16925,52 +16925,52 @@
            #:editor-undo-redo-manager+get-object-history-id
            #:editor-undo-redo-manager+get-history-undo-redo
            #:editor-undo-redo-manager+clear-history
-           #:editor-scene-post-import-plugin+-get-internal-import-options
-           #:editor-scene-post-import-plugin+-get-internal-option-visibility
-           #:editor-scene-post-import-plugin+-get-internal-option-update-view-required
-           #:editor-scene-post-import-plugin+-internal-process
-           #:editor-scene-post-import-plugin+-get-import-options
-           #:editor-scene-post-import-plugin+-get-option-visibility
-           #:editor-scene-post-import-plugin+-pre-process
-           #:editor-scene-post-import-plugin+-post-process
+           #:editor-scene-post-import-plugin+%get-internal-import-options
+           #:editor-scene-post-import-plugin+%get-internal-option-visibility
+           #:editor-scene-post-import-plugin+%get-internal-option-update-view-required
+           #:editor-scene-post-import-plugin+%internal-process
+           #:editor-scene-post-import-plugin+%get-import-options
+           #:editor-scene-post-import-plugin+%get-option-visibility
+           #:editor-scene-post-import-plugin+%pre-process
+           #:editor-scene-post-import-plugin+%post-process
            #:editor-scene-post-import-plugin+get-option-value
            #:editor-scene-post-import-plugin+add-import-option
            #:editor-scene-post-import-plugin+add-import-option-advanced
-           #:editor-node-3dgizmo-plugin+-has-gizmo
-           #:editor-node-3dgizmo-plugin+-create-gizmo
-           #:editor-node-3dgizmo-plugin+-get-gizmo-name
-           #:editor-node-3dgizmo-plugin+-get-priority
-           #:editor-node-3dgizmo-plugin+-can-be-hidden
-           #:editor-node-3dgizmo-plugin+-is-selectable-when-hidden
-           #:editor-node-3dgizmo-plugin+-redraw
-           #:editor-node-3dgizmo-plugin+-get-handle-name
-           #:editor-node-3dgizmo-plugin+-is-handle-highlighted
-           #:editor-node-3dgizmo-plugin+-get-handle-value
-           #:editor-node-3dgizmo-plugin+-begin-handle-action
-           #:editor-node-3dgizmo-plugin+-set-handle
-           #:editor-node-3dgizmo-plugin+-commit-handle
-           #:editor-node-3dgizmo-plugin+-subgizmos-intersect-ray
-           #:editor-node-3dgizmo-plugin+-subgizmos-intersect-frustum
-           #:editor-node-3dgizmo-plugin+-get-subgizmo-transform
-           #:editor-node-3dgizmo-plugin+-set-subgizmo-transform
-           #:editor-node-3dgizmo-plugin+-commit-subgizmos
+           #:editor-node-3dgizmo-plugin+%has-gizmo
+           #:editor-node-3dgizmo-plugin+%create-gizmo
+           #:editor-node-3dgizmo-plugin+%get-gizmo-name
+           #:editor-node-3dgizmo-plugin+%get-priority
+           #:editor-node-3dgizmo-plugin+%can-be-hidden
+           #:editor-node-3dgizmo-plugin+%is-selectable-when-hidden
+           #:editor-node-3dgizmo-plugin+%redraw
+           #:editor-node-3dgizmo-plugin+%get-handle-name
+           #:editor-node-3dgizmo-plugin+%is-handle-highlighted
+           #:editor-node-3dgizmo-plugin+%get-handle-value
+           #:editor-node-3dgizmo-plugin+%begin-handle-action
+           #:editor-node-3dgizmo-plugin+%set-handle
+           #:editor-node-3dgizmo-plugin+%commit-handle
+           #:editor-node-3dgizmo-plugin+%subgizmos-intersect-ray
+           #:editor-node-3dgizmo-plugin+%subgizmos-intersect-frustum
+           #:editor-node-3dgizmo-plugin+%get-subgizmo-transform
+           #:editor-node-3dgizmo-plugin+%set-subgizmo-transform
+           #:editor-node-3dgizmo-plugin+%commit-subgizmos
            #:editor-node-3dgizmo-plugin+create-material
            #:editor-node-3dgizmo-plugin+create-icon-material
            #:editor-node-3dgizmo-plugin+create-handle-material
            #:editor-node-3dgizmo-plugin+add-material
            #:editor-node-3dgizmo-plugin+get-material
-           #:editor-node-3dgizmo+-redraw
-           #:editor-node-3dgizmo+-get-handle-name
-           #:editor-node-3dgizmo+-is-handle-highlighted
-           #:editor-node-3dgizmo+-get-handle-value
-           #:editor-node-3dgizmo+-begin-handle-action
-           #:editor-node-3dgizmo+-set-handle
-           #:editor-node-3dgizmo+-commit-handle
-           #:editor-node-3dgizmo+-subgizmos-intersect-ray
-           #:editor-node-3dgizmo+-subgizmos-intersect-frustum
-           #:editor-node-3dgizmo+-set-subgizmo-transform
-           #:editor-node-3dgizmo+-get-subgizmo-transform
-           #:editor-node-3dgizmo+-commit-subgizmos
+           #:editor-node-3dgizmo+%redraw
+           #:editor-node-3dgizmo+%get-handle-name
+           #:editor-node-3dgizmo+%is-handle-highlighted
+           #:editor-node-3dgizmo+%get-handle-value
+           #:editor-node-3dgizmo+%begin-handle-action
+           #:editor-node-3dgizmo+%set-handle
+           #:editor-node-3dgizmo+%commit-handle
+           #:editor-node-3dgizmo+%subgizmos-intersect-ray
+           #:editor-node-3dgizmo+%subgizmos-intersect-frustum
+           #:editor-node-3dgizmo+%set-subgizmo-transform
+           #:editor-node-3dgizmo+%get-subgizmo-transform
+           #:editor-node-3dgizmo+%commit-subgizmos
            #:editor-node-3dgizmo+add-lines
            #:editor-node-3dgizmo+add-mesh
            #:editor-node-3dgizmo+add-collision-segments
@@ -17054,20 +17054,20 @@
            #:editor-interface+get-playing-scene
            #:editor-interface+set-movie-maker-enabled
            #:editor-interface+is-movie-maker-enabled
-           #:editor-import-plugin+-get-importer-name
-           #:editor-import-plugin+-get-visible-name
-           #:editor-import-plugin+-get-preset-count
-           #:editor-import-plugin+-get-preset-name
-           #:editor-import-plugin+-get-recognized-extensions
-           #:editor-import-plugin+-get-import-options
-           #:editor-import-plugin+-get-save-extension
-           #:editor-import-plugin+-get-resource-type
-           #:editor-import-plugin+-get-priority
-           #:editor-import-plugin+-get-import-order
-           #:editor-import-plugin+-get-format-version
-           #:editor-import-plugin+-get-option-visibility
-           #:editor-import-plugin+-import
-           #:editor-import-plugin+-can-import-threaded
+           #:editor-import-plugin+%get-importer-name
+           #:editor-import-plugin+%get-visible-name
+           #:editor-import-plugin+%get-preset-count
+           #:editor-import-plugin+%get-preset-name
+           #:editor-import-plugin+%get-recognized-extensions
+           #:editor-import-plugin+%get-import-options
+           #:editor-import-plugin+%get-save-extension
+           #:editor-import-plugin+%get-resource-type
+           #:editor-import-plugin+%get-priority
+           #:editor-import-plugin+%get-import-order
+           #:editor-import-plugin+%get-format-version
+           #:editor-import-plugin+%get-option-visibility
+           #:editor-import-plugin+%import
+           #:editor-import-plugin+%can-import-threaded
            #:editor-import-plugin+append-import-external-resource
            #:editor-file-dialog+add-side-menu
            #:editor-file-dialog+set-disable-overwrite-warning
@@ -17107,8 +17107,8 @@
            #:enet-connection+get-local-port
            #:enet-connection+get-peers
            #:enet-connection+socket-send
-           #:editor-property+-update-property
-           #:editor-property+-set-read-only
+           #:editor-property+%update-property
+           #:editor-property+%set-read-only
            #:editor-property+set-label
            #:editor-property+get-label
            #:editor-property+set-read-only
@@ -17527,17 +17527,17 @@
            #:curve+bake
            #:curve+get-bake-resolution
            #:curve+set-bake-resolution
-           #:control+-has-point
-           #:control+-structured-text-parser
-           #:control+-get-minimum-size
-           #:control+-get-tooltip
-           #:control+-get-drag-data
-           #:control+-can-drop-data
-           #:control+-drop-data
-           #:control+-make-custom-tooltip
-           #:control+-accessibility-get-contextual-info
-           #:control+-get-accessibility-container-name
-           #:control+-gui-input
+           #:control+%has-point
+           #:control+%structured-text-parser
+           #:control+%get-minimum-size
+           #:control+%get-tooltip
+           #:control+%get-drag-data
+           #:control+%can-drop-data
+           #:control+%drop-data
+           #:control+%make-custom-tooltip
+           #:control+%accessibility-get-contextual-info
+           #:control+%get-accessibility-container-name
+           #:control+%gui-input
            #:control+accept-event
            #:control+get-minimum-size
            #:control+get-combined-minimum-size
@@ -17693,9 +17693,9 @@
            #:control+is-auto-translating
            #:control+set-localize-numeral-system
            #:control+is-localizing-numeral-system
-           #:code-edit+-confirm-code-completion
-           #:code-edit+-request-code-completion
-           #:code-edit+-filter-code-completion-candidates
+           #:code-edit+%confirm-code-completion
+           #:code-edit+%request-code-completion
+           #:code-edit+%filter-code-completion-candidates
            #:code-edit+set-indent-size
            #:code-edit+get-indent-size
            #:code-edit+set-indent-using-spaces
@@ -17809,7 +17809,7 @@
            #:code-edit+delete-lines
            #:code-edit+duplicate-selection
            #:code-edit+duplicate-lines
-           #:canvas-item+-draw
+           #:canvas-item+%draw
            #:canvas-item+get-canvas-item
            #:canvas-item+set-visible
            #:canvas-item+is-visible
@@ -18172,14 +18172,14 @@
            #:animation-node-blend-space-1d+get-blend-mode
            #:animation-node-blend-space-1d+set-use-sync
            #:animation-node-blend-space-1d+is-using-sync
-           #:animation-node+-get-child-nodes
-           #:animation-node+-get-parameter-list
-           #:animation-node+-get-child-by-name
-           #:animation-node+-get-parameter-default-value
-           #:animation-node+-is-parameter-read-only
-           #:animation-node+-process
-           #:animation-node+-get-caption
-           #:animation-node+-has-filter
+           #:animation-node+%get-child-nodes
+           #:animation-node+%get-parameter-list
+           #:animation-node+%get-child-by-name
+           #:animation-node+%get-parameter-default-value
+           #:animation-node+%is-parameter-read-only
+           #:animation-node+%process
+           #:animation-node+%get-caption
+           #:animation-node+%has-filter
            #:animation-node+add-input
            #:animation-node+remove-input
            #:animation-node+set-input-name
@@ -18344,9 +18344,9 @@
            #:accept-dialog+has-autowrap
            #:accept-dialog+set-ok-button-text
            #:accept-dialog+get-ok-button-text
-           #:engine-profiler+-toggle
-           #:engine-profiler+-add-frame
-           #:engine-profiler+-tick
+           #:engine-profiler+%toggle
+           #:engine-profiler+%add-frame
+           #:engine-profiler+%tick
            #:resource-uid+id-to-text
            #:resource-uid+text-to-id
            #:resource-uid+create-id
@@ -18375,9 +18375,9 @@
            #:godot-instance+resume
            #:gdextension+is-library-open
            #:gdextension+get-minimum-library-initialization-level
-           #:resource-importer+-get-build-dependencies
-           #:image-format-loader-extension+-get-recognized-extensions
-           #:image-format-loader-extension+-load-image
+           #:resource-importer+%get-build-dependencies
+           #:image-format-loader-extension+%get-recognized-extensions
+           #:image-format-loader-extension+%load-image
            #:image-format-loader-extension+add-format-loader
            #:image-format-loader-extension+remove-format-loader
            #:packed-data-container-ref+size
@@ -18396,8 +18396,8 @@
            #:random-number-generator+randomize
            #:encoded-object-as-id+set-object-id
            #:encoded-object-as-id+get-object-id
-           #:astar-grid-2d+-estimate-cost
-           #:astar-grid-2d+-compute-cost
+           #:astar-grid-2d+%estimate-cost
+           #:astar-grid-2d+%compute-cost
            #:astar-grid-2d+set-region
            #:astar-grid-2d+get-region
            #:astar-grid-2d+set-size
@@ -18431,9 +18431,9 @@
            #:astar-grid-2d+get-point-data-in-region
            #:astar-grid-2d+get-point-path
            #:astar-grid-2d+get-id-path
-           #:astar-2d+-filter-neighbor
-           #:astar-2d+-estimate-cost
-           #:astar-2d+-compute-cost
+           #:astar-2d+%filter-neighbor
+           #:astar-2d+%estimate-cost
+           #:astar-2d+%compute-cost
            #:astar-2d+get-available-point-id
            #:astar-2d+add-point
            #:astar-2d+get-point-position
@@ -18459,9 +18459,9 @@
            #:astar-2d+get-closest-position-in-segment
            #:astar-2d+get-point-path
            #:astar-2d+get-id-path
-           #:astar-3d+-filter-neighbor
-           #:astar-3d+-estimate-cost
-           #:astar-3d+-compute-cost
+           #:astar-3d+%filter-neighbor
+           #:astar-3d+%estimate-cost
+           #:astar-3d+%compute-cost
            #:astar-3d+get-available-point-id
            #:astar-3d+add-point
            #:astar-3d+get-point-position
@@ -18535,8 +18535,8 @@
            #:xmlparser+seek
            #:xmlparser+open
            #:xmlparser+open-buffer
-           #:logger+-log-error
-           #:logger+-log-message
+           #:logger+%log-error
+           #:logger+%log-message
            #:semaphore+wait
            #:semaphore+try-wait
            #:semaphore+post
@@ -18720,8 +18720,8 @@
            #:translation-domain+get-pseudolocalization-suffix
            #:translation-domain+set-pseudolocalization-suffix
            #:translation-domain+pseudolocalize
-           #:translation+-get-plural-message
-           #:translation+-get-message
+           #:translation+%get-plural-message
+           #:translation+%get-message
            #:translation+set-locale
            #:translation+get-locale
            #:translation+add-message
@@ -18734,10 +18734,10 @@
            #:translation+get-message-count
            #:translation+set-plural-rules-override
            #:translation+get-plural-rules-override
-           #:main-loop+-initialize
-           #:main-loop+-physics-process
-           #:main-loop+-process
-           #:main-loop+-finalize
+           #:main-loop+%initialize
+           #:main-loop+%physics-process
+           #:main-loop+%process
+           #:main-loop+%finalize
            #:dtlsserver+setup
            #:dtlsserver+take-connection
            #:packet-peer-dtls+poll
@@ -18846,10 +18846,10 @@
            #:packet-peer-stream+set-output-buffer-max-size
            #:packet-peer-stream+get-input-buffer-max-size
            #:packet-peer-stream+get-output-buffer-max-size
-           #:packet-peer-extension+-get-packet
-           #:packet-peer-extension+-put-packet
-           #:packet-peer-extension+-get-available-packet-count
-           #:packet-peer-extension+-get-max-packet-size
+           #:packet-peer-extension+%get-packet
+           #:packet-peer-extension+%put-packet
+           #:packet-peer-extension+%get-available-packet-count
+           #:packet-peer-extension+%get-max-packet-size
            #:packet-peer+get-var
            #:packet-peer+put-var
            #:packet-peer+get-packet
@@ -18884,11 +18884,11 @@
            #:stream-peer-buffer+get-data-array
            #:stream-peer-buffer+clear
            #:stream-peer-buffer+duplicate
-           #:stream-peer-extension+-get-data
-           #:stream-peer-extension+-get-partial-data
-           #:stream-peer-extension+-put-data
-           #:stream-peer-extension+-put-partial-data
-           #:stream-peer-extension+-get-available-bytes
+           #:stream-peer-extension+%get-data
+           #:stream-peer-extension+%get-partial-data
+           #:stream-peer-extension+%put-data
+           #:stream-peer-extension+%put-partial-data
+           #:stream-peer-extension+%get-available-bytes
            #:socket-server+is-connection-available
            #:socket-server+is-listening
            #:socket-server+stop
@@ -19158,103 +19158,103 @@
            #:missing-resource+get-original-class
            #:missing-resource+set-recording-properties
            #:missing-resource+is-recording-properties
-           #:script-language-extension+-get-name
-           #:script-language-extension+-init
-           #:script-language-extension+-get-type
-           #:script-language-extension+-get-extension
-           #:script-language-extension+-finish
-           #:script-language-extension+-get-reserved-words
-           #:script-language-extension+-is-control-flow-keyword
-           #:script-language-extension+-get-comment-delimiters
-           #:script-language-extension+-get-doc-comment-delimiters
-           #:script-language-extension+-get-string-delimiters
-           #:script-language-extension+-make-template
-           #:script-language-extension+-get-built-in-templates
-           #:script-language-extension+-is-using-templates
-           #:script-language-extension+-validate
-           #:script-language-extension+-validate-path
-           #:script-language-extension+-create-script
-           #:script-language-extension+-has-named-classes
-           #:script-language-extension+-supports-builtin-mode
-           #:script-language-extension+-supports-documentation
-           #:script-language-extension+-can-inherit-from-file
-           #:script-language-extension+-find-function
-           #:script-language-extension+-make-function
-           #:script-language-extension+-can-make-function
-           #:script-language-extension+-open-in-external-editor
-           #:script-language-extension+-overrides-external-editor
-           #:script-language-extension+-preferred-file-name-casing
-           #:script-language-extension+-complete-code
-           #:script-language-extension+-lookup-code
-           #:script-language-extension+-auto-indent-code
-           #:script-language-extension+-add-global-constant
-           #:script-language-extension+-add-named-global-constant
-           #:script-language-extension+-remove-named-global-constant
-           #:script-language-extension+-thread-enter
-           #:script-language-extension+-thread-exit
-           #:script-language-extension+-debug-get-error
-           #:script-language-extension+-debug-get-stack-level-count
-           #:script-language-extension+-debug-get-stack-level-line
-           #:script-language-extension+-debug-get-stack-level-function
-           #:script-language-extension+-debug-get-stack-level-source
-           #:script-language-extension+-debug-get-stack-level-locals
-           #:script-language-extension+-debug-get-stack-level-members
-           #:script-language-extension+-debug-get-stack-level-instance
-           #:script-language-extension+-debug-get-globals
-           #:script-language-extension+-debug-parse-stack-level-expression
-           #:script-language-extension+-debug-get-current-stack-info
-           #:script-language-extension+-reload-all-scripts
-           #:script-language-extension+-reload-scripts
-           #:script-language-extension+-reload-tool-script
-           #:script-language-extension+-get-recognized-extensions
-           #:script-language-extension+-get-public-functions
-           #:script-language-extension+-get-public-constants
-           #:script-language-extension+-get-public-annotations
-           #:script-language-extension+-profiling-start
-           #:script-language-extension+-profiling-stop
-           #:script-language-extension+-profiling-set-save-native-calls
-           #:script-language-extension+-profiling-get-accumulated-data
-           #:script-language-extension+-profiling-get-frame-data
-           #:script-language-extension+-frame
-           #:script-language-extension+-handles-global-class-type
-           #:script-language-extension+-get-global-class-name
-           #:script-extension+-editor-can-reload-from-file
-           #:script-extension+-placeholder-erased
-           #:script-extension+-can-instantiate
-           #:script-extension+-get-base-script
-           #:script-extension+-get-global-name
-           #:script-extension+-inherits-script
-           #:script-extension+-get-instance-base-type
-           #:script-extension+-instance-create
-           #:script-extension+-placeholder-instance-create
-           #:script-extension+-instance-has
-           #:script-extension+-has-source-code
-           #:script-extension+-get-source-code
-           #:script-extension+-set-source-code
-           #:script-extension+-reload
-           #:script-extension+-get-doc-class-name
-           #:script-extension+-get-documentation
-           #:script-extension+-get-class-icon-path
-           #:script-extension+-has-method
-           #:script-extension+-has-static-method
-           #:script-extension+-get-script-method-argument-count
-           #:script-extension+-get-method-info
-           #:script-extension+-is-tool
-           #:script-extension+-is-valid
-           #:script-extension+-is-abstract
-           #:script-extension+-get-language
-           #:script-extension+-has-script-signal
-           #:script-extension+-get-script-signal-list
-           #:script-extension+-has-property-default-value
-           #:script-extension+-get-property-default-value
-           #:script-extension+-update-exports
-           #:script-extension+-get-script-method-list
-           #:script-extension+-get-script-property-list
-           #:script-extension+-get-member-line
-           #:script-extension+-get-constants
-           #:script-extension+-get-members
-           #:script-extension+-is-placeholder-fallback-enabled
-           #:script-extension+-get-rpc-config
+           #:script-language-extension+%get-name
+           #:script-language-extension+%init
+           #:script-language-extension+%get-type
+           #:script-language-extension+%get-extension
+           #:script-language-extension+%finish
+           #:script-language-extension+%get-reserved-words
+           #:script-language-extension+%is-control-flow-keyword
+           #:script-language-extension+%get-comment-delimiters
+           #:script-language-extension+%get-doc-comment-delimiters
+           #:script-language-extension+%get-string-delimiters
+           #:script-language-extension+%make-template
+           #:script-language-extension+%get-built-in-templates
+           #:script-language-extension+%is-using-templates
+           #:script-language-extension+%validate
+           #:script-language-extension+%validate-path
+           #:script-language-extension+%create-script
+           #:script-language-extension+%has-named-classes
+           #:script-language-extension+%supports-builtin-mode
+           #:script-language-extension+%supports-documentation
+           #:script-language-extension+%can-inherit-from-file
+           #:script-language-extension+%find-function
+           #:script-language-extension+%make-function
+           #:script-language-extension+%can-make-function
+           #:script-language-extension+%open-in-external-editor
+           #:script-language-extension+%overrides-external-editor
+           #:script-language-extension+%preferred-file-name-casing
+           #:script-language-extension+%complete-code
+           #:script-language-extension+%lookup-code
+           #:script-language-extension+%auto-indent-code
+           #:script-language-extension+%add-global-constant
+           #:script-language-extension+%add-named-global-constant
+           #:script-language-extension+%remove-named-global-constant
+           #:script-language-extension+%thread-enter
+           #:script-language-extension+%thread-exit
+           #:script-language-extension+%debug-get-error
+           #:script-language-extension+%debug-get-stack-level-count
+           #:script-language-extension+%debug-get-stack-level-line
+           #:script-language-extension+%debug-get-stack-level-function
+           #:script-language-extension+%debug-get-stack-level-source
+           #:script-language-extension+%debug-get-stack-level-locals
+           #:script-language-extension+%debug-get-stack-level-members
+           #:script-language-extension+%debug-get-stack-level-instance
+           #:script-language-extension+%debug-get-globals
+           #:script-language-extension+%debug-parse-stack-level-expression
+           #:script-language-extension+%debug-get-current-stack-info
+           #:script-language-extension+%reload-all-scripts
+           #:script-language-extension+%reload-scripts
+           #:script-language-extension+%reload-tool-script
+           #:script-language-extension+%get-recognized-extensions
+           #:script-language-extension+%get-public-functions
+           #:script-language-extension+%get-public-constants
+           #:script-language-extension+%get-public-annotations
+           #:script-language-extension+%profiling-start
+           #:script-language-extension+%profiling-stop
+           #:script-language-extension+%profiling-set-save-native-calls
+           #:script-language-extension+%profiling-get-accumulated-data
+           #:script-language-extension+%profiling-get-frame-data
+           #:script-language-extension+%frame
+           #:script-language-extension+%handles-global-class-type
+           #:script-language-extension+%get-global-class-name
+           #:script-extension+%editor-can-reload-from-file
+           #:script-extension+%placeholder-erased
+           #:script-extension+%can-instantiate
+           #:script-extension+%get-base-script
+           #:script-extension+%get-global-name
+           #:script-extension+%inherits-script
+           #:script-extension+%get-instance-base-type
+           #:script-extension+%instance-create
+           #:script-extension+%placeholder-instance-create
+           #:script-extension+%instance-has
+           #:script-extension+%has-source-code
+           #:script-extension+%get-source-code
+           #:script-extension+%set-source-code
+           #:script-extension+%reload
+           #:script-extension+%get-doc-class-name
+           #:script-extension+%get-documentation
+           #:script-extension+%get-class-icon-path
+           #:script-extension+%has-method
+           #:script-extension+%has-static-method
+           #:script-extension+%get-script-method-argument-count
+           #:script-extension+%get-method-info
+           #:script-extension+%is-tool
+           #:script-extension+%is-valid
+           #:script-extension+%is-abstract
+           #:script-extension+%get-language
+           #:script-extension+%has-script-signal
+           #:script-extension+%get-script-signal-list
+           #:script-extension+%has-property-default-value
+           #:script-extension+%get-property-default-value
+           #:script-extension+%update-exports
+           #:script-extension+%get-script-method-list
+           #:script-extension+%get-script-property-list
+           #:script-extension+%get-member-line
+           #:script-extension+%get-constants
+           #:script-extension+%get-members
+           #:script-extension+%is-placeholder-fallback-enabled
+           #:script-extension+%get-rpc-config
            #:script-backtrace+get-language-name
            #:script-backtrace+is-empty
            #:script-backtrace+get-frame-count
@@ -19289,22 +19289,22 @@
            #:script+is-tool
            #:script+is-abstract
            #:script+get-rpc-config
-           #:resource-format-saver+-save
-           #:resource-format-saver+-set-uid
-           #:resource-format-saver+-recognize
-           #:resource-format-saver+-get-recognized-extensions
-           #:resource-format-saver+-recognize-path
-           #:resource-format-loader+-get-recognized-extensions
-           #:resource-format-loader+-recognize-path
-           #:resource-format-loader+-handles-type
-           #:resource-format-loader+-get-resource-type
-           #:resource-format-loader+-get-resource-script-class
-           #:resource-format-loader+-get-resource-uid
-           #:resource-format-loader+-get-dependencies
-           #:resource-format-loader+-rename-dependencies
-           #:resource-format-loader+-exists
-           #:resource-format-loader+-get-classes-used
-           #:resource-format-loader+-load
+           #:resource-format-saver+%save
+           #:resource-format-saver+%set-uid
+           #:resource-format-saver+%recognize
+           #:resource-format-saver+%get-recognized-extensions
+           #:resource-format-saver+%recognize-path
+           #:resource-format-loader+%get-recognized-extensions
+           #:resource-format-loader+%recognize-path
+           #:resource-format-loader+%handles-type
+           #:resource-format-loader+%get-resource-type
+           #:resource-format-loader+%get-resource-script-class
+           #:resource-format-loader+%get-resource-uid
+           #:resource-format-loader+%get-dependencies
+           #:resource-format-loader+%rename-dependencies
+           #:resource-format-loader+%exists
+           #:resource-format-loader+%get-classes-used
+           #:resource-format-loader+%load
            #:time+get-datetime-dict-from-unix-time
            #:time+get-date-dict-from-unix-time
            #:time+get-time-dict-from-unix-time
@@ -19326,10 +19326,10 @@
            #:time+get-unix-time-from-system
            #:time+get-ticks-msec
            #:time+get-ticks-usec
-           #:resource+-setup-local-to-scene
-           #:resource+-get-rid
-           #:resource+-reset-state
-           #:resource+-set-path-cache
+           #:resource+%setup-local-to-scene
+           #:resource+%get-rid
+           #:resource+%reset-state
+           #:resource+%set-path-cache
            #:resource+set-path
            #:resource+take-over-path
            #:resource+get-path

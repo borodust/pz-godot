@@ -2,63 +2,63 @@
 
 
 (defgmethod
- (node+-process :class 'node :bind "_process" :hash 373806689 :virtual
+ (node+%process :class 'node :bind "_process" :hash 373806689 :virtual
   common-lisp:t)
  :void (delta float))
 
 (defgmethod
- (node+-physics-process :class 'node :bind "_physics_process" :hash 373806689
+ (node+%physics-process :class 'node :bind "_physics_process" :hash 373806689
   :virtual common-lisp:t)
  :void (delta float))
 
 (defgmethod
- (node+-enter-tree :class 'node :bind "_enter_tree" :hash 3218959716 :virtual
+ (node+%enter-tree :class 'node :bind "_enter_tree" :hash 3218959716 :virtual
   common-lisp:t)
  :void)
 
 (defgmethod
- (node+-exit-tree :class 'node :bind "_exit_tree" :hash 3218959716 :virtual
+ (node+%exit-tree :class 'node :bind "_exit_tree" :hash 3218959716 :virtual
   common-lisp:t)
  :void)
 
 (defgmethod
- (node+-ready :class 'node :bind "_ready" :hash 3218959716 :virtual
+ (node+%ready :class 'node :bind "_ready" :hash 3218959716 :virtual
   common-lisp:t)
  :void)
 
 (defgmethod
- (node+-get-configuration-warnings :class 'node :bind
+ (node+%get-configuration-warnings :class 'node :bind
   "_get_configuration_warnings" :hash 1139954409 :virtual common-lisp:t)
  packed-string-array)
 
 (defgmethod
- (node+-get-accessibility-configuration-warnings :class 'node :bind
+ (node+%get-accessibility-configuration-warnings :class 'node :bind
   "_get_accessibility_configuration_warnings" :hash 1139954409 :virtual
   common-lisp:t)
  packed-string-array)
 
 (defgmethod
- (node+-input :class 'node :bind "_input" :hash 3754044979 :virtual
+ (node+%input :class 'node :bind "_input" :hash 3754044979 :virtual
   common-lisp:t)
  :void (event input-event))
 
 (defgmethod
- (node+-shortcut-input :class 'node :bind "_shortcut_input" :hash 3754044979
+ (node+%shortcut-input :class 'node :bind "_shortcut_input" :hash 3754044979
   :virtual common-lisp:t)
  :void (event input-event))
 
 (defgmethod
- (node+-unhandled-input :class 'node :bind "_unhandled_input" :hash 3754044979
+ (node+%unhandled-input :class 'node :bind "_unhandled_input" :hash 3754044979
   :virtual common-lisp:t)
  :void (event input-event))
 
 (defgmethod
- (node+-unhandled-key-input :class 'node :bind "_unhandled_key_input" :hash
+ (node+%unhandled-key-input :class 'node :bind "_unhandled_key_input" :hash
   3754044979 :virtual common-lisp:t)
  :void (event input-event))
 
 (defgmethod
- (node+-get-focused-accessibility-element :class 'node :bind
+ (node+%get-focused-accessibility-element :class 'node :bind
   "_get_focused_accessibility_element" :hash 2944877500 :virtual common-lisp:t)
  rid)
 

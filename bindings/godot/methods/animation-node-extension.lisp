@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (animation-node-extension+-process-animation-node :class
+ (animation-node-extension+%process-animation-node :class
   'animation-node-extension :bind "_process_animation_node" :hash 912931771
   :virtual common-lisp:t)
  packed-float-32array (playback-info packed-float-64array) (test-only bool))

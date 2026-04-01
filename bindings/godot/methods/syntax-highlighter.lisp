@@ -2,18 +2,18 @@
 
 
 (defgmethod
- (syntax-highlighter+-get-line-syntax-highlighting :class 'syntax-highlighter
+ (syntax-highlighter+%get-line-syntax-highlighting :class 'syntax-highlighter
   :bind "_get_line_syntax_highlighting" :hash 3485342025 :virtual
   common-lisp:t)
  dictionary (line int))
 
 (defgmethod
- (syntax-highlighter+-clear-highlighting-cache :class 'syntax-highlighter :bind
+ (syntax-highlighter+%clear-highlighting-cache :class 'syntax-highlighter :bind
   "_clear_highlighting_cache" :hash 3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (syntax-highlighter+-update-cache :class 'syntax-highlighter :bind
+ (syntax-highlighter+%update-cache :class 'syntax-highlighter :bind
   "_update_cache" :hash 3218959716 :virtual common-lisp:t)
  :void)
 

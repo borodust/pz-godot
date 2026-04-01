@@ -2,32 +2,32 @@
 
 
 (defgmethod
- (texture-3d+-get-format :class 'texture-3d :bind "_get_format" :hash
+ (texture-3d+%get-format :class 'texture-3d :bind "_get_format" :hash
   3847873762 :virtual common-lisp:t)
  image+format)
 
 (defgmethod
- (texture-3d+-get-width :class 'texture-3d :bind "_get_width" :hash 3905245786
+ (texture-3d+%get-width :class 'texture-3d :bind "_get_width" :hash 3905245786
   :virtual common-lisp:t)
  int)
 
 (defgmethod
- (texture-3d+-get-height :class 'texture-3d :bind "_get_height" :hash
+ (texture-3d+%get-height :class 'texture-3d :bind "_get_height" :hash
   3905245786 :virtual common-lisp:t)
  int)
 
 (defgmethod
- (texture-3d+-get-depth :class 'texture-3d :bind "_get_depth" :hash 3905245786
+ (texture-3d+%get-depth :class 'texture-3d :bind "_get_depth" :hash 3905245786
   :virtual common-lisp:t)
  int)
 
 (defgmethod
- (texture-3d+-has-mipmaps :class 'texture-3d :bind "_has_mipmaps" :hash
+ (texture-3d+%has-mipmaps :class 'texture-3d :bind "_has_mipmaps" :hash
   36873697 :virtual common-lisp:t)
  bool)
 
 (defgmethod
- (texture-3d+-get-data :class 'texture-3d :bind "_get_data" :hash 3995934104
+ (texture-3d+%get-data :class 'texture-3d :bind "_get_data" :hash 3995934104
   :virtual common-lisp:t)
  array)
 

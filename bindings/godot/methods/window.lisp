@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (window+-get-contents-minimum-size :class 'window :bind
+ (window+%get-contents-minimum-size :class 'window :bind
   "_get_contents_minimum_size" :hash 3341600327 :virtual common-lisp:t)
  vector-2)
 

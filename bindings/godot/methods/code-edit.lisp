@@ -2,17 +2,17 @@
 
 
 (defgmethod
- (code-edit+-confirm-code-completion :class 'code-edit :bind
+ (code-edit+%confirm-code-completion :class 'code-edit :bind
   "_confirm_code_completion" :hash 2586408642 :virtual common-lisp:t)
  :void (replace bool))
 
 (defgmethod
- (code-edit+-request-code-completion :class 'code-edit :bind
+ (code-edit+%request-code-completion :class 'code-edit :bind
   "_request_code_completion" :hash 2586408642 :virtual common-lisp:t)
  :void (force bool))
 
 (defgmethod
- (code-edit+-filter-code-completion-candidates :class 'code-edit :bind
+ (code-edit+%filter-code-completion-candidates :class 'code-edit :bind
   "_filter_code_completion_candidates" :hash 2560709669 :virtual common-lisp:t)
  array (candidates array))
 

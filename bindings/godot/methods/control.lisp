@@ -2,57 +2,57 @@
 
 
 (defgmethod
- (control+-has-point :class 'control :bind "_has_point" :hash 556197845
+ (control+%has-point :class 'control :bind "_has_point" :hash 556197845
   :virtual common-lisp:t)
  bool (point vector-2))
 
 (defgmethod
- (control+-structured-text-parser :class 'control :bind
+ (control+%structured-text-parser :class 'control :bind
   "_structured_text_parser" :hash 1292548940 :virtual common-lisp:t)
  array (args array) (text string))
 
 (defgmethod
- (control+-get-minimum-size :class 'control :bind "_get_minimum_size" :hash
+ (control+%get-minimum-size :class 'control :bind "_get_minimum_size" :hash
   3341600327 :virtual common-lisp:t)
  vector-2)
 
 (defgmethod
- (control+-get-tooltip :class 'control :bind "_get_tooltip" :hash 3674420000
+ (control+%get-tooltip :class 'control :bind "_get_tooltip" :hash 3674420000
   :virtual common-lisp:t)
  string (at-position vector-2))
 
 (defgmethod
- (control+-get-drag-data :class 'control :bind "_get_drag_data" :hash
+ (control+%get-drag-data :class 'control :bind "_get_drag_data" :hash
   2233896889 :virtual common-lisp:t)
  variant (at-position vector-2))
 
 (defgmethod
- (control+-can-drop-data :class 'control :bind "_can_drop_data" :hash
+ (control+%can-drop-data :class 'control :bind "_can_drop_data" :hash
   2603004011 :virtual common-lisp:t)
  bool (at-position vector-2) (data variant))
 
 (defgmethod
- (control+-drop-data :class 'control :bind "_drop_data" :hash 3699746064
+ (control+%drop-data :class 'control :bind "_drop_data" :hash 3699746064
   :virtual common-lisp:t)
  :void (at-position vector-2) (data variant))
 
 (defgmethod
- (control+-make-custom-tooltip :class 'control :bind "_make_custom_tooltip"
+ (control+%make-custom-tooltip :class 'control :bind "_make_custom_tooltip"
   :hash 1976279298 :virtual common-lisp:t)
  object (for-text string))
 
 (defgmethod
- (control+-accessibility-get-contextual-info :class 'control :bind
+ (control+%accessibility-get-contextual-info :class 'control :bind
   "_accessibility_get_contextual_info" :hash 201670096 :virtual common-lisp:t)
  string)
 
 (defgmethod
- (control+-get-accessibility-container-name :class 'control :bind
+ (control+%get-accessibility-container-name :class 'control :bind
   "_get_accessibility_container_name" :hash 2174079723 :virtual common-lisp:t)
  string (node node))
 
 (defgmethod
- (control+-gui-input :class 'control :bind "_gui_input" :hash 3754044979
+ (control+%gui-input :class 'control :bind "_gui_input" :hash 3754044979
   :virtual common-lisp:t)
  :void (event input-event))
 

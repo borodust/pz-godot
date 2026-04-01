@@ -2,42 +2,42 @@
 
 
 (defgmethod
- (animation-node+-get-child-nodes :class 'animation-node :bind
+ (animation-node+%get-child-nodes :class 'animation-node :bind
   "_get_child_nodes" :hash 3102165223 :virtual common-lisp:t)
  dictionary)
 
 (defgmethod
- (animation-node+-get-parameter-list :class 'animation-node :bind
+ (animation-node+%get-parameter-list :class 'animation-node :bind
   "_get_parameter_list" :hash 3995934104 :virtual common-lisp:t)
  array)
 
 (defgmethod
- (animation-node+-get-child-by-name :class 'animation-node :bind
+ (animation-node+%get-child-by-name :class 'animation-node :bind
   "_get_child_by_name" :hash 625644256 :virtual common-lisp:t)
  animation-node (name string-name))
 
 (defgmethod
- (animation-node+-get-parameter-default-value :class 'animation-node :bind
+ (animation-node+%get-parameter-default-value :class 'animation-node :bind
   "_get_parameter_default_value" :hash 2760726917 :virtual common-lisp:t)
  variant (parameter string-name))
 
 (defgmethod
- (animation-node+-is-parameter-read-only :class 'animation-node :bind
+ (animation-node+%is-parameter-read-only :class 'animation-node :bind
   "_is_parameter_read_only" :hash 2619796661 :virtual common-lisp:t)
  bool (parameter string-name))
 
 (defgmethod
- (animation-node+-process :class 'animation-node :bind "_process" :hash
+ (animation-node+%process :class 'animation-node :bind "_process" :hash
   2139827523 :virtual common-lisp:t)
  float (time float) (seek bool) (is-external-seeking bool) (test-only bool))
 
 (defgmethod
- (animation-node+-get-caption :class 'animation-node :bind "_get_caption" :hash
+ (animation-node+%get-caption :class 'animation-node :bind "_get_caption" :hash
   201670096 :virtual common-lisp:t)
  string)
 
 (defgmethod
- (animation-node+-has-filter :class 'animation-node :bind "_has_filter" :hash
+ (animation-node+%has-filter :class 'animation-node :bind "_has_filter" :hash
   36873697 :virtual common-lisp:t)
  bool)
 

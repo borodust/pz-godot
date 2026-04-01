@@ -2,38 +2,38 @@
 
 
 (defgmethod
- (texture-2d+-get-width :class 'texture-2d :bind "_get_width" :hash 3905245786
+ (texture-2d+%get-width :class 'texture-2d :bind "_get_width" :hash 3905245786
   :virtual common-lisp:t)
  int)
 
 (defgmethod
- (texture-2d+-get-height :class 'texture-2d :bind "_get_height" :hash
+ (texture-2d+%get-height :class 'texture-2d :bind "_get_height" :hash
   3905245786 :virtual common-lisp:t)
  int)
 
 (defgmethod
- (texture-2d+-is-pixel-opaque :class 'texture-2d :bind "_is_pixel_opaque" :hash
+ (texture-2d+%is-pixel-opaque :class 'texture-2d :bind "_is_pixel_opaque" :hash
   2522259332 :virtual common-lisp:t)
  bool (x int) (y int))
 
 (defgmethod
- (texture-2d+-has-alpha :class 'texture-2d :bind "_has_alpha" :hash 36873697
+ (texture-2d+%has-alpha :class 'texture-2d :bind "_has_alpha" :hash 36873697
   :virtual common-lisp:t)
  bool)
 
 (defgmethod
- (texture-2d+-draw :class 'texture-2d :bind "_draw" :hash 1384643611 :virtual
+ (texture-2d+%draw :class 'texture-2d :bind "_draw" :hash 1384643611 :virtual
   common-lisp:t)
  :void (to-canvas-item rid) (pos vector-2) (modulate color) (transpose bool))
 
 (defgmethod
- (texture-2d+-draw-rect :class 'texture-2d :bind "_draw_rect" :hash 3819628907
+ (texture-2d+%draw-rect :class 'texture-2d :bind "_draw_rect" :hash 3819628907
   :virtual common-lisp:t)
  :void (to-canvas-item rid) (rect rect-2) (tile bool) (modulate color)
  (transpose bool))
 
 (defgmethod
- (texture-2d+-draw-rect-region :class 'texture-2d :bind "_draw_rect_region"
+ (texture-2d+%draw-rect-region :class 'texture-2d :bind "_draw_rect_region"
   :hash 4094143664 :virtual common-lisp:t)
  :void (to-canvas-item rid) (rect rect-2) (src-rect rect-2) (modulate color)
  (transpose bool) (clip-uv bool))

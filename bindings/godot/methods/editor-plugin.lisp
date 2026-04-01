@@ -2,129 +2,129 @@
 
 
 (defgmethod
- (editor-plugin+-forward-canvas-gui-input :class 'editor-plugin :bind
+ (editor-plugin+%forward-canvas-gui-input :class 'editor-plugin :bind
   "_forward_canvas_gui_input" :hash 1062211774 :virtual common-lisp:t)
  bool (event input-event))
 
 (defgmethod
- (editor-plugin+-forward-canvas-draw-over-viewport :class 'editor-plugin :bind
+ (editor-plugin+%forward-canvas-draw-over-viewport :class 'editor-plugin :bind
   "_forward_canvas_draw_over_viewport" :hash 1496901182 :virtual common-lisp:t)
  :void (viewport-control control))
 
 (defgmethod
- (editor-plugin+-forward-canvas-force-draw-over-viewport :class 'editor-plugin
+ (editor-plugin+%forward-canvas-force-draw-over-viewport :class 'editor-plugin
   :bind "_forward_canvas_force_draw_over_viewport" :hash 1496901182 :virtual
   common-lisp:t)
  :void (viewport-control control))
 
 (defgmethod
- (editor-plugin+-forward-3d-gui-input :class 'editor-plugin :bind
+ (editor-plugin+%forward-3d-gui-input :class 'editor-plugin :bind
   "_forward_3d_gui_input" :hash 1018736637 :virtual common-lisp:t)
  int (viewport-camera camera-3d) (event input-event))
 
 (defgmethod
- (editor-plugin+-forward-3d-draw-over-viewport :class 'editor-plugin :bind
+ (editor-plugin+%forward-3d-draw-over-viewport :class 'editor-plugin :bind
   "_forward_3d_draw_over_viewport" :hash 1496901182 :virtual common-lisp:t)
  :void (viewport-control control))
 
 (defgmethod
- (editor-plugin+-forward-3d-force-draw-over-viewport :class 'editor-plugin
+ (editor-plugin+%forward-3d-force-draw-over-viewport :class 'editor-plugin
   :bind "_forward_3d_force_draw_over_viewport" :hash 1496901182 :virtual
   common-lisp:t)
  :void (viewport-control control))
 
 (defgmethod
- (editor-plugin+-get-plugin-name :class 'editor-plugin :bind "_get_plugin_name"
+ (editor-plugin+%get-plugin-name :class 'editor-plugin :bind "_get_plugin_name"
   :hash 201670096 :virtual common-lisp:t)
  string)
 
 (defgmethod
- (editor-plugin+-get-plugin-icon :class 'editor-plugin :bind "_get_plugin_icon"
+ (editor-plugin+%get-plugin-icon :class 'editor-plugin :bind "_get_plugin_icon"
   :hash 3635182373 :virtual common-lisp:t)
  texture-2d)
 
 (defgmethod
- (editor-plugin+-has-main-screen :class 'editor-plugin :bind "_has_main_screen"
+ (editor-plugin+%has-main-screen :class 'editor-plugin :bind "_has_main_screen"
   :hash 36873697 :virtual common-lisp:t)
  bool)
 
 (defgmethod
- (editor-plugin+-make-visible :class 'editor-plugin :bind "_make_visible" :hash
+ (editor-plugin+%make-visible :class 'editor-plugin :bind "_make_visible" :hash
   2586408642 :virtual common-lisp:t)
  :void (visible bool))
 
 (defgmethod
- (editor-plugin+-edit :class 'editor-plugin :bind "_edit" :hash 3975164845
+ (editor-plugin+%edit :class 'editor-plugin :bind "_edit" :hash 3975164845
   :virtual common-lisp:t)
  :void (object object))
 
 (defgmethod
- (editor-plugin+-handles :class 'editor-plugin :bind "_handles" :hash 397768994
+ (editor-plugin+%handles :class 'editor-plugin :bind "_handles" :hash 397768994
   :virtual common-lisp:t)
  bool (object object))
 
 (defgmethod
- (editor-plugin+-get-state :class 'editor-plugin :bind "_get_state" :hash
+ (editor-plugin+%get-state :class 'editor-plugin :bind "_get_state" :hash
   3102165223 :virtual common-lisp:t)
  dictionary)
 
 (defgmethod
- (editor-plugin+-set-state :class 'editor-plugin :bind "_set_state" :hash
+ (editor-plugin+%set-state :class 'editor-plugin :bind "_set_state" :hash
   4155329257 :virtual common-lisp:t)
  :void (state dictionary))
 
 (defgmethod
- (editor-plugin+-clear :class 'editor-plugin :bind "_clear" :hash 3218959716
+ (editor-plugin+%clear :class 'editor-plugin :bind "_clear" :hash 3218959716
   :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (editor-plugin+-get-unsaved-status :class 'editor-plugin :bind
+ (editor-plugin+%get-unsaved-status :class 'editor-plugin :bind
   "_get_unsaved_status" :hash 3135753539 :virtual common-lisp:t)
  string (for-scene string))
 
 (defgmethod
- (editor-plugin+-save-external-data :class 'editor-plugin :bind
+ (editor-plugin+%save-external-data :class 'editor-plugin :bind
   "_save_external_data" :hash 3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (editor-plugin+-apply-changes :class 'editor-plugin :bind "_apply_changes"
+ (editor-plugin+%apply-changes :class 'editor-plugin :bind "_apply_changes"
   :hash 3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (editor-plugin+-get-breakpoints :class 'editor-plugin :bind "_get_breakpoints"
+ (editor-plugin+%get-breakpoints :class 'editor-plugin :bind "_get_breakpoints"
   :hash 1139954409 :virtual common-lisp:t)
  packed-string-array)
 
 (defgmethod
- (editor-plugin+-set-window-layout :class 'editor-plugin :bind
+ (editor-plugin+%set-window-layout :class 'editor-plugin :bind
   "_set_window_layout" :hash 853519107 :virtual common-lisp:t)
  :void (configuration config-file))
 
 (defgmethod
- (editor-plugin+-get-window-layout :class 'editor-plugin :bind
+ (editor-plugin+%get-window-layout :class 'editor-plugin :bind
   "_get_window_layout" :hash 853519107 :virtual common-lisp:t)
  :void (configuration config-file))
 
 (defgmethod
- (editor-plugin+-build :class 'editor-plugin :bind "_build" :hash 2240911060
+ (editor-plugin+%build :class 'editor-plugin :bind "_build" :hash 2240911060
   :virtual common-lisp:t)
  bool)
 
 (defgmethod
- (editor-plugin+-run-scene :class 'editor-plugin :bind "_run_scene" :hash
+ (editor-plugin+%run-scene :class 'editor-plugin :bind "_run_scene" :hash
   3911848509 :virtual common-lisp:t)
  packed-string-array (scene string) (args packed-string-array))
 
 (defgmethod
- (editor-plugin+-enable-plugin :class 'editor-plugin :bind "_enable_plugin"
+ (editor-plugin+%enable-plugin :class 'editor-plugin :bind "_enable_plugin"
   :hash 3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (editor-plugin+-disable-plugin :class 'editor-plugin :bind "_disable_plugin"
+ (editor-plugin+%disable-plugin :class 'editor-plugin :bind "_disable_plugin"
   :hash 3218959716 :virtual common-lisp:t)
  :void)
 

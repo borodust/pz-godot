@@ -2,27 +2,27 @@
 
 
 (defgmethod
- (collision-object-2d+-input-event :class 'collision-object-2d :bind
+ (collision-object-2d+%input-event :class 'collision-object-2d :bind
   "_input_event" :hash 1847696837 :virtual common-lisp:t)
  :void (viewport viewport) (event input-event) (shape-idx int))
 
 (defgmethod
- (collision-object-2d+-mouse-enter :class 'collision-object-2d :bind
+ (collision-object-2d+%mouse-enter :class 'collision-object-2d :bind
   "_mouse_enter" :hash 3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (collision-object-2d+-mouse-exit :class 'collision-object-2d :bind
+ (collision-object-2d+%mouse-exit :class 'collision-object-2d :bind
   "_mouse_exit" :hash 3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (collision-object-2d+-mouse-shape-enter :class 'collision-object-2d :bind
+ (collision-object-2d+%mouse-shape-enter :class 'collision-object-2d :bind
   "_mouse_shape_enter" :hash 1286410249 :virtual common-lisp:t)
  :void (shape-idx int))
 
 (defgmethod
- (collision-object-2d+-mouse-shape-exit :class 'collision-object-2d :bind
+ (collision-object-2d+%mouse-shape-exit :class 'collision-object-2d :bind
   "_mouse_shape_exit" :hash 1286410249 :virtual common-lisp:t)
  :void (shape-idx int))
 

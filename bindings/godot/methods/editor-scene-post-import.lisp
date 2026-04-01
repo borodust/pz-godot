@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (editor-scene-post-import+-post-import :class 'editor-scene-post-import :bind
+ (editor-scene-post-import+%post-import :class 'editor-scene-post-import :bind
   "_post_import" :hash 134930648 :virtual common-lisp:t)
  object (scene node))
 

@@ -2,13 +2,13 @@
 
 
 (defgmethod
- (translation+-get-plural-message :class 'translation :bind
+ (translation+%get-plural-message :class 'translation :bind
   "_get_plural_message" :hash 1970324172 :virtual common-lisp:t)
  string-name (src-message string-name) (src-plural-message string-name) (n int)
  (context string-name))
 
 (defgmethod
- (translation+-get-message :class 'translation :bind "_get_message" :hash
+ (translation+%get-message :class 'translation :bind "_get_message" :hash
   3639719779 :virtual common-lisp:t)
  string-name (src-message string-name) (context string-name))
 

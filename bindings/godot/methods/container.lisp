@@ -2,12 +2,12 @@
 
 
 (defgmethod
- (container+-get-allowed-size-flags-horizontal :class 'container :bind
+ (container+%get-allowed-size-flags-horizontal :class 'container :bind
   "_get_allowed_size_flags_horizontal" :hash 1930428628 :virtual common-lisp:t)
  packed-int-32array)
 
 (defgmethod
- (container+-get-allowed-size-flags-vertical :class 'container :bind
+ (container+%get-allowed-size-flags-vertical :class 'container :bind
   "_get_allowed_size_flags_vertical" :hash 1930428628 :virtual common-lisp:t)
  packed-int-32array)
 

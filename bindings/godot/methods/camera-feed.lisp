@@ -2,12 +2,12 @@
 
 
 (defgmethod
- (camera-feed+-activate-feed :class 'camera-feed :bind "_activate_feed" :hash
+ (camera-feed+%activate-feed :class 'camera-feed :bind "_activate_feed" :hash
   2240911060 :virtual common-lisp:t)
  bool)
 
 (defgmethod
- (camera-feed+-deactivate-feed :class 'camera-feed :bind "_deactivate_feed"
+ (camera-feed+%deactivate-feed :class 'camera-feed :bind "_deactivate_feed"
   :hash 3218959716 :virtual common-lisp:t)
  :void)
 

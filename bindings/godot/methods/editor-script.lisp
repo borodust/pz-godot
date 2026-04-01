@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (editor-script+-run :class 'editor-script :bind "_run" :hash 3218959716
+ (editor-script+%run :class 'editor-script :bind "_run" :hash 3218959716
   :virtual common-lisp:t)
  :void)
 

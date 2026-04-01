@@ -2,12 +2,12 @@
 
 
 (defgmethod
- (editor-resource-picker+-set-create-options :class 'editor-resource-picker
+ (editor-resource-picker+%set-create-options :class 'editor-resource-picker
   :bind "_set_create_options" :hash 3975164845 :virtual common-lisp:t)
  :void (menu-node object))
 
 (defgmethod
- (editor-resource-picker+-handle-menu-selected :class 'editor-resource-picker
+ (editor-resource-picker+%handle-menu-selected :class 'editor-resource-picker
   :bind "_handle_menu_selected" :hash 3067735520 :virtual common-lisp:t)
  bool (id int))
 

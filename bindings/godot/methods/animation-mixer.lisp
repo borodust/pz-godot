@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (animation-mixer+-post-process-key-value :class 'animation-mixer :bind
+ (animation-mixer+%post-process-key-value :class 'animation-mixer :bind
   "_post_process_key_value" :hash 2716908335 :virtual common-lisp:t)
  variant (animation animation) (track int) (value variant) (object-id int)
  (object-sub-idx int))

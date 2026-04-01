@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (editor-context-menu-plugin+-popup-menu :class 'editor-context-menu-plugin
+ (editor-context-menu-plugin+%popup-menu :class 'editor-context-menu-plugin
   :bind "_popup_menu" :hash 4015028928 :virtual common-lisp:t)
  :void (paths packed-string-array))
 

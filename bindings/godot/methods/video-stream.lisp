@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (video-stream+-instantiate-playback :class 'video-stream :bind
+ (video-stream+%instantiate-playback :class 'video-stream :bind
   "_instantiate_playback" :hash 294648086 :virtual common-lisp:t)
  video-stream-playback)
 

@@ -2,18 +2,18 @@
 
 
 (defgmethod
- (collision-object-3d+-input-event :class 'collision-object-3d :bind
+ (collision-object-3d+%input-event :class 'collision-object-3d :bind
   "_input_event" :hash 2310605070 :virtual common-lisp:t)
  :void (camera camera-3d) (event input-event) (event-position vector-3)
  (normal vector-3) (shape-idx int))
 
 (defgmethod
- (collision-object-3d+-mouse-enter :class 'collision-object-3d :bind
+ (collision-object-3d+%mouse-enter :class 'collision-object-3d :bind
   "_mouse_enter" :hash 3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (collision-object-3d+-mouse-exit :class 'collision-object-3d :bind
+ (collision-object-3d+%mouse-exit :class 'collision-object-3d :bind
   "_mouse_exit" :hash 3218959716 :virtual common-lisp:t)
  :void)
 

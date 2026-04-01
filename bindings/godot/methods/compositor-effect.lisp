@@ -2,7 +2,7 @@
 
 
 (defgmethod
- (compositor-effect+-render-callback :class 'compositor-effect :bind
+ (compositor-effect+%render-callback :class 'compositor-effect :bind
   "_render_callback" :hash 2153422729 :virtual common-lisp:t)
  :void (effect-callback-type int) (render-data render-data))
 

@@ -2,13 +2,13 @@
 
 
 (defgmethod
- (editor-resource-tooltip-plugin+-handles :class
+ (editor-resource-tooltip-plugin+%handles :class
   'editor-resource-tooltip-plugin :bind "_handles" :hash 3927539163 :virtual
   common-lisp:t)
  bool (type string))
 
 (defgmethod
- (editor-resource-tooltip-plugin+-make-tooltip-for-path :class
+ (editor-resource-tooltip-plugin+%make-tooltip-for-path :class
   'editor-resource-tooltip-plugin :bind "_make_tooltip_for_path" :hash
   4100114520 :virtual common-lisp:t)
  control (path string) (metadata dictionary) (base control))

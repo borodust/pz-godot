@@ -2,62 +2,62 @@
 
 
 (defgmethod
- (editor-node-3dgizmo+-redraw :class 'editor-node-3dgizmo :bind "_redraw" :hash
+ (editor-node-3dgizmo+%redraw :class 'editor-node-3dgizmo :bind "_redraw" :hash
   3218959716 :virtual common-lisp:t)
  :void)
 
 (defgmethod
- (editor-node-3dgizmo+-get-handle-name :class 'editor-node-3dgizmo :bind
+ (editor-node-3dgizmo+%get-handle-name :class 'editor-node-3dgizmo :bind
   "_get_handle_name" :hash 1868713439 :virtual common-lisp:t)
  string (id int) (secondary bool))
 
 (defgmethod
- (editor-node-3dgizmo+-is-handle-highlighted :class 'editor-node-3dgizmo :bind
+ (editor-node-3dgizmo+%is-handle-highlighted :class 'editor-node-3dgizmo :bind
   "_is_handle_highlighted" :hash 361316320 :virtual common-lisp:t)
  bool (id int) (secondary bool))
 
 (defgmethod
- (editor-node-3dgizmo+-get-handle-value :class 'editor-node-3dgizmo :bind
+ (editor-node-3dgizmo+%get-handle-value :class 'editor-node-3dgizmo :bind
   "_get_handle_value" :hash 2144196525 :virtual common-lisp:t)
  variant (id int) (secondary bool))
 
 (defgmethod
- (editor-node-3dgizmo+-begin-handle-action :class 'editor-node-3dgizmo :bind
+ (editor-node-3dgizmo+%begin-handle-action :class 'editor-node-3dgizmo :bind
   "_begin_handle_action" :hash 300928843 :virtual common-lisp:t)
  :void (id int) (secondary bool))
 
 (defgmethod
- (editor-node-3dgizmo+-set-handle :class 'editor-node-3dgizmo :bind
+ (editor-node-3dgizmo+%set-handle :class 'editor-node-3dgizmo :bind
   "_set_handle" :hash 2210262157 :virtual common-lisp:t)
  :void (id int) (secondary bool) (camera camera-3d) (point vector-2))
 
 (defgmethod
- (editor-node-3dgizmo+-commit-handle :class 'editor-node-3dgizmo :bind
+ (editor-node-3dgizmo+%commit-handle :class 'editor-node-3dgizmo :bind
   "_commit_handle" :hash 3655739840 :virtual common-lisp:t)
  :void (id int) (secondary bool) (restore variant) (cancel bool))
 
 (defgmethod
- (editor-node-3dgizmo+-subgizmos-intersect-ray :class 'editor-node-3dgizmo
+ (editor-node-3dgizmo+%subgizmos-intersect-ray :class 'editor-node-3dgizmo
   :bind "_subgizmos_intersect_ray" :hash 2055005479 :virtual common-lisp:t)
  int (camera camera-3d) (point vector-2))
 
 (defgmethod
- (editor-node-3dgizmo+-subgizmos-intersect-frustum :class 'editor-node-3dgizmo
+ (editor-node-3dgizmo+%subgizmos-intersect-frustum :class 'editor-node-3dgizmo
   :bind "_subgizmos_intersect_frustum" :hash 1653813165 :virtual common-lisp:t)
  packed-int-32array (camera camera-3d) (frustum array))
 
 (defgmethod
- (editor-node-3dgizmo+-set-subgizmo-transform :class 'editor-node-3dgizmo :bind
+ (editor-node-3dgizmo+%set-subgizmo-transform :class 'editor-node-3dgizmo :bind
   "_set_subgizmo_transform" :hash 3616898986 :virtual common-lisp:t)
  :void (id int) (transform transform-3d))
 
 (defgmethod
- (editor-node-3dgizmo+-get-subgizmo-transform :class 'editor-node-3dgizmo :bind
+ (editor-node-3dgizmo+%get-subgizmo-transform :class 'editor-node-3dgizmo :bind
   "_get_subgizmo_transform" :hash 1965739696 :virtual common-lisp:t)
  transform-3d (id int))
 
 (defgmethod
- (editor-node-3dgizmo+-commit-subgizmos :class 'editor-node-3dgizmo :bind
+ (editor-node-3dgizmo+%commit-subgizmos :class 'editor-node-3dgizmo :bind
   "_commit_subgizmos" :hash 3411059856 :virtual common-lisp:t)
  :void (ids packed-int-32array) (restores array) (cancel bool))
 

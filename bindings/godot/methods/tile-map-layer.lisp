@@ -2,17 +2,17 @@
 
 
 (defgmethod
- (tile-map-layer+-use-tile-data-runtime-update :class 'tile-map-layer :bind
+ (tile-map-layer+%use-tile-data-runtime-update :class 'tile-map-layer :bind
   "_use_tile_data_runtime_update" :hash 3715736492 :virtual common-lisp:t)
  bool (coords vector-2i))
 
 (defgmethod
- (tile-map-layer+-tile-data-runtime-update :class 'tile-map-layer :bind
+ (tile-map-layer+%tile-data-runtime-update :class 'tile-map-layer :bind
   "_tile_data_runtime_update" :hash 1627322126 :virtual common-lisp:t)
  :void (coords vector-2i) (tile-data tile-data))
 
 (defgmethod
- (tile-map-layer+-update-cells :class 'tile-map-layer :bind "_update_cells"
+ (tile-map-layer+%update-cells :class 'tile-map-layer :bind "_update_cells"
   :hash 3156113851 :virtual common-lisp:t)
  :void (coords array) (forced-cleanup bool))
 

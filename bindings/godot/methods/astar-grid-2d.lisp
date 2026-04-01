@@ -2,12 +2,12 @@
 
 
 (defgmethod
- (astar-grid-2d+-estimate-cost :class 'astar-grid-2d :bind "_estimate_cost"
+ (astar-grid-2d+%estimate-cost :class 'astar-grid-2d :bind "_estimate_cost"
   :hash 2153177966 :virtual common-lisp:t)
  float (from-id vector-2i) (end-id vector-2i))
 
 (defgmethod
- (astar-grid-2d+-compute-cost :class 'astar-grid-2d :bind "_compute_cost" :hash
+ (astar-grid-2d+%compute-cost :class 'astar-grid-2d :bind "_compute_cost" :hash
   2153177966 :virtual common-lisp:t)
  float (from-id vector-2i) (to-id vector-2i))
 

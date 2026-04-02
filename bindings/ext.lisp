@@ -630,14 +630,16 @@
                                (not (eq (return-type-of method) :void))))))
     `(progn
        ,@(when get
-           `((defun ,lisp-name (,instance-var ,result-var)
+           `((declaim (inline ,lisp-name))
+             (defun ,lisp-name (,instance-var ,result-var)
                (,get ,instance-var ,result-var ,@(when index (list index)))
                ,result-var)))
        ,@(when set
-           `((defun (setf ,lisp-name) (,instance-var
+           `((declaim (inline (setf ,lisp-name)))
+             (defun (setf ,lisp-name) (,value-var
+                                       ,instance-var
                                        ,@(when setter-returns-p
-                                           (list result-var))
-                                       ,value-var)
+                                           (list result-var)))
                (,set ,instance-var
                      ,@(when setter-returns-p
                          (list result-var))

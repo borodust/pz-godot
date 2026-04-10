@@ -521,6 +521,7 @@
          (api-type (gethash "api_type" class-def))
          (constants (gethash "constants" class-def))
          (enums (gethash "enums" class-def))
+         (constants (gethash "constants" class-def))
          (methods (gethash "methods" class-def))
          (constructors (gethash "constructors" class-def))
          (has-destructor-p (gethash "has_destructor" class-def))
@@ -558,6 +559,11 @@
                                                                                                   :skip-first nil)
                                                                     (parse-extension-type-string param-type))))))))))
      out)
+    (when constants
+      (loop for constant-def across constants
+            do (explode-extension-constant out constant-def
+                                           :class namesym
+                                           :prefix (a:symbolicate namesym '+))))
     (when enums
       (loop for enum-def across enums
             do (explode-extension-enum out enum-def
@@ -621,6 +627,30 @@
     (prin1
      `(%%pz-godot~godot::defgsingleton ,namesym ',typesym)
      out)))
+
+
+(defun explode-extension-constant (out constant-def &key prefix ((:class class-name)))
+  (let ((value (gethash "value" constant-def)))
+    (when (numberp value)
+      (let* ((name (gethash "name" constant-def))
+             (namesym (a:symbolicate '+
+                                     (symbolicate-gdext-snake-case name
+                                                                   :skip-first nil
+                                                                   :prefix prefix)
+                                     '+)))
+        (push namesym *exports*)
+        (format out "~&~%")
+        (pprint
+         (let ((name-and-opts `(,namesym
+                                ,@(when class-name `(:class ',class-name)))))
+           `(%%pz-godot~godot::defgconstant ,(if (rest name-and-opts)
+                                                 name-and-opts
+                                                 (first name-and-opts))
+                ,(if (integerp value)
+                     value
+                     `(float ,value 0d0))
+              ))
+         out)))))
 
 
 (defun explode-extension-enum (out enum-def &key prefix ((:class class-name)))
@@ -781,6 +811,7 @@
         (prin1 `(cl:defpackage :%godot
                   (:use)
                   (:import-from #:%godot.util
+                                #:defgconstant
                                 #:defgenum
                                 #:defgclass
                                 #:defgconstructor

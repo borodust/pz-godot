@@ -8,6 +8,7 @@
                 #:memcpy)
   (:export #:bind-interface
 
+           #:defgconstant
            #:defgenum
            #:defgclass
            #:defgconstructor
@@ -462,6 +463,13 @@
        (declaim (inline ,name))
        (defun ,name ()
          (get-singleton ,(bind-of extension))))))
+
+
+(defmacro defgconstant (name-and-opts value)
+  (destructuring-bind (name &key class)
+      (uiop:ensure-list name-and-opts)
+    (declare (ignore class))
+    `(a:define-constant ,name ,value :test 'equal)))
 
 
 (defmacro defgenum (name-and-opts &body values)

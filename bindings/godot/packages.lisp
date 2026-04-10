@@ -1,6 +1,7 @@
 (common-lisp:defpackage :%godot
   (:use)
   (:import-from #:%godot.util
+                #:defgconstant
                 #:defgenum
                 #:defgclass
                 #:defgconstructor
@@ -164,6 +165,8 @@
            #:texture-rect+expand-mode
            #:texture-rect+stretch-mode
            #:container
+           #:+container+notification-pre-sort-children+
+           #:+container+notification-sort-children+
            #:panel
            #:link-button
            #:link-button+underline-mode
@@ -440,6 +443,8 @@
            #:visual-shader-node+port-type
            #:shader-include
            #:visual-shader
+           #:+visual-shader+node-id-invalid+
+           #:+visual-shader+node-id-output+
            #:visual-shader+type
            #:visual-shader+varying-mode
            #:visual-shader+varying-type
@@ -576,6 +581,7 @@
            #:gpuparticles-collision-box-3d
            #:gpuparticles-collision-3d
            #:gpuparticles-3d
+           #:+gpuparticles-3d+max-draw-passes+
            #:gpuparticles-3d+draw-order
            #:gpuparticles-3d+emit-flags
            #:gpuparticles-3d+transform-align
@@ -694,9 +700,18 @@
            #:gltfdocument-extension
            #:fbxstate
            #:gltfstate
+           #:+gltfstate+handle-binary-discard-textures+
+           #:+gltfstate+handle-binary-extract-textures+
+           #:+gltfstate+handle-binary-embed-as-basisu+
+           #:+gltfstate+handle-binary-embed-as-uncompressed+
            #:gltfstate+handle-binary-image-mode
            #:fbxdocument
            #:enet-packet-peer
+           #:+enet-packet-peer+packet-loss-scale+
+           #:+enet-packet-peer+packet-throttle-scale+
+           #:+enet-packet-peer+flag-reliable+
+           #:+enet-packet-peer+flag-unsequenced+
+           #:+enet-packet-peer+flag-unreliable-fragment+
            #:enet-packet-peer+peer-state
            #:enet-packet-peer+peer-statistic
            #:ogg-packet-sequence
@@ -772,6 +787,7 @@
            #:texture-layered-rd
            #:texture-2drd
            #:animated-texture
+           #:+animated-texture+max-frames+
            #:dpitexture
            #:placeholder-cubemap-array
            #:placeholder-cubemap
@@ -917,6 +933,13 @@
            #:editor-inspector-plugin
            #:editor-inspector
            #:editor-scene-format-importer
+           #:+editor-scene-format-importer+import-scene+
+           #:+editor-scene-format-importer+import-animation+
+           #:+editor-scene-format-importer+import-fail-on-missing-dependencies+
+           #:+editor-scene-format-importer+import-generate-tangent-arrays+
+           #:+editor-scene-format-importer+import-use-named-skin-binds+
+           #:+editor-scene-format-importer+import-discard-meshes-and-materials+
+           #:+editor-scene-format-importer+import-force-disable-mesh-compression+
            #:editor-resource-conversion-plugin
            #:editor-export-platform-windows
            #:editor-export-platform-web
@@ -947,6 +970,7 @@
            #:editor-toaster
            #:editor-toaster+severity
            #:editor-settings
+           #:+editor-settings+notification-editor-settings-changed+
            #:editor-selection
            #:editor-dock
            #:editor-dock+dock-layout
@@ -1060,14 +1084,17 @@
            #:jsonrpc+error-code
            #:audio-stream-playback-synchronized
            #:audio-stream-synchronized
+           #:+audio-stream-synchronized+max-streams+
            #:audio-stream-playback-interactive
            #:audio-stream-interactive
+           #:+audio-stream-interactive+clip-any+
            #:audio-stream-interactive+transition-from-time
            #:audio-stream-interactive+transition-to-time
            #:audio-stream-interactive+fade-mode
            #:audio-stream-interactive+auto-advance-mode
            #:audio-stream-playback-playlist
            #:audio-stream-playlist
+           #:+audio-stream-playlist+max-streams+
            #:gltftexture-sampler
            #:gltfspec-gloss
            #:gltfskin
@@ -1089,6 +1116,8 @@
            #:viewport+vrsupdate-mode
            #:placeholder-material
            #:material
+           #:+material+render-priority-max+
+           #:+material+render-priority-min+
            #:texture
            #:instance-placeholder
            #:missing-node
@@ -1180,6 +1209,7 @@
            #:rdvertex-attribute
            #:rdsampler-state
            #:rdframebuffer-pass
+           #:+rdframebuffer-pass+attachment-unused+
            #:rdattachment-format
            #:rdtexture-view
            #:rdtexture-format
@@ -1239,6 +1269,8 @@
            #:text-server-manager
            #:editor-paths
            #:multiplayer-peer
+           #:+multiplayer-peer+target-peer-broadcast+
+           #:+multiplayer-peer+target-peer-server+
            #:multiplayer-peer+connection-status
            #:multiplayer-peer+transfer-mode
            #:open-xrandroid-thread-settings-extension
@@ -1259,6 +1291,8 @@
            #:zippacker+zip-append
            #:zippacker+compression-level
            #:window
+           #:+window+notification-visibility-changed+
+           #:+window+notification-theme-changed+
            #:window+mode
            #:window+flags
            #:window+content-scale-mode
@@ -1289,6 +1323,9 @@
            #:translation-server
            #:tile-set-scenes-collection-source
            #:tile-set-atlas-source
+           #:+tile-set-atlas-source+transform-flip-h+
+           #:+tile-set-atlas-source+transform-flip-v+
+           #:+tile-set-atlas-source+transform-transpose+
            #:tile-set-atlas-source+tile-animation-mode
            #:tile-set
            #:tile-set+tile-shape
@@ -1337,6 +1374,7 @@
            #:surface-tool+skin-weight-count
            #:sprite-frames
            #:skeleton-3d
+           #:+skeleton-3d+notification-update-skeleton+
            #:skeleton-3d+modifier-callback-mode-process
            #:shader
            #:shader+mode
@@ -1366,6 +1404,24 @@
            #:resource-loader+thread-load-status
            #:resource-loader+cache-mode
            #:rendering-server
+           #:+rendering-server+no-index-array+
+           #:+rendering-server+array-weights-size+
+           #:+rendering-server+canvas-item-z-min+
+           #:+rendering-server+canvas-item-z-max+
+           #:+rendering-server+canvas-layer-min+
+           #:+rendering-server+canvas-layer-max+
+           #:+rendering-server+max-glow-levels+
+           #:+rendering-server+max-cursors+
+           #:+rendering-server+max-2d-directional-lights+
+           #:+rendering-server+max-mesh-surfaces+
+           #:+rendering-server+material-render-priority-min+
+           #:+rendering-server+material-render-priority-max+
+           #:+rendering-server+array-custom-count+
+           #:+rendering-server+particles-emit-flag-position+
+           #:+rendering-server+particles-emit-flag-rotation-scale+
+           #:+rendering-server+particles-emit-flag-velocity+
+           #:+rendering-server+particles-emit-flag-color+
+           #:+rendering-server+particles-emit-flag-custom+
            #:rendering-server+texture-type
            #:rendering-server+texture-layered-type
            #:rendering-server+cube-map-layer
@@ -1450,6 +1506,8 @@
            #:rendering-server+splash-stretch-mode
            #:rendering-server+features
            #:rendering-device
+           #:+rendering-device+invalid-id+
+           #:+rendering-device+invalid-format-id+
            #:rendering-device+device-type
            #:rendering-device+driver-resource
            #:rendering-device+data-format
@@ -1552,8 +1610,59 @@
            #:os+std-handle-type
            #:noise
            #:node-3d
+           #:+node-3d+notification-transform-changed+
+           #:+node-3d+notification-enter-world+
+           #:+node-3d+notification-exit-world+
+           #:+node-3d+notification-visibility-changed+
+           #:+node-3d+notification-local-transform-changed+
            #:node-3d+rotation-edit-mode
            #:node
+           #:+node+notification-enter-tree+
+           #:+node+notification-exit-tree+
+           #:+node+notification-moved-in-parent+
+           #:+node+notification-ready+
+           #:+node+notification-paused+
+           #:+node+notification-unpaused+
+           #:+node+notification-physics-process+
+           #:+node+notification-process+
+           #:+node+notification-parented+
+           #:+node+notification-unparented+
+           #:+node+notification-scene-instantiated+
+           #:+node+notification-drag-begin+
+           #:+node+notification-drag-end+
+           #:+node+notification-path-renamed+
+           #:+node+notification-child-order-changed+
+           #:+node+notification-internal-process+
+           #:+node+notification-internal-physics-process+
+           #:+node+notification-post-enter-tree+
+           #:+node+notification-disabled+
+           #:+node+notification-enabled+
+           #:+node+notification-reset-physics-interpolation+
+           #:+node+notification-editor-pre-save+
+           #:+node+notification-editor-post-save+
+           #:+node+notification-wm-mouse-enter+
+           #:+node+notification-wm-mouse-exit+
+           #:+node+notification-wm-window-focus-in+
+           #:+node+notification-wm-window-focus-out+
+           #:+node+notification-wm-close-request+
+           #:+node+notification-wm-go-back-request+
+           #:+node+notification-wm-size-changed+
+           #:+node+notification-wm-dpi-change+
+           #:+node+notification-vp-mouse-enter+
+           #:+node+notification-vp-mouse-exit+
+           #:+node+notification-wm-position-changed+
+           #:+node+notification-os-memory-warning+
+           #:+node+notification-translation-changed+
+           #:+node+notification-wm-about+
+           #:+node+notification-crash+
+           #:+node+notification-os-ime-update+
+           #:+node+notification-application-resumed+
+           #:+node+notification-application-paused+
+           #:+node+notification-application-focus-in+
+           #:+node+notification-application-focus-out+
+           #:+node+notification-text-server-changed+
+           #:+node+notification-accessibility-update+
+           #:+node+notification-accessibility-invalidate+
            #:node+process-mode
            #:node+process-thread-group
            #:node+process-thread-messages
@@ -1587,11 +1696,14 @@
            #:importer-mesh
            #:immediate-mesh
            #:ip
+           #:+ip+resolver-max-queries+
+           #:+ip+resolver-invalid-id+
            #:ip+resolver-status
            #:ip+type
            #:httprequest
            #:httprequest+result
            #:grid-map
+           #:+grid-map+invalid-cell-item+
            #:graph-node
            #:geometry-3d
            #:geometry-2d
@@ -1630,6 +1742,14 @@
            #:editor-export-platform+export-message-type
            #:editor-export-platform+debug-flags
            #:display-server
+           #:+display-server+invalid-screen+
+           #:+display-server+screen-with-mouse-focus+
+           #:+display-server+screen-with-keyboard-focus+
+           #:+display-server+screen-primary+
+           #:+display-server+screen-of-main-window+
+           #:+display-server+main-window-id+
+           #:+display-server+invalid-window-id+
+           #:+display-server+invalid-indicator-id+
            #:display-server+feature
            #:display-server+accessibility-role
            #:display-server+accessibility-popup-type
@@ -1655,6 +1775,17 @@
            #:curve
            #:curve+tangent-mode
            #:control
+           #:+control+notification-resized+
+           #:+control+notification-mouse-enter+
+           #:+control+notification-mouse-exit+
+           #:+control+notification-mouse-enter-self+
+           #:+control+notification-mouse-exit-self+
+           #:+control+notification-focus-enter+
+           #:+control+notification-focus-exit+
+           #:+control+notification-theme-changed+
+           #:+control+notification-scroll-begin+
+           #:+control+notification-scroll-end+
+           #:+control+notification-layout-direction-changed+
            #:control+focus-mode
            #:control+focus-behavior-recursive
            #:control+mouse-behavior-recursive
@@ -1671,6 +1802,13 @@
            #:code-edit+code-completion-kind
            #:code-edit+code-completion-location
            #:canvas-item
+           #:+canvas-item+notification-transform-changed+
+           #:+canvas-item+notification-local-transform-changed+
+           #:+canvas-item+notification-draw+
+           #:+canvas-item+notification-visibility-changed+
+           #:+canvas-item+notification-enter-canvas+
+           #:+canvas-item+notification-exit-canvas+
+           #:+canvas-item+notification-world-2d-changed+
            #:canvas-item+texture-filter
            #:canvas-item+texture-repeat
            #:canvas-item+clip-children-mode
@@ -1678,6 +1816,7 @@
            #:audio-stream-randomizer
            #:audio-stream-randomizer+playback-mode
            #:audio-stream-playback-polyphonic
+           #:+audio-stream-playback-polyphonic+invalid-id+
            #:audio-server
            #:audio-server+speaker-mode
            #:audio-server+playback-type
@@ -1691,6 +1830,12 @@
            #:animation-node-state-machine
            #:animation-node-state-machine+state-machine-type
            #:animation-node-blend-tree
+           #:+animation-node-blend-tree+connection-ok+
+           #:+animation-node-blend-tree+connection-error-no-input+
+           #:+animation-node-blend-tree+connection-error-no-input-index+
+           #:+animation-node-blend-tree+connection-error-no-output+
+           #:+animation-node-blend-tree+connection-error-same-node+
+           #:+animation-node-blend-tree+connection-error-connection-exists+
            #:animation-node-blend-space-2d
            #:animation-node-blend-space-2d+blend-mode
            #:animation-node-blend-space-1d
@@ -1709,6 +1854,7 @@
            #:accept-dialog
            #:engine-profiler
            #:resource-uid
+           #:+resource-uid+invalid-id+
            #:gdextension-manager
            #:gdextension-manager+load-status
            #:godot-instance
@@ -1752,6 +1898,16 @@
            #:translation-domain
            #:translation
            #:main-loop
+           #:+main-loop+notification-os-memory-warning+
+           #:+main-loop+notification-translation-changed+
+           #:+main-loop+notification-wm-about+
+           #:+main-loop+notification-crash+
+           #:+main-loop+notification-os-ime-update+
+           #:+main-loop+notification-application-resumed+
+           #:+main-loop+notification-application-paused+
+           #:+main-loop+notification-application-focus-in+
+           #:+main-loop+notification-application-focus-out+
+           #:+main-loop+notification-text-server-changed+
            #:dtlsserver
            #:packet-peer-dtls
            #:packet-peer-dtls+status
@@ -1804,8 +1960,11 @@
            #:input-event-with-modifiers
            #:input-event-from-window
            #:input-event
+           #:+input-event+device-id-emulation+
            #:shortcut
            #:image
+           #:+image+max-width+
+           #:+image+max-height+
            #:image+format
            #:image+interpolation
            #:image+alpha-mode
@@ -1834,6 +1993,9 @@
            #:weak-ref
            #:ref-counted
            #:object
+           #:+object+notification-postinitialize+
+           #:+object+notification-predelete+
+           #:+object+notification-extension-reloaded+
            #:object+connect-flags
            #:audio-frame
            #:caret-info

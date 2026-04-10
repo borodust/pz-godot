@@ -12,7 +12,8 @@
 
 (cl:defpackage :%%pz-godot~godot
   (:use)
-  (:export defgenum
+  (:export defgconstant
+           defgenum
            defgclass
            defgconstructor
            defgdestructor

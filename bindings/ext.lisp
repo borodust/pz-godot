@@ -350,6 +350,31 @@
              ,@body))))))
 
 
+(declaim (inline bool->godot))
+(defun bool->godot (value)
+  (cond
+    ((integerp value) value)
+    (value 1)
+    (t 0)))
+
+
+(declaim (inline bool->lisp))
+(defun bool->lisp (value)
+  (not (zerop value)))
+
+
+(defun expand-to-godot-bool (value)
+  (cond
+    ((integerp value) value)
+    ((null value) 0)
+    ((eq t value) 1)
+    (t `(bool->godot ,value))))
+
+
+(defun expand-from-godot-bool (value)
+  `(bool->lisp ,value))
+
+
 (defmacro defgclass (name-and-opts &body properties)
   (destructuring-bind (name &key bind api size) (uiop:ensure-list name-and-opts)
     (let* ((size (eval size))
@@ -379,16 +404,32 @@
                        (%%data :int8 :count ,size)
                        (%%align :int64))
                      (cffi:defctype ,name (:union ,name)))))
-               `((cffi:defctype ,name ,(a:switch (bind :test #'equal)
-                                         ("Nil" :void)
-                                         ("float" (assert (= size 8))
-                                                  :double)
-                                         ("int" (assert (= size 8))
-                                                :int64)
-                                         ("bool" (assert (= size 1))
-                                                 :bool)
-                                         (t '(:pointer :void))))))
-
+               (if (string= "bool" bind)
+                   (progn
+                     (assert (= size 1))
+                    `((cffi:define-foreign-type ,name ()
+                        ()
+                        (:actual-type :uint8)
+                        (:simple-parser ,name))
+                      (defmethod cffi:expand-to-foreign (value (type ,name))
+                        (declare (ignore type))
+                        (expand-to-godot-bool value))
+                      (defmethod cffi:expand-from-foreign (value (type ,name))
+                        (declare (ignore type))
+                        (expand-from-godot-bool value))
+                      (defmethod cffi:translate-to-foreign (value (type ,name))
+                        (declare (ignore type))
+                        (bool->godot value))
+                      (defmethod cffi:translate-from-foreign (value (type ,name))
+                        (declare (ignore type))
+                        (bool->lisp value))))
+                   `((cffi:defctype ,name ,(a:switch (bind :test #'equal)
+                                             ("Nil" :void)
+                                             ("float" (assert (= size 8))
+                                                      :double)
+                                             ("int" (assert (= size 8))
+                                                    :int64)
+                                             (t :pointer))))))
          (eval-when (:compile-toplevel :load-toplevel :execute)
            ,@(a:switch (bind :test #'equal)
                ("Nil" (list))
@@ -423,7 +464,7 @@
                                 :alignment ,(cffi:foreign-type-alignment :uint8)
                                 :size ,(cffi:foreign-type-size :uint8)
                                 :translation-expander (lambda (src-val-sym argv-ptr-sym stack-ptr-sym)
-                                                        (expand-ptrarg-with-conversion :uint8
+                                                        (expand-ptrarg-with-conversion ',name
                                                                                        src-val-sym
                                                                                        argv-ptr-sym
                                                                                        stack-ptr-sym)))))

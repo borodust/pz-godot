@@ -31,34 +31,245 @@
            #:method-flags
            #:variant+type
            #:variant+operator
+           #:variant
            #:nil
            #:bool
            #:int
            #:float
            #:string
            #:vector-2
+           #:+vector-2+zero+
+           #:+vector-2+one+
+           #:+vector-2+inf+
+           #:+vector-2+left+
+           #:+vector-2+right+
+           #:+vector-2+up+
+           #:+vector-2+down+
            #:vector-2+axis
            #:vector-2i
+           #:+vector-2i+zero+
+           #:+vector-2i+one+
+           #:+vector-2i+min+
+           #:+vector-2i+max+
+           #:+vector-2i+left+
+           #:+vector-2i+right+
+           #:+vector-2i+up+
+           #:+vector-2i+down+
            #:vector-2i+axis
            #:rect-2
            #:rect-2i
            #:vector-3
+           #:+vector-3+zero+
+           #:+vector-3+one+
+           #:+vector-3+inf+
+           #:+vector-3+left+
+           #:+vector-3+right+
+           #:+vector-3+up+
+           #:+vector-3+down+
+           #:+vector-3+forward+
+           #:+vector-3+back+
+           #:+vector-3+model-left+
+           #:+vector-3+model-right+
+           #:+vector-3+model-top+
+           #:+vector-3+model-bottom+
+           #:+vector-3+model-front+
+           #:+vector-3+model-rear+
            #:vector-3+axis
            #:vector-3i
+           #:+vector-3i+zero+
+           #:+vector-3i+one+
+           #:+vector-3i+min+
+           #:+vector-3i+max+
+           #:+vector-3i+left+
+           #:+vector-3i+right+
+           #:+vector-3i+up+
+           #:+vector-3i+down+
+           #:+vector-3i+forward+
+           #:+vector-3i+back+
            #:vector-3i+axis
            #:transform-2d
+           #:+transform-2d+identity+
+           #:+transform-2d+flip-x+
+           #:+transform-2d+flip-y+
            #:vector-4
+           #:+vector-4+zero+
+           #:+vector-4+one+
+           #:+vector-4+inf+
            #:vector-4+axis
            #:vector-4i
+           #:+vector-4i+zero+
+           #:+vector-4i+one+
+           #:+vector-4i+min+
+           #:+vector-4i+max+
            #:vector-4i+axis
            #:plane
+           #:+plane+plane-yz+
+           #:+plane+plane-xz+
+           #:+plane+plane-xy+
            #:quaternion
+           #:+quaternion+identity+
            #:aabb
            #:basis
+           #:+basis+identity+
+           #:+basis+flip-x+
+           #:+basis+flip-y+
+           #:+basis+flip-z+
            #:transform-3d
+           #:+transform-3d+identity+
+           #:+transform-3d+flip-x+
+           #:+transform-3d+flip-y+
+           #:+transform-3d+flip-z+
            #:projection
+           #:+projection+identity+
+           #:+projection+zero+
            #:projection+planes
            #:color
+           #:+color+alice-blue+
+           #:+color+antique-white+
+           #:+color+aqua+
+           #:+color+aquamarine+
+           #:+color+azure+
+           #:+color+beige+
+           #:+color+bisque+
+           #:+color+black+
+           #:+color+blanched-almond+
+           #:+color+blue+
+           #:+color+blue-violet+
+           #:+color+brown+
+           #:+color+burlywood+
+           #:+color+cadet-blue+
+           #:+color+chartreuse+
+           #:+color+chocolate+
+           #:+color+coral+
+           #:+color+cornflower-blue+
+           #:+color+cornsilk+
+           #:+color+crimson+
+           #:+color+cyan+
+           #:+color+dark-blue+
+           #:+color+dark-cyan+
+           #:+color+dark-goldenrod+
+           #:+color+dark-gray+
+           #:+color+dark-green+
+           #:+color+dark-khaki+
+           #:+color+dark-magenta+
+           #:+color+dark-olive-green+
+           #:+color+dark-orange+
+           #:+color+dark-orchid+
+           #:+color+dark-red+
+           #:+color+dark-salmon+
+           #:+color+dark-sea-green+
+           #:+color+dark-slate-blue+
+           #:+color+dark-slate-gray+
+           #:+color+dark-turquoise+
+           #:+color+dark-violet+
+           #:+color+deep-pink+
+           #:+color+deep-sky-blue+
+           #:+color+dim-gray+
+           #:+color+dodger-blue+
+           #:+color+firebrick+
+           #:+color+floral-white+
+           #:+color+forest-green+
+           #:+color+fuchsia+
+           #:+color+gainsboro+
+           #:+color+ghost-white+
+           #:+color+gold+
+           #:+color+goldenrod+
+           #:+color+gray+
+           #:+color+green+
+           #:+color+green-yellow+
+           #:+color+honeydew+
+           #:+color+hot-pink+
+           #:+color+indian-red+
+           #:+color+indigo+
+           #:+color+ivory+
+           #:+color+khaki+
+           #:+color+lavender+
+           #:+color+lavender-blush+
+           #:+color+lawn-green+
+           #:+color+lemon-chiffon+
+           #:+color+light-blue+
+           #:+color+light-coral+
+           #:+color+light-cyan+
+           #:+color+light-goldenrod+
+           #:+color+light-gray+
+           #:+color+light-green+
+           #:+color+light-pink+
+           #:+color+light-salmon+
+           #:+color+light-sea-green+
+           #:+color+light-sky-blue+
+           #:+color+light-slate-gray+
+           #:+color+light-steel-blue+
+           #:+color+light-yellow+
+           #:+color+lime+
+           #:+color+lime-green+
+           #:+color+linen+
+           #:+color+magenta+
+           #:+color+maroon+
+           #:+color+medium-aquamarine+
+           #:+color+medium-blue+
+           #:+color+medium-orchid+
+           #:+color+medium-purple+
+           #:+color+medium-sea-green+
+           #:+color+medium-slate-blue+
+           #:+color+medium-spring-green+
+           #:+color+medium-turquoise+
+           #:+color+medium-violet-red+
+           #:+color+midnight-blue+
+           #:+color+mint-cream+
+           #:+color+misty-rose+
+           #:+color+moccasin+
+           #:+color+navajo-white+
+           #:+color+navy-blue+
+           #:+color+old-lace+
+           #:+color+olive+
+           #:+color+olive-drab+
+           #:+color+orange+
+           #:+color+orange-red+
+           #:+color+orchid+
+           #:+color+pale-goldenrod+
+           #:+color+pale-green+
+           #:+color+pale-turquoise+
+           #:+color+pale-violet-red+
+           #:+color+papaya-whip+
+           #:+color+peach-puff+
+           #:+color+peru+
+           #:+color+pink+
+           #:+color+plum+
+           #:+color+powder-blue+
+           #:+color+purple+
+           #:+color+rebecca-purple+
+           #:+color+red+
+           #:+color+rosy-brown+
+           #:+color+royal-blue+
+           #:+color+saddle-brown+
+           #:+color+salmon+
+           #:+color+sandy-brown+
+           #:+color+sea-green+
+           #:+color+seashell+
+           #:+color+sienna+
+           #:+color+silver+
+           #:+color+sky-blue+
+           #:+color+slate-blue+
+           #:+color+slate-gray+
+           #:+color+snow+
+           #:+color+spring-green+
+           #:+color+steel-blue+
+           #:+color+tan+
+           #:+color+teal+
+           #:+color+thistle+
+           #:+color+tomato+
+           #:+color+transparent+
+           #:+color+turquoise+
+           #:+color+violet+
+           #:+color+web-gray+
+           #:+color+web-green+
+           #:+color+web-maroon+
+           #:+color+web-purple+
+           #:+color+wheat+
+           #:+color+white+
+           #:+color+white-smoke+
+           #:+color+yellow+
+           #:+color+yellow-green+
            #:string-name
            #:node-path
            #:rid
@@ -76,7 +287,6 @@
            #:packed-vector-3array
            #:packed-color-array
            #:packed-vector-4array
-           #:variant
            #:animation-root-node
            #:animation-tree
            #:animation-tree+animation-process-callback

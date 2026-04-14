@@ -6,7 +6,8 @@
                 #:funcall-prototype
                 #:do-interface
                 #:memcpy)
-  (:export #:bind-interface
+  (:export #:bind-gdext-interface
+           #:bind-godot-constants
 
            #:defgconstant
            #:defgenum
@@ -46,7 +47,11 @@
 
 (defvar *godot-class-registry* (make-hash-table :test 'eq))
 
+(defvar *godot-builtin-map* (make-hash-table :test 'eq))
+
 (defvar *godot-singleton-registry* (make-hash-table :test 'eq))
+
+(defvar *godot-builtin-constant-registry* (make-hash-table :test 'eq))
 
 (defvar *godot-method-argument-metadata* (make-hash-table :test 'eq))
 
@@ -96,7 +101,7 @@
 ;;
 ;; INTERFACE
 ;;
-(defun bind-interface (get-proc-address-ptr)
+(defun bind-gdext-interface (get-proc-address-ptr)
   (flet ((%get-proc-addr (c-name)
            (cffi:with-foreign-string (c-name-ptr c-name :encoding :latin1)
              (funcall-prototype get-proc-address-ptr
@@ -158,10 +163,10 @@
 
 (defun expand-ptrarg-with-conversion (arg-type-to src-val-sym argv-ptr-sym stack-ptr-sym)
   `(setf (cffi:mem-ref ,argv-ptr-sym :pointer) ,stack-ptr-sym
-         (cffi:mem-ref ,stack-ptr-sym ',arg-type-to) ,(a:eswitch (arg-type-to)
+         (cffi:mem-ref ,stack-ptr-sym ',arg-type-to) ,(a:switch (arg-type-to)
                                                         (:int64 `(truncate ,src-val-sym))
                                                         (:double `(float ,src-val-sym 0d0))
-                                                        (:uint8 `(truncate ,src-val-sym)))))
+                                                        (t src-val-sym))))
 
 
 (defun expand-ptrarg-enum (enum src-val-sym argv-ptr-sym stack-ptr-sym)
@@ -225,6 +230,8 @@
 
 (defun register-godot-class (name bind variant-kind &rest keys &key api &allow-other-keys)
   (unless (gethash name *godot-class-registry*)
+    (unless (eq :object variant-kind)
+      (setf (gethash variant-kind *godot-builtin-map*) name))
     (setf
      (gethash name *godot-class-registry*)
      (apply #'make-instance 'godot-class
@@ -239,6 +246,12 @@
     extension
     (when error-if-not-found
       (error "Godot class ~A not found" name))))
+
+
+(defun get-godot-builtin (kind &key (error-if-not-found t))
+  (a:if-let ((class-name (gethash kind *godot-builtin-map*)))
+    (get-godot-class class-name :error-if-not-found error-if-not-found)
+    (error "Class not found for builtin of type ~A" kind)))
 
 
 (defun register-godot-method (class-name method-name hash bind-name
@@ -261,6 +274,11 @@
 
 (defun register-godot-destructor (class-name)
   (%set-has-destructor t (get-godot-class class-name)))
+
+
+(defun register-godot-builtin-constant (constant-name &key initializer)
+  (setf (gethash constant-name *godot-builtin-constant-registry*) initializer)
+  (values))
 
 
 (defun get-godot-method (class-name method-name)
@@ -506,11 +524,53 @@
          (get-singleton ,(bind-of extension))))))
 
 
-(defmacro defgconstant (name-and-opts value)
-  (destructuring-bind (name &key class)
-      (uiop:ensure-list name-and-opts)
-    (declare (ignore class))
-    `(a:define-constant ,name ,value :test 'equal)))
+(defun extract-variant-value (variant-ptr)
+  (let* ((value-type (%gdext:variant-get-type variant-ptr))
+         (value-class (get-godot-builtin value-type))
+         (value-ptr (%gdext:mem-alloc2 (size-of value-class) 0))
+         (ctor (%gdext:get-variant-to-type-constructor value-type)))
+    (funcall-prototype ctor %gdext:type-from-variant-constructor-func value-ptr variant-ptr)
+    value-ptr))
+
+
+(defmacro expand-builtin-constant-initializer (class-name name defvar-name bind)
+  (let ((class (get-godot-class class-name))
+        (variant-class (get-godot-class (uiop:find-symbol* 'variant (symbol-package name)))))
+    `(with-godot-string-names ((constant-name ,bind))
+       (let ((variant (%gdext:mem-alloc2 ,(size-of variant-class) 0)))
+         (unwind-protect
+              (progn
+                (%gdext:variant-get-constant-value ,(variant-kind-of class) constant-name variant)
+                (setf ,defvar-name (extract-variant-value variant)))
+           (%gdext:variant-destroy variant)
+           (%gdext:mem-free2 variant 0))))))
+
+
+(defmacro defgconstant (name &key bind value ((:class class-name)) documentation)
+  (declare (ignore documentation))
+  (let* ((class-name (eval class-name))
+         (class (get-godot-class class-name)))
+    (if (builtinp class)
+        (let ((defvar-name (a:format-symbol :%%godot.util~secret "~A~A" name '-constant-value))
+              (initializer-name (a:format-symbol :%%godot.util~secret "~A~A" name '-constant-initializer)))
+          `(progn
+             (defvar ,defvar-name (cffi:null-pointer))
+             (define-symbol-macro ,name (,defvar-name))
+             (declaim (inline ,defvar-name))
+             (defun ,defvar-name ()
+               ,defvar-name)
+             (defun ,initializer-name ()
+               (the cffi:foreign-pointer
+                    (expand-builtin-constant-initializer ,class-name ,name ,defvar-name ,bind)))
+             (eval-when (:compile-toplevel :load-toplevel :execute)
+               (register-godot-builtin-constant ',name :initializer ',initializer-name))))
+        `(a:define-constant ,name ,value :test '=))))
+
+
+(defun bind-godot-constants ()
+  (loop for constant-init being the hash-value of *godot-builtin-constant-registry*
+        do (funcall constant-init))
+  (values))
 
 
 (defmacro defgenum (name-and-opts &body values)
@@ -881,6 +941,7 @@
         ,(if ret ret '(cffi:null-pointer))
         (cffi:null-pointer))
        ,(when ret ret))))
+
 
 
 ;;;

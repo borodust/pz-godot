@@ -307,10 +307,12 @@
  (:signals (pre-sort-children) (sort-children)))
 
 
-(defgconstant (+container+notification-pre-sort-children+ :class 'container) 50)
+(defgconstant +container+notification-pre-sort-children+ :value 50 :bind
+ "NOTIFICATION_PRE_SORT_CHILDREN" :class 'container)
 
 
-(defgconstant (+container+notification-sort-children+ :class 'container) 51)
+(defgconstant +container+notification-sort-children+ :value 51 :bind
+ "NOTIFICATION_SORT_CHILDREN" :class 'container)
 
 (defgclass (panel :bind "Panel" :api :core))
 
@@ -1328,10 +1330,12 @@
 (defgclass (visual-shader :bind "VisualShader" :api :core))
 
 
-(defgconstant (+visual-shader+node-id-invalid+ :class 'visual-shader) -1)
+(defgconstant +visual-shader+node-id-invalid+ :value -1 :bind "NODE_ID_INVALID"
+ :class 'visual-shader)
 
 
-(defgconstant (+visual-shader+node-id-output+ :class 'visual-shader) 0)
+(defgconstant +visual-shader+node-id-output+ :value 0 :bind "NODE_ID_OUTPUT"
+ :class 'visual-shader)
 
 
 (defgenum (visual-shader+type :class 'visual-shader) (:vertex 0) (:fragment 1)
@@ -1808,7 +1812,8 @@
  (:signals (finished)))
 
 
-(defgconstant (+gpuparticles-3d+max-draw-passes+ :class 'gpuparticles-3d) 4)
+(defgconstant +gpuparticles-3d+max-draw-passes+ :value 4 :bind
+ "MAX_DRAW_PASSES" :class 'gpuparticles-3d)
 
 
 (defgenum (gpuparticles-3d+draw-order :class 'gpuparticles-3d) (:index 0)
@@ -2192,17 +2197,20 @@
 (defgclass (gltfstate :bind "GLTFState" :api :core))
 
 
-(defgconstant (+gltfstate+handle-binary-discard-textures+ :class 'gltfstate) 0)
+(defgconstant +gltfstate+handle-binary-discard-textures+ :value 0 :bind
+ "HANDLE_BINARY_DISCARD_TEXTURES" :class 'gltfstate)
 
 
-(defgconstant (+gltfstate+handle-binary-extract-textures+ :class 'gltfstate) 1)
+(defgconstant +gltfstate+handle-binary-extract-textures+ :value 1 :bind
+ "HANDLE_BINARY_EXTRACT_TEXTURES" :class 'gltfstate)
 
 
-(defgconstant (+gltfstate+handle-binary-embed-as-basisu+ :class 'gltfstate) 2)
+(defgconstant +gltfstate+handle-binary-embed-as-basisu+ :value 2 :bind
+ "HANDLE_BINARY_EMBED_AS_BASISU" :class 'gltfstate)
 
 
-(defgconstant
- (+gltfstate+handle-binary-embed-as-uncompressed+ :class 'gltfstate) 3)
+(defgconstant +gltfstate+handle-binary-embed-as-uncompressed+ :value 3 :bind
+ "HANDLE_BINARY_EMBED_AS_UNCOMPRESSED" :class 'gltfstate)
 
 
 (defgenum (gltfstate+handle-binary-image-mode :class 'gltfstate)
@@ -2214,22 +2222,24 @@
 (defgclass (enet-packet-peer :bind "ENetPacketPeer" :api :core))
 
 
-(defgconstant (+enet-packet-peer+packet-loss-scale+ :class 'enet-packet-peer)
- 65536)
+(defgconstant +enet-packet-peer+packet-loss-scale+ :value 65536 :bind
+ "PACKET_LOSS_SCALE" :class 'enet-packet-peer)
 
 
-(defgconstant
- (+enet-packet-peer+packet-throttle-scale+ :class 'enet-packet-peer) 32)
+(defgconstant +enet-packet-peer+packet-throttle-scale+ :value 32 :bind
+ "PACKET_THROTTLE_SCALE" :class 'enet-packet-peer)
 
 
-(defgconstant (+enet-packet-peer+flag-reliable+ :class 'enet-packet-peer) 1)
+(defgconstant +enet-packet-peer+flag-reliable+ :value 1 :bind "FLAG_RELIABLE"
+ :class 'enet-packet-peer)
 
 
-(defgconstant (+enet-packet-peer+flag-unsequenced+ :class 'enet-packet-peer) 2)
+(defgconstant +enet-packet-peer+flag-unsequenced+ :value 2 :bind
+ "FLAG_UNSEQUENCED" :class 'enet-packet-peer)
 
 
-(defgconstant
- (+enet-packet-peer+flag-unreliable-fragment+ :class 'enet-packet-peer) 8)
+(defgconstant +enet-packet-peer+flag-unreliable-fragment+ :value 8 :bind
+ "FLAG_UNRELIABLE_FRAGMENT" :class 'enet-packet-peer)
 
 
 (defgenum (enet-packet-peer+peer-state :class 'enet-packet-peer)
@@ -2449,7 +2459,8 @@
 (defgclass (animated-texture :bind "AnimatedTexture" :api :core))
 
 
-(defgconstant (+animated-texture+max-frames+ :class 'animated-texture) 256)
+(defgconstant +animated-texture+max-frames+ :value 256 :bind "MAX_FRAMES"
+ :class 'animated-texture)
 
 (defgclass (dpitexture :bind "DPITexture" :api :core))
 
@@ -2928,46 +2939,39 @@
  (editor-scene-format-importer :bind "EditorSceneFormatImporter" :api :editor))
 
 
-(defgconstant
- (+editor-scene-format-importer+import-scene+ :class
-  'editor-scene-format-importer)
- 1)
+(defgconstant +editor-scene-format-importer+import-scene+ :value 1 :bind
+ "IMPORT_SCENE" :class 'editor-scene-format-importer)
+
+
+(defgconstant +editor-scene-format-importer+import-animation+ :value 2 :bind
+ "IMPORT_ANIMATION" :class 'editor-scene-format-importer)
 
 
 (defgconstant
- (+editor-scene-format-importer+import-animation+ :class
-  'editor-scene-format-importer)
- 2)
+ +editor-scene-format-importer+import-fail-on-missing-dependencies+ :value 4
+ :bind "IMPORT_FAIL_ON_MISSING_DEPENDENCIES" :class
+ 'editor-scene-format-importer)
+
+
+(defgconstant +editor-scene-format-importer+import-generate-tangent-arrays+
+ :value 8 :bind "IMPORT_GENERATE_TANGENT_ARRAYS" :class
+ 'editor-scene-format-importer)
+
+
+(defgconstant +editor-scene-format-importer+import-use-named-skin-binds+ :value
+ 16 :bind "IMPORT_USE_NAMED_SKIN_BINDS" :class 'editor-scene-format-importer)
 
 
 (defgconstant
- (+editor-scene-format-importer+import-fail-on-missing-dependencies+ :class
-  'editor-scene-format-importer)
- 4)
+ +editor-scene-format-importer+import-discard-meshes-and-materials+ :value 32
+ :bind "IMPORT_DISCARD_MESHES_AND_MATERIALS" :class
+ 'editor-scene-format-importer)
 
 
 (defgconstant
- (+editor-scene-format-importer+import-generate-tangent-arrays+ :class
-  'editor-scene-format-importer)
- 8)
-
-
-(defgconstant
- (+editor-scene-format-importer+import-use-named-skin-binds+ :class
-  'editor-scene-format-importer)
- 16)
-
-
-(defgconstant
- (+editor-scene-format-importer+import-discard-meshes-and-materials+ :class
-  'editor-scene-format-importer)
- 32)
-
-
-(defgconstant
- (+editor-scene-format-importer+import-force-disable-mesh-compression+ :class
-  'editor-scene-format-importer)
- 64)
+ +editor-scene-format-importer+import-force-disable-mesh-compression+ :value 64
+ :bind "IMPORT_FORCE_DISABLE_MESH_COMPRESSION" :class
+ 'editor-scene-format-importer)
 
 (defgclass
  (editor-resource-conversion-plugin :bind "EditorResourceConversionPlugin" :api
@@ -3083,10 +3087,8 @@
  (:signals (settings-changed)))
 
 
-(defgconstant
- (+editor-settings+notification-editor-settings-changed+ :class
-  'editor-settings)
- 10000)
+(defgconstant +editor-settings+notification-editor-settings-changed+ :value
+ 10000 :bind "NOTIFICATION_EDITOR_SETTINGS_CHANGED" :class 'editor-settings)
 
 (defgclass (editor-selection :bind "EditorSelection" :api :editor)
  (:signals (selection-changed)))
@@ -3544,8 +3546,8 @@
  (audio-stream-synchronized :bind "AudioStreamSynchronized" :api :core))
 
 
-(defgconstant
- (+audio-stream-synchronized+max-streams+ :class 'audio-stream-synchronized) 32)
+(defgconstant +audio-stream-synchronized+max-streams+ :value 32 :bind
+ "MAX_STREAMS" :class 'audio-stream-synchronized)
 
 (defgclass
  (audio-stream-playback-interactive :bind "AudioStreamPlaybackInteractive" :api
@@ -3554,8 +3556,8 @@
 (defgclass (audio-stream-interactive :bind "AudioStreamInteractive" :api :core))
 
 
-(defgconstant
- (+audio-stream-interactive+clip-any+ :class 'audio-stream-interactive) -1)
+(defgconstant +audio-stream-interactive+clip-any+ :value -1 :bind "CLIP_ANY"
+ :class 'audio-stream-interactive)
 
 
 (defgenum
@@ -3584,8 +3586,8 @@
 (defgclass (audio-stream-playlist :bind "AudioStreamPlaylist" :api :core))
 
 
-(defgconstant
- (+audio-stream-playlist+max-streams+ :class 'audio-stream-playlist) 64)
+(defgconstant +audio-stream-playlist+max-streams+ :value 64 :bind "MAX_STREAMS"
+ :class 'audio-stream-playlist)
 
 (defgclass (gltftexture-sampler :bind "GLTFTextureSampler" :api :core))
 
@@ -3667,10 +3669,12 @@
 (defgclass (material :bind "Material" :api :core))
 
 
-(defgconstant (+material+render-priority-max+ :class 'material) 127)
+(defgconstant +material+render-priority-max+ :value 127 :bind
+ "RENDER_PRIORITY_MAX" :class 'material)
 
 
-(defgconstant (+material+render-priority-min+ :class 'material) -128)
+(defgconstant +material+render-priority-min+ :value -128 :bind
+ "RENDER_PRIORITY_MIN" :class 'material)
 
 (defgclass (texture :bind "Texture" :api :core))
 
@@ -4092,8 +4096,8 @@
 (defgclass (rdframebuffer-pass :bind "RDFramebufferPass" :api :core))
 
 
-(defgconstant
- (+rdframebuffer-pass+attachment-unused+ :class 'rdframebuffer-pass) -1)
+(defgconstant +rdframebuffer-pass+attachment-unused+ :value -1 :bind
+ "ATTACHMENT_UNUSED" :class 'rdframebuffer-pass)
 
 (defgclass (rdattachment-format :bind "RDAttachmentFormat" :api :core))
 
@@ -4255,12 +4259,12 @@
  (:signals (peer-connected id int) (peer-disconnected id int)))
 
 
-(defgconstant
- (+multiplayer-peer+target-peer-broadcast+ :class 'multiplayer-peer) 0)
+(defgconstant +multiplayer-peer+target-peer-broadcast+ :value 0 :bind
+ "TARGET_PEER_BROADCAST" :class 'multiplayer-peer)
 
 
-(defgconstant (+multiplayer-peer+target-peer-server+ :class 'multiplayer-peer)
- 1)
+(defgconstant +multiplayer-peer+target-peer-server+ :value 1 :bind
+ "TARGET_PEER_SERVER" :class 'multiplayer-peer)
 
 
 (defgenum (multiplayer-peer+connection-status :class 'multiplayer-peer)
@@ -4337,10 +4341,12 @@
   (titlebar-changed) (title-changed)))
 
 
-(defgconstant (+window+notification-visibility-changed+ :class 'window) 30)
+(defgconstant +window+notification-visibility-changed+ :value 30 :bind
+ "NOTIFICATION_VISIBILITY_CHANGED" :class 'window)
 
 
-(defgconstant (+window+notification-theme-changed+ :class 'window) 32)
+(defgconstant +window+notification-theme-changed+ :value 32 :bind
+ "NOTIFICATION_THEME_CHANGED" :class 'window)
 
 
 (defgenum (window+mode :class 'window) (:windowed 0) (:minimized 1)
@@ -4476,17 +4482,16 @@
 (defgclass (tile-set-atlas-source :bind "TileSetAtlasSource" :api :core))
 
 
-(defgconstant
- (+tile-set-atlas-source+transform-flip-h+ :class 'tile-set-atlas-source) 4096)
+(defgconstant +tile-set-atlas-source+transform-flip-h+ :value 4096 :bind
+ "TRANSFORM_FLIP_H" :class 'tile-set-atlas-source)
 
 
-(defgconstant
- (+tile-set-atlas-source+transform-flip-v+ :class 'tile-set-atlas-source) 8192)
+(defgconstant +tile-set-atlas-source+transform-flip-v+ :value 8192 :bind
+ "TRANSFORM_FLIP_V" :class 'tile-set-atlas-source)
 
 
-(defgconstant
- (+tile-set-atlas-source+transform-transpose+ :class 'tile-set-atlas-source)
- 16384)
+(defgconstant +tile-set-atlas-source+transform-transpose+ :value 16384 :bind
+ "TRANSFORM_TRANSPOSE" :class 'tile-set-atlas-source)
 
 
 (defgenum
@@ -4696,8 +4701,8 @@
   (show-rest-only-changed)))
 
 
-(defgconstant (+skeleton-3d+notification-update-skeleton+ :class 'skeleton-3d)
- 50)
+(defgconstant +skeleton-3d+notification-update-skeleton+ :value 50 :bind
+ "NOTIFICATION_UPDATE_SKELETON" :class 'skeleton-3d)
 
 
 (defgenum (skeleton-3d+modifier-callback-mode-process :class 'skeleton-3d)
@@ -4823,76 +4828,76 @@
  (:signals (frame-pre-draw) (frame-post-draw)))
 
 
-(defgconstant (+rendering-server+no-index-array+ :class 'rendering-server) -1)
+(defgconstant +rendering-server+no-index-array+ :value -1 :bind
+ "NO_INDEX_ARRAY" :class 'rendering-server)
 
 
-(defgconstant (+rendering-server+array-weights-size+ :class 'rendering-server)
- 4)
+(defgconstant +rendering-server+array-weights-size+ :value 4 :bind
+ "ARRAY_WEIGHTS_SIZE" :class 'rendering-server)
 
 
-(defgconstant (+rendering-server+canvas-item-z-min+ :class 'rendering-server)
- -4096)
+(defgconstant +rendering-server+canvas-item-z-min+ :value -4096 :bind
+ "CANVAS_ITEM_Z_MIN" :class 'rendering-server)
 
 
-(defgconstant (+rendering-server+canvas-item-z-max+ :class 'rendering-server)
- 4096)
+(defgconstant +rendering-server+canvas-item-z-max+ :value 4096 :bind
+ "CANVAS_ITEM_Z_MAX" :class 'rendering-server)
 
 
-(defgconstant (+rendering-server+canvas-layer-min+ :class 'rendering-server)
- -2147483648)
+(defgconstant +rendering-server+canvas-layer-min+ :value -2147483648 :bind
+ "CANVAS_LAYER_MIN" :class 'rendering-server)
 
 
-(defgconstant (+rendering-server+canvas-layer-max+ :class 'rendering-server)
- 2147483647)
+(defgconstant +rendering-server+canvas-layer-max+ :value 2147483647 :bind
+ "CANVAS_LAYER_MAX" :class 'rendering-server)
 
 
-(defgconstant (+rendering-server+max-glow-levels+ :class 'rendering-server) 7)
+(defgconstant +rendering-server+max-glow-levels+ :value 7 :bind
+ "MAX_GLOW_LEVELS" :class 'rendering-server)
 
 
-(defgconstant (+rendering-server+max-cursors+ :class 'rendering-server) 8)
+(defgconstant +rendering-server+max-cursors+ :value 8 :bind "MAX_CURSORS"
+ :class 'rendering-server)
 
 
-(defgconstant
- (+rendering-server+max-2d-directional-lights+ :class 'rendering-server) 8)
+(defgconstant +rendering-server+max-2d-directional-lights+ :value 8 :bind
+ "MAX_2D_DIRECTIONAL_LIGHTS" :class 'rendering-server)
 
 
-(defgconstant (+rendering-server+max-mesh-surfaces+ :class 'rendering-server)
- 256)
+(defgconstant +rendering-server+max-mesh-surfaces+ :value 256 :bind
+ "MAX_MESH_SURFACES" :class 'rendering-server)
 
 
-(defgconstant
- (+rendering-server+material-render-priority-min+ :class 'rendering-server)
- -128)
+(defgconstant +rendering-server+material-render-priority-min+ :value -128 :bind
+ "MATERIAL_RENDER_PRIORITY_MIN" :class 'rendering-server)
 
 
-(defgconstant
- (+rendering-server+material-render-priority-max+ :class 'rendering-server) 127)
+(defgconstant +rendering-server+material-render-priority-max+ :value 127 :bind
+ "MATERIAL_RENDER_PRIORITY_MAX" :class 'rendering-server)
 
 
-(defgconstant (+rendering-server+array-custom-count+ :class 'rendering-server)
- 4)
+(defgconstant +rendering-server+array-custom-count+ :value 4 :bind
+ "ARRAY_CUSTOM_COUNT" :class 'rendering-server)
 
 
-(defgconstant
- (+rendering-server+particles-emit-flag-position+ :class 'rendering-server) 1)
+(defgconstant +rendering-server+particles-emit-flag-position+ :value 1 :bind
+ "PARTICLES_EMIT_FLAG_POSITION" :class 'rendering-server)
 
 
-(defgconstant
- (+rendering-server+particles-emit-flag-rotation-scale+ :class
-  'rendering-server)
- 2)
+(defgconstant +rendering-server+particles-emit-flag-rotation-scale+ :value 2
+ :bind "PARTICLES_EMIT_FLAG_ROTATION_SCALE" :class 'rendering-server)
 
 
-(defgconstant
- (+rendering-server+particles-emit-flag-velocity+ :class 'rendering-server) 4)
+(defgconstant +rendering-server+particles-emit-flag-velocity+ :value 4 :bind
+ "PARTICLES_EMIT_FLAG_VELOCITY" :class 'rendering-server)
 
 
-(defgconstant
- (+rendering-server+particles-emit-flag-color+ :class 'rendering-server) 8)
+(defgconstant +rendering-server+particles-emit-flag-color+ :value 8 :bind
+ "PARTICLES_EMIT_FLAG_COLOR" :class 'rendering-server)
 
 
-(defgconstant
- (+rendering-server+particles-emit-flag-custom+ :class 'rendering-server) 16)
+(defgconstant +rendering-server+particles-emit-flag-custom+ :value 16 :bind
+ "PARTICLES_EMIT_FLAG_CUSTOM" :class 'rendering-server)
 
 
 (defgenum (rendering-server+texture-type :class 'rendering-server) (:|2D| 0)
@@ -5317,11 +5322,12 @@
 (defgclass (rendering-device :bind "RenderingDevice" :api :core))
 
 
-(defgconstant (+rendering-device+invalid-id+ :class 'rendering-device) -1)
+(defgconstant +rendering-device+invalid-id+ :value -1 :bind "INVALID_ID" :class
+ 'rendering-device)
 
 
-(defgconstant (+rendering-device+invalid-format-id+ :class 'rendering-device)
- -1)
+(defgconstant +rendering-device+invalid-format-id+ :value -1 :bind
+ "INVALID_FORMAT_ID" :class 'rendering-device)
 
 
 (defgenum (rendering-device+device-type :class 'rendering-device) (:other 0)
@@ -5968,20 +5974,24 @@
 (defgclass (node-3d :bind "Node3D" :api :core) (:signals (visibility-changed)))
 
 
-(defgconstant (+node-3d+notification-transform-changed+ :class 'node-3d) 2000)
+(defgconstant +node-3d+notification-transform-changed+ :value 2000 :bind
+ "NOTIFICATION_TRANSFORM_CHANGED" :class 'node-3d)
 
 
-(defgconstant (+node-3d+notification-enter-world+ :class 'node-3d) 41)
+(defgconstant +node-3d+notification-enter-world+ :value 41 :bind
+ "NOTIFICATION_ENTER_WORLD" :class 'node-3d)
 
 
-(defgconstant (+node-3d+notification-exit-world+ :class 'node-3d) 42)
+(defgconstant +node-3d+notification-exit-world+ :value 42 :bind
+ "NOTIFICATION_EXIT_WORLD" :class 'node-3d)
 
 
-(defgconstant (+node-3d+notification-visibility-changed+ :class 'node-3d) 43)
+(defgconstant +node-3d+notification-visibility-changed+ :value 43 :bind
+ "NOTIFICATION_VISIBILITY_CHANGED" :class 'node-3d)
 
 
-(defgconstant (+node-3d+notification-local-transform-changed+ :class 'node-3d)
- 44)
+(defgconstant +node-3d+notification-local-transform-changed+ :value 44 :bind
+ "NOTIFICATION_LOCAL_TRANSFORM_CHANGED" :class 'node-3d)
 
 
 (defgenum (node-3d+rotation-edit-mode :class 'node-3d) (:euler 0)
@@ -5994,143 +6004,188 @@
   (editor-description-changed node node) (editor-state-changed)))
 
 
-(defgconstant (+node+notification-enter-tree+ :class 'node) 10)
+(defgconstant +node+notification-enter-tree+ :value 10 :bind
+ "NOTIFICATION_ENTER_TREE" :class 'node)
 
 
-(defgconstant (+node+notification-exit-tree+ :class 'node) 11)
+(defgconstant +node+notification-exit-tree+ :value 11 :bind
+ "NOTIFICATION_EXIT_TREE" :class 'node)
 
 
-(defgconstant (+node+notification-moved-in-parent+ :class 'node) 12)
+(defgconstant +node+notification-moved-in-parent+ :value 12 :bind
+ "NOTIFICATION_MOVED_IN_PARENT" :class 'node)
 
 
-(defgconstant (+node+notification-ready+ :class 'node) 13)
+(defgconstant +node+notification-ready+ :value 13 :bind "NOTIFICATION_READY"
+ :class 'node)
 
 
-(defgconstant (+node+notification-paused+ :class 'node) 14)
+(defgconstant +node+notification-paused+ :value 14 :bind "NOTIFICATION_PAUSED"
+ :class 'node)
 
 
-(defgconstant (+node+notification-unpaused+ :class 'node) 15)
+(defgconstant +node+notification-unpaused+ :value 15 :bind
+ "NOTIFICATION_UNPAUSED" :class 'node)
 
 
-(defgconstant (+node+notification-physics-process+ :class 'node) 16)
+(defgconstant +node+notification-physics-process+ :value 16 :bind
+ "NOTIFICATION_PHYSICS_PROCESS" :class 'node)
 
 
-(defgconstant (+node+notification-process+ :class 'node) 17)
+(defgconstant +node+notification-process+ :value 17 :bind
+ "NOTIFICATION_PROCESS" :class 'node)
 
 
-(defgconstant (+node+notification-parented+ :class 'node) 18)
+(defgconstant +node+notification-parented+ :value 18 :bind
+ "NOTIFICATION_PARENTED" :class 'node)
 
 
-(defgconstant (+node+notification-unparented+ :class 'node) 19)
+(defgconstant +node+notification-unparented+ :value 19 :bind
+ "NOTIFICATION_UNPARENTED" :class 'node)
 
 
-(defgconstant (+node+notification-scene-instantiated+ :class 'node) 20)
+(defgconstant +node+notification-scene-instantiated+ :value 20 :bind
+ "NOTIFICATION_SCENE_INSTANTIATED" :class 'node)
 
 
-(defgconstant (+node+notification-drag-begin+ :class 'node) 21)
+(defgconstant +node+notification-drag-begin+ :value 21 :bind
+ "NOTIFICATION_DRAG_BEGIN" :class 'node)
 
 
-(defgconstant (+node+notification-drag-end+ :class 'node) 22)
+(defgconstant +node+notification-drag-end+ :value 22 :bind
+ "NOTIFICATION_DRAG_END" :class 'node)
 
 
-(defgconstant (+node+notification-path-renamed+ :class 'node) 23)
+(defgconstant +node+notification-path-renamed+ :value 23 :bind
+ "NOTIFICATION_PATH_RENAMED" :class 'node)
 
 
-(defgconstant (+node+notification-child-order-changed+ :class 'node) 24)
+(defgconstant +node+notification-child-order-changed+ :value 24 :bind
+ "NOTIFICATION_CHILD_ORDER_CHANGED" :class 'node)
 
 
-(defgconstant (+node+notification-internal-process+ :class 'node) 25)
+(defgconstant +node+notification-internal-process+ :value 25 :bind
+ "NOTIFICATION_INTERNAL_PROCESS" :class 'node)
 
 
-(defgconstant (+node+notification-internal-physics-process+ :class 'node) 26)
+(defgconstant +node+notification-internal-physics-process+ :value 26 :bind
+ "NOTIFICATION_INTERNAL_PHYSICS_PROCESS" :class 'node)
 
 
-(defgconstant (+node+notification-post-enter-tree+ :class 'node) 27)
+(defgconstant +node+notification-post-enter-tree+ :value 27 :bind
+ "NOTIFICATION_POST_ENTER_TREE" :class 'node)
 
 
-(defgconstant (+node+notification-disabled+ :class 'node) 28)
+(defgconstant +node+notification-disabled+ :value 28 :bind
+ "NOTIFICATION_DISABLED" :class 'node)
 
 
-(defgconstant (+node+notification-enabled+ :class 'node) 29)
+(defgconstant +node+notification-enabled+ :value 29 :bind
+ "NOTIFICATION_ENABLED" :class 'node)
 
 
-(defgconstant (+node+notification-reset-physics-interpolation+ :class 'node)
- 2001)
+(defgconstant +node+notification-reset-physics-interpolation+ :value 2001 :bind
+ "NOTIFICATION_RESET_PHYSICS_INTERPOLATION" :class 'node)
 
 
-(defgconstant (+node+notification-editor-pre-save+ :class 'node) 9001)
+(defgconstant +node+notification-editor-pre-save+ :value 9001 :bind
+ "NOTIFICATION_EDITOR_PRE_SAVE" :class 'node)
 
 
-(defgconstant (+node+notification-editor-post-save+ :class 'node) 9002)
+(defgconstant +node+notification-editor-post-save+ :value 9002 :bind
+ "NOTIFICATION_EDITOR_POST_SAVE" :class 'node)
 
 
-(defgconstant (+node+notification-wm-mouse-enter+ :class 'node) 1002)
+(defgconstant +node+notification-wm-mouse-enter+ :value 1002 :bind
+ "NOTIFICATION_WM_MOUSE_ENTER" :class 'node)
 
 
-(defgconstant (+node+notification-wm-mouse-exit+ :class 'node) 1003)
+(defgconstant +node+notification-wm-mouse-exit+ :value 1003 :bind
+ "NOTIFICATION_WM_MOUSE_EXIT" :class 'node)
 
 
-(defgconstant (+node+notification-wm-window-focus-in+ :class 'node) 1004)
+(defgconstant +node+notification-wm-window-focus-in+ :value 1004 :bind
+ "NOTIFICATION_WM_WINDOW_FOCUS_IN" :class 'node)
 
 
-(defgconstant (+node+notification-wm-window-focus-out+ :class 'node) 1005)
+(defgconstant +node+notification-wm-window-focus-out+ :value 1005 :bind
+ "NOTIFICATION_WM_WINDOW_FOCUS_OUT" :class 'node)
 
 
-(defgconstant (+node+notification-wm-close-request+ :class 'node) 1006)
+(defgconstant +node+notification-wm-close-request+ :value 1006 :bind
+ "NOTIFICATION_WM_CLOSE_REQUEST" :class 'node)
 
 
-(defgconstant (+node+notification-wm-go-back-request+ :class 'node) 1007)
+(defgconstant +node+notification-wm-go-back-request+ :value 1007 :bind
+ "NOTIFICATION_WM_GO_BACK_REQUEST" :class 'node)
 
 
-(defgconstant (+node+notification-wm-size-changed+ :class 'node) 1008)
+(defgconstant +node+notification-wm-size-changed+ :value 1008 :bind
+ "NOTIFICATION_WM_SIZE_CHANGED" :class 'node)
 
 
-(defgconstant (+node+notification-wm-dpi-change+ :class 'node) 1009)
+(defgconstant +node+notification-wm-dpi-change+ :value 1009 :bind
+ "NOTIFICATION_WM_DPI_CHANGE" :class 'node)
 
 
-(defgconstant (+node+notification-vp-mouse-enter+ :class 'node) 1010)
+(defgconstant +node+notification-vp-mouse-enter+ :value 1010 :bind
+ "NOTIFICATION_VP_MOUSE_ENTER" :class 'node)
 
 
-(defgconstant (+node+notification-vp-mouse-exit+ :class 'node) 1011)
+(defgconstant +node+notification-vp-mouse-exit+ :value 1011 :bind
+ "NOTIFICATION_VP_MOUSE_EXIT" :class 'node)
 
 
-(defgconstant (+node+notification-wm-position-changed+ :class 'node) 1012)
+(defgconstant +node+notification-wm-position-changed+ :value 1012 :bind
+ "NOTIFICATION_WM_POSITION_CHANGED" :class 'node)
 
 
-(defgconstant (+node+notification-os-memory-warning+ :class 'node) 2009)
+(defgconstant +node+notification-os-memory-warning+ :value 2009 :bind
+ "NOTIFICATION_OS_MEMORY_WARNING" :class 'node)
 
 
-(defgconstant (+node+notification-translation-changed+ :class 'node) 2010)
+(defgconstant +node+notification-translation-changed+ :value 2010 :bind
+ "NOTIFICATION_TRANSLATION_CHANGED" :class 'node)
 
 
-(defgconstant (+node+notification-wm-about+ :class 'node) 2011)
+(defgconstant +node+notification-wm-about+ :value 2011 :bind
+ "NOTIFICATION_WM_ABOUT" :class 'node)
 
 
-(defgconstant (+node+notification-crash+ :class 'node) 2012)
+(defgconstant +node+notification-crash+ :value 2012 :bind "NOTIFICATION_CRASH"
+ :class 'node)
 
 
-(defgconstant (+node+notification-os-ime-update+ :class 'node) 2013)
+(defgconstant +node+notification-os-ime-update+ :value 2013 :bind
+ "NOTIFICATION_OS_IME_UPDATE" :class 'node)
 
 
-(defgconstant (+node+notification-application-resumed+ :class 'node) 2014)
+(defgconstant +node+notification-application-resumed+ :value 2014 :bind
+ "NOTIFICATION_APPLICATION_RESUMED" :class 'node)
 
 
-(defgconstant (+node+notification-application-paused+ :class 'node) 2015)
+(defgconstant +node+notification-application-paused+ :value 2015 :bind
+ "NOTIFICATION_APPLICATION_PAUSED" :class 'node)
 
 
-(defgconstant (+node+notification-application-focus-in+ :class 'node) 2016)
+(defgconstant +node+notification-application-focus-in+ :value 2016 :bind
+ "NOTIFICATION_APPLICATION_FOCUS_IN" :class 'node)
 
 
-(defgconstant (+node+notification-application-focus-out+ :class 'node) 2017)
+(defgconstant +node+notification-application-focus-out+ :value 2017 :bind
+ "NOTIFICATION_APPLICATION_FOCUS_OUT" :class 'node)
 
 
-(defgconstant (+node+notification-text-server-changed+ :class 'node) 2018)
+(defgconstant +node+notification-text-server-changed+ :value 2018 :bind
+ "NOTIFICATION_TEXT_SERVER_CHANGED" :class 'node)
 
 
-(defgconstant (+node+notification-accessibility-update+ :class 'node) 3000)
+(defgconstant +node+notification-accessibility-update+ :value 3000 :bind
+ "NOTIFICATION_ACCESSIBILITY_UPDATE" :class 'node)
 
 
-(defgconstant (+node+notification-accessibility-invalidate+ :class 'node) 3001)
+(defgconstant +node+notification-accessibility-invalidate+ :value 3001 :bind
+ "NOTIFICATION_ACCESSIBILITY_INVALIDATE" :class 'node)
 
 
 (defgenum (node+process-mode :class 'node) (:inherit 0) (:pausable 1)
@@ -6256,10 +6311,12 @@
 (defgclass (ip :bind "IP" :api :core))
 
 
-(defgconstant (+ip+resolver-max-queries+ :class 'ip) 256)
+(defgconstant +ip+resolver-max-queries+ :value 256 :bind "RESOLVER_MAX_QUERIES"
+ :class 'ip)
 
 
-(defgconstant (+ip+resolver-invalid-id+ :class 'ip) -1)
+(defgconstant +ip+resolver-invalid-id+ :value -1 :bind "RESOLVER_INVALID_ID"
+ :class 'ip)
 
 
 (defgenum (ip+resolver-status :class 'ip) (:none 0) (:waiting 1) (:done 2)
@@ -6285,7 +6342,8 @@
  (:signals (cell-size-changed cell-size vector-3) (changed)))
 
 
-(defgconstant (+grid-map+invalid-cell-item+ :class 'grid-map) -1)
+(defgconstant +grid-map+invalid-cell-item+ :value -1 :bind "INVALID_CELL_ITEM"
+ :class 'grid-map)
 
 (defgclass (graph-node :bind "GraphNode" :api :core)
  (:signals (slot-updated slot-index int) (slot-sizes-changed)))
@@ -6428,31 +6486,36 @@
 (defgclass (display-server :bind "DisplayServer" :api :core))
 
 
-(defgconstant (+display-server+invalid-screen+ :class 'display-server) -1)
+(defgconstant +display-server+invalid-screen+ :value -1 :bind "INVALID_SCREEN"
+ :class 'display-server)
 
 
-(defgconstant (+display-server+screen-with-mouse-focus+ :class 'display-server)
- -4)
+(defgconstant +display-server+screen-with-mouse-focus+ :value -4 :bind
+ "SCREEN_WITH_MOUSE_FOCUS" :class 'display-server)
 
 
-(defgconstant
- (+display-server+screen-with-keyboard-focus+ :class 'display-server) -3)
+(defgconstant +display-server+screen-with-keyboard-focus+ :value -3 :bind
+ "SCREEN_WITH_KEYBOARD_FOCUS" :class 'display-server)
 
 
-(defgconstant (+display-server+screen-primary+ :class 'display-server) -2)
+(defgconstant +display-server+screen-primary+ :value -2 :bind "SCREEN_PRIMARY"
+ :class 'display-server)
 
 
-(defgconstant (+display-server+screen-of-main-window+ :class 'display-server)
- -1)
+(defgconstant +display-server+screen-of-main-window+ :value -1 :bind
+ "SCREEN_OF_MAIN_WINDOW" :class 'display-server)
 
 
-(defgconstant (+display-server+main-window-id+ :class 'display-server) 0)
+(defgconstant +display-server+main-window-id+ :value 0 :bind "MAIN_WINDOW_ID"
+ :class 'display-server)
 
 
-(defgconstant (+display-server+invalid-window-id+ :class 'display-server) -1)
+(defgconstant +display-server+invalid-window-id+ :value -1 :bind
+ "INVALID_WINDOW_ID" :class 'display-server)
 
 
-(defgconstant (+display-server+invalid-indicator-id+ :class 'display-server) -1)
+(defgconstant +display-server+invalid-indicator-id+ :value -1 :bind
+ "INVALID_INDICATOR_ID" :class 'display-server)
 
 
 (defgenum (display-server+feature :class 'display-server) (:global-menu 0)
@@ -6588,38 +6651,48 @@
   (minimum-size-changed) (theme-changed)))
 
 
-(defgconstant (+control+notification-resized+ :class 'control) 40)
+(defgconstant +control+notification-resized+ :value 40 :bind
+ "NOTIFICATION_RESIZED" :class 'control)
 
 
-(defgconstant (+control+notification-mouse-enter+ :class 'control) 41)
+(defgconstant +control+notification-mouse-enter+ :value 41 :bind
+ "NOTIFICATION_MOUSE_ENTER" :class 'control)
 
 
-(defgconstant (+control+notification-mouse-exit+ :class 'control) 42)
+(defgconstant +control+notification-mouse-exit+ :value 42 :bind
+ "NOTIFICATION_MOUSE_EXIT" :class 'control)
 
 
-(defgconstant (+control+notification-mouse-enter-self+ :class 'control) 60)
+(defgconstant +control+notification-mouse-enter-self+ :value 60 :bind
+ "NOTIFICATION_MOUSE_ENTER_SELF" :class 'control)
 
 
-(defgconstant (+control+notification-mouse-exit-self+ :class 'control) 61)
+(defgconstant +control+notification-mouse-exit-self+ :value 61 :bind
+ "NOTIFICATION_MOUSE_EXIT_SELF" :class 'control)
 
 
-(defgconstant (+control+notification-focus-enter+ :class 'control) 43)
+(defgconstant +control+notification-focus-enter+ :value 43 :bind
+ "NOTIFICATION_FOCUS_ENTER" :class 'control)
 
 
-(defgconstant (+control+notification-focus-exit+ :class 'control) 44)
+(defgconstant +control+notification-focus-exit+ :value 44 :bind
+ "NOTIFICATION_FOCUS_EXIT" :class 'control)
 
 
-(defgconstant (+control+notification-theme-changed+ :class 'control) 45)
+(defgconstant +control+notification-theme-changed+ :value 45 :bind
+ "NOTIFICATION_THEME_CHANGED" :class 'control)
 
 
-(defgconstant (+control+notification-scroll-begin+ :class 'control) 47)
+(defgconstant +control+notification-scroll-begin+ :value 47 :bind
+ "NOTIFICATION_SCROLL_BEGIN" :class 'control)
 
 
-(defgconstant (+control+notification-scroll-end+ :class 'control) 48)
+(defgconstant +control+notification-scroll-end+ :value 48 :bind
+ "NOTIFICATION_SCROLL_END" :class 'control)
 
 
-(defgconstant (+control+notification-layout-direction-changed+ :class 'control)
- 49)
+(defgconstant +control+notification-layout-direction-changed+ :value 49 :bind
+ "NOTIFICATION_LAYOUT_DIRECTION_CHANGED" :class 'control)
 
 
 (defgenum (control+focus-mode :class 'control) (:none 0) (:click 1) (:all 2)
@@ -6694,29 +6767,32 @@
  (:signals (draw) (visibility-changed) (hidden) (item-rect-changed)))
 
 
-(defgconstant
- (+canvas-item+notification-transform-changed+ :class 'canvas-item) 2000)
+(defgconstant +canvas-item+notification-transform-changed+ :value 2000 :bind
+ "NOTIFICATION_TRANSFORM_CHANGED" :class 'canvas-item)
 
 
-(defgconstant
- (+canvas-item+notification-local-transform-changed+ :class 'canvas-item) 35)
+(defgconstant +canvas-item+notification-local-transform-changed+ :value 35
+ :bind "NOTIFICATION_LOCAL_TRANSFORM_CHANGED" :class 'canvas-item)
 
 
-(defgconstant (+canvas-item+notification-draw+ :class 'canvas-item) 30)
+(defgconstant +canvas-item+notification-draw+ :value 30 :bind
+ "NOTIFICATION_DRAW" :class 'canvas-item)
 
 
-(defgconstant
- (+canvas-item+notification-visibility-changed+ :class 'canvas-item) 31)
+(defgconstant +canvas-item+notification-visibility-changed+ :value 31 :bind
+ "NOTIFICATION_VISIBILITY_CHANGED" :class 'canvas-item)
 
 
-(defgconstant (+canvas-item+notification-enter-canvas+ :class 'canvas-item) 32)
+(defgconstant +canvas-item+notification-enter-canvas+ :value 32 :bind
+ "NOTIFICATION_ENTER_CANVAS" :class 'canvas-item)
 
 
-(defgconstant (+canvas-item+notification-exit-canvas+ :class 'canvas-item) 33)
+(defgconstant +canvas-item+notification-exit-canvas+ :value 33 :bind
+ "NOTIFICATION_EXIT_CANVAS" :class 'canvas-item)
 
 
-(defgconstant (+canvas-item+notification-world-2d-changed+ :class 'canvas-item)
- 36)
+(defgconstant +canvas-item+notification-world-2d-changed+ :value 36 :bind
+ "NOTIFICATION_WORLD_2D_CHANGED" :class 'canvas-item)
 
 
 (defgenum (canvas-item+texture-filter :class 'canvas-item) (:parent-node 0)
@@ -6746,10 +6822,8 @@
   :core))
 
 
-(defgconstant
- (+audio-stream-playback-polyphonic+invalid-id+ :class
-  'audio-stream-playback-polyphonic)
- -1)
+(defgconstant +audio-stream-playback-polyphonic+invalid-id+ :value -1 :bind
+ "INVALID_ID" :class 'audio-stream-playback-polyphonic)
 
 (defgclass (audio-server :bind "AudioServer" :api :core)
  (:signals (bus-layout-changed)
@@ -6809,39 +6883,30 @@
  (:signals (node-changed node-name string-name)))
 
 
-(defgconstant
- (+animation-node-blend-tree+connection-ok+ :class 'animation-node-blend-tree)
- 0)
+(defgconstant +animation-node-blend-tree+connection-ok+ :value 0 :bind
+ "CONNECTION_OK" :class 'animation-node-blend-tree)
 
 
-(defgconstant
- (+animation-node-blend-tree+connection-error-no-input+ :class
-  'animation-node-blend-tree)
- 1)
+(defgconstant +animation-node-blend-tree+connection-error-no-input+ :value 1
+ :bind "CONNECTION_ERROR_NO_INPUT" :class 'animation-node-blend-tree)
 
 
-(defgconstant
- (+animation-node-blend-tree+connection-error-no-input-index+ :class
-  'animation-node-blend-tree)
- 2)
+(defgconstant +animation-node-blend-tree+connection-error-no-input-index+
+ :value 2 :bind "CONNECTION_ERROR_NO_INPUT_INDEX" :class
+ 'animation-node-blend-tree)
 
 
-(defgconstant
- (+animation-node-blend-tree+connection-error-no-output+ :class
-  'animation-node-blend-tree)
- 3)
+(defgconstant +animation-node-blend-tree+connection-error-no-output+ :value 3
+ :bind "CONNECTION_ERROR_NO_OUTPUT" :class 'animation-node-blend-tree)
 
 
-(defgconstant
- (+animation-node-blend-tree+connection-error-same-node+ :class
-  'animation-node-blend-tree)
- 4)
+(defgconstant +animation-node-blend-tree+connection-error-same-node+ :value 4
+ :bind "CONNECTION_ERROR_SAME_NODE" :class 'animation-node-blend-tree)
 
 
-(defgconstant
- (+animation-node-blend-tree+connection-error-connection-exists+ :class
-  'animation-node-blend-tree)
- 5)
+(defgconstant +animation-node-blend-tree+connection-error-connection-exists+
+ :value 5 :bind "CONNECTION_ERROR_CONNECTION_EXISTS" :class
+ 'animation-node-blend-tree)
 
 (defgclass
  (animation-node-blend-space-2d :bind "AnimationNodeBlendSpace2D" :api :core)
@@ -6914,7 +6979,8 @@
 (defgclass (resource-uid :bind "ResourceUID" :api :core))
 
 
-(defgconstant (+resource-uid+invalid-id+ :class 'resource-uid) -1)
+(defgconstant +resource-uid+invalid-id+ :value -1 :bind "INVALID_ID" :class
+ 'resource-uid)
 
 (defgclass (gdextension-manager :bind "GDExtensionManager" :api :core)
  (:signals (extensions-reloaded) (extension-loaded extension ||)
@@ -7042,41 +7108,44 @@
  (:signals (on-request-permissions-result permission string granted bool)))
 
 
-(defgconstant (+main-loop+notification-os-memory-warning+ :class 'main-loop)
- 2009)
+(defgconstant +main-loop+notification-os-memory-warning+ :value 2009 :bind
+ "NOTIFICATION_OS_MEMORY_WARNING" :class 'main-loop)
 
 
-(defgconstant (+main-loop+notification-translation-changed+ :class 'main-loop)
- 2010)
+(defgconstant +main-loop+notification-translation-changed+ :value 2010 :bind
+ "NOTIFICATION_TRANSLATION_CHANGED" :class 'main-loop)
 
 
-(defgconstant (+main-loop+notification-wm-about+ :class 'main-loop) 2011)
+(defgconstant +main-loop+notification-wm-about+ :value 2011 :bind
+ "NOTIFICATION_WM_ABOUT" :class 'main-loop)
 
 
-(defgconstant (+main-loop+notification-crash+ :class 'main-loop) 2012)
+(defgconstant +main-loop+notification-crash+ :value 2012 :bind
+ "NOTIFICATION_CRASH" :class 'main-loop)
 
 
-(defgconstant (+main-loop+notification-os-ime-update+ :class 'main-loop) 2013)
+(defgconstant +main-loop+notification-os-ime-update+ :value 2013 :bind
+ "NOTIFICATION_OS_IME_UPDATE" :class 'main-loop)
 
 
-(defgconstant (+main-loop+notification-application-resumed+ :class 'main-loop)
- 2014)
+(defgconstant +main-loop+notification-application-resumed+ :value 2014 :bind
+ "NOTIFICATION_APPLICATION_RESUMED" :class 'main-loop)
 
 
-(defgconstant (+main-loop+notification-application-paused+ :class 'main-loop)
- 2015)
+(defgconstant +main-loop+notification-application-paused+ :value 2015 :bind
+ "NOTIFICATION_APPLICATION_PAUSED" :class 'main-loop)
 
 
-(defgconstant (+main-loop+notification-application-focus-in+ :class 'main-loop)
- 2016)
+(defgconstant +main-loop+notification-application-focus-in+ :value 2016 :bind
+ "NOTIFICATION_APPLICATION_FOCUS_IN" :class 'main-loop)
 
 
-(defgconstant
- (+main-loop+notification-application-focus-out+ :class 'main-loop) 2017)
+(defgconstant +main-loop+notification-application-focus-out+ :value 2017 :bind
+ "NOTIFICATION_APPLICATION_FOCUS_OUT" :class 'main-loop)
 
 
-(defgconstant (+main-loop+notification-text-server-changed+ :class 'main-loop)
- 2018)
+(defgconstant +main-loop+notification-text-server-changed+ :value 2018 :bind
+ "NOTIFICATION_TEXT_SERVER_CHANGED" :class 'main-loop)
 
 (defgclass (dtlsserver :bind "DTLSServer" :api :core))
 
@@ -7226,17 +7295,19 @@
 (defgclass (input-event :bind "InputEvent" :api :core))
 
 
-(defgconstant (+input-event+device-id-emulation+ :class 'input-event) -1)
+(defgconstant +input-event+device-id-emulation+ :value -1 :bind
+ "DEVICE_ID_EMULATION" :class 'input-event)
 
 (defgclass (shortcut :bind "Shortcut" :api :core))
 
 (defgclass (image :bind "Image" :api :core))
 
 
-(defgconstant (+image+max-width+ :class 'image) 16777216)
+(defgconstant +image+max-width+ :value 16777216 :bind "MAX_WIDTH" :class 'image)
 
 
-(defgconstant (+image+max-height+ :class 'image) 16777216)
+(defgconstant +image+max-height+ :value 16777216 :bind "MAX_HEIGHT" :class
+ 'image)
 
 
 (defgenum (image+format :class 'image) (:l8 0) (:la8 1) (:r8 2) (:rg8 3)
@@ -7344,13 +7415,16 @@
  (:signals (script-changed) (property-list-changed)))
 
 
-(defgconstant (+object+notification-postinitialize+ :class 'object) 0)
+(defgconstant +object+notification-postinitialize+ :value 0 :bind
+ "NOTIFICATION_POSTINITIALIZE" :class 'object)
 
 
-(defgconstant (+object+notification-predelete+ :class 'object) 1)
+(defgconstant +object+notification-predelete+ :value 1 :bind
+ "NOTIFICATION_PREDELETE" :class 'object)
 
 
-(defgconstant (+object+notification-extension-reloaded+ :class 'object) 2)
+(defgconstant +object+notification-extension-reloaded+ :value 2 :bind
+ "NOTIFICATION_EXTENSION_RELOADED" :class 'object)
 
 
 (defgenum (object+connect-flags :class 'object) (:deferred 1) (:persist 2)

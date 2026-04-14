@@ -35,7 +35,10 @@
   :author "Pavel Korolev"
   :mailto "dev@borodust.org"
   :license "MIT"
-  :depends-on (:uiop :alexandria :cl-ppcre :cffi :com.inuoe.jzon :cl-fad :pz-godot/common)
+  :depends-on (:uiop :alexandria
+               :cl-ppcre :cffi
+               :com.inuoe.jzon :cl-fad
+               :pz-godot/common)
   :serial t
   :pathname "src/"
   :components ((:file "packages")

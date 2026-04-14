@@ -7,7 +7,8 @@
                   *class-method-table*
                   *class-constructor-table*
                   *class-destructor-table*
-                  *class-properties-table*
+                  *class-property-table*
+                  *builtin-constant-table*
                   *precision*))
 
 (defparameter *project-root-directory* (asdf:system-relative-pathname :pz-godot/wrapper "./"))
@@ -33,6 +34,11 @@
 
 (defun keywordify (name)
   (a:make-keyword (uiop:standard-case-symbol-name name)))
+
+
+(defun register-export (name)
+  (push name *exports*)
+  (uiop:export* name *package*))
 
 
 (defun symbolicate-gdext-pascal-case (name &key (package *package*)
@@ -176,7 +182,7 @@
                                                          type
                                                          deprecated)
   (let ((namesym (symbolicate-gdext-pascal-case name)))
-    (push namesym *exports*)
+    (register-export namesym)
     (prin1
      `(cffi:defctype ,(symbolicate-gdext-pascal-case name)
           ,(parse-type-string type)
@@ -192,7 +198,7 @@
                                                           deprecated)
   (declare (ignore const-p uninitialized-p parent))
   (let ((namesym (symbolicate-gdext-pascal-case name)))
-    (push namesym *exports*)
+    (register-export namesym)
     (prin1
      `(cffi:defctype ,namesym
           (:pointer :void)
@@ -210,7 +216,7 @@
                                                     collect (symbolicate-gdext-snake-case
                                                              (gethash "name" def)
                                                              :skip-first nil)))))
-    (push namesym *exports*)
+    (register-export namesym)
     (prin1
      `(,(if bitfield-p 'cffi:defbitfield 'cffi:defcenum)
        ,namesym
@@ -229,7 +235,7 @@
                                                             ((:return_value return-type))
                                                             deprecated)
   (let ((namesym (symbolicate-gdext-pascal-case name)))
-    (push namesym *exports*)
+    (register-export namesym)
     (prin1
      `(cffi:defctype ,namesym (:pointer :void)
         ,@(expand-gdext-documentation description deprecated))
@@ -242,8 +248,8 @@
                               (loop for arg-def across arguments
                                     collect (parse-type-string (gethash "type" arg-def))))))
       (prin1
-       `(%%pz-godot~gdext:defcfunproto ,namesym ,cffi-return-type
-          ,@cffi-param-types)
+       `(,(a:ensure-symbol 'defcfunproto :%gdext) ,namesym ,cffi-return-type
+         ,@cffi-param-types)
        out))))
 
 
@@ -252,14 +258,14 @@
                                                           members
                                                           deprecated)
   (let ((namesym (symbolicate-gdext-pascal-case name)))
-    (push namesym *exports*)
+    (register-export namesym)
     (prin1
      `(cffi:defcstruct ,namesym
         ,@(expand-gdext-documentation description deprecated)
         ,@(loop for member across members
                 for field-name = (symbolicate-gdext-snake-case (gethash "name" member)
                                                                :skip-first nil)
-                do (push field-name *exports*)
+                do (register-export field-name)
                 collect `(,field-name
                           ,(parse-type-string (gethash "type" member)))))
 
@@ -295,15 +301,15 @@
                                       (gethash "type" arg-def)
                                       :package (find-package :%gdext))
                           collect (list name type))))
-    (push namesym *exports*)
+    (register-export namesym)
     (prin1
-     `(%%pz-godot~gdext:defifun
-          (,function-name ,namesym)
-          ,(a:if-let ((return-type (gethash "return_value" function-def)))
-             (parse-type-string (gethash "type" return-type)
-                                :package (find-package :%gdext))
-             :void)
-        ,@arguments)
+     `(,(a:ensure-symbol 'defifun :%gdext)
+       (,function-name ,namesym)
+       ,(a:if-let ((return-type (gethash "return_value" function-def)))
+          (parse-type-string (gethash "type" return-type)
+                             :package (find-package :%gdext))
+          :void)
+       ,@arguments)
      out)))
 
 
@@ -322,7 +328,7 @@
                                                                 "gdext/"))
           (*print-case* :downcase)
           (*print-pretty* t)
-          (*package* (find-package :%%pz-godot~gdext))
+          (*package* (find-package :%gdext))
           (*exports*))
       (uiop:delete-directory-tree gdext-bindings-dir :validate t :if-does-not-exist :ignore)
       (ensure-directories-exist gdext-bindings-dir)
@@ -407,6 +413,7 @@
                                        parsed-type)
                       parsed-type)))))))))
 
+
 (defun symbolicate-method-name (method-def class-name)
   (let* ((name (gethash "name" method-def)))
     (a:format-symbol *package*
@@ -414,6 +421,7 @@
                      class-name
                      (symbolicate-gdext-snake-case name
                                                    :skip-first nil))))
+
 
 (defun explode-extension-method (out class-name method-def)
   (let* ((name (gethash "name" method-def))
@@ -427,29 +435,29 @@
                           (gethash "type" ret-val))))
          (parameters (gethash "arguments" method-def))
          (namesym (symbolicate-method-name method-def class-name)))
-    (push namesym *exports*)
+    (register-export namesym)
     (format out "~&~%")
     (prin1
-     `(%%pz-godot~godot:defgmethod (,namesym
-                                    :class ',class-name
-                                    :bind ,name
-                                    :hash ,hash
-                                    ,@(when static-p
-                                        '(:static t))
-                                    ,@(when vararg-p
-                                        '(:vararg t))
-                                    ,@(when virtual-p
-                                        '(:virtual t)))
-          ,(if return-type
-               (parse-extension-type-string return-type)
-               :void)
-        ,@(when parameters
-            (loop for param-def across parameters
-                  for param-name = (gethash "name" param-def)
-                  for param-type = (gethash "type" param-def)
-                  collect `(,(symbolicate-gdext-snake-case param-name
-                                                           :skip-first nil)
-                            ,(parse-extension-type-string param-type)))))
+     `(,(a:ensure-symbol 'defgmethod :%godot) (,namesym
+                                               :class ',class-name
+                                               :bind ,name
+                                               :hash ,hash
+                                               ,@(when static-p
+                                                   '(:static t))
+                                               ,@(when vararg-p
+                                                   '(:vararg t))
+                                               ,@(when virtual-p
+                                                   '(:virtual t)))
+       ,(if return-type
+            (parse-extension-type-string return-type)
+            :void)
+       ,@(when parameters
+           (loop for param-def across parameters
+                 for param-name = (gethash "name" param-def)
+                 for param-type = (gethash "type" param-def)
+                 collect `(,(symbolicate-gdext-snake-case param-name
+                                                          :skip-first nil)
+                           ,(parse-extension-type-string param-type)))))
      out)))
 
 
@@ -461,19 +469,19 @@
                                    'make
                                    class-name
                                    (when (> idx 0) idx))))
-    (push namesym *exports*)
+    (register-export namesym)
     (format out "~&~%")
     (prin1
-     `(%%pz-godot~godot::defgconstructor (,namesym
-                                          :class ',class-name
-                                          :index ,idx)
-        ,@(when parameters
-            (loop for param-def across parameters
-                  for param-name = (gethash "name" param-def)
-                  for param-type = (gethash "type" param-def)
-                  collect `(,(symbolicate-gdext-snake-case param-name
-                                                           :skip-first nil)
-                            ,(parse-extension-type-string param-type)))))
+     `(,(a:ensure-symbol 'defgconstructor :%godot) (,namesym
+                                                    :class ',class-name
+                                                    :index ,idx)
+       ,@(when parameters
+           (loop for param-def across parameters
+                 for param-name = (gethash "name" param-def)
+                 for param-type = (gethash "type" param-def)
+                 collect `(,(symbolicate-gdext-snake-case param-name
+                                                          :skip-first nil)
+                           ,(parse-extension-type-string param-type)))))
      out)))
 
 
@@ -482,10 +490,10 @@
                                    "~A~A"
                                    'destroy-
                                    class-name)))
-    (push namesym *exports*)
+    (register-export namesym)
     (format out "~&~%")
     (prin1
-     `(%%pz-godot~godot::defgdestructor (,namesym :class ',class-name))
+     `(,(a:ensure-symbol 'defgdestructor :%godot) (,namesym :class ',class-name))
      out)))
 
 
@@ -503,10 +511,10 @@
                                      "~A+~A"
                                      class-name
                                      (symbolicate-gdext-snake-case prop-name :skip-first nil))))
-      (push namesym *exports*)
+      (register-export namesym)
       (format out "~&~%")
       (prin1
-       `(%%pz-godot~godot::defgproperty ,namesym ',class-name
+       `(,(a:ensure-symbol 'defgproperty :%godot) ,namesym ',class-name
           ,@(when index `(:index ,index))
           ,@(when getter `(:get ',getter))
           ,@(when setter `(:set ',setter)))
@@ -521,7 +529,6 @@
          (api-type (gethash "api_type" class-def))
          (constants (gethash "constants" class-def))
          (enums (gethash "enums" class-def))
-         (constants (gethash "constants" class-def))
          (methods (gethash "methods" class-def))
          (constructors (gethash "constructors" class-def))
          (has-destructor-p (gethash "has_destructor" class-def))
@@ -529,41 +536,42 @@
          (properties (gethash "properties" class-def))
          (namesym (symbolicate-gdext-pascal-case name
                                                  :skip-first nil)))
-    (push namesym *exports*)
+    (register-export namesym)
     (format out "~&~%")
     (prin1
-     `(%%pz-godot~godot::defgclass (,namesym
-                                    :bind ,name
-                                    :api ,(if builtin-p
-                                              :builtin
-                                              (a:eswitch (api-type :test #'string=)
-                                                ("core" :core)
-                                                ("editor" :editor)))
-                                    ,@(when builtin-p
-                                        `(:size ,(gethash name *builtin-size-table*))))
-        ,@(a:when-let ((fields (gethash name *builtin-field-table*)))
-            `((:fields ,@(loop for (field-name field-offset field-type) in fields
-                               collect (list (symbolicate-gdext-snake-case field-name :skip-first nil)
-                                             (parse-extension-type-string field-type)
-                                             :offset field-offset)))))
-        ,@(when signals
-            `((:signals ,@(loop for signal-def across signals
-                                for signal-name = (gethash "name" signal-def)
-                                for signal-params = (gethash "arguments" signal-def)
-                                collect (list* (symbolicate-gdext-snake-case signal-name :skip-first nil)
-                                               (when signal-params
-                                                 (loop for param-def across signal-params
-                                                       for param-name = (gethash "name" param-def)
-                                                       for param-type = (gethash "type" param-def)
-                                                       append (list (symbolicate-gdext-snake-case param-name
-                                                                                                  :skip-first nil)
-                                                                    (parse-extension-type-string param-type))))))))))
+     `(,(a:ensure-symbol 'defgclass :%godot) (,namesym
+                                              :bind ,name
+                                              :api ,(if builtin-p
+                                                        :builtin
+                                                        (a:eswitch (api-type :test #'string=)
+                                                          ("core" :core)
+                                                          ("editor" :editor)))
+                                              ,@(when builtin-p
+                                                  `(:size ,(gethash name *builtin-size-table*))))
+       ,@(a:when-let ((fields (gethash name *builtin-field-table*)))
+           `((:fields ,@(loop for (field-name field-offset field-type) in fields
+                              collect (list (symbolicate-gdext-snake-case field-name :skip-first nil)
+                                            (parse-extension-type-string field-type)
+                                            :offset field-offset)))))
+       ,@(when signals
+           `((:signals ,@(loop for signal-def across signals
+                               for signal-name = (gethash "name" signal-def)
+                               for signal-params = (gethash "arguments" signal-def)
+                               collect (list* (symbolicate-gdext-snake-case signal-name :skip-first nil)
+                                              (when signal-params
+                                                (loop for param-def across signal-params
+                                                      for param-name = (gethash "name" param-def)
+                                                      for param-type = (gethash "type" param-def)
+                                                      append (list (symbolicate-gdext-snake-case param-name
+                                                                                                 :skip-first nil)
+                                                                   (parse-extension-type-string param-type))))))))))
      out)
     (when constants
       (loop for constant-def across constants
-            do (explode-extension-constant out constant-def
-                                           :class namesym
-                                           :prefix (a:symbolicate namesym '+))))
+                do (explode-extension-constant out constant-def
+                                               :class namesym
+                                               :builtin builtin-p
+                                               :prefix (a:symbolicate namesym '+))))
     (when enums
       (loop for enum-def across enums
             do (explode-extension-enum out enum-def
@@ -576,7 +584,7 @@
     (when has-destructor-p
       (setf (gethash namesym *class-destructor-table*) namesym))
     (when properties
-      (setf (gethash namesym *class-properties-table*) properties))))
+      (setf (gethash namesym *class-property-table*) properties))))
 
 
 (defun explode-native-structures (out struct-def)
@@ -606,7 +614,7 @@
     (let* ((name (gethash "name" struct-def))
            (encoded-fields (gethash "format" struct-def))
            (namesym (symbolicate-gdext-pascal-case name :skip-first nil)))
-      (push namesym *exports*)
+      (register-export namesym)
       (format out "~&~%")
       (prin1 `(cffi:defcstruct ,namesym
                 ,@(loop for field-def in (ppcre:split "\\s*;\\s*" encoded-fields)
@@ -622,35 +630,35 @@
          (type (gethash "type" singleton-def))
          (namesym (symbolicate-gdext-pascal-case name :skip-first nil))
          (typesym (symbolicate-gdext-pascal-case type :skip-first nil)))
-    (push namesym *exports*)
+    (register-export namesym)
     (format out "~&~%")
     (prin1
-     `(%%pz-godot~godot::defgsingleton ,namesym ',typesym)
+     `(,(a:ensure-symbol 'defgsingleton :%godot) ,namesym ',typesym)
      out)))
 
 
-(defun explode-extension-constant (out constant-def &key prefix ((:class class-name)))
-  (let ((value (gethash "value" constant-def)))
-    (when (numberp value)
-      (let* ((name (gethash "name" constant-def))
-             (namesym (a:symbolicate '+
-                                     (symbolicate-gdext-snake-case name
-                                                                   :skip-first nil
-                                                                   :prefix prefix)
-                                     '+)))
-        (push namesym *exports*)
-        (format out "~&~%")
-        (pprint
-         (let ((name-and-opts `(,namesym
-                                ,@(when class-name `(:class ',class-name)))))
-           `(%%pz-godot~godot::defgconstant ,(if (rest name-and-opts)
-                                                 name-and-opts
-                                                 (first name-and-opts))
-                ,(if (integerp value)
-                     value
-                     `(float ,value 0d0))
-              ))
-         out)))))
+(defun explode-extension-constant (out constant-def &key prefix
+                                                      ((:class class-name))
+                                                      ((:builtin builtin-p)))
+  (let* ((value (gethash "value" constant-def))
+         (name (gethash "name" constant-def))
+         (namesym (a:symbolicate '+
+                                 (symbolicate-gdext-snake-case name
+                                                               :skip-first nil
+                                                               :prefix prefix)
+                                 '+)))
+    (register-export namesym)
+    (format out "~&~%")
+    (pprint
+     `(,(a:ensure-symbol 'defgconstant :%godot) ,namesym
+       ,@(unless builtin-p
+           (assert (integerp value))
+           `(:value ,value))
+       :bind ,name
+       ,@(when class-name `(:class ',class-name))
+       ,@(when builtin-p
+           `(:documentation ,(format nil "~A" value))))
+     out)))
 
 
 (defun explode-extension-enum (out enum-def &key prefix ((:class class-name)))
@@ -664,20 +672,20 @@
                                                      collect (symbolicate-gdext-snake-case
                                                               (gethash "name" def)
                                                               :skip-first nil)))))
-    (push namesym *exports*)
+    (register-export namesym)
     (format out "~&~%")
     (pprint
      (let ((name-and-opts `(,namesym
                             ,@(when bitfield-p '(:bitfield t))
                             ,@(when class-name `(:class ',class-name)))))
-       `(%%pz-godot~godot::defgenum ,(if (rest name-and-opts)
-                                         name-and-opts
-                                         (first name-and-opts))
-          ,@(loop for value across values
-                  for name = (subseq (gethash "name" value) common-prefix-idx)
-                  collect `(,(keywordify (symbolicate-gdext-snake-case name
-                                                                       :skip-first nil))
-                            ,(gethash "value" value)))))
+       `(,(a:ensure-symbol 'defgenum :%godot) ,(if (rest name-and-opts)
+                                                   name-and-opts
+                                                   (first name-and-opts))
+         ,@(loop for value across values
+                 for name = (subseq (gethash "name" value) common-prefix-idx)
+                 collect `(,(keywordify (symbolicate-gdext-snake-case name
+                                                                      :skip-first nil))
+                           ,(gethash "value" value)))))
      out)))
 
 
@@ -713,16 +721,17 @@
                                                                    (gethash "offset" field-info)
                                                                    (gethash "meta" field-info))))
                                       finally (return table)))
+         (*builtin-constant-table* (make-hash-table :test 'eq))
          (*class-method-table* (make-hash-table :test 'eq))
          (*class-constructor-table* (make-hash-table :test 'eq))
          (*class-destructor-table* (make-hash-table :test 'eq))
-         (*class-properties-table* (make-hash-table :test 'eq))
+         (*class-property-table* (make-hash-table :test 'eq))
          (godot-bindings-dir (fad:merge-pathnames-as-directory *bindings-root-directory* "godot/")))
     (uiop:delete-directory-tree godot-bindings-dir :validate t :if-does-not-exist :ignore)
     (ensure-directories-exist godot-bindings-dir)
     (let ((*print-case* :downcase)
           (*print-pretty* t)
-          (*package* (find-package :%%pz-godot~godot))
+          (*package* (find-package :%godot))
           (*exports*)
           (*files*))
       (flet ((%print-header (out)
@@ -739,11 +748,11 @@
           (push builtins-file *files*)
           (a:with-output-to-file (out builtins-file)
             (%print-header out)
-            (loop for class-def across (gethash "builtin_classes" root)
-                  do (explode-extension-class out class-def :builtin t))
             (explode-extension-class out (a:plist-hash-table '("name" "Variant"
                                                                "api_type" "core"))
-                                     :builtin t)))
+                                     :builtin t)
+            (loop for class-def across (gethash "builtin_classes" root)
+                  do (explode-extension-class out class-def :builtin t))))
         (let ((classes-file (fad:merge-pathnames-as-file godot-bindings-dir "classes.lisp")))
           (push classes-file *files*)
           (a:with-output-to-file (out classes-file)
@@ -793,7 +802,7 @@
                                    out class-name method-def))))))
         (let ((props-bindings-dir (fad:merge-pathnames-as-directory godot-bindings-dir "properties/")))
           (ensure-directories-exist props-bindings-dir)
-          (loop for class-name being the hash-key in *class-properties-table*
+          (loop for class-name being the hash-key in *class-property-table*
                   using (hash-value properties)
                 when properties
                   do (let ((props-file (fad:merge-pathnames-as-file
@@ -848,6 +857,12 @@
 
 
 (defun regenerate-bindings ()
-  (generate-gdext-bindings)
-  (generate-godot-extension-bindings)
+  (unwind-protect
+       (progn
+         (uiop:ensure-package :%gdext)
+         (uiop:ensure-package :%godot)
+         (generate-gdext-bindings)
+         (generate-godot-extension-bindings))
+    (uiop:delete-package* :%gdext)
+    (uiop:delete-package* :%godot))
   (values))

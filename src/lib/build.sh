@@ -19,6 +19,10 @@ case $key in
         SCONS_ENV+=" dev_build=yes"
         shift
         ;;
+    --tests)
+        SCONS_ENV+=" tests=yes"
+        shift
+        ;;
     *)
         REST_ARGS+="$1"
         shift

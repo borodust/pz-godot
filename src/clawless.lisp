@@ -244,12 +244,21 @@
     (let ((cffi-return-type (if return-type
                                 (parse-type-string (gethash "type" return-type))
                                 :void))
-          (cffi-param-types (when arguments
-                              (loop for arg-def across arguments
-                                    collect (parse-type-string (gethash "type" arg-def))))))
+          (cffi-params (when arguments
+                         (loop for arg-def across arguments
+                               for arg-num from 0
+                               collect (let ((type (gethash "type" arg-def))
+                                             (name (gethash "name" arg-def)))
+                                         (list
+                                          (if name
+                                              (symbolicate-gdext-snake-case name :skip-first nil)
+                                              (a:format-symbol *package*
+                                                               "~A~A"
+                                                               'arg arg-num))
+                                          (parse-type-string type)))))))
       (prin1
        `(,(a:ensure-symbol 'defcfunproto :%gdext) ,namesym ,cffi-return-type
-         ,@cffi-param-types)
+         ,@cffi-params)
        out))))
 
 

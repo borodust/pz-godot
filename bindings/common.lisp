@@ -41,9 +41,11 @@
   (setf (gethash name *function-prototype-registry*) (list* result-type parameter-types)))
 
 
-(defmacro defcfunproto (name result-type &body parameter-types)
-  `(register-function-prototype ',name ',result-type ,@(loop for type in parameter-types
-                                                             collect `(quote ,type) )))
+(defmacro defcfunproto (name result-type &body parameters)
+  `(register-function-prototype
+    ',name ',result-type
+    ,@(loop for (name type) in parameters
+            collect `(quote ,type))))
 
 
 (defmacro funcall-prototype (ptr name &rest args)
@@ -97,7 +99,7 @@
         (ptr-var-name (format-symbol-into '%%gdext.util~secret "*~A~~~A*" 'function-pointer lisp-name)))
     `(progn
        (eval-when (:compile-toplevel :load-toplevel :execute)
-         (defcfunproto ,lisp-name ,return-type ,@(mapcar #'second parameters)))
+         (defcfunproto ,lisp-name ,return-type ,@parameters))
        (defvar ,ptr-var-name (cffi:null-pointer))
        (declaim (inline ,lisp-name))
        (defun ,lisp-name (,@param-names)

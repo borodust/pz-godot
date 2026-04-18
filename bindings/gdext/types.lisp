@@ -145,68 +145,74 @@ them it is always safe to skip the constructor for the return value if you are i
 (cffi:defctype variant-from-type-constructor-func (:pointer :void))
 
 (defcfunproto variant-from-type-constructor-func :void
- uninitialized-variant-ptr type-ptr)
+ (arg0 uninitialized-variant-ptr) (arg1 type-ptr))
 
 (cffi:defctype type-from-variant-constructor-func (:pointer :void))
 
-(defcfunproto type-from-variant-constructor-func :void uninitialized-type-ptr
- variant-ptr)
+(defcfunproto type-from-variant-constructor-func :void
+ (arg0 uninitialized-type-ptr) (arg1 variant-ptr))
 
 (cffi:defctype variant-get-internal-ptr-func (:pointer :void))
 
-(defcfunproto variant-get-internal-ptr-func (:pointer :void) variant-ptr)
+(defcfunproto variant-get-internal-ptr-func (:pointer :void) (arg0 variant-ptr))
 
 (cffi:defctype ptr-operator-evaluator (:pointer :void))
 
-(defcfunproto ptr-operator-evaluator :void const-type-ptr const-type-ptr
- type-ptr)
+(defcfunproto ptr-operator-evaluator :void (p-left const-type-ptr)
+ (p-right const-type-ptr) (r-result type-ptr))
 
 (cffi:defctype ptr-built-in-method (:pointer :void))
 
-(defcfunproto ptr-built-in-method :void type-ptr (:pointer const-type-ptr)
- type-ptr :int32)
+(defcfunproto ptr-built-in-method :void (p-base type-ptr)
+ (p-args (:pointer const-type-ptr)) (r-return type-ptr)
+ (p-argument-count :int32))
 
 (cffi:defctype ptr-constructor (:pointer :void))
 
-(defcfunproto ptr-constructor :void uninitialized-type-ptr
- (:pointer const-type-ptr))
+(defcfunproto ptr-constructor :void (p-base uninitialized-type-ptr)
+ (p-args (:pointer const-type-ptr)))
 
 (cffi:defctype ptr-destructor (:pointer :void))
 
-(defcfunproto ptr-destructor :void type-ptr)
+(defcfunproto ptr-destructor :void (p-base type-ptr))
 
 (cffi:defctype ptr-setter (:pointer :void))
 
-(defcfunproto ptr-setter :void type-ptr const-type-ptr)
+(defcfunproto ptr-setter :void (p-base type-ptr) (p-value const-type-ptr))
 
 (cffi:defctype ptr-getter (:pointer :void))
 
-(defcfunproto ptr-getter :void const-type-ptr type-ptr)
+(defcfunproto ptr-getter :void (p-base const-type-ptr) (r-value type-ptr))
 
 (cffi:defctype ptr-indexed-setter (:pointer :void))
 
-(defcfunproto ptr-indexed-setter :void type-ptr int const-type-ptr)
+(defcfunproto ptr-indexed-setter :void (p-base type-ptr) (p-index int)
+ (p-value const-type-ptr))
 
 (cffi:defctype ptr-indexed-getter (:pointer :void))
 
-(defcfunproto ptr-indexed-getter :void const-type-ptr int type-ptr)
+(defcfunproto ptr-indexed-getter :void (p-base const-type-ptr) (p-index int)
+ (r-value type-ptr))
 
 (cffi:defctype ptr-keyed-setter (:pointer :void))
 
-(defcfunproto ptr-keyed-setter :void type-ptr const-type-ptr const-type-ptr)
+(defcfunproto ptr-keyed-setter :void (p-base type-ptr) (p-key const-type-ptr)
+ (p-value const-type-ptr))
 
 (cffi:defctype ptr-keyed-getter (:pointer :void))
 
-(defcfunproto ptr-keyed-getter :void const-type-ptr const-type-ptr type-ptr)
+(defcfunproto ptr-keyed-getter :void (p-base const-type-ptr)
+ (p-key const-type-ptr) (r-value type-ptr))
 
 (cffi:defctype ptr-keyed-checker (:pointer :void))
 
-(defcfunproto ptr-keyed-checker :uint32 const-variant-ptr const-variant-ptr)
+(defcfunproto ptr-keyed-checker :uint32 (p-base const-variant-ptr)
+ (p-key const-variant-ptr))
 
 (cffi:defctype ptr-utility-function (:pointer :void))
 
-(defcfunproto ptr-utility-function :void type-ptr (:pointer const-type-ptr)
- :int32)
+(defcfunproto ptr-utility-function :void (r-return type-ptr)
+ (p-args (:pointer const-type-ptr)) (p-argument-count :int32))
 
 (cffi:defctype class-constructor (:pointer :void))
 
@@ -215,17 +221,17 @@ them it is always safe to skip the constructor for the return value if you are i
 (cffi:defctype instance-binding-create-callback (:pointer :void))
 
 (defcfunproto instance-binding-create-callback (:pointer :void)
- (:pointer :void) (:pointer :void))
+ (p-token (:pointer :void)) (p-instance (:pointer :void)))
 
 (cffi:defctype instance-binding-free-callback (:pointer :void))
 
-(defcfunproto instance-binding-free-callback :void (:pointer :void)
- (:pointer :void) (:pointer :void))
+(defcfunproto instance-binding-free-callback :void (p-token (:pointer :void))
+ (p-instance (:pointer :void)) (p-binding (:pointer :void)))
 
 (cffi:defctype instance-binding-reference-callback (:pointer :void))
 
-(defcfunproto instance-binding-reference-callback bool (:pointer :void)
- (:pointer :void) bool)
+(defcfunproto instance-binding-reference-callback bool
+ (p-token (:pointer :void)) (p-binding (:pointer :void)) (p-reference bool))
 
 (cffi:defcstruct instance-binding-callbacks
   (create-callback instance-binding-create-callback)
@@ -237,17 +243,17 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-set (:pointer :void))
 
-(defcfunproto class-set bool class-instance-ptr const-string-name-ptr
- const-variant-ptr)
+(defcfunproto class-set bool (p-instance class-instance-ptr)
+ (p-name const-string-name-ptr) (p-value const-variant-ptr))
 
 (cffi:defctype class-get (:pointer :void))
 
-(defcfunproto class-get bool class-instance-ptr const-string-name-ptr
- variant-ptr)
+(defcfunproto class-get bool (p-instance class-instance-ptr)
+ (p-name const-string-name-ptr) (r-ret variant-ptr))
 
 (cffi:defctype class-get-rid (:pointer :void))
 
-(defcfunproto class-get-rid :uint64 class-instance-ptr)
+(defcfunproto class-get-rid :uint64 (p-instance class-instance-ptr))
 
 (cffi:defcstruct property-info
   (type variant-type)
@@ -272,100 +278,109 @@ them it is always safe to skip the constructor for the return value if you are i
 (cffi:defctype class-get-property-list (:pointer :void))
 
 (defcfunproto class-get-property-list (:pointer property-info)
- class-instance-ptr (:pointer :uint32))
+ (p-instance class-instance-ptr) (r-count (:pointer :uint32)))
 
 (cffi:defctype class-free-property-list (:pointer :void))
 
-(defcfunproto class-free-property-list :void class-instance-ptr
- (:pointer property-info))
+(defcfunproto class-free-property-list :void (p-instance class-instance-ptr)
+ (p-list (:pointer property-info)))
 
 (cffi:defctype class-free-property-list-2 (:pointer :void))
 
-(defcfunproto class-free-property-list-2 :void class-instance-ptr
- (:pointer property-info) :uint32)
+(defcfunproto class-free-property-list-2 :void (p-instance class-instance-ptr)
+ (p-list (:pointer property-info)) (p-count :uint32))
 
 (cffi:defctype class-property-can-revert (:pointer :void))
 
-(defcfunproto class-property-can-revert bool class-instance-ptr
- const-string-name-ptr)
+(defcfunproto class-property-can-revert bool (p-instance class-instance-ptr)
+ (p-name const-string-name-ptr))
 
 (cffi:defctype class-property-get-revert (:pointer :void))
 
-(defcfunproto class-property-get-revert bool class-instance-ptr
- const-string-name-ptr variant-ptr)
+(defcfunproto class-property-get-revert bool (p-instance class-instance-ptr)
+ (p-name const-string-name-ptr) (r-ret variant-ptr))
 
 (cffi:defctype class-validate-property (:pointer :void))
 
-(defcfunproto class-validate-property bool class-instance-ptr
- (:pointer property-info))
+(defcfunproto class-validate-property bool (p-instance class-instance-ptr)
+ (p-property (:pointer property-info)))
 
 (cffi:defctype class-notification (:pointer :void) "DEPRECATED since 4.2")
 
-(defcfunproto class-notification :void class-instance-ptr :int32)
+(defcfunproto class-notification :void (p-instance class-instance-ptr)
+ (p-what :int32))
 
 (cffi:defctype class-notification-2 (:pointer :void))
 
-(defcfunproto class-notification-2 :void class-instance-ptr :int32 bool)
+(defcfunproto class-notification-2 :void (p-instance class-instance-ptr)
+ (p-what :int32) (p-reversed bool))
 
 (cffi:defctype class-to-string (:pointer :void))
 
-(defcfunproto class-to-string :void class-instance-ptr (:pointer bool)
- string-ptr)
+(defcfunproto class-to-string :void (p-instance class-instance-ptr)
+ (r-is-valid (:pointer bool)) (p-out string-ptr))
 
 (cffi:defctype class-reference (:pointer :void))
 
-(defcfunproto class-reference :void class-instance-ptr)
+(defcfunproto class-reference :void (p-instance class-instance-ptr))
 
 (cffi:defctype class-unreference (:pointer :void))
 
-(defcfunproto class-unreference :void class-instance-ptr)
+(defcfunproto class-unreference :void (p-instance class-instance-ptr))
 
 (cffi:defctype class-call-virtual (:pointer :void))
 
-(defcfunproto class-call-virtual :void class-instance-ptr
- (:pointer const-type-ptr) type-ptr)
+(defcfunproto class-call-virtual :void (p-instance class-instance-ptr)
+ (p-args (:pointer const-type-ptr)) (r-ret type-ptr))
 
 (cffi:defctype class-create-instance (:pointer :void))
 
-(defcfunproto class-create-instance object-ptr (:pointer :void))
+(defcfunproto class-create-instance object-ptr
+ (p-class-userdata (:pointer :void)))
 
 (cffi:defctype class-create-instance-2 (:pointer :void))
 
-(defcfunproto class-create-instance-2 object-ptr (:pointer :void) bool)
+(defcfunproto class-create-instance-2 object-ptr
+ (p-class-userdata (:pointer :void)) (p-notify-postinitialize bool))
 
 (cffi:defctype class-free-instance (:pointer :void))
 
-(defcfunproto class-free-instance :void (:pointer :void) class-instance-ptr)
+(defcfunproto class-free-instance :void (p-class-userdata (:pointer :void))
+ (p-instance class-instance-ptr))
 
 (cffi:defctype class-recreate-instance (:pointer :void))
 
-(defcfunproto class-recreate-instance class-instance-ptr (:pointer :void)
- object-ptr)
+(defcfunproto class-recreate-instance class-instance-ptr
+ (p-class-userdata (:pointer :void)) (p-object object-ptr))
 
 (cffi:defctype class-get-virtual (:pointer :void))
 
-(defcfunproto class-get-virtual class-call-virtual (:pointer :void)
- const-string-name-ptr)
+(defcfunproto class-get-virtual class-call-virtual
+ (p-class-userdata (:pointer :void)) (p-name const-string-name-ptr))
 
 (cffi:defctype class-get-virtual-2 (:pointer :void))
 
-(defcfunproto class-get-virtual-2 class-call-virtual (:pointer :void)
- const-string-name-ptr :uint32)
+(defcfunproto class-get-virtual-2 class-call-virtual
+ (p-class-userdata (:pointer :void)) (p-name const-string-name-ptr)
+ (p-hash :uint32))
 
 (cffi:defctype class-get-virtual-call-data (:pointer :void))
 
-(defcfunproto class-get-virtual-call-data (:pointer :void) (:pointer :void)
- const-string-name-ptr)
+(defcfunproto class-get-virtual-call-data (:pointer :void)
+ (p-class-userdata (:pointer :void)) (p-name const-string-name-ptr))
 
 (cffi:defctype class-get-virtual-call-data-2 (:pointer :void))
 
-(defcfunproto class-get-virtual-call-data-2 (:pointer :void) (:pointer :void)
- const-string-name-ptr :uint32)
+(defcfunproto class-get-virtual-call-data-2 (:pointer :void)
+ (p-class-userdata (:pointer :void)) (p-name const-string-name-ptr)
+ (p-hash :uint32))
 
 (cffi:defctype class-call-virtual-with-data (:pointer :void))
 
-(defcfunproto class-call-virtual-with-data :void class-instance-ptr
- const-string-name-ptr (:pointer :void) (:pointer const-type-ptr) type-ptr)
+(defcfunproto class-call-virtual-with-data :void
+ (p-instance class-instance-ptr) (p-name const-string-name-ptr)
+ (p-virtual-call-userdata (:pointer :void)) (p-args (:pointer const-type-ptr))
+ (r-ret type-ptr))
 
 (cffi:defcstruct class-creation-info
   "DEPRECATED since 4.2"
@@ -474,7 +489,8 @@ them it is always safe to skip the constructor for the return value if you are i
 (cffi:defctype editor-get-classes-used-callback (:pointer :void)
                "Passed a pointer to a PackedStringArray that should be filled with the classes that may be used by the GDExtension.")
 
-(defcfunproto editor-get-classes-used-callback :void type-ptr)
+(defcfunproto editor-get-classes-used-callback :void
+ (p-packed-string-array type-ptr))
 
 (cffi:defbitfield class-method-flags
   (:flag-normal 1)
@@ -504,18 +520,21 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype class-method-call (:pointer :void))
 
-(defcfunproto class-method-call :void (:pointer :void) class-instance-ptr
- (:pointer const-variant-ptr) int variant-ptr (:pointer call-error))
+(defcfunproto class-method-call :void (method-userdata (:pointer :void))
+ (p-instance class-instance-ptr) (p-args (:pointer const-variant-ptr))
+ (p-argument-count int) (r-return variant-ptr) (r-error (:pointer call-error)))
 
 (cffi:defctype class-method-validated-call (:pointer :void))
 
-(defcfunproto class-method-validated-call :void (:pointer :void)
- class-instance-ptr (:pointer const-variant-ptr) variant-ptr)
+(defcfunproto class-method-validated-call :void
+ (method-userdata (:pointer :void)) (p-instance class-instance-ptr)
+ (p-args (:pointer const-variant-ptr)) (r-return variant-ptr))
 
 (cffi:defctype class-method-ptr-call (:pointer :void))
 
-(defcfunproto class-method-ptr-call :void (:pointer :void) class-instance-ptr
- (:pointer const-type-ptr) type-ptr)
+(defcfunproto class-method-ptr-call :void (method-userdata (:pointer :void))
+ (p-instance class-instance-ptr) (p-args (:pointer const-type-ptr))
+ (r-ret type-ptr))
 
 (cffi:defcstruct class-method-info
   (name string-name-ptr)
@@ -545,38 +564,43 @@ them it is always safe to skip the constructor for the return value if you are i
 
 (cffi:defctype callable-custom-call (:pointer :void))
 
-(defcfunproto callable-custom-call :void (:pointer :void)
- (:pointer const-variant-ptr) int variant-ptr (:pointer call-error))
+(defcfunproto callable-custom-call :void (callable-userdata (:pointer :void))
+ (p-args (:pointer const-variant-ptr)) (p-argument-count int)
+ (r-return variant-ptr) (r-error (:pointer call-error)))
 
 (cffi:defctype callable-custom-is-valid (:pointer :void))
 
-(defcfunproto callable-custom-is-valid bool (:pointer :void))
+(defcfunproto callable-custom-is-valid bool
+ (callable-userdata (:pointer :void)))
 
 (cffi:defctype callable-custom-free (:pointer :void))
 
-(defcfunproto callable-custom-free :void (:pointer :void))
+(defcfunproto callable-custom-free :void (callable-userdata (:pointer :void)))
 
 (cffi:defctype callable-custom-hash (:pointer :void))
 
-(defcfunproto callable-custom-hash :uint32 (:pointer :void))
+(defcfunproto callable-custom-hash :uint32 (callable-userdata (:pointer :void)))
 
 (cffi:defctype callable-custom-equal (:pointer :void))
 
-(defcfunproto callable-custom-equal bool (:pointer :void) (:pointer :void))
+(defcfunproto callable-custom-equal bool (callable-userdata-a (:pointer :void))
+ (callable-userdata-b (:pointer :void)))
 
 (cffi:defctype callable-custom-less-than (:pointer :void))
 
-(defcfunproto callable-custom-less-than bool (:pointer :void) (:pointer :void))
+(defcfunproto callable-custom-less-than bool
+ (callable-userdata-a (:pointer :void)) (callable-userdata-b (:pointer :void)))
 
 (cffi:defctype callable-custom-to-string (:pointer :void))
 
-(defcfunproto callable-custom-to-string :void (:pointer :void) (:pointer bool)
- string-ptr)
+(defcfunproto callable-custom-to-string :void
+ (callable-userdata (:pointer :void)) (r-is-valid (:pointer bool))
+ (r-out string-ptr))
 
 (cffi:defctype callable-custom-get-argument-count (:pointer :void))
 
-(defcfunproto callable-custom-get-argument-count int (:pointer :void)
- (:pointer bool))
+(defcfunproto callable-custom-get-argument-count int
+ (callable-userdata (:pointer :void)) (r-is-valid (:pointer bool)))
 
 (cffi:defcstruct callable-custom-info
   "DEPRECATED since 4.3
@@ -627,145 +651,157 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype script-instance-set (:pointer :void))
 
-(defcfunproto script-instance-set bool script-instance-data-ptr
- const-string-name-ptr const-variant-ptr)
+(defcfunproto script-instance-set bool (p-instance script-instance-data-ptr)
+ (p-name const-string-name-ptr) (p-value const-variant-ptr))
 
 (cffi:defctype script-instance-get (:pointer :void))
 
-(defcfunproto script-instance-get bool script-instance-data-ptr
- const-string-name-ptr variant-ptr)
+(defcfunproto script-instance-get bool (p-instance script-instance-data-ptr)
+ (p-name const-string-name-ptr) (r-ret variant-ptr))
 
 (cffi:defctype script-instance-get-property-list (:pointer :void))
 
 (defcfunproto script-instance-get-property-list (:pointer property-info)
- script-instance-data-ptr (:pointer :uint32))
+ (p-instance script-instance-data-ptr) (r-count (:pointer :uint32)))
 
 (cffi:defctype script-instance-free-property-list (:pointer :void)
                "DEPRECATED since 4.3")
 
-(defcfunproto script-instance-free-property-list :void script-instance-data-ptr
- (:pointer property-info))
+(defcfunproto script-instance-free-property-list :void
+ (p-instance script-instance-data-ptr) (p-list (:pointer property-info)))
 
 (cffi:defctype script-instance-free-property-list-2 (:pointer :void))
 
 (defcfunproto script-instance-free-property-list-2 :void
- script-instance-data-ptr (:pointer property-info) :uint32)
+ (p-instance script-instance-data-ptr) (p-list (:pointer property-info))
+ (p-count :uint32))
 
 (cffi:defctype script-instance-get-class-category (:pointer :void))
 
-(defcfunproto script-instance-get-class-category bool script-instance-data-ptr
- (:pointer property-info))
+(defcfunproto script-instance-get-class-category bool
+ (p-instance script-instance-data-ptr)
+ (p-class-category (:pointer property-info)))
 
 (cffi:defctype script-instance-get-property-type (:pointer :void))
 
 (defcfunproto script-instance-get-property-type variant-type
- script-instance-data-ptr const-string-name-ptr (:pointer bool))
+ (p-instance script-instance-data-ptr) (p-name const-string-name-ptr)
+ (r-is-valid (:pointer bool)))
 
 (cffi:defctype script-instance-validate-property (:pointer :void))
 
-(defcfunproto script-instance-validate-property bool script-instance-data-ptr
- (:pointer property-info))
+(defcfunproto script-instance-validate-property bool
+ (p-instance script-instance-data-ptr) (p-property (:pointer property-info)))
 
 (cffi:defctype script-instance-property-can-revert (:pointer :void))
 
-(defcfunproto script-instance-property-can-revert bool script-instance-data-ptr
- const-string-name-ptr)
+(defcfunproto script-instance-property-can-revert bool
+ (p-instance script-instance-data-ptr) (p-name const-string-name-ptr))
 
 (cffi:defctype script-instance-property-get-revert (:pointer :void))
 
-(defcfunproto script-instance-property-get-revert bool script-instance-data-ptr
- const-string-name-ptr variant-ptr)
+(defcfunproto script-instance-property-get-revert bool
+ (p-instance script-instance-data-ptr) (p-name const-string-name-ptr)
+ (r-ret variant-ptr))
 
 (cffi:defctype script-instance-get-owner (:pointer :void))
 
-(defcfunproto script-instance-get-owner object-ptr script-instance-data-ptr)
+(defcfunproto script-instance-get-owner object-ptr
+ (p-instance script-instance-data-ptr))
 
 (cffi:defctype script-instance-property-state-add (:pointer :void))
 
-(defcfunproto script-instance-property-state-add :void const-string-name-ptr
- const-variant-ptr (:pointer :void))
+(defcfunproto script-instance-property-state-add :void
+ (p-name const-string-name-ptr) (p-value const-variant-ptr)
+ (p-userdata (:pointer :void)))
 
 (cffi:defctype script-instance-get-property-state (:pointer :void))
 
-(defcfunproto script-instance-get-property-state :void script-instance-data-ptr
- script-instance-property-state-add (:pointer :void))
+(defcfunproto script-instance-get-property-state :void
+ (p-instance script-instance-data-ptr)
+ (p-add-func script-instance-property-state-add) (p-userdata (:pointer :void)))
 
 (cffi:defctype script-instance-get-method-list (:pointer :void))
 
 (defcfunproto script-instance-get-method-list (:pointer method-info)
- script-instance-data-ptr (:pointer :uint32))
+ (p-instance script-instance-data-ptr) (r-count (:pointer :uint32)))
 
 (cffi:defctype script-instance-free-method-list (:pointer :void)
                "DEPRECATED since 4.3")
 
-(defcfunproto script-instance-free-method-list :void script-instance-data-ptr
- (:pointer method-info))
+(defcfunproto script-instance-free-method-list :void
+ (p-instance script-instance-data-ptr) (p-list (:pointer method-info)))
 
 (cffi:defctype script-instance-free-method-list-2 (:pointer :void))
 
-(defcfunproto script-instance-free-method-list-2 :void script-instance-data-ptr
- (:pointer method-info) :uint32)
+(defcfunproto script-instance-free-method-list-2 :void
+ (p-instance script-instance-data-ptr) (p-list (:pointer method-info))
+ (p-count :uint32))
 
 (cffi:defctype script-instance-has-method (:pointer :void))
 
-(defcfunproto script-instance-has-method bool script-instance-data-ptr
- const-string-name-ptr)
+(defcfunproto script-instance-has-method bool
+ (p-instance script-instance-data-ptr) (p-name const-string-name-ptr))
 
 (cffi:defctype script-instance-get-method-argument-count (:pointer :void))
 
 (defcfunproto script-instance-get-method-argument-count int
- script-instance-data-ptr const-string-name-ptr (:pointer bool))
+ (p-instance script-instance-data-ptr) (p-name const-string-name-ptr)
+ (r-is-valid (:pointer bool)))
 
 (cffi:defctype script-instance-call (:pointer :void))
 
-(defcfunproto script-instance-call :void script-instance-data-ptr
- const-string-name-ptr (:pointer const-variant-ptr) int variant-ptr
- (:pointer call-error))
+(defcfunproto script-instance-call :void (p-self script-instance-data-ptr)
+ (p-method const-string-name-ptr) (p-args (:pointer const-variant-ptr))
+ (p-argument-count int) (r-return variant-ptr) (r-error (:pointer call-error)))
 
 (cffi:defctype script-instance-notification (:pointer :void)
                "DEPRECATED since 4.2")
 
-(defcfunproto script-instance-notification :void script-instance-data-ptr
- :int32)
+(defcfunproto script-instance-notification :void
+ (p-instance script-instance-data-ptr) (p-what :int32))
 
 (cffi:defctype script-instance-notification-2 (:pointer :void))
 
-(defcfunproto script-instance-notification-2 :void script-instance-data-ptr
- :int32 bool)
+(defcfunproto script-instance-notification-2 :void
+ (p-instance script-instance-data-ptr) (p-what :int32) (p-reversed bool))
 
 (cffi:defctype script-instance-to-string (:pointer :void))
 
-(defcfunproto script-instance-to-string :void script-instance-data-ptr
- (:pointer bool) string-ptr)
+(defcfunproto script-instance-to-string :void
+ (p-instance script-instance-data-ptr) (r-is-valid (:pointer bool))
+ (r-out string-ptr))
 
 (cffi:defctype script-instance-ref-count-incremented (:pointer :void))
 
 (defcfunproto script-instance-ref-count-incremented :void
- script-instance-data-ptr)
+ (p-instance script-instance-data-ptr))
 
 (cffi:defctype script-instance-ref-count-decremented (:pointer :void))
 
 (defcfunproto script-instance-ref-count-decremented bool
- script-instance-data-ptr)
+ (p-instance script-instance-data-ptr))
 
 (cffi:defctype script-instance-get-script (:pointer :void))
 
-(defcfunproto script-instance-get-script object-ptr script-instance-data-ptr)
+(defcfunproto script-instance-get-script object-ptr
+ (p-instance script-instance-data-ptr))
 
 (cffi:defctype script-instance-is-placeholder (:pointer :void))
 
-(defcfunproto script-instance-is-placeholder bool script-instance-data-ptr)
+(defcfunproto script-instance-is-placeholder bool
+ (p-instance script-instance-data-ptr))
 
 (cffi:defctype script-language-ptr (:pointer :void))
 
 (cffi:defctype script-instance-get-language (:pointer :void))
 
 (defcfunproto script-instance-get-language script-language-ptr
- script-instance-data-ptr)
+ (p-instance script-instance-data-ptr))
 
 (cffi:defctype script-instance-free (:pointer :void))
 
-(defcfunproto script-instance-free :void script-instance-data-ptr)
+(defcfunproto script-instance-free :void (p-instance script-instance-data-ptr))
 
 (cffi:defctype script-instance-ptr (:pointer :void)
                "Pointer to ScriptInstance.")
@@ -857,11 +893,12 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype worker-thread-pool-group-task (:pointer :void))
 
-(defcfunproto worker-thread-pool-group-task :void (:pointer :void) :uint32)
+(defcfunproto worker-thread-pool-group-task :void (|| (:pointer :void))
+ (arg1 :uint32))
 
 (cffi:defctype worker-thread-pool-task (:pointer :void))
 
-(defcfunproto worker-thread-pool-task :void (:pointer :void))
+(defcfunproto worker-thread-pool-task :void (|| (:pointer :void)))
 
 (cffi:defcenum initialization-level
   (:initialization-core 0)
@@ -872,11 +909,13 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 
 (cffi:defctype initialize-callback (:pointer :void))
 
-(defcfunproto initialize-callback :void (:pointer :void) initialization-level)
+(defcfunproto initialize-callback :void (p-userdata (:pointer :void))
+ (p-level initialization-level))
 
 (cffi:defctype deinitialize-callback (:pointer :void))
 
-(defcfunproto deinitialize-callback :void (:pointer :void) initialization-level)
+(defcfunproto deinitialize-callback :void (p-userdata (:pointer :void))
+ (p-level initialization-level))
 
 (cffi:defcstruct initialization
   (minimum-initialization-level initialization-level)
@@ -892,7 +931,7 @@ The hash returned by `hash_func` is cached, `hash_func` will not be called more 
 (cffi:defctype interface-get-proc-address (:pointer :void))
 
 (defcfunproto interface-get-proc-address interface-function-ptr
- (:pointer :char))
+ (p-function-name (:pointer :char)))
 
 (cffi:defctype initialization-function (:pointer :void)
                "Each GDExtension should define a C function that matches the signature of GDExtensionInitializationFunction,
@@ -916,8 +955,9 @@ You can then call it like a normal function:
 All of these interface functions are described below, together with the name that's used to load it,
 and the function pointer typedef that shows its signature.")
 
-(defcfunproto initialization-function bool interface-get-proc-address
- class-library-ptr (:pointer initialization))
+(defcfunproto initialization-function bool
+ (p-get-proc-address interface-get-proc-address) (p-library class-library-ptr)
+ (r-initialization (:pointer initialization)))
 
 (cffi:defcstruct godot-version
   (major :uint32)

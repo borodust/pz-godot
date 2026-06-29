@@ -612,6 +612,21 @@
       ,@variants
       nil)))
 
+(defun expand-method-compiler-macro (method-ptr-var bind-extractor builtin-p
+                                     class-name lisp-name
+                                     args)
+  `(progn
+     (when (cffi:null-pointer-p ,method-ptr-var)
+       (setf ,method-ptr-var ,bind-extractor)
+       (when (cffi:null-pointer-p ,method-ptr-var)
+         (error "Failed to get method pointer with ~A" ',bind-extractor)))
+     (,(if builtin-p
+           'call-builtin-method
+           'ptrcall-method-bind)
+      ,class-name ,lisp-name
+      ,method-ptr-var
+      ,@args)))
+
 
 (defmacro defgmethod (name-and-opts return-type &body arguments)
   (destructuring-bind (lisp-name &key bind ((:class class-name)) hash static vararg virtual)
@@ -690,7 +705,18 @@
                                                instance-var)
                           ,(unless (eq return-type :void)
                              ret-var)
-                          ,@params)))))))))))
+                          ,@params))
+                       (define-compiler-macro ,lisp-name (,@lambda-list)
+                         (expand-method-compiler-macro
+                          ',method-ptr-var ',bind-extractor
+                          ,(builtinp extension)
+                          ',class-name ',lisp-name
+                          (list ,(if static
+                                     (cffi:null-pointer)
+                                     instance-var)
+                                ,(unless (eq return-type :void)
+                                   ret-var)
+                                ,@params))))))))))))
 
 
 (defmacro defgconstructor (name-and-opts &body arguments)

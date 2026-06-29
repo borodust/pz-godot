@@ -169,11 +169,20 @@
                                                         (t src-val-sym))))
 
 
-(defun expand-ptrarg-enum (enum src-val-sym argv-ptr-sym stack-ptr-sym)
+(defun expand-ptrarg-enum (enum bitfield-p src-val-sym argv-ptr-sym stack-ptr-sym)
   `(setf (cffi:mem-ref ,argv-ptr-sym :pointer) ,stack-ptr-sym
-         (cffi:mem-ref ,stack-ptr-sym :int64) ,(if (keywordp src-val-sym)
-                                                   (cffi:foreign-enum-value enum src-val-sym)
-                                                   `(cffi:foreign-enum-value ',enum ,src-val-sym))))
+         (cffi:mem-ref ,stack-ptr-sym :int64) ,(cond
+                                                 ((integerp src-val-sym) src-val-sym)
+                                                 ((and (listp src-val-sym) (eq 'quote (first src-val-sym)))
+                                                  (cffi:foreign-bitfield-value enum (second src-val-sym)))
+                                                 ((keywordp src-val-sym)
+                                                  (if bitfield-p
+                                                      (cffi:foreign-bitfield-value enum src-val-sym)
+                                                      (cffi:foreign-enum-value enum src-val-sym)))
+                                                 (t (if bitfield-p
+                                                        `(cffi:foreign-bitfield-value ',enum ,src-val-sym)
+                                                        `(cffi:foreign-enum-value ',enum ,src-val-sym))))))
+
 
 (defun expand-ptrarg-blob (arg-type src-val-sym argv-ptr-sym stack-ptr-sym)
   `(progn
@@ -588,7 +597,7 @@
           :size ,(cffi:foreign-type-size :int64)
           :translation-expander (lambda (src-val-sym argv-ptr-sym stack-ptr-sym)
                                   (expand-ptrarg-enum
-                                   ',name src-val-sym argv-ptr-sym stack-ptr-sym)))))))
+                                   ',name ,bitfield-p src-val-sym argv-ptr-sym stack-ptr-sym)))))))
 
 
 (defun expand-vararg-compiler-macro (method-ptr-var bind-extractor args variants)

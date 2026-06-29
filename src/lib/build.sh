@@ -2,6 +2,7 @@
 
 WORK_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LIBRARY_DIR=$WORK_DIR/godot
+BUILD_DIR=$WORK_DIR/build
 
 REST_ARGS=
 while [[ $# -gt 0 ]]
@@ -11,6 +12,11 @@ key="$1"
 case $key in
     --arch)
         TARGET_ARCH="$2"
+        shift
+        shift
+        ;;
+    --build-dir)
+        BUILD_DIR="$2"
         shift
         shift
         ;;
@@ -54,15 +60,15 @@ function dump_api {
 
 case "$REST_ARGS" in
     desktop-editor)
-        BUILD_DIR="$WORK_DIR/build/desktop/editor"
+        BUILD_DIR="$BUILD_DIR/desktop/editor"
         build_desktop_editor
         ;;
     desktop-library)
-        BUILD_DIR="$WORK_DIR/build/desktop/library"
+        BUILD_DIR="$BUILD_DIR/desktop/library"
         build_desktop_library
         ;;
     dump-api)
-        BUILD_DIR="$WORK_DIR/build/desktop/api"
+        BUILD_DIR="$BUILD_DIR/desktop/api"
         dump_api
         ;;
     *)

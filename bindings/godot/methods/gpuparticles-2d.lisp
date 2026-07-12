@@ -83,8 +83,8 @@
 
 (defgmethod
  (gpuparticles-2d+request-particles-process :class 'gpuparticles-2d :bind
-  "request_particles_process" :hash 373806689)
- :void (process-time float))
+  "request_particles_process" :hash 2019720106)
+ :void (process-time float) (process-time-residual float))
 
 (defgmethod
  (gpuparticles-2d+is-emitting :class 'gpuparticles-2d :bind "is_emitting" :hash

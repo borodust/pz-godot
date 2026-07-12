@@ -16,12 +16,12 @@
 (defgmethod
  (stream-peer-extension+%put-data :class 'stream-peer-extension :bind
   "_put_data" :hash 298948178 :virtual common-lisp:t)
- error (p-data (:pointer :uint8)) (p-bytes int) (r-sent (:pointer :int32)))
+ error (data (:pointer :uint8)) (bytes int) (r-sent (:pointer :int32)))
 
 (defgmethod
  (stream-peer-extension+%put-partial-data :class 'stream-peer-extension :bind
   "_put_partial_data" :hash 298948178 :virtual common-lisp:t)
- error (p-data (:pointer :uint8)) (p-bytes int) (r-sent (:pointer :int32)))
+ error (data (:pointer :uint8)) (bytes int) (r-sent (:pointer :int32)))
 
 (defgmethod
  (stream-peer-extension+%get-available-bytes :class 'stream-peer-extension

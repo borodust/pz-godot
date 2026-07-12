@@ -10,6 +10,11 @@
  (target-path string) (source-path string) (encrypt bool))
 
 (defgmethod
+ (pckpacker+add-file-from-buffer :class 'pckpacker :bind "add_file_from_buffer"
+  :hash 1131482346)
+ error (target-path string) (data packed-byte-array) (encrypt bool))
+
+(defgmethod
  (pckpacker+add-file-removal :class 'pckpacker :bind "add_file_removal" :hash
   166001499)
  error (target-path string))

@@ -23,3 +23,7 @@
 (defgproperty editor-spin-slider+editing-integer 'editor-spin-slider :get
  'editor-spin-slider+is-editing-integer :set
  'editor-spin-slider+set-editing-integer)
+
+(defgproperty editor-spin-slider+deferred-drag-mode 'editor-spin-slider :get
+ 'editor-spin-slider+is-deferred-drag-mode-enabled :set
+ 'editor-spin-slider+set-deferred-drag-mode-enabled)

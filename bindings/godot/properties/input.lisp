@@ -12,3 +12,7 @@
 
 (defgproperty input+emulate-touch-from-mouse 'input :get
  'input+is-emulating-touch-from-mouse :set 'input+set-emulate-touch-from-mouse)
+
+(defgproperty input+ignore-joypad-on-unfocused-application 'input :get
+ 'input+is-ignoring-joypad-on-unfocused-application :set
+ 'input+set-ignore-joypad-on-unfocused-application)

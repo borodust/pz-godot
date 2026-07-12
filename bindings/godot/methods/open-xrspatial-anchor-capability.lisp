@@ -20,6 +20,12 @@
  bool (scope open-xrspatial-anchor-capability+persistence-scope))
 
 (defgmethod
+ (open-xrspatial-anchor-capability+create-default-persistence-context :class
+  'open-xrspatial-anchor-capability :bind "create_default_persistence_context"
+  :hash 1401033661)
+ open-xrfuture-result (user-callback callable))
+
+(defgmethod
  (open-xrspatial-anchor-capability+create-persistence-context :class
   'open-xrspatial-anchor-capability :bind "create_persistence_context" :hash
   856276630)
@@ -41,8 +47,9 @@
 
 (defgmethod
  (open-xrspatial-anchor-capability+create-new-anchor :class
-  'open-xrspatial-anchor-capability :bind "create_new_anchor" :hash 607100373)
- open-xranchor-tracker (transform transform-3d) (spatial-context rid))
+  'open-xrspatial-anchor-capability :bind "create_new_anchor" :hash 4088043487)
+ open-xranchor-tracker (transform transform-3d) (spatial-context rid)
+ (next open-xrstructure-base))
 
 (defgmethod
  (open-xrspatial-anchor-capability+remove-anchor :class
@@ -60,3 +67,18 @@
   'open-xrspatial-anchor-capability :bind "unpersist_anchor" :hash 4244202513)
  open-xrfuture-result (anchor-tracker open-xranchor-tracker)
  (persistence-context rid) (user-callback callable))
+
+(defgmethod
+ (open-xrspatial-anchor-capability+start-entity-discovery :class
+  'open-xrspatial-anchor-capability :bind "start_entity_discovery" :hash
+  3452714169)
+ open-xrfuture-result (spatial-context rid) (component-data array)
+ (next-snapshot-create open-xrstructure-base)
+ (next-snapshot-query open-xrstructure-base) (user-callback callable))
+
+(defgmethod
+ (open-xrspatial-anchor-capability+do-entity-update :class
+  'open-xrspatial-anchor-capability :bind "do_entity_update" :hash 3138044275)
+ :void (spatial-context rid) (component-data array)
+ (next-snapshot-create open-xrstructure-base)
+ (next-snapshot-query open-xrstructure-base))

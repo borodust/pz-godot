@@ -17,6 +17,12 @@
  :void)
 
 (defgmethod
+ (editor-export-plugin+%end-generate-apple-embedded-project :class
+  'editor-export-plugin :bind "_end_generate_apple_embedded_project" :hash
+  2678287736 :virtual common-lisp:t)
+ :void (path string) (will-build-archive bool))
+
+(defgmethod
  (editor-export-plugin+%begin-customize-resources :class 'editor-export-plugin
   :bind "_begin_customize_resources" :hash 1312023292 :virtual common-lisp:t)
  bool (platform editor-export-platform) (features packed-string-array))

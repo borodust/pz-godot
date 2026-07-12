@@ -11,6 +11,8 @@
 
 (defgsingleton time 'time)
 
+(defgsingleton class-db 'class-db)
+
 (defgsingleton text-server-manager 'text-server-manager)
 
 (defgsingleton navigation-server-2dmanager 'navigation-server-2dmanager)
@@ -33,8 +35,6 @@
 
 (defgsingleton resource-saver 'resource-saver)
 
-(defgsingleton class-db 'class-db)
-
 (defgsingleton marshalls 'marshalls)
 
 (defgsingleton translation-server 'translation-server)
@@ -55,9 +55,13 @@
 
 (defgsingleton editor-interface 'editor-interface)
 
+(defgsingleton gdscript-language-protocol 'gdscript-language-protocol)
+
 (defgsingleton java-class-wrapper 'java-class-wrapper)
 
 (defgsingleton java-script-bridge 'java-script-bridge)
+
+(defgsingleton accessibility-server 'accessibility-server)
 
 (defgsingleton audio-server 'audio-server)
 

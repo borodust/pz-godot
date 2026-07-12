@@ -296,6 +296,43 @@
  bool (font-rid rid))
 
 (defgmethod
+ (text-server-extension+%font-get-palette-count :class 'text-server-extension
+  :bind "_font_get_palette_count" :hash 2198884583 :virtual common-lisp:t)
+ int (font-rid rid))
+
+(defgmethod
+ (text-server-extension+%font-get-palette-name :class 'text-server-extension
+  :bind "_font_get_palette_name" :hash 1464764419 :virtual common-lisp:t)
+ string (font-rid rid) (index int))
+
+(defgmethod
+ (text-server-extension+%font-get-palette-colors :class 'text-server-extension
+  :bind "_font_get_palette_colors" :hash 1595517857 :virtual common-lisp:t)
+ packed-color-array (font-rid rid) (index int))
+
+(defgmethod
+ (text-server-extension+%font-set-palette-custom-colors :class
+  'text-server-extension :bind "_font_set_palette_custom_colors" :hash
+  4037098590 :virtual common-lisp:t)
+ :void (font-rid rid) (colors packed-color-array))
+
+(defgmethod
+ (text-server-extension+%font-get-palette-custom-colors :class
+  'text-server-extension :bind "_font_get_palette_custom_colors" :hash
+  1569415609 :virtual common-lisp:t)
+ packed-color-array (font-rid rid))
+
+(defgmethod
+ (text-server-extension+%font-get-used-palette :class 'text-server-extension
+  :bind "_font_get_used_palette" :hash 2198884583 :virtual common-lisp:t)
+ int (font-rid rid))
+
+(defgmethod
+ (text-server-extension+%font-set-used-palette :class 'text-server-extension
+  :bind "_font_set_used_palette" :hash 3411492887 :virtual common-lisp:t)
+ :void (font-rid rid) (index int))
+
+(defgmethod
  (text-server-extension+%font-set-hinting :class 'text-server-extension :bind
   "_font_set_hinting" :hash 1520010864 :virtual common-lisp:t)
  :void (font-rid rid) (hinting text-server+hinting))
@@ -963,6 +1000,12 @@
  vector-2i (shaped rid) (index int))
 
 (defgmethod
+ (text-server-extension+%shaped-get-run-glyph-range :class
+  'text-server-extension :bind "_shaped_get_run_glyph_range" :hash 4069534484
+  :virtual common-lisp:t)
+ vector-2i (shaped rid) (index int))
+
+(defgmethod
  (text-server-extension+%shaped-get-run-font-rid :class 'text-server-extension
   :bind "_shaped_get_run_font_rid" :hash 1066463050 :virtual common-lisp:t)
  rid (shaped rid) (index int))
@@ -1165,7 +1208,7 @@
 (defgmethod
  (text-server-extension+%shaped-text-get-carets :class 'text-server-extension
   :bind "_shaped_text_get_carets" :hash 1191777527 :virtual common-lisp:t)
- :void (shaped rid) (position int) (caret (:pointer caret-info)))
+ :void (shaped rid) (position int) (r-caret (:pointer caret-info)))
 
 (defgmethod
  (text-server-extension+%shaped-text-get-selection :class

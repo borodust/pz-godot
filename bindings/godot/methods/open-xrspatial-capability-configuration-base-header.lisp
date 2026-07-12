@@ -18,3 +18,9 @@
   :class 'open-xrspatial-capability-configuration-base-header :bind
   "has_valid_configuration" :hash 36873697)
  bool)
+
+(defgmethod
+ (open-xrspatial-capability-configuration-base-header+get-configuration :class
+  'open-xrspatial-capability-configuration-base-header :bind
+  "get_configuration" :hash 2455072627)
+ int)

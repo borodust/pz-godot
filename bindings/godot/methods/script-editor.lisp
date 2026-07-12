@@ -47,6 +47,11 @@
  :void (base-name string) (base-path string))
 
 (defgmethod
+ (script-editor+reload-open-files :class 'script-editor :bind
+  "reload_open_files" :hash 3218959716)
+ :void)
+
+(defgmethod
  (script-editor+goto-help :class 'script-editor :bind "goto_help" :hash
   83702148)
  :void (topic string))
@@ -60,3 +65,18 @@
  (script-editor+clear-docs-from-script :class 'script-editor :bind
   "clear_docs_from_script" :hash 3657522847)
  :void (script script))
+
+(defgmethod
+ (script-editor+get-unsaved-files :class 'script-editor :bind
+  "get_unsaved_files" :hash 1139954409)
+ packed-string-array)
+
+(defgmethod
+ (script-editor+save-all-scripts :class 'script-editor :bind "save_all_scripts"
+  :hash 3218959716)
+ :void)
+
+(defgmethod
+ (script-editor+close-file :class 'script-editor :bind "close_file" :hash
+  166001499)
+ error (path string))

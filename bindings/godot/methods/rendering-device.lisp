@@ -303,6 +303,65 @@
  bool (compute-pipeline rid))
 
 (defgmethod
+ (rendering-device+raytracing-pipeline-create :class 'rendering-device :bind
+  "raytracing_pipeline_create" :hash 1489129684)
+ rid (raygen-shaders array) (miss-shaders array) (hit-groups array)
+ (max-trace-recursion-depth int))
+
+(defgmethod
+ (rendering-device+raytracing-pipeline-is-valid :class 'rendering-device :bind
+  "raytracing_pipeline_is_valid" :hash 3521089500)
+ bool (raytracing-pipeline rid))
+
+(defgmethod
+ (rendering-device+blas-create :class 'rendering-device :bind "blas_create"
+  :hash 1010940044)
+ rid (geometries array)
+ (flags rendering-device+acceleration-structure-flag-bits))
+
+(defgmethod
+ (rendering-device+tlas-create :class 'rendering-device :bind "tlas_create"
+  :hash 592780330)
+ rid (max-instance-count int)
+ (flags rendering-device+acceleration-structure-flag-bits))
+
+(defgmethod
+ (rendering-device+blas-build :class 'rendering-device :bind "blas_build" :hash
+  813180755)
+ error (blas rid))
+
+(defgmethod
+ (rendering-device+tlas-build :class 'rendering-device :bind "tlas_build" :hash
+  261981775)
+ error (tlas rid) (instances array))
+
+(defgmethod
+ (rendering-device+hit-sbt-create :class 'rendering-device :bind
+  "hit_sbt_create" :hash 2233757277)
+ rid (raytracing-pipeline rid) (initial-hit-group-capacity int))
+
+(defgmethod
+ (rendering-device+hit-sbt-set-pipeline :class 'rendering-device :bind
+  "hit_sbt_set_pipeline" :hash 3181288260)
+ error (hit-sbt rid) (raytracing-pipeline rid))
+
+(defgmethod
+ (rendering-device+hit-sbt-range-alloc :class 'rendering-device :bind
+  "hit_sbt_range_alloc" :hash 2722015314)
+ int (hit-sbt rid) (hit-group-count int))
+
+(defgmethod
+ (rendering-device+hit-sbt-range-free :class 'rendering-device :bind
+  "hit_sbt_range_free" :hash 3804025326)
+ error (hit-sbt rid) (range int))
+
+(defgmethod
+ (rendering-device+hit-sbt-range-update :class 'rendering-device :bind
+  "hit_sbt_range_update" :hash 1332346675)
+ error (hit-sbt rid) (range int) (offset int)
+ (hit-group-indices packed-int-32array))
+
+(defgmethod
  (rendering-device+screen-get-width :class 'rendering-device :bind
   "screen_get_width" :hash 1591665591)
  int (screen int))
@@ -452,6 +511,38 @@
 (defgmethod
  (rendering-device+compute-list-end :class 'rendering-device :bind
   "compute_list_end" :hash 3218959716)
+ :void)
+
+(defgmethod
+ (rendering-device+raytracing-list-begin :class 'rendering-device :bind
+  "raytracing_list_begin" :hash 2455072627)
+ int)
+
+(defgmethod
+ (rendering-device+raytracing-list-bind-raytracing-pipeline :class
+  'rendering-device :bind "raytracing_list_bind_raytracing_pipeline" :hash
+  4040184819)
+ :void (raytracing-list int) (raytracing-pipeline rid))
+
+(defgmethod
+ (rendering-device+raytracing-list-set-push-constant :class 'rendering-device
+  :bind "raytracing_list_set_push_constant" :hash 2772371345)
+ :void (raytracing-list int) (buffer packed-byte-array) (size-bytes int))
+
+(defgmethod
+ (rendering-device+raytracing-list-bind-uniform-set :class 'rendering-device
+  :bind "raytracing_list_bind_uniform_set" :hash 749655778)
+ :void (raytracing-list int) (uniform-set rid) (set-index int))
+
+(defgmethod
+ (rendering-device+raytracing-list-trace-rays :class 'rendering-device :bind
+  "raytracing_list_trace_rays" :hash 2559472681)
+ :void (raytracing-list int) (raygen-shader-index int) (hit-sbt rid)
+ (width int) (height int) (depth int))
+
+(defgmethod
+ (rendering-device+raytracing-list-end :class 'rendering-device :bind
+  "raytracing_list_end" :hash 3218959716)
  :void)
 
 (defgmethod

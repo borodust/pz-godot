@@ -55,9 +55,9 @@
 
 (defgmethod
  (editor-export-platform+export-project :class 'editor-export-platform :bind
-  "export_project" :hash 3879521245)
+  "export_project" :hash 1201906210)
  error (preset editor-export-preset) (debug bool) (path string)
- (flags editor-export-platform+debug-flags))
+ (flags editor-export-platform+debug-flags) (notify bool))
 
 (defgmethod
  (editor-export-platform+export-pack :class 'editor-export-platform :bind

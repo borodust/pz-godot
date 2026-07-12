@@ -260,12 +260,47 @@
 (defgmethod
  (text-server+font-set-modulate-color-glyphs :class 'text-server :bind
   "font_set_modulate_color_glyphs" :hash 1265174801)
- :void (font-rid rid) (force-autohinter bool))
+ :void (font-rid rid) (modulate bool))
 
 (defgmethod
  (text-server+font-is-modulate-color-glyphs :class 'text-server :bind
   "font_is_modulate_color_glyphs" :hash 4155700596)
  bool (font-rid rid))
+
+(defgmethod
+ (text-server+font-get-palette-count :class 'text-server :bind
+  "font_get_palette_count" :hash 2198884583)
+ int (font-rid rid))
+
+(defgmethod
+ (text-server+font-get-palette-name :class 'text-server :bind
+  "font_get_palette_name" :hash 1464764419)
+ string (font-rid rid) (index int))
+
+(defgmethod
+ (text-server+font-get-palette-colors :class 'text-server :bind
+  "font_get_palette_colors" :hash 1595517857)
+ packed-color-array (font-rid rid) (index int))
+
+(defgmethod
+ (text-server+font-set-palette-custom-colors :class 'text-server :bind
+  "font_set_palette_custom_colors" :hash 4037098590)
+ :void (font-rid rid) (colors packed-color-array))
+
+(defgmethod
+ (text-server+font-get-palette-custom-colors :class 'text-server :bind
+  "font_get_palette_custom_colors" :hash 1569415609)
+ packed-color-array (font-rid rid))
+
+(defgmethod
+ (text-server+font-get-used-palette :class 'text-server :bind
+  "font_get_used_palette" :hash 2198884583)
+ int (font-rid rid))
+
+(defgmethod
+ (text-server+font-set-used-palette :class 'text-server :bind
+  "font_set_used_palette" :hash 3411492887)
+ :void (font-rid rid) (index int))
 
 (defgmethod
  (text-server+font-set-hinting :class 'text-server :bind "font_set_hinting"
@@ -872,6 +907,11 @@
 (defgmethod
  (text-server+shaped-get-run-range :class 'text-server :bind
   "shaped_get_run_range" :hash 4069534484)
+ vector-2i (shaped rid) (index int))
+
+(defgmethod
+ (text-server+shaped-get-run-glyph-range :class 'text-server :bind
+  "shaped_get_run_glyph_range" :hash 4069534484)
  vector-2i (shaped rid) (index int))
 
 (defgmethod

@@ -80,8 +80,8 @@
  (physics-server-2dextension+%shape-collide :class 'physics-server-2dextension
   :bind "_shape_collide" :hash 738864683 :virtual common-lisp:t)
  bool (shape-a rid) (xform-a transform-2d) (motion-a vector-2) (shape-b rid)
- (xform-b transform-2d) (motion-b vector-2) (results (:pointer :void))
- (result-max int) (result-count (:pointer :int32)))
+ (xform-b transform-2d) (motion-b vector-2) (r-results (:pointer :void))
+ (result-max int) (r-result-count (:pointer :int32)))
 
 (defgmethod
  (physics-server-2dextension+%space-create :class 'physics-server-2dextension
@@ -363,8 +363,9 @@
 (defgmethod
  (physics-server-2dextension+%body-set-shape-as-one-way-collision :class
   'physics-server-2dextension :bind "_body_set_shape_as_one_way_collision"
-  :hash 2556489974 :virtual common-lisp:t)
- :void (body rid) (shape-idx int) (enable bool) (margin float))
+  :hash 2042146392 :virtual common-lisp:t)
+ :void (body rid) (shape-idx int) (enable bool) (margin float)
+ (direction vector-2))
 
 (defgmethod
  (physics-server-2dextension+%body-remove-shape :class
@@ -635,8 +636,8 @@
   'physics-server-2dextension :bind "_body_collide_shape" :hash 2131476465
   :virtual common-lisp:t)
  bool (body rid) (body-shape int) (shape rid) (shape-xform transform-2d)
- (motion vector-2) (results (:pointer :void)) (result-max int)
- (result-count (:pointer :int32)))
+ (motion vector-2) (r-results (:pointer :void)) (result-max int)
+ (r-result-count (:pointer :int32)))
 
 (defgmethod
  (physics-server-2dextension+%body-set-pickable :class
@@ -656,7 +657,7 @@
   :virtual common-lisp:t)
  bool (body rid) (from transform-2d) (motion vector-2) (margin float)
  (collide-separation-ray bool) (recovery-as-collision bool)
- (result (:pointer physics-server-2dextension-motion-result)))
+ (r-result (:pointer physics-server-2dextension-motion-result)))
 
 (defgmethod
  (physics-server-2dextension+%joint-create :class 'physics-server-2dextension

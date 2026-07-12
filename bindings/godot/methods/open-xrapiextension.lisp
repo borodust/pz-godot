@@ -72,6 +72,16 @@
  :void (label-name string))
 
 (defgmethod
+ (open-xrapiextension+get-view-count :class 'open-xrapiextension :bind
+  "get_view_count" :hash 3905245786)
+ int)
+
+(defgmethod
+ (open-xrapiextension+get-view-configuration :class 'open-xrapiextension :bind
+  "get_view_configuration" :hash 3905245786)
+ int)
+
+(defgmethod
  (open-xrapiextension+is-initialized :class 'open-xrapiextension :bind
   "is_initialized" :hash 2240911060)
  bool)
@@ -153,6 +163,18 @@
 (defgmethod
  (open-xrapiextension+unregister-frame-info-extension :class
   'open-xrapiextension :bind "unregister_frame_info_extension" :hash
+  1477360496)
+ :void (extension open-xrextension-wrapper))
+
+(defgmethod
+ (open-xrapiextension+register-projection-layer-extension :class
+  'open-xrapiextension :bind "register_projection_layer_extension" :hash
+  1477360496)
+ :void (extension open-xrextension-wrapper))
+
+(defgmethod
+ (open-xrapiextension+unregister-projection-layer-extension :class
+  'open-xrapiextension :bind "unregister_projection_layer_extension" :hash
   1477360496)
  :void (extension open-xrextension-wrapper))
 

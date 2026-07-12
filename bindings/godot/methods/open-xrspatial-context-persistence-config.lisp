@@ -12,3 +12,9 @@
   'open-xrspatial-context-persistence-config :bind "remove_persistence_context"
   :hash 2722037293)
  :void (persistence-context rid))
+
+(defgmethod
+ (open-xrspatial-context-persistence-config+get-persistence-contexts :class
+  'open-xrspatial-context-persistence-config :bind "get_persistence_contexts"
+  :hash 3995934104)
+ array)

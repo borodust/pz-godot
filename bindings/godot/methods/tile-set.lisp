@@ -237,6 +237,11 @@
  :void (terrain-set int) (terrain-index int))
 
 (defgmethod
+ (tile-set+clear-terrains :class 'tile-set :bind "clear_terrains" :hash
+  1286410249)
+ :void (terrain-set int))
+
+(defgmethod
  (tile-set+set-terrain-name :class 'tile-set :bind "set_terrain_name" :hash
   2285447957)
  :void (terrain-set int) (terrain-index int) (name string))
@@ -369,7 +374,7 @@
 (defgmethod
  (tile-set+set-coords-level-tile-proxy :class 'tile-set :bind
   "set_coords_level_tile_proxy" :hash 1769939278)
- :void (p-source-from int) (coords-from vector-2i) (source-to int)
+ :void (source-from int) (coords-from vector-2i) (source-to int)
  (coords-to vector-2i))
 
 (defgmethod

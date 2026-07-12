@@ -93,6 +93,16 @@
  text-server+autowrap-mode (column int))
 
 (defgmethod
+ (tree-item+set-autowrap-trim-flags :class 'tree-item :bind
+  "set_autowrap_trim_flags" :hash 2186029660)
+ :void (column int) (flags text-server+line-break-flag))
+
+(defgmethod
+ (tree-item+get-autowrap-trim-flags :class 'tree-item :bind
+  "get_autowrap_trim_flags" :hash 3513056523)
+ text-server+line-break-flag (column int))
+
+(defgmethod
  (tree-item+set-text-overrun-behavior :class 'tree-item :bind
   "set_text_overrun_behavior" :hash 1940772195)
  :void (column int) (overrun-behavior text-server+overrun-behavior))
@@ -303,9 +313,8 @@
  (tree-item+is-selected :class 'tree-item :bind "is_selected" :hash 3067735520)
  bool (column int))
 
-(defgmethod
- (tree-item+select :class 'tree-item :bind "select" :hash 1286410249) :void
- (column int))
+(defgmethod (tree-item+select :class 'tree-item :bind "select" :hash 972357352)
+ :void (column int) (set-as-cursor bool))
 
 (defgmethod
  (tree-item+deselect :class 'tree-item :bind "deselect" :hash 1286410249) :void
@@ -491,6 +500,16 @@
 (defgmethod
  (tree-item+is-folding-disabled :class 'tree-item :bind "is_folding_disabled"
   :hash 36873697)
+ bool)
+
+(defgmethod
+ (tree-item+set-accept-children :class 'tree-item :bind "set_accept_children"
+  :hash 2586408642)
+ :void (allowed bool))
+
+(defgmethod
+ (tree-item+is-accepting-children :class 'tree-item :bind
+  "is_accepting_children" :hash 36873697)
  bool)
 
 (defgmethod

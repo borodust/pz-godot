@@ -15,7 +15,7 @@
 
 (defgmethod
  (open-xrspatial-component-data+%get-structure-data :class
-  'open-xrspatial-component-data :bind "_get_structure_data" :hash 923996154
+  'open-xrspatial-component-data :bind "_get_structure_data" :hash 3744713108
   :virtual common-lisp:t)
  int (next int))
 
@@ -23,3 +23,8 @@
  (open-xrspatial-component-data+set-capacity :class
   'open-xrspatial-component-data :bind "set_capacity" :hash 1286410249)
  :void (capacity int))
+
+(defgmethod
+ (open-xrspatial-component-data+get-component-type :class
+  'open-xrspatial-component-data :bind "get_component_type" :hash 3905245786)
+ int)

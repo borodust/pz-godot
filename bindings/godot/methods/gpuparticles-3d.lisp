@@ -278,6 +278,26 @@
  gpuparticles-3d+transform-align)
 
 (defgmethod
+ (gpuparticles-3d+set-transform-align-channel-filter :class 'gpuparticles-3d
+  :bind "set_transform_align_channel_filter" :hash 540833286)
+ :void (channel-filter rendering-server+particles-transform-align-custom-src))
+
+(defgmethod
+ (gpuparticles-3d+get-transform-align-channel-filter :class 'gpuparticles-3d
+  :bind "get_transform_align_channel_filter" :hash 1664431231)
+ rendering-server+particles-transform-align-custom-src)
+
+(defgmethod
+ (gpuparticles-3d+set-transform-align-axis :class 'gpuparticles-3d :bind
+  "set_transform_align_axis" :hash 3781785913)
+ :void (align rendering-server+particles-transform-align-axis))
+
+(defgmethod
+ (gpuparticles-3d+get-transform-align-axis :class 'gpuparticles-3d :bind
+  "get_transform_align_axis" :hash 2427180841)
+ rendering-server+particles-transform-align-axis)
+
+(defgmethod
  (gpuparticles-3d+convert-from-particles :class 'gpuparticles-3d :bind
   "convert_from_particles" :hash 1078189570)
  :void (particles node))
@@ -294,5 +314,5 @@
 
 (defgmethod
  (gpuparticles-3d+request-particles-process :class 'gpuparticles-3d :bind
-  "request_particles_process" :hash 373806689)
- :void (process-time float))
+  "request_particles_process" :hash 66938510)
+ :void (process-time float) (process-time-residual float))

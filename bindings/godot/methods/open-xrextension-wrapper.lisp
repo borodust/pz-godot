@@ -59,6 +59,12 @@
  int (next-pointer (:pointer :void)))
 
 (defgmethod
+ (open-xrextension-wrapper+%set-projection-layer-and-get-next-pointer :class
+  'open-xrextension-wrapper :bind "_set_projection_layer_and_get_next_pointer"
+  :hash 3744713108 :virtual common-lisp:t)
+ int (next-pointer (:pointer :void)))
+
+(defgmethod
  (open-xrextension-wrapper+%set-view-locate-info-and-get-next-pointer :class
   'open-xrextension-wrapper :bind "_set_view_locate_info_and_get_next_pointer"
   :hash 3744713108 :virtual common-lisp:t)
@@ -116,9 +122,9 @@
 
 (defgmethod
  (open-xrextension-wrapper+%on-register-metadata :class
-  'open-xrextension-wrapper :bind "_on_register_metadata" :hash 3218959716
+  'open-xrextension-wrapper :bind "_on_register_metadata" :hash 309044627
   :virtual common-lisp:t)
- :void)
+ :void (interaction-profile-metadata open-xrinteraction-profile-metadata))
 
 (defgmethod
  (open-xrextension-wrapper+%on-before-instance-created :class

@@ -571,6 +571,10 @@
  :void)
 
 (defgmethod
+ (code-edit+join-lines :class 'code-edit :bind "join_lines" :hash 4063782979)
+ :void (line-ending string))
+
+(defgmethod
  (code-edit+duplicate-selection :class 'code-edit :bind "duplicate_selection"
   :hash 3218959716)
  :void)

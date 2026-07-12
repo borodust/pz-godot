@@ -23,19 +23,20 @@
 
 (defgmethod
  (rich-text-label+add-image :class 'rich-text-label :bind "add_image" :hash
-  1390915033)
- :void (image texture-2d) (width int) (height int) (color color)
+  1980227702)
+ :void (image texture-2d) (width float) (height float) (color color)
  (inline-align inline-alignment) (region rect-2) (key variant) (pad bool)
- (tooltip string) (width-in-percent bool) (height-in-percent bool)
- (alt-text string))
+ (tooltip string) (width-unit rich-text-label+image-unit)
+ (height-unit rich-text-label+image-unit) (alt-text string))
 
 (defgmethod
  (rich-text-label+update-image :class 'rich-text-label :bind "update_image"
-  :hash 6389170)
+  :hash 202998225)
  :void (key variant) (mask rich-text-label+image-update-mask)
- (image texture-2d) (width int) (height int) (color color)
+ (image texture-2d) (width float) (height float) (color color)
  (inline-align inline-alignment) (region rect-2) (pad bool) (tooltip string)
- (width-in-percent bool) (height-in-percent bool))
+ (width-unit rich-text-label+image-unit)
+ (height-unit rich-text-label+image-unit))
 
 (defgmethod
  (rich-text-label+newline :class 'rich-text-label :bind "newline" :hash

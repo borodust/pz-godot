@@ -4,7 +4,7 @@
 (defgmethod
  (audio-effect-instance+%process :class 'audio-effect-instance :bind "_process"
   :hash 1649997291 :virtual common-lisp:t)
- :void (src-buffer (:pointer :void)) (dst-buffer (:pointer audio-frame))
+ :void (src-buffer (:pointer :void)) (r-dst-buffer (:pointer audio-frame))
  (frame-count int))
 
 (defgmethod

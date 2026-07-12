@@ -20,6 +20,10 @@
 (defgproperty canvas-item+clip-children 'canvas-item :get
  'canvas-item+get-clip-children-mode :set 'canvas-item+set-clip-children-mode)
 
+(defgproperty canvas-item+oversampling-with-scale 'canvas-item :get
+ 'canvas-item+get-oversampling-with-scale :set
+ 'canvas-item+set-oversampling-with-scale)
+
 (defgproperty canvas-item+light-mask 'canvas-item :get
  'canvas-item+get-light-mask :set 'canvas-item+set-light-mask)
 

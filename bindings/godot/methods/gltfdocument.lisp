@@ -52,6 +52,16 @@
  gltfdocument+root-node-mode)
 
 (defgmethod
+ (gltfdocument+set-texture-map-mode :class 'gltfdocument :bind
+  "set_texture_map_mode" :hash 3144426102)
+ :void (texture-map-mode gltfdocument+texture-map-mode))
+
+(defgmethod
+ (gltfdocument+get-texture-map-mode :class 'gltfdocument :bind
+  "get_texture_map_mode" :hash 2113256994)
+ gltfdocument+texture-map-mode)
+
+(defgmethod
  (gltfdocument+set-visibility-mode :class 'gltfdocument :bind
   "set_visibility_mode" :hash 2803579218)
  :void (visibility-mode gltfdocument+visibility-mode))

@@ -23,13 +23,13 @@
  (web-rtcpeer-connection-extension+%initialize :class
   'web-rtcpeer-connection-extension :bind "_initialize" :hash 1494659981
   :virtual common-lisp:t)
- error (p-config dictionary))
+ error (config dictionary))
 
 (defgmethod
  (web-rtcpeer-connection-extension+%create-data-channel :class
   'web-rtcpeer-connection-extension :bind "_create_data_channel" :hash
   4111292546 :virtual common-lisp:t)
- web-rtcdata-channel (p-label string) (p-config dictionary))
+ web-rtcdata-channel (label string) (config dictionary))
 
 (defgmethod
  (web-rtcpeer-connection-extension+%create-offer :class
@@ -41,19 +41,19 @@
  (web-rtcpeer-connection-extension+%set-remote-description :class
   'web-rtcpeer-connection-extension :bind "_set_remote_description" :hash
   852856452 :virtual common-lisp:t)
- error (p-type string) (p-sdp string))
+ error (type string) (sdp string))
 
 (defgmethod
  (web-rtcpeer-connection-extension+%set-local-description :class
   'web-rtcpeer-connection-extension :bind "_set_local_description" :hash
   852856452 :virtual common-lisp:t)
- error (p-type string) (p-sdp string))
+ error (type string) (sdp string))
 
 (defgmethod
  (web-rtcpeer-connection-extension+%add-ice-candidate :class
   'web-rtcpeer-connection-extension :bind "_add_ice_candidate" :hash 3958950400
   :virtual common-lisp:t)
- error (p-sdp-mid-name string) (p-sdp-mline-index int) (p-sdp-name string))
+ error (sdp-mid-name string) (sdp-mline-index int) (sdp-name string))
 
 (defgmethod
  (web-rtcpeer-connection-extension+%poll :class

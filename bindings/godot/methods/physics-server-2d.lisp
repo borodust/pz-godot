@@ -294,8 +294,9 @@
 (defgmethod
  (physics-server-2d+body-set-shape-as-one-way-collision :class
   'physics-server-2d :bind "body_set_shape_as_one_way_collision" :hash
-  2556489974)
- :void (body rid) (shape-idx int) (enable bool) (margin float))
+  2389283141)
+ :void (body rid) (shape-idx int) (enable bool) (margin float)
+ (direction vector-2))
 
 (defgmethod
  (physics-server-2d+body-attach-object-instance-id :class 'physics-server-2d

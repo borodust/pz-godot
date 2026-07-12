@@ -924,6 +924,11 @@
  int)
 
 (defgmethod
+ (text-edit+is-line-in-viewport :class 'text-edit :bind "is_line_in_viewport"
+  :hash 1116898809)
+ bool (line int))
+
+(defgmethod
  (text-edit+set-line-as-center-visible :class 'text-edit :bind
   "set_line_as_center_visible" :hash 2230941749)
  :void (line int) (wrap-index int))

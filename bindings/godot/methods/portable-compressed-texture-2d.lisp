@@ -9,11 +9,6 @@
  (normal-map bool) (lossy-quality float))
 
 (defgmethod
- (portable-compressed-texture-2d+get-format :class
-  'portable-compressed-texture-2d :bind "get_format" :hash 3847873762)
- image+format)
-
-(defgmethod
  (portable-compressed-texture-2d+get-compression-mode :class
   'portable-compressed-texture-2d :bind "get_compression_mode" :hash
   3265612739)

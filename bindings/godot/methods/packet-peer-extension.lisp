@@ -10,7 +10,7 @@
 (defgmethod
  (packet-peer-extension+%put-packet :class 'packet-peer-extension :bind
   "_put_packet" :hash 3099858825 :virtual common-lisp:t)
- error (p-buffer (:pointer :uint8)) (p-buffer-size int))
+ error (buffer (:pointer :uint8)) (buffer-size int))
 
 (defgmethod
  (packet-peer-extension+%get-available-packet-count :class

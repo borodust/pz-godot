@@ -7,6 +7,16 @@
  open-xrinterface+session-state)
 
 (defgmethod
+ (open-xrinterface+is-user-presence-supported :class 'open-xrinterface :bind
+  "is_user_presence_supported" :hash 36873697)
+ bool)
+
+(defgmethod
+ (open-xrinterface+is-user-present :class 'open-xrinterface :bind
+  "is_user_present" :hash 36873697)
+ bool)
+
+(defgmethod
  (open-xrinterface+get-display-refresh-rate :class 'open-xrinterface :bind
   "get_display_refresh_rate" :hash 1740695150)
  float)
@@ -50,6 +60,18 @@
  (open-xrinterface+set-foveation-dynamic :class 'open-xrinterface :bind
   "set_foveation_dynamic" :hash 2586408642)
  :void (foveation-dynamic bool))
+
+(defgmethod
+ (open-xrinterface+get-foveation-with-subsampled-images :class
+  'open-xrinterface :bind "get_foveation_with_subsampled_images" :hash
+  36873697)
+ bool)
+
+(defgmethod
+ (open-xrinterface+set-foveation-with-subsampled-images :class
+  'open-xrinterface :bind "set_foveation_with_subsampled_images" :hash
+  2586408642)
+ :void (enabled bool))
 
 (defgmethod
  (open-xrinterface+is-action-set-active :class 'open-xrinterface :bind

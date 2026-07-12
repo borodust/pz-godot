@@ -34,8 +34,13 @@
 
 (defgmethod
  (editor-vcsinterface+%commit :class 'editor-vcsinterface :bind "_commit" :hash
-  83702148 :virtual common-lisp:t)
- :void (msg string))
+  2678287736 :virtual common-lisp:t)
+ :void (msg string) (amend bool))
+
+(defgmethod
+ (editor-vcsinterface+%allow-amends :class 'editor-vcsinterface :bind
+  "_allow_amends" :hash 2240911060 :virtual common-lisp:t)
+ bool)
 
 (defgmethod
  (editor-vcsinterface+%get-diff :class 'editor-vcsinterface :bind "_get_diff"

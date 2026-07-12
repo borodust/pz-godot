@@ -52,6 +52,10 @@
  bool)
 
 (defgmethod
+ (basis+is-orthonormal :class 'basis :bind "is_orthonormal" :hash 3918633141)
+ bool)
+
+(defgmethod
  (basis+get-rotation-quaternion :class 'basis :bind "get_rotation_quaternion"
   :hash 4274879941)
  quaternion)

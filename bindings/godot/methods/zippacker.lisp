@@ -15,8 +15,15 @@
  int)
 
 (defgmethod
- (zippacker+start-file :class 'zippacker :bind "start_file" :hash 166001499)
- error (path string))
+ (zippacker+add-directory :class 'zippacker :bind "add_directory" :hash
+  934773537)
+ error (path string) (permissions file-access+unix-permission-flags)
+ (modified-time int))
+
+(defgmethod
+ (zippacker+start-file :class 'zippacker :bind "start_file" :hash 4260848715)
+ error (path string) (permissions file-access+unix-permission-flags)
+ (modified-time int))
 
 (defgmethod
  (zippacker+write-file :class 'zippacker :bind "write_file" :hash 680677267)

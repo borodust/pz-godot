@@ -42,6 +42,16 @@
  float)
 
 (defgmethod
+ (collision-shape-2d+set-one-way-collision-direction :class 'collision-shape-2d
+  :bind "set_one_way_collision_direction" :hash 743155724)
+ :void (direction vector-2))
+
+(defgmethod
+ (collision-shape-2d+get-one-way-collision-direction :class 'collision-shape-2d
+  :bind "get_one_way_collision_direction" :hash 3341600327)
+ vector-2)
+
+(defgmethod
  (collision-shape-2d+set-debug-color :class 'collision-shape-2d :bind
   "set_debug_color" :hash 2920490490)
  :void (color color))

@@ -7,7 +7,7 @@
   2840492092 :virtual common-lisp:t)
  bool (from vector-2) (to vector-2) (collision-mask int)
  (collide-with-bodies bool) (collide-with-areas bool) (hit-from-inside bool)
- (result (:pointer physics-server-2dextension-ray-result)))
+ (r-result (:pointer physics-server-2dextension-ray-result)))
 
 (defgmethod
  (physics-direct-space-state-2dextension+%intersect-point :class
@@ -15,7 +15,8 @@
   522407812 :virtual common-lisp:t)
  int (position vector-2) (canvas-instance-id int) (collision-mask int)
  (collide-with-bodies bool) (collide-with-areas bool)
- (results (:pointer physics-server-2dextension-shape-result)) (max-results int))
+ (r-results (:pointer physics-server-2dextension-shape-result))
+ (max-results int))
 
 (defgmethod
  (physics-direct-space-state-2dextension+%intersect-shape :class
@@ -23,7 +24,8 @@
   1584897015 :virtual common-lisp:t)
  int (shape-rid rid) (transform transform-2d) (motion vector-2) (margin float)
  (collision-mask int) (collide-with-bodies bool) (collide-with-areas bool)
- (result (:pointer physics-server-2dextension-shape-result)) (max-results int))
+ (r-result (:pointer physics-server-2dextension-shape-result))
+ (max-results int))
 
 (defgmethod
  (physics-direct-space-state-2dextension+%cast-motion :class
@@ -31,7 +33,7 @@
   :virtual common-lisp:t)
  bool (shape-rid rid) (transform transform-2d) (motion vector-2) (margin float)
  (collision-mask int) (collide-with-bodies bool) (collide-with-areas bool)
- (closest-safe (:pointer :float)) (closest-unsafe (:pointer :float)))
+ (r-closest-safe (:pointer :float)) (r-closest-unsafe (:pointer :float)))
 
 (defgmethod
  (physics-direct-space-state-2dextension+%collide-shape :class
@@ -39,7 +41,8 @@
   871510130 :virtual common-lisp:t)
  bool (shape-rid rid) (transform transform-2d) (motion vector-2) (margin float)
  (collision-mask int) (collide-with-bodies bool) (collide-with-areas bool)
- (results (:pointer :void)) (max-results int) (result-count (:pointer :int32)))
+ (r-results (:pointer :void)) (max-results int)
+ (r-result-count (:pointer :int32)))
 
 (defgmethod
  (physics-direct-space-state-2dextension+%rest-info :class
@@ -47,7 +50,7 @@
   :virtual common-lisp:t)
  bool (shape-rid rid) (transform transform-2d) (motion vector-2) (margin float)
  (collision-mask int) (collide-with-bodies bool) (collide-with-areas bool)
- (rest-info (:pointer physics-server-2dextension-shape-rest-info)))
+ (r-rest-info (:pointer physics-server-2dextension-shape-rest-info)))
 
 (defgmethod
  (physics-direct-space-state-2dextension+is-body-excluded-from-query :class

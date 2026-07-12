@@ -1,6 +1,6 @@
 # PZ-GODOT
 
-Bindings to [Godot](https://github.com/godotengine/godot) game engine for [Pozzo](https://github.com/borodust/pozzo).
+Bindings to [Godot 4.7.1](https://github.com/godotengine/godot) game engine for [Pozzo](https://github.com/borodust/pozzo).
 
 ## Build Godot
 

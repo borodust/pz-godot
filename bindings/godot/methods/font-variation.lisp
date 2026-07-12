@@ -70,3 +70,23 @@
  (font-variation+get-baseline-offset :class 'font-variation :bind
   "get_baseline_offset" :hash 1740695150)
  float)
+
+(defgmethod
+ (font-variation+get-palette-index :class 'font-variation :bind
+  "get_palette_index" :hash 3905245786)
+ int)
+
+(defgmethod
+ (font-variation+set-palette-index :class 'font-variation :bind
+  "set_palette_index" :hash 1286410249)
+ :void (palette-index int))
+
+(defgmethod
+ (font-variation+get-palette-custom-colors :class 'font-variation :bind
+  "get_palette_custom_colors" :hash 1392750486)
+ packed-color-array)
+
+(defgmethod
+ (font-variation+set-palette-custom-colors :class 'font-variation :bind
+  "set_palette_custom_colors" :hash 3546319833)
+ :void (colors packed-color-array))

@@ -52,6 +52,16 @@
  bool (anim string-name))
 
 (defgmethod
+ (sprite-frames+set-animation-loop-mode :class 'sprite-frames :bind
+  "set_animation_loop_mode" :hash 918068248)
+ :void (anim string-name) (loop-mode sprite-frames+loop-mode))
+
+(defgmethod
+ (sprite-frames+get-animation-loop-mode :class 'sprite-frames :bind
+  "get_animation_loop_mode" :hash 3606360228)
+ sprite-frames+loop-mode (anim string-name))
+
+(defgmethod
  (sprite-frames+add-frame :class 'sprite-frames :bind "add_frame" :hash
   1351332740)
  :void (anim string-name) (texture texture-2d) (duration float)

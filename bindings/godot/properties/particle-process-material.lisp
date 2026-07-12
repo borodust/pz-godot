@@ -26,6 +26,11 @@
  'particle-process-material+get-particle-flag :set
  'particle-process-material+set-particle-flag)
 
+(defgproperty particle-process-material+particle-flag-inherit-emitter-scale
+ 'particle-process-material :index 4 :get
+ 'particle-process-material+get-particle-flag :set
+ 'particle-process-material+set-particle-flag)
+
 (defgproperty particle-process-material+emission-shape-offset
  'particle-process-material :get
  'particle-process-material+get-emission-shape-offset :set
@@ -110,6 +115,19 @@
 (defgproperty particle-process-material+angle-curve 'particle-process-material
  :index 7 :get 'particle-process-material+get-param-texture :set
  'particle-process-material+set-param-texture)
+
+(defgproperty particle-process-material+use-rotation-3d
+ 'particle-process-material :get
+ 'particle-process-material+is-using-rotation-3d :set
+ 'particle-process-material+set-use-rotation-3d)
+
+(defgproperty particle-process-material+rotation-3d-min
+ 'particle-process-material :get 'particle-process-material+get-rotation-3d-min
+ :set 'particle-process-material+set-rotation-3d-min)
+
+(defgproperty particle-process-material+rotation-3d-max
+ 'particle-process-material :get 'particle-process-material+get-rotation-3d-max
+ :set 'particle-process-material+set-rotation-3d-max)
 
 (defgproperty particle-process-material+inherit-velocity-ratio
  'particle-process-material :get
@@ -227,6 +245,26 @@
  'particle-process-material+get-velocity-limit-curve :set
  'particle-process-material+set-velocity-limit-curve)
 
+(defgproperty particle-process-material+use-rotation-velocity-3d
+ 'particle-process-material :get
+ 'particle-process-material+is-using-rotation-velocity-3d :set
+ 'particle-process-material+set-using-rotation-velocity-3d)
+
+(defgproperty particle-process-material+rotation-velocity-3d-min
+ 'particle-process-material :get
+ 'particle-process-material+get-rotation-velocity-3d-min :set
+ 'particle-process-material+set-rotation-velocity-3d-min)
+
+(defgproperty particle-process-material+rotation-velocity-3d-max
+ 'particle-process-material :get
+ 'particle-process-material+get-rotation-velocity-3d-max :set
+ 'particle-process-material+set-rotation-velocity-3d-max)
+
+(defgproperty particle-process-material+rotation-velocity-3d-curve
+ 'particle-process-material :get
+ 'particle-process-material+get-rotation-velocity-3d-curve :set
+ 'particle-process-material+set-rotation-velocity-3d-curve)
+
 (defgproperty particle-process-material+gravity 'particle-process-material :get
  'particle-process-material+get-gravity :set
  'particle-process-material+set-gravity)
@@ -309,6 +347,18 @@
  'particle-process-material :get
  'particle-process-material+is-attractor-interaction-enabled :set
  'particle-process-material+set-attractor-interaction-enabled)
+
+(defgproperty particle-process-material+use-scale-3d 'particle-process-material
+ :get 'particle-process-material+is-using-scale-3d :set
+ 'particle-process-material+set-use-scale-3d)
+
+(defgproperty particle-process-material+scale-3d-min 'particle-process-material
+ :get 'particle-process-material+get-scale-3d-min :set
+ 'particle-process-material+set-scale-3d-min)
+
+(defgproperty particle-process-material+scale-3d-max 'particle-process-material
+ :get 'particle-process-material+get-scale-3d-max :set
+ 'particle-process-material+set-scale-3d-max)
 
 (defgproperty particle-process-material+scale 'particle-process-material :index
  8 :get 'particle-process-material+get-param :set

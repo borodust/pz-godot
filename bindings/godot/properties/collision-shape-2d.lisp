@@ -15,5 +15,9 @@
  :get 'collision-shape-2d+get-one-way-collision-margin :set
  'collision-shape-2d+set-one-way-collision-margin)
 
+(defgproperty collision-shape-2d+one-way-collision-direction
+ 'collision-shape-2d :get 'collision-shape-2d+get-one-way-collision-direction
+ :set 'collision-shape-2d+set-one-way-collision-direction)
+
 (defgproperty collision-shape-2d+debug-color 'collision-shape-2d :get
  'collision-shape-2d+get-debug-color :set 'collision-shape-2d+set-debug-color)

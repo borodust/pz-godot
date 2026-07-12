@@ -9,10 +9,11 @@
  (font+get-fallbacks :class 'font :bind "get_fallbacks" :hash 3995934104) array)
 
 (defgmethod
- (font+find-variation :class 'font :bind "find_variation" :hash 2553855095) rid
+ (font+find-variation :class 'font :bind "find_variation" :hash 3275867622) rid
  (variation-coordinates dictionary) (face-index int) (strength float)
  (transform transform-2d) (spacing-top int) (spacing-bottom int)
- (spacing-space int) (spacing-glyph int) (baseline-offset float))
+ (spacing-space int) (spacing-glyph int) (baseline-offset float)
+ (palette-index int) (custom-colors packed-color-array))
 
 (defgmethod (font+get-rids :class 'font :bind "get_rids" :hash 3995934104)
  array)
@@ -60,6 +61,20 @@
 (defgmethod
  (font+get-font-stretch :class 'font :bind "get_font_stretch" :hash 3905245786)
  int)
+
+(defgmethod
+ (font+get-palette-count :class 'font :bind "get_palette_count" :hash
+  3905245786)
+ int)
+
+(defgmethod
+ (font+get-palette-name :class 'font :bind "get_palette_name" :hash 844755477)
+ string (index int))
+
+(defgmethod
+ (font+get-palette-colors :class 'font :bind "get_palette_colors" :hash
+  2552048864)
+ packed-color-array (index int))
 
 (defgmethod
  (font+get-spacing :class 'font :bind "get_spacing" :hash 1310880908) int

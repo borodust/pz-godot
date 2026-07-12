@@ -113,6 +113,16 @@
  bool)
 
 (defgmethod
+ (split-container+set-drag-nested-intersections :class 'split-container :bind
+  "set_drag_nested_intersections" :hash 2586408642)
+ :void (enabled bool))
+
+(defgmethod
+ (split-container+is-dragging-nested-intersections :class 'split-container
+  :bind "is_dragging_nested_intersections" :hash 36873697)
+ bool)
+
+(defgmethod
  (split-container+get-drag-area-control :class 'split-container :bind
   "get_drag_area_control" :hash 829782337)
  control)

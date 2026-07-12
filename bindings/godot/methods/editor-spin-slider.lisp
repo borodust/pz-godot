@@ -70,3 +70,13 @@
  (editor-spin-slider+is-editing-integer :class 'editor-spin-slider :bind
   "is_editing_integer" :hash 36873697)
  bool)
+
+(defgmethod
+ (editor-spin-slider+set-deferred-drag-mode-enabled :class 'editor-spin-slider
+  :bind "set_deferred_drag_mode_enabled" :hash 3216645846)
+ :void (enabled bool))
+
+(defgmethod
+ (editor-spin-slider+is-deferred-drag-mode-enabled :class 'editor-spin-slider
+  :bind "is_deferred_drag_mode_enabled" :hash 36873697)
+ bool)

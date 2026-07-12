@@ -31,5 +31,20 @@
 (defgproperty popup-menu+shrink-width 'popup-menu :get
  'popup-menu+get-shrink-width :set 'popup-menu+set-shrink-width)
 
+(defgproperty popup-menu+search-bar-enabled 'popup-menu :get
+ 'popup-menu+is-search-bar-enabled :set 'popup-menu+set-search-bar-enabled)
+
+(defgproperty popup-menu+search-bar-min-item-count 'popup-menu :get
+ 'popup-menu+get-search-bar-min-item-count :set
+ 'popup-menu+set-search-bar-min-item-count)
+
+(defgproperty popup-menu+search-bar-fuzzy-search-enabled 'popup-menu :get
+ 'popup-menu+is-search-bar-fuzzy-search-enabled :set
+ 'popup-menu+set-search-bar-fuzzy-search-enabled)
+
+(defgproperty popup-menu+search-bar-fuzzy-search-max-misses 'popup-menu :get
+ 'popup-menu+get-search-bar-fuzzy-search-max-misses :set
+ 'popup-menu+set-search-bar-fuzzy-search-max-misses)
+
 (defgproperty popup-menu+item-count 'popup-menu :get 'popup-menu+get-item-count
  :set 'popup-menu+set-item-count)

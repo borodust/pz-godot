@@ -22,6 +22,10 @@
  'split-container+is-touch-dragger-enabled :set
  'split-container+set-touch-dragger-enabled)
 
+(defgproperty split-container+drag-nested-intersections 'split-container :get
+ 'split-container+is-dragging-nested-intersections :set
+ 'split-container+set-drag-nested-intersections)
+
 (defgproperty split-container+drag-area-margin-begin 'split-container :get
  'split-container+get-drag-area-margin-begin :set
  'split-container+set-drag-area-margin-begin)

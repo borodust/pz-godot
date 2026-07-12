@@ -324,6 +324,11 @@
  :void (rid rid) (idx int) (level int))
 
 (defgmethod
+ (native-menu+set-item-index :class 'native-menu :bind "set_item_index" :hash
+  23951185)
+ int (rid rid) (idx int) (target-idx int))
+
+(defgmethod
  (native-menu+get-item-count :class 'native-menu :bind "get_item_count" :hash
   2198884583)
  int (rid rid))

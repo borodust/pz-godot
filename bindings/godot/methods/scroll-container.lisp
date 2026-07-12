@@ -62,6 +62,16 @@
  scroll-container+scroll-mode)
 
 (defgmethod
+ (scroll-container+set-scroll-horizontal-by-default :class 'scroll-container
+  :bind "set_scroll_horizontal_by_default" :hash 2586408642)
+ :void (enable bool))
+
+(defgmethod
+ (scroll-container+is-scroll-horizontal-by-default :class 'scroll-container
+  :bind "is_scroll_horizontal_by_default" :hash 36873697)
+ bool)
+
+(defgmethod
  (scroll-container+set-deadzone :class 'scroll-container :bind "set_deadzone"
   :hash 1286410249)
  :void (deadzone int))

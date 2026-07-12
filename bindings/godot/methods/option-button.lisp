@@ -47,6 +47,41 @@
  :void (idx int) (mode node+auto-translate-mode))
 
 (defgmethod
+ (option-button+set-search-bar-enabled :class 'option-button :bind
+  "set_search_bar_enabled" :hash 2586408642)
+ :void (enabled bool))
+
+(defgmethod
+ (option-button+set-search-bar-min-item-count :class 'option-button :bind
+  "set_search_bar_min_item_count" :hash 1286410249)
+ :void (count int))
+
+(defgmethod
+ (option-button+get-search-bar-min-item-count :class 'option-button :bind
+  "get_search_bar_min_item_count" :hash 3905245786)
+ int)
+
+(defgmethod
+ (option-button+set-search-bar-fuzzy-search-enabled :class 'option-button :bind
+  "set_search_bar_fuzzy_search_enabled" :hash 2586408642)
+ :void (enabled bool))
+
+(defgmethod
+ (option-button+is-search-bar-fuzzy-search-enabled :class 'option-button :bind
+  "is_search_bar_fuzzy_search_enabled" :hash 36873697)
+ bool)
+
+(defgmethod
+ (option-button+set-search-bar-fuzzy-search-max-misses :class 'option-button
+  :bind "set_search_bar_fuzzy_search_max_misses" :hash 1286410249)
+ :void (max-misses int))
+
+(defgmethod
+ (option-button+get-search-bar-fuzzy-search-max-misses :class 'option-button
+  :bind "get_search_bar_fuzzy_search_max_misses" :hash 3905245786)
+ int)
+
+(defgmethod
  (option-button+get-item-text :class 'option-button :bind "get_item_text" :hash
   844755477)
  string (idx int))
@@ -90,6 +125,11 @@
  (option-button+is-item-separator :class 'option-button :bind
   "is_item_separator" :hash 1116898809)
  bool (idx int))
+
+(defgmethod
+ (option-button+is-search-bar-enabled :class 'option-button :bind
+  "is_search_bar_enabled" :hash 36873697)
+ bool)
 
 (defgmethod
  (option-button+add-separator :class 'option-button :bind "add_separator" :hash

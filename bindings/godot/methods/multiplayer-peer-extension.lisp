@@ -10,7 +10,7 @@
 (defgmethod
  (multiplayer-peer-extension+%put-packet :class 'multiplayer-peer-extension
   :bind "_put_packet" :hash 3099858825 :virtual common-lisp:t)
- error (p-buffer (:pointer :uint8)) (p-buffer-size int))
+ error (buffer (:pointer :uint8)) (buffer-size int))
 
 (defgmethod
  (multiplayer-peer-extension+%get-available-packet-count :class
@@ -34,7 +34,7 @@
  (multiplayer-peer-extension+%put-packet-script :class
   'multiplayer-peer-extension :bind "_put_packet_script" :hash 680677267
   :virtual common-lisp:t)
- error (p-buffer packed-byte-array))
+ error (buffer packed-byte-array))
 
 (defgmethod
  (multiplayer-peer-extension+%get-packet-channel :class
@@ -52,7 +52,7 @@
  (multiplayer-peer-extension+%set-transfer-channel :class
   'multiplayer-peer-extension :bind "_set_transfer_channel" :hash 1286410249
   :virtual common-lisp:t)
- :void (p-channel int))
+ :void (channel int))
 
 (defgmethod
  (multiplayer-peer-extension+%get-transfer-channel :class
@@ -64,7 +64,7 @@
  (multiplayer-peer-extension+%set-transfer-mode :class
   'multiplayer-peer-extension :bind "_set_transfer_mode" :hash 950411049
   :virtual common-lisp:t)
- :void (p-mode multiplayer-peer+transfer-mode))
+ :void (mode multiplayer-peer+transfer-mode))
 
 (defgmethod
  (multiplayer-peer-extension+%get-transfer-mode :class
@@ -76,7 +76,7 @@
  (multiplayer-peer-extension+%set-target-peer :class
   'multiplayer-peer-extension :bind "_set_target_peer" :hash 1286410249
   :virtual common-lisp:t)
- :void (p-peer int))
+ :void (peer int))
 
 (defgmethod
  (multiplayer-peer-extension+%get-packet-peer :class
@@ -103,7 +103,7 @@
  (multiplayer-peer-extension+%disconnect-peer :class
   'multiplayer-peer-extension :bind "_disconnect_peer" :hash 300928843 :virtual
   common-lisp:t)
- :void (p-peer int) (p-force bool))
+ :void (peer int) (force bool))
 
 (defgmethod
  (multiplayer-peer-extension+%get-unique-id :class 'multiplayer-peer-extension
@@ -114,7 +114,7 @@
  (multiplayer-peer-extension+%set-refuse-new-connections :class
   'multiplayer-peer-extension :bind "_set_refuse_new_connections" :hash
   2586408642 :virtual common-lisp:t)
- :void (p-enable bool))
+ :void (enable bool))
 
 (defgmethod
  (multiplayer-peer-extension+%is-refusing-new-connections :class

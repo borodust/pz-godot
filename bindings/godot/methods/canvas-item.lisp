@@ -490,3 +490,13 @@
  (canvas-item+get-clip-children-mode :class 'canvas-item :bind
   "get_clip_children_mode" :hash 3581808349)
  canvas-item+clip-children-mode)
+
+(defgmethod
+ (canvas-item+set-oversampling-with-scale :class 'canvas-item :bind
+  "set_oversampling_with_scale" :hash 872218804)
+ :void (enabled canvas-item+oversampling-with-scale))
+
+(defgmethod
+ (canvas-item+get-oversampling-with-scale :class 'canvas-item :bind
+  "get_oversampling_with_scale" :hash 2026097197)
+ canvas-item+oversampling-with-scale)

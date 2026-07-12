@@ -1,6 +1,12 @@
 (common-lisp:in-package :%godot)
 
 
+(defgproperty csgshape-3d+autosmooth 'csgshape-3d :get
+ 'csgshape-3d+is-autosmooth :set 'csgshape-3d+set-autosmooth)
+
+(defgproperty csgshape-3d+smoothing-angle 'csgshape-3d :get
+ 'csgshape-3d+get-smoothing-angle :set 'csgshape-3d+set-smoothing-angle)
+
 (defgproperty csgshape-3d+operation 'csgshape-3d :get
  'csgshape-3d+get-operation :set 'csgshape-3d+set-operation)
 

@@ -94,6 +94,11 @@
  int)
 
 (defgmethod
+ (skeleton-modification-2djiggle+reset :class 'skeleton-modification-2djiggle
+  :bind "reset" :hash 3218959716)
+ :void)
+
+(defgmethod
  (skeleton-modification-2djiggle+set-jiggle-joint-bone2d-node :class
   'skeleton-modification-2djiggle :bind "set_jiggle_joint_bone2d_node" :hash
   2761262315)

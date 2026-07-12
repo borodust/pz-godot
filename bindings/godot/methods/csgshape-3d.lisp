@@ -108,3 +108,23 @@
  (csgshape-3d+bake-static-mesh :class 'csgshape-3d :bind "bake_static_mesh"
   :hash 1605880883)
  array-mesh)
+
+(defgmethod
+ (csgshape-3d+set-autosmooth :class 'csgshape-3d :bind "set_autosmooth" :hash
+  2586408642)
+ :void (autosmooth bool))
+
+(defgmethod
+ (csgshape-3d+is-autosmooth :class 'csgshape-3d :bind "is_autosmooth" :hash
+  36873697)
+ bool)
+
+(defgmethod
+ (csgshape-3d+set-smoothing-angle :class 'csgshape-3d :bind
+  "set_smoothing_angle" :hash 373806689)
+ :void (smoothing-angle float))
+
+(defgmethod
+ (csgshape-3d+get-smoothing-angle :class 'csgshape-3d :bind
+  "get_smoothing_angle" :hash 1740695150)
+ float)

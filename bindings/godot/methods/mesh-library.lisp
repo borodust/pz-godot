@@ -116,6 +116,11 @@
  packed-int-32array)
 
 (defgmethod
+ (mesh-library+get-item-count :class 'mesh-library :bind "get_item_count" :hash
+  3905245786)
+ int)
+
+(defgmethod
  (mesh-library+get-last-unused-item-id :class 'mesh-library :bind
   "get_last_unused_item_id" :hash 3905245786)
  int)

@@ -12,6 +12,11 @@
  bool)
 
 (defgmethod
+ (editor-file-system+is-importing :class 'editor-file-system :bind
+  "is_importing" :hash 36873697)
+ bool)
+
+(defgmethod
  (editor-file-system+get-scanning-progress :class 'editor-file-system :bind
   "get_scanning_progress" :hash 1740695150)
  float)

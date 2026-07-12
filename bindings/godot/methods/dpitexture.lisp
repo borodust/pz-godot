@@ -16,6 +16,26 @@
  string)
 
 (defgmethod
+ (dpitexture+set-fix-alpha-border :class 'dpitexture :bind
+  "set_fix_alpha_border" :hash 2586408642)
+ :void (fix-alpha-border bool))
+
+(defgmethod
+ (dpitexture+get-fix-alpha-border :class 'dpitexture :bind
+  "get_fix_alpha_border" :hash 36873697)
+ bool)
+
+(defgmethod
+ (dpitexture+set-premult-alpha :class 'dpitexture :bind "set_premult_alpha"
+  :hash 2586408642)
+ :void (premult-alpha bool))
+
+(defgmethod
+ (dpitexture+get-premult-alpha :class 'dpitexture :bind "get_premult_alpha"
+  :hash 36873697)
+ bool)
+
+(defgmethod
  (dpitexture+set-base-scale :class 'dpitexture :bind "set_base_scale" :hash
   373806689)
  :void (base-scale float))

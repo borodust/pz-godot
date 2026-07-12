@@ -23,6 +23,10 @@
  subtween-tweener (subtween tween))
 
 (defgmethod
+ (tween+tween-await :class 'tween :bind "tween_await" :hash 2242837462)
+ await-tweener (signal signal))
+
+(defgmethod
  (tween+custom-step :class 'tween :bind "custom_step" :hash 330693286) bool
  (delta float))
 
@@ -38,6 +42,9 @@
  (tween+get-total-elapsed-time :class 'tween :bind "get_total_elapsed_time"
   :hash 1740695150)
  float)
+
+(defgmethod
+ (tween+has-tweeners :class 'tween :bind "has_tweeners" :hash 36873697) bool)
 
 (defgmethod
  (tween+is-running :class 'tween :bind "is_running" :hash 2240911060) bool)

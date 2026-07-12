@@ -2,6 +2,12 @@
 
 
 (defgmethod
+ (importer-mesh+merge-importer-meshes :class 'importer-mesh :bind
+  "merge_importer_meshes" :hash 1030647649 :static common-lisp:t)
+ importer-mesh (importer-meshes array) (relative-transforms array)
+ (deduplicate-surfaces bool))
+
+(defgmethod
  (importer-mesh+add-blend-shape :class 'importer-mesh :bind "add_blend_shape"
   :hash 83702148)
  :void (name string))

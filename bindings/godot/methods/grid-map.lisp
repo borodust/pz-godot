@@ -52,6 +52,16 @@
  float)
 
 (defgmethod
+ (grid-map+set-collision-visibility-mode :class 'grid-map :bind
+  "set_collision_visibility_mode" :hash 4160694578)
+ :void (visibility-mode grid-map+debug-visibility-mode))
+
+(defgmethod
+ (grid-map+get-collision-visibility-mode :class 'grid-map :bind
+  "get_collision_visibility_mode" :hash 3729798365)
+ grid-map+debug-visibility-mode)
+
+(defgmethod
  (grid-map+set-physics-material :class 'grid-map :bind "set_physics_material"
   :hash 1784508650)
  :void (material physics-material))
@@ -200,6 +210,41 @@
  (grid-map+get-used-cells-by-item :class 'grid-map :bind
   "get_used_cells_by_item" :hash 663333327)
  array (item int))
+
+(defgmethod
+ (grid-map+get-used-octants :class 'grid-map :bind "get_used_octants" :hash
+  3995934104)
+ array)
+
+(defgmethod
+ (grid-map+get-used-octants-by-item :class 'grid-map :bind
+  "get_used_octants_by_item" :hash 663333327)
+ array (item int))
+
+(defgmethod
+ (grid-map+get-used-cells-in-octant :class 'grid-map :bind
+  "get_used_cells_in_octant" :hash 2658725580)
+ array (octant-coords vector-3i))
+
+(defgmethod
+ (grid-map+get-used-cells-in-octant-by-item :class 'grid-map :bind
+  "get_used_cells_in_octant_by_item" :hash 2384667821)
+ array (octant-coords vector-3i) (item int))
+
+(defgmethod
+ (grid-map+get-octants-in-bounds :class 'grid-map :bind "get_octants_in_bounds"
+  :hash 2489849902)
+ array (bounds aabb))
+
+(defgmethod
+ (grid-map+get-used-octants-in-bounds :class 'grid-map :bind
+  "get_used_octants_in_bounds" :hash 2489849902)
+ array (bounds aabb))
+
+(defgmethod
+ (grid-map+get-octant-coords-from-cell-coords :class 'grid-map :bind
+  "get_octant_coords_from_cell_coords" :hash 2075501597)
+ vector-3i (cell-coords vector-3i))
 
 (defgmethod
  (grid-map+get-meshes :class 'grid-map :bind "get_meshes" :hash 3995934104)

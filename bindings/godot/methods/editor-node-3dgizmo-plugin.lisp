@@ -33,6 +33,12 @@
  bool)
 
 (defgmethod
+ (editor-node-3dgizmo-plugin+%can-commit-handle-on-click :class
+  'editor-node-3dgizmo-plugin :bind "_can_commit_handle_on_click" :hash
+  36873697 :virtual common-lisp:t)
+ bool)
+
+(defgmethod
  (editor-node-3dgizmo-plugin+%redraw :class 'editor-node-3dgizmo-plugin :bind
   "_redraw" :hash 173330131 :virtual common-lisp:t)
  :void (gizmo editor-node-3dgizmo))

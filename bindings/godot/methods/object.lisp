@@ -4,8 +4,8 @@
 (defgmethod (object+get-class :class 'object :bind "get_class" :hash 201670096)
  string)
 
-(defgmethod (object+is-class :class 'object :bind "is_class" :hash 3927539163)
- bool (class string))
+(defgmethod (object+is-class :class 'object :bind "is_class" :hash 2619796661)
+ bool (class string-name))
 
 (defgmethod (object+set :class 'object :bind "set" :hash 3776071444) :void
  (property string-name) (value variant))

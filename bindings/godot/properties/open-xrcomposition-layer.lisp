@@ -31,6 +31,10 @@
  'open-xrcomposition-layer :get 'open-xrcomposition-layer+get-enable-hole-punch
  :set 'open-xrcomposition-layer+set-enable-hole-punch)
 
+(defgproperty open-xrcomposition-layer+eye-visibility 'open-xrcomposition-layer
+ :get 'open-xrcomposition-layer+get-eye-visibility :set
+ 'open-xrcomposition-layer+set-eye-visibility)
+
 (defgproperty open-xrcomposition-layer+swapchain-state-min-filter
  'open-xrcomposition-layer :get 'open-xrcomposition-layer+get-min-filter :set
  'open-xrcomposition-layer+set-min-filter)

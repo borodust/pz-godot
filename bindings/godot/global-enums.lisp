@@ -94,7 +94,8 @@
  (:guide 5) (:start 6) (:left-stick 7) (:right-stick 8) (:left-shoulder 9)
  (:right-shoulder 10) (:dpad-up 11) (:dpad-down 12) (:dpad-left 13)
  (:dpad-right 14) (:misc1 15) (:paddle1 16) (:paddle2 17) (:paddle3 18)
- (:paddle4 19) (:touchpad 20) (:sdl-max 21) (:max 128))
+ (:paddle4 19) (:touchpad 20) (:misc2 21) (:misc3 22) (:misc4 23) (:misc5 24)
+ (:misc6 25) (:sdl-max 26) (:max 128))
 
 
 (defgenum joy-axis (:invalid -1) (:left-x 0) (:left-y 1) (:right-x 2)

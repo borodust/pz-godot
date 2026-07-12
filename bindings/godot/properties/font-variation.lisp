@@ -37,3 +37,10 @@
 
 (defgproperty font-variation+baseline-offset 'font-variation :get
  'font-variation+get-baseline-offset :set 'font-variation+set-baseline-offset)
+
+(defgproperty font-variation+palette-index 'font-variation :get
+ 'font-variation+get-palette-index :set 'font-variation+set-palette-index)
+
+(defgproperty font-variation+palette-custom-colors 'font-variation :get
+ 'font-variation+get-palette-custom-colors :set
+ 'font-variation+set-palette-custom-colors)

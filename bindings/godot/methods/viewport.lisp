@@ -553,7 +553,7 @@
  :void (use bool))
 
 (defgmethod
- (viewport+is-using-xr :class 'viewport :bind "is_using_xr" :hash 2240911060)
+ (viewport+is-using-xr :class 'viewport :bind "is_using_xr" :hash 36873697)
  bool)
 
 (defgmethod

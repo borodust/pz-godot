@@ -49,6 +49,11 @@
  int (column int))
 
 (defgmethod
+ (tree+get-custom-drawing-canvas-item :class 'tree :bind
+  "get_custom_drawing_canvas_item" :hash 2944877500)
+ rid)
+
+(defgmethod
  (tree+set-hide-root :class 'tree :bind "set_hide_root" :hash 2586408642) :void
  (enable bool))
 

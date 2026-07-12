@@ -358,6 +358,11 @@
  :void)
 
 (defgmethod
+ (item-list+center-on-current :class 'item-list :bind "center_on_current" :hash
+  3058350285)
+ :void (center-verically bool) (center-horizontally bool))
+
+(defgmethod
  (item-list+get-v-scroll-bar :class 'item-list :bind "get_v_scroll_bar" :hash
   2630340773)
  vscroll-bar)

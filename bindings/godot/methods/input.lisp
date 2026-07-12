@@ -123,6 +123,21 @@
  float (device int))
 
 (defgmethod
+ (input+get-joy-vibration-remaining-duration :class 'input :bind
+  "get_joy_vibration_remaining_duration" :hash 4025615559)
+ float (device int))
+
+(defgmethod
+ (input+is-joy-vibrating :class 'input :bind "is_joy_vibrating" :hash
+  3067735520)
+ bool (device int))
+
+(defgmethod
+ (input+has-joy-vibration :class 'input :bind "has_joy_vibration" :hash
+  1116898809)
+ bool (device int))
+
+(defgmethod
  (input+start-joy-vibration :class 'input :bind "start_joy_vibration" :hash
   2576575033)
  :void (device int) (weak-magnitude float) (strong-magnitude float)
@@ -137,6 +152,16 @@
  (input+vibrate-handheld :class 'input :bind "vibrate_handheld" :hash
   544894297)
  :void (duration-ms int) (amplitude float))
+
+(defgmethod
+ (input+set-ignore-joypad-on-unfocused-application :class 'input :bind
+  "set_ignore_joypad_on_unfocused_application" :hash 2586408642)
+ :void (enable bool))
+
+(defgmethod
+ (input+is-ignoring-joypad-on-unfocused-application :class 'input :bind
+  "is_ignoring_joypad_on_unfocused_application" :hash 36873697)
+ bool)
 
 (defgmethod
  (input+get-gravity :class 'input :bind "get_gravity" :hash 3360562783)
@@ -155,6 +180,75 @@
 (defgmethod
  (input+get-gyroscope :class 'input :bind "get_gyroscope" :hash 3360562783)
  vector-3)
+
+(defgmethod
+ (input+get-joy-accelerometer :class 'input :bind "get_joy_accelerometer" :hash
+  711720468)
+ vector-3 (device int))
+
+(defgmethod
+ (input+get-joy-gravity :class 'input :bind "get_joy_gravity" :hash 711720468)
+ vector-3 (device int))
+
+(defgmethod
+ (input+get-joy-gyroscope :class 'input :bind "get_joy_gyroscope" :hash
+  711720468)
+ vector-3 (device int))
+
+(defgmethod
+ (input+get-joy-motion-sensors-rate :class 'input :bind
+  "get_joy_motion_sensors_rate" :hash 2339986948)
+ float (device int))
+
+(defgmethod
+ (input+is-joy-motion-sensors-enabled :class 'input :bind
+  "is_joy_motion_sensors_enabled" :hash 1116898809)
+ bool (device int))
+
+(defgmethod
+ (input+set-joy-motion-sensors-enabled :class 'input :bind
+  "set_joy_motion_sensors_enabled" :hash 300928843)
+ :void (device int) (enable bool))
+
+(defgmethod
+ (input+has-joy-motion-sensors :class 'input :bind "has_joy_motion_sensors"
+  :hash 1116898809)
+ bool (device int))
+
+(defgmethod
+ (input+start-joy-motion-sensors-calibration :class 'input :bind
+  "start_joy_motion_sensors_calibration" :hash 1286410249)
+ :void (device int))
+
+(defgmethod
+ (input+stop-joy-motion-sensors-calibration :class 'input :bind
+  "stop_joy_motion_sensors_calibration" :hash 1286410249)
+ :void (device int))
+
+(defgmethod
+ (input+clear-joy-motion-sensors-calibration :class 'input :bind
+  "clear_joy_motion_sensors_calibration" :hash 1286410249)
+ :void (device int))
+
+(defgmethod
+ (input+get-joy-motion-sensors-calibration :class 'input :bind
+  "get_joy_motion_sensors_calibration" :hash 3485342025)
+ dictionary (device int))
+
+(defgmethod
+ (input+set-joy-motion-sensors-calibration :class 'input :bind
+  "set_joy_motion_sensors_calibration" :hash 64545446)
+ :void (device int) (calibration-info dictionary))
+
+(defgmethod
+ (input+is-joy-motion-sensors-calibrated :class 'input :bind
+  "is_joy_motion_sensors_calibrated" :hash 1116898809)
+ bool (device int))
+
+(defgmethod
+ (input+is-joy-motion-sensors-calibrating :class 'input :bind
+  "is_joy_motion_sensors_calibrating" :hash 1116898809)
+ bool (device int))
 
 (defgmethod
  (input+set-gravity :class 'input :bind "set_gravity" :hash 3460891852) :void

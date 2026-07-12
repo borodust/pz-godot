@@ -178,8 +178,8 @@
 
 (defgmethod
  (cpuparticles-3d+request-particles-process :class 'cpuparticles-3d :bind
-  "request_particles_process" :hash 373806689)
- :void (process-time float))
+  "request_particles_process" :hash 66938510)
+ :void (process-time float) (process-time-residual float))
 
 (defgmethod
  (cpuparticles-3d+capture-aabb :class 'cpuparticles-3d :bind "capture_aabb"

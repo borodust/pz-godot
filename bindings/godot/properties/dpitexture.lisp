@@ -1,6 +1,12 @@
 (common-lisp:in-package :%godot)
 
 
+(defgproperty dpitexture+fix-alpha-border 'dpitexture :get
+ 'dpitexture+get-fix-alpha-border :set 'dpitexture+set-fix-alpha-border)
+
+(defgproperty dpitexture+premult-alpha 'dpitexture :get
+ 'dpitexture+get-premult-alpha :set 'dpitexture+set-premult-alpha)
+
 (defgproperty dpitexture+base-scale 'dpitexture :get 'dpitexture+get-base-scale
  :set 'dpitexture+set-base-scale)
 

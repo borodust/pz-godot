@@ -12,6 +12,16 @@
  :void)
 
 (defgmethod
+ (camera-feed+%set-format :class 'camera-feed :bind "_set_format" :hash
+  31872775 :virtual common-lisp:t)
+ bool (index int) (parameters dictionary))
+
+(defgmethod
+ (camera-feed+%get-formats :class 'camera-feed :bind "_get_formats" :hash
+  3995934104 :virtual common-lisp:t)
+ array)
+
+(defgmethod
  (camera-feed+get-id :class 'camera-feed :bind "get_id" :hash 3905245786) int)
 
 (defgmethod

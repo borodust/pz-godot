@@ -3,5 +3,5 @@
 
 (defgmethod
  (optimized-translation+generate :class 'optimized-translation :bind "generate"
-  :hash 1466479800)
- :void (from translation))
+  :hash 2141509306)
+ bool (from translation))

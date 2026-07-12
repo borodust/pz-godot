@@ -8,7 +8,7 @@
  bool (from vector-3) (to vector-3) (collision-mask int)
  (collide-with-bodies bool) (collide-with-areas bool) (hit-from-inside bool)
  (hit-back-faces bool) (pick-ray bool)
- (result (:pointer physics-server-3dextension-ray-result)))
+ (r-result (:pointer physics-server-3dextension-ray-result)))
 
 (defgmethod
  (physics-direct-space-state-3dextension+%intersect-point :class
@@ -16,7 +16,8 @@
   3378904092 :virtual common-lisp:t)
  int (position vector-3) (collision-mask int) (collide-with-bodies bool)
  (collide-with-areas bool)
- (results (:pointer physics-server-3dextension-shape-result)) (max-results int))
+ (r-results (:pointer physics-server-3dextension-shape-result))
+ (max-results int))
 
 (defgmethod
  (physics-direct-space-state-3dextension+%intersect-shape :class
@@ -24,7 +25,7 @@
   728953575 :virtual common-lisp:t)
  int (shape-rid rid) (transform transform-3d) (motion vector-3) (margin float)
  (collision-mask int) (collide-with-bodies bool) (collide-with-areas bool)
- (result-count (:pointer physics-server-3dextension-shape-result))
+ (r-result-count (:pointer physics-server-3dextension-shape-result))
  (max-results int))
 
 (defgmethod
@@ -33,8 +34,8 @@
   :virtual common-lisp:t)
  bool (shape-rid rid) (transform transform-3d) (motion vector-3) (margin float)
  (collision-mask int) (collide-with-bodies bool) (collide-with-areas bool)
- (closest-safe (:pointer :float)) (closest-unsafe (:pointer :float))
- (info (:pointer physics-server-3dextension-shape-rest-info)))
+ (r-closest-safe (:pointer :float)) (r-closest-unsafe (:pointer :float))
+ (r-info (:pointer physics-server-3dextension-shape-rest-info)))
 
 (defgmethod
  (physics-direct-space-state-3dextension+%collide-shape :class
@@ -42,7 +43,8 @@
   2320624824 :virtual common-lisp:t)
  bool (shape-rid rid) (transform transform-3d) (motion vector-3) (margin float)
  (collision-mask int) (collide-with-bodies bool) (collide-with-areas bool)
- (results (:pointer :void)) (max-results int) (result-count (:pointer :int32)))
+ (r-results (:pointer :void)) (max-results int)
+ (r-result-count (:pointer :int32)))
 
 (defgmethod
  (physics-direct-space-state-3dextension+%rest-info :class
@@ -50,7 +52,7 @@
   :virtual common-lisp:t)
  bool (shape-rid rid) (transform transform-3d) (motion vector-3) (margin float)
  (collision-mask int) (collide-with-bodies bool) (collide-with-areas bool)
- (rest-info (:pointer physics-server-3dextension-shape-rest-info)))
+ (r-rest-info (:pointer physics-server-3dextension-shape-rest-info)))
 
 (defgmethod
  (physics-direct-space-state-3dextension+%get-closest-point-to-object-volume

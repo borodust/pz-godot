@@ -47,11 +47,6 @@
  (:pointer :void) (for-object object))
 
 (defgmethod
- (script-extension+%instance-has :class 'script-extension :bind "_instance_has"
-  :hash 397768994 :virtual common-lisp:t)
- bool (object object))
-
-(defgmethod
  (script-extension+%has-source-code :class 'script-extension :bind
   "_has_source_code" :hash 36873697 :virtual common-lisp:t)
  bool)
@@ -187,3 +182,8 @@
  (script-extension+%get-rpc-config :class 'script-extension :bind
   "_get_rpc_config" :hash 1214101251 :virtual common-lisp:t)
  variant)
+
+(defgmethod
+ (script-extension+%instance-has :class 'script-extension :bind "_instance_has"
+  :hash 397768994 :virtual common-lisp:t)
+ bool (object object))

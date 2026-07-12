@@ -34,5 +34,9 @@
 (defgproperty grid-map+collision-priority 'grid-map :get
  'grid-map+get-collision-priority :set 'grid-map+set-collision-priority)
 
+(defgproperty grid-map+collision-visibility-mode 'grid-map :get
+ 'grid-map+get-collision-visibility-mode :set
+ 'grid-map+set-collision-visibility-mode)
+
 (defgproperty grid-map+bake-navigation 'grid-map :get
  'grid-map+is-baking-navigation :set 'grid-map+set-bake-navigation)

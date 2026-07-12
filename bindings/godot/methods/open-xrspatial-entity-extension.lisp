@@ -40,6 +40,13 @@
  int (spatial-context rid))
 
 (defgmethod
+ (open-xrspatial-entity-extension+discover-spatial-entities-with-component-data
+  :class 'open-xrspatial-entity-extension :bind
+  "discover_spatial_entities_with_component_data" :hash 1830928590)
+ open-xrfuture-result (spatial-context rid) (component-data array)
+ (next open-xrstructure-base) (user-callback callable))
+
+(defgmethod
  (open-xrspatial-entity-extension+discover-spatial-entities :class
   'open-xrspatial-entity-extension :bind "discover_spatial_entities" :hash
   2252833536)

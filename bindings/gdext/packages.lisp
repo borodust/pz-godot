@@ -86,6 +86,7 @@
            #:class-call-virtual
            #:class-create-instance
            #:class-create-instance-2
+           #:class-create-instance-3
            #:class-free-instance
            #:class-recreate-instance
            #:class-get-virtual
@@ -183,6 +184,30 @@
            #:call-virtual-with-data-func
            #:class-userdata
            #:class-creation-info-5
+           #:class-creation-info-6
+           #:is-virtual
+           #:is-abstract
+           #:is-exposed
+           #:is-runtime
+           #:icon-path
+           #:set-func
+           #:get-func
+           #:get-property-list-func
+           #:free-property-list-func
+           #:property-can-revert-func
+           #:property-get-revert-func
+           #:validate-property-func
+           #:notification-func
+           #:to-string-func
+           #:reference-func
+           #:unreference-func
+           #:create-instance-func
+           #:free-instance-func
+           #:recreate-instance-func
+           #:get-virtual-func
+           #:get-virtual-call-data-func
+           #:call-virtual-with-data-func
+           #:class-userdata
            #:class-library-ptr
            #:editor-get-classes-used-callback
            #:class-method-flags
@@ -430,6 +455,7 @@
            #:variant-has-key
            #:variant-get-object-instance-id
            #:variant-get-type-name
+           #:variant-get-type-by-name
            #:variant-can-convert
            #:variant-can-convert-strict
            #:get-variant-from-type-constructor
@@ -539,6 +565,7 @@
            #:callable-custom-get-userdata
            #:classdb-construct-object
            #:classdb-construct-object2
+           #:classdb-construct-object3
            #:classdb-get-method-bind
            #:classdb-get-class-tag
            #:classdb-register-extension-class
@@ -546,6 +573,7 @@
            #:classdb-register-extension-class3
            #:classdb-register-extension-class4
            #:classdb-register-extension-class5
+           #:classdb-register-extension-class6
            #:classdb-register-extension-class-method
            #:classdb-register-extension-class-virtual-method
            #:classdb-register-extension-class-integer-constant

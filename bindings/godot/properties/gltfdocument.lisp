@@ -18,5 +18,8 @@
 (defgproperty gltfdocument+root-node-mode 'gltfdocument :get
  'gltfdocument+get-root-node-mode :set 'gltfdocument+set-root-node-mode)
 
+(defgproperty gltfdocument+texture-map-mode 'gltfdocument :get
+ 'gltfdocument+get-texture-map-mode :set 'gltfdocument+set-texture-map-mode)
+
 (defgproperty gltfdocument+visibility-mode 'gltfdocument :get
  'gltfdocument+get-visibility-mode :set 'gltfdocument+set-visibility-mode)

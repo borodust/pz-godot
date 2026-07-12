@@ -661,6 +661,11 @@
  bool (flag display-server+window-flags) (window-id int))
 
 (defgmethod
+ (display-server+window-set-icon :class 'display-server :bind "window_set_icon"
+  :hash 2457502155)
+ :void (icon image) (window-id int))
+
+(defgmethod
  (display-server+window-set-window-buttons-offset :class 'display-server :bind
   "window_set_window_buttons_offset" :hash 2019273902)
  :void (offset vector-2i) (window-id int))
@@ -674,6 +679,16 @@
  (display-server+window-request-attention :class 'display-server :bind
   "window_request_attention" :hash 1995695955)
  :void (window-id int))
+
+(defgmethod
+ (display-server+window-set-taskbar-progress-value :class 'display-server :bind
+  "window_set_taskbar_progress_value" :hash 3506631519)
+ :void (value float) (window-id int))
+
+(defgmethod
+ (display-server+window-set-taskbar-progress-state :class 'display-server :bind
+  "window_set_taskbar_progress_state" :hash 4119882768)
+ :void (state display-server+progress-state) (window-id int))
 
 (defgmethod
  (display-server+window-move-to-foreground :class 'display-server :bind
@@ -719,6 +734,65 @@
  (display-server+window-get-vsync-mode :class 'display-server :bind
   "window_get_vsync_mode" :hash 578873795)
  display-server+vsync-mode (window-id int))
+
+(defgmethod
+ (display-server+window-is-hdr-output-supported :class 'display-server :bind
+  "window_is_hdr_output_supported" :hash 1051549951)
+ bool (window-id int))
+
+(defgmethod
+ (display-server+window-request-hdr-output :class 'display-server :bind
+  "window_request_hdr_output" :hash 1661950165)
+ :void (enable bool) (window-id int))
+
+(defgmethod
+ (display-server+window-is-hdr-output-requested :class 'display-server :bind
+  "window_is_hdr_output_requested" :hash 1051549951)
+ bool (window-id int))
+
+(defgmethod
+ (display-server+window-is-hdr-output-enabled :class 'display-server :bind
+  "window_is_hdr_output_enabled" :hash 1051549951)
+ bool (window-id int))
+
+(defgmethod
+ (display-server+window-set-hdr-output-reference-luminance :class
+  'display-server :bind "window_set_hdr_output_reference_luminance" :hash
+  3506631519)
+ :void (reference-luminance float) (window-id int))
+
+(defgmethod
+ (display-server+window-get-hdr-output-reference-luminance :class
+  'display-server :bind "window_get_hdr_output_reference_luminance" :hash
+  218038398)
+ float (window-id int))
+
+(defgmethod
+ (display-server+window-get-hdr-output-current-reference-luminance :class
+  'display-server :bind "window_get_hdr_output_current_reference_luminance"
+  :hash 218038398)
+ float (window-id int))
+
+(defgmethod
+ (display-server+window-set-hdr-output-max-luminance :class 'display-server
+  :bind "window_set_hdr_output_max_luminance" :hash 3506631519)
+ :void (max-luminance float) (window-id int))
+
+(defgmethod
+ (display-server+window-get-hdr-output-max-luminance :class 'display-server
+  :bind "window_get_hdr_output_max_luminance" :hash 218038398)
+ float (window-id int))
+
+(defgmethod
+ (display-server+window-get-hdr-output-current-max-luminance :class
+  'display-server :bind "window_get_hdr_output_current_max_luminance" :hash
+  218038398)
+ float (window-id int))
+
+(defgmethod
+ (display-server+window-get-output-max-linear-value :class 'display-server
+  :bind "window_get_output_max_linear_value" :hash 218038398)
+ float (window-id int))
 
 (defgmethod
  (display-server+window-is-maximize-allowed :class 'display-server :bind
@@ -861,7 +935,7 @@
 (defgmethod
  (display-server+accessibility-update-set-bounds :class 'display-server :bind
   "accessibility_update_set_bounds" :hash 1378122625)
- :void (id rid) (p-rect rect-2))
+ :void (id rid) (rect rect-2))
 
 (defgmethod
  (display-server+accessibility-update-set-transform :class 'display-server
@@ -1395,3 +1469,23 @@
  (display-server+has-additional-outputs :class 'display-server :bind
   "has_additional_outputs" :hash 36873697)
  bool)
+
+(defgmethod
+ (display-server+is-in-pip-mode :class 'display-server :bind "is_in_pip_mode"
+  :hash 1885608816)
+ bool (window-id int))
+
+(defgmethod
+ (display-server+pip-mode-enter :class 'display-server :bind "pip_mode_enter"
+  :hash 1995695955)
+ :void (window-id int))
+
+(defgmethod
+ (display-server+pip-mode-set-aspect-ratio :class 'display-server :bind
+  "pip_mode_set_aspect_ratio" :hash 3471927553)
+ :void (numerator int) (denominator int) (window-id int))
+
+(defgmethod
+ (display-server+pip-mode-set-auto-enter-on-background :class 'display-server
+  :bind "pip_mode_set_auto_enter_on_background" :hash 1661950165)
+ :void (auto-enter-on-background bool) (window-id int))

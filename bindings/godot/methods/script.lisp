@@ -6,10 +6,6 @@
  bool)
 
 (defgmethod
- (script+instance-has :class 'script :bind "instance_has" :hash 397768994) bool
- (base-object object))
-
-(defgmethod
  (script+has-source-code :class 'script :bind "has_source_code" :hash 36873697)
  bool)
 
@@ -39,6 +35,11 @@
  (script+get-global-name :class 'script :bind "get_global_name" :hash
   2002593661)
  string-name)
+
+(defgmethod
+ (script+has-script-method :class 'script :bind "has_script_method" :hash
+  2619796661)
+ bool (method-name string-name))
 
 (defgmethod
  (script+has-script-signal :class 'script :bind "has_script_signal" :hash
@@ -78,3 +79,7 @@
 (defgmethod
  (script+get-rpc-config :class 'script :bind "get_rpc_config" :hash 1214101251)
  variant)
+
+(defgmethod
+ (script+instance-has :class 'script :bind "instance_has" :hash 397768994) bool
+ (base-object object))

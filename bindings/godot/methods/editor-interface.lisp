@@ -274,6 +274,11 @@
  packed-string-array)
 
 (defgmethod
+ (editor-interface+get-unsaved-scenes :class 'editor-interface :bind
+  "get_unsaved_scenes" :hash 1139954409)
+ packed-string-array)
+
+(defgmethod
  (editor-interface+get-open-scene-roots :class 'editor-interface :bind
   "get_open_scene_roots" :hash 3995934104)
  array)

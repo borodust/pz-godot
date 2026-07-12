@@ -39,3 +39,13 @@
 (defgproperty animation-node-blend-space-2d+sync 'animation-node-blend-space-2d
  :get 'animation-node-blend-space-2d+is-using-sync :set
  'animation-node-blend-space-2d+set-use-sync)
+
+(defgproperty animation-node-blend-space-2d+sync-mode
+ 'animation-node-blend-space-2d :get
+ 'animation-node-blend-space-2d+get-sync-mode :set
+ 'animation-node-blend-space-2d+set-sync-mode)
+
+(defgproperty animation-node-blend-space-2d+cyclic-length
+ 'animation-node-blend-space-2d :get
+ 'animation-node-blend-space-2d+get-cyclic-length :set
+ 'animation-node-blend-space-2d+set-cyclic-length)

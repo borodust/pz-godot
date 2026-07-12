@@ -113,3 +113,8 @@
  (resource+duplicate-deep :class 'resource :bind "duplicate_deep" :hash
   905779109)
  resource (deep-subresources-mode resource+deep-duplicate-mode))
+
+(defgmethod
+ (resource+copy-from-resource :class 'resource :bind "copy_from_resource" :hash
+  3338311164)
+ error (resource resource))

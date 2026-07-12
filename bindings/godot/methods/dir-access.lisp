@@ -65,6 +65,11 @@
  string (idx int))
 
 (defgmethod
+ (dir-access+get-drive-label :class 'dir-access :bind "get_drive_label" :hash
+  990163283 :static common-lisp:t)
+ string (idx int))
+
+(defgmethod
  (dir-access+get-current-drive :class 'dir-access :bind "get_current_drive"
   :hash 2455072627)
  int)

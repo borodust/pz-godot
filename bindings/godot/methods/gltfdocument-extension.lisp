@@ -68,6 +68,12 @@
  error (state gltfstate) (root node))
 
 (defgmethod
+ (gltfdocument-extension+%export-get-property-list :class
+  'gltfdocument-extension :bind "_export_get_property_list" :hash 186716585
+  :virtual common-lisp:t)
+ array (root-node node))
+
+(defgmethod
  (gltfdocument-extension+%export-preflight :class 'gltfdocument-extension :bind
   "_export_preflight" :hash 295478427 :virtual common-lisp:t)
  error (state gltfstate) (root node))

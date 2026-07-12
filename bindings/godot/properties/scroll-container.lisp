@@ -30,6 +30,10 @@
  'scroll-container+get-vertical-scroll-mode :set
  'scroll-container+set-vertical-scroll-mode)
 
+(defgproperty scroll-container+scroll-horizontal-by-default 'scroll-container
+ :get 'scroll-container+is-scroll-horizontal-by-default :set
+ 'scroll-container+set-scroll-horizontal-by-default)
+
 (defgproperty scroll-container+scroll-deadzone 'scroll-container :get
  'scroll-container+get-deadzone :set 'scroll-container+set-deadzone)
 

@@ -1,14 +1,17 @@
 (common-lisp:in-package :%godot)
 
 
-(defgproperty control+clip-contents 'control :get 'control+is-clipping-contents
- :set 'control+set-clip-contents)
-
 (defgproperty control+custom-minimum-size 'control :get
  'control+get-custom-minimum-size :set 'control+set-custom-minimum-size)
 
-(defgproperty control+layout-direction 'control :get
- 'control+get-layout-direction :set 'control+set-layout-direction)
+(defgproperty control+custom-maximum-size 'control :get
+ 'control+get-custom-maximum-size :set 'control+set-custom-maximum-size)
+
+(defgproperty control+propagate-maximum-size 'control :get
+ 'control+is-propagating-maximum-size :set 'control+set-propagate-maximum-size)
+
+(defgproperty control+clip-contents 'control :get 'control+is-clipping-contents
+ :set 'control+set-clip-contents)
 
 (defgproperty control+layout-mode 'control)
 
@@ -71,9 +74,45 @@
 (defgproperty control+size-flags-stretch-ratio 'control :get
  'control+get-stretch-ratio :set 'control+set-stretch-ratio)
 
+(defgproperty control+offset-transform-enabled 'control :get
+ 'control+is-offset-transform-enabled :set
+ 'control+set-offset-transform-enabled)
+
+(defgproperty control+offset-transform-position 'control :get
+ 'control+get-offset-transform-position :set
+ 'control+set-offset-transform-position)
+
+(defgproperty control+offset-transform-position-ratio 'control :get
+ 'control+get-offset-transform-position-ratio :set
+ 'control+set-offset-transform-position-ratio)
+
+(defgproperty control+offset-transform-scale 'control :get
+ 'control+get-offset-transform-scale :set 'control+set-offset-transform-scale)
+
+(defgproperty control+offset-transform-rotation 'control :get
+ 'control+get-offset-transform-rotation :set
+ 'control+set-offset-transform-rotation)
+
+(defgproperty control+offset-transform-pivot 'control :get
+ 'control+get-offset-transform-pivot :set 'control+set-offset-transform-pivot)
+
+(defgproperty control+offset-transform-pivot-ratio 'control :get
+ 'control+get-offset-transform-pivot-ratio :set
+ 'control+set-offset-transform-pivot-ratio)
+
+(defgproperty control+offset-transform-visual-only 'control :get
+ 'control+is-offset-transform-visual-only :set
+ 'control+set-offset-transform-visual-only)
+
 (defgproperty control+localize-numeral-system 'control :get
  'control+is-localizing-numeral-system :set
  'control+set-localize-numeral-system)
+
+(defgproperty control+layout-direction 'control :get
+ 'control+get-layout-direction :set 'control+set-layout-direction)
+
+(defgproperty control+translation-context 'control :get
+ 'control+get-translation-context :set 'control+set-translation-context)
 
 (defgproperty control+auto-translate 'control :get 'control+is-auto-translating
  :set 'control+set-auto-translate)

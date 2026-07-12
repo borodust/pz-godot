@@ -17,3 +17,8 @@
 (defgproperty collision-polygon-2d+one-way-collision-margin
  'collision-polygon-2d :get 'collision-polygon-2d+get-one-way-collision-margin
  :set 'collision-polygon-2d+set-one-way-collision-margin)
+
+(defgproperty collision-polygon-2d+one-way-collision-direction
+ 'collision-polygon-2d :get
+ 'collision-polygon-2d+get-one-way-collision-direction :set
+ 'collision-polygon-2d+set-one-way-collision-direction)

@@ -11,6 +11,9 @@
  'sub-viewport+is-size-2d-override-stretch-enabled :set
  'sub-viewport+set-size-2d-override-stretch)
 
+(defgproperty sub-viewport+view-count 'sub-viewport :get
+ 'sub-viewport+get-view-count :set 'sub-viewport+set-view-count)
+
 (defgproperty sub-viewport+render-target-clear-mode 'sub-viewport :get
  'sub-viewport+get-clear-mode :set 'sub-viewport+set-clear-mode)
 

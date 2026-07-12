@@ -94,6 +94,66 @@
  color)
 
 (defgmethod
+ (particle-process-material+set-use-scale-3d :class 'particle-process-material
+  :bind "set_use_scale_3d" :hash 2586408642)
+ :void (using-scale-3d bool))
+
+(defgmethod
+ (particle-process-material+is-using-scale-3d :class 'particle-process-material
+  :bind "is_using_scale_3d" :hash 36873697)
+ bool)
+
+(defgmethod
+ (particle-process-material+set-scale-3d-min :class 'particle-process-material
+  :bind "set_scale_3d_min" :hash 3460891852)
+ :void (scale-3d-min vector-3))
+
+(defgmethod
+ (particle-process-material+get-scale-3d-min :class 'particle-process-material
+  :bind "get_scale_3d_min" :hash 3360562783)
+ vector-3)
+
+(defgmethod
+ (particle-process-material+set-scale-3d-max :class 'particle-process-material
+  :bind "set_scale_3d_max" :hash 3460891852)
+ :void (scale-3d-max vector-3))
+
+(defgmethod
+ (particle-process-material+get-scale-3d-max :class 'particle-process-material
+  :bind "get_scale_3d_max" :hash 3360562783)
+ vector-3)
+
+(defgmethod
+ (particle-process-material+set-use-rotation-3d :class
+  'particle-process-material :bind "set_use_rotation_3d" :hash 2586408642)
+ :void (using-rotation-3d bool))
+
+(defgmethod
+ (particle-process-material+is-using-rotation-3d :class
+  'particle-process-material :bind "is_using_rotation_3d" :hash 36873697)
+ bool)
+
+(defgmethod
+ (particle-process-material+set-rotation-3d-min :class
+  'particle-process-material :bind "set_rotation_3d_min" :hash 3460891852)
+ :void (rotation-3d-min vector-3))
+
+(defgmethod
+ (particle-process-material+get-rotation-3d-min :class
+  'particle-process-material :bind "get_rotation_3d_min" :hash 3360562783)
+ vector-3)
+
+(defgmethod
+ (particle-process-material+set-rotation-3d-max :class
+  'particle-process-material :bind "set_rotation_3d_max" :hash 3460891852)
+ :void (rotation-3d-max vector-3))
+
+(defgmethod
+ (particle-process-material+get-rotation-3d-max :class
+  'particle-process-material :bind "get_rotation_3d_max" :hash 3360562783)
+ vector-3)
+
+(defgmethod
  (particle-process-material+set-color-ramp :class 'particle-process-material
   :bind "set_color_ramp" :hash 4051416890)
  :void (ramp texture-2d))
@@ -515,3 +575,51 @@
  (particle-process-material+get-collision-bounce :class
   'particle-process-material :bind "get_collision_bounce" :hash 1740695150)
  float)
+
+(defgmethod
+ (particle-process-material+set-using-rotation-velocity-3d :class
+  'particle-process-material :bind "set_using_rotation_velocity_3d" :hash
+  2586408642)
+ :void (use-rotation-velocity-3d bool))
+
+(defgmethod
+ (particle-process-material+is-using-rotation-velocity-3d :class
+  'particle-process-material :bind "is_using_rotation_velocity_3d" :hash
+  36873697)
+ bool)
+
+(defgmethod
+ (particle-process-material+set-rotation-velocity-3d-max :class
+  'particle-process-material :bind "set_rotation_velocity_3d_max" :hash
+  3460891852)
+ :void (rotation-velocity-3d-max vector-3))
+
+(defgmethod
+ (particle-process-material+get-rotation-velocity-3d-max :class
+  'particle-process-material :bind "get_rotation_velocity_3d_max" :hash
+  3360562783)
+ vector-3)
+
+(defgmethod
+ (particle-process-material+set-rotation-velocity-3d-min :class
+  'particle-process-material :bind "set_rotation_velocity_3d_min" :hash
+  3460891852)
+ :void (rotation-velocity-3d-min vector-3))
+
+(defgmethod
+ (particle-process-material+get-rotation-velocity-3d-min :class
+  'particle-process-material :bind "get_rotation_velocity_3d_min" :hash
+  3360562783)
+ vector-3)
+
+(defgmethod
+ (particle-process-material+set-rotation-velocity-3d-curve :class
+  'particle-process-material :bind "set_rotation_velocity_3d_curve" :hash
+  4051416890)
+ :void (rotation-velocity-3d-curve texture-2d))
+
+(defgmethod
+ (particle-process-material+get-rotation-velocity-3d-curve :class
+  'particle-process-material :bind "get_rotation_velocity_3d_curve" :hash
+  3635182373)
+ texture-2d)

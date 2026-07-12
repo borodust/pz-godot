@@ -192,6 +192,16 @@
  color)
 
 (defgmethod
+ (open-xrcomposition-layer+set-eye-visibility :class 'open-xrcomposition-layer
+  :bind "set_eye_visibility" :hash 156391336)
+ :void (eye-visibility open-xrcomposition-layer+eye-visibility))
+
+(defgmethod
+ (open-xrcomposition-layer+get-eye-visibility :class 'open-xrcomposition-layer
+  :bind "get_eye_visibility" :hash 467669000)
+ open-xrcomposition-layer+eye-visibility)
+
+(defgmethod
  (open-xrcomposition-layer+intersects-ray :class 'open-xrcomposition-layer
   :bind "intersects_ray" :hash 1091262597)
  vector-2 (origin vector-3) (direction vector-3))

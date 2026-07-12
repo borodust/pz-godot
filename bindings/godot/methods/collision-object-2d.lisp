@@ -166,6 +166,18 @@
  float (owner-id int))
 
 (defgmethod
+ (collision-object-2d+get-shape-owner-one-way-collision-direction :class
+  'collision-object-2d :bind "get_shape_owner_one_way_collision_direction"
+  :hash 2299179447)
+ vector-2 (owner-id int))
+
+(defgmethod
+ (collision-object-2d+shape-owner-set-one-way-collision-direction :class
+  'collision-object-2d :bind "shape_owner_set_one_way_collision_direction"
+  :hash 163021252)
+ :void (owner-id int) (direction vector-2))
+
+(defgmethod
  (collision-object-2d+shape-owner-add-shape :class 'collision-object-2d :bind
   "shape_owner_add_shape" :hash 2077425081)
  :void (owner-id int) (shape shape-2d))

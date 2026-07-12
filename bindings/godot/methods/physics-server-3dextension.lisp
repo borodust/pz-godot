@@ -654,7 +654,7 @@
  bool (body rid) (from transform-3d) (motion vector-3) (margin float)
  (max-collisions int) (collide-separation-ray bool)
  (recovery-as-collision bool)
- (result (:pointer physics-server-3dextension-motion-result)))
+ (r-result (:pointer physics-server-3dextension-motion-result)))
 
 (defgmethod
  (physics-server-3dextension+%body-get-direct-state :class

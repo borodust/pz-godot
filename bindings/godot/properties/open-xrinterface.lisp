@@ -17,6 +17,10 @@
  'open-xrinterface+get-foveation-dynamic :set
  'open-xrinterface+set-foveation-dynamic)
 
+(defgproperty open-xrinterface+foveation-with-subsampled-images
+ 'open-xrinterface :get 'open-xrinterface+get-foveation-with-subsampled-images
+ :set 'open-xrinterface+set-foveation-with-subsampled-images)
+
 (defgproperty open-xrinterface+vrs-min-radius 'open-xrinterface :get
  'open-xrinterface+get-vrs-min-radius :set 'open-xrinterface+set-vrs-min-radius)
 

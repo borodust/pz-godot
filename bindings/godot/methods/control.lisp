@@ -12,6 +12,11 @@
  array (args array) (text string))
 
 (defgmethod
+ (control+%get-maximum-size :class 'control :bind "_get_maximum_size" :hash
+  3341600327 :virtual common-lisp:t)
+ vector-2)
+
+(defgmethod
  (control+%get-minimum-size :class 'control :bind "_get_minimum_size" :hash
   3341600327 :virtual common-lisp:t)
  vector-2)
@@ -20,6 +25,12 @@
  (control+%get-tooltip :class 'control :bind "_get_tooltip" :hash 3674420000
   :virtual common-lisp:t)
  string (at-position vector-2))
+
+(defgmethod
+ (control+%get-tooltip-auto-translate-mode-at :class 'control :bind
+  "_get_tooltip_auto_translate_mode_at" :hash 3257223865 :virtual
+  common-lisp:t)
+ node+auto-translate-mode (at-position vector-2))
 
 (defgmethod
  (control+%get-drag-data :class 'control :bind "_get_drag_data" :hash
@@ -42,6 +53,11 @@
  object (for-text string))
 
 (defgmethod
+ (control+%get-cursor-shape :class 'control :bind "_get_cursor_shape" :hash
+  3820158470 :virtual common-lisp:t)
+ int (at-position vector-2))
+
+(defgmethod
  (control+%accessibility-get-contextual-info :class 'control :bind
   "_accessibility_get_contextual_info" :hash 201670096 :virtual common-lisp:t)
  string)
@@ -61,6 +77,16 @@
  :void)
 
 (defgmethod
+ (control+get-maximum-size :class 'control :bind "get_maximum_size" :hash
+  3341600327)
+ vector-2)
+
+(defgmethod
+ (control+get-combined-maximum-size :class 'control :bind
+  "get_combined_maximum_size" :hash 3341600327)
+ vector-2)
+
+(defgmethod
  (control+get-minimum-size :class 'control :bind "get_minimum_size" :hash
   3341600327)
  vector-2)
@@ -68,6 +94,21 @@
 (defgmethod
  (control+get-combined-minimum-size :class 'control :bind
   "get_combined_minimum_size" :hash 3341600327)
+ vector-2)
+
+(defgmethod
+ (control+set-propagate-maximum-size :class 'control :bind
+  "set_propagate_maximum_size" :hash 2586408642)
+ :void (enable bool))
+
+(defgmethod
+ (control+is-propagating-maximum-size :class 'control :bind
+  "is_propagating_maximum_size" :hash 2240911060)
+ bool)
+
+(defgmethod
+ (control+get-bound-minimum-size :class 'control :bind "get_bound_minimum_size"
+  :hash 3341600327)
  vector-2)
 
 (defgmethod
@@ -125,6 +166,11 @@
 
 (defgmethod
  (control+reset-size :class 'control :bind "reset_size" :hash 3218959716) :void)
+
+(defgmethod
+ (control+set-custom-maximum-size :class 'control :bind
+  "set_custom_maximum_size" :hash 743155724)
+ :void (size vector-2))
 
 (defgmethod
  (control+set-custom-minimum-size :class 'control :bind
@@ -199,6 +245,11 @@
 (defgmethod
  (control+get-combined-pivot-offset :class 'control :bind
   "get_combined_pivot_offset" :hash 3341600327)
+ vector-2)
+
+(defgmethod
+ (control+get-custom-maximum-size :class 'control :bind
+  "get_custom_maximum_size" :hash 3341600327)
  vector-2)
 
 (defgmethod
@@ -310,6 +361,86 @@
  (control+get-v-size-flags :class 'control :bind "get_v_size_flags" :hash
   3781367401)
  control+size-flags)
+
+(defgmethod
+ (control+set-offset-transform-enabled :class 'control :bind
+  "set_offset_transform_enabled" :hash 2586408642)
+ :void (enabled bool))
+
+(defgmethod
+ (control+is-offset-transform-enabled :class 'control :bind
+  "is_offset_transform_enabled" :hash 36873697)
+ bool)
+
+(defgmethod
+ (control+set-offset-transform-position :class 'control :bind
+  "set_offset_transform_position" :hash 743155724)
+ :void (offset vector-2))
+
+(defgmethod
+ (control+get-offset-transform-position :class 'control :bind
+  "get_offset_transform_position" :hash 3341600327)
+ vector-2)
+
+(defgmethod
+ (control+set-offset-transform-position-ratio :class 'control :bind
+  "set_offset_transform_position_ratio" :hash 743155724)
+ :void (offset vector-2))
+
+(defgmethod
+ (control+get-offset-transform-position-ratio :class 'control :bind
+  "get_offset_transform_position_ratio" :hash 3341600327)
+ vector-2)
+
+(defgmethod
+ (control+set-offset-transform-scale :class 'control :bind
+  "set_offset_transform_scale" :hash 743155724)
+ :void (scale vector-2))
+
+(defgmethod
+ (control+get-offset-transform-scale :class 'control :bind
+  "get_offset_transform_scale" :hash 3341600327)
+ vector-2)
+
+(defgmethod
+ (control+set-offset-transform-rotation :class 'control :bind
+  "set_offset_transform_rotation" :hash 373806689)
+ :void (rotation float))
+
+(defgmethod
+ (control+get-offset-transform-rotation :class 'control :bind
+  "get_offset_transform_rotation" :hash 1740695150)
+ float)
+
+(defgmethod
+ (control+set-offset-transform-pivot :class 'control :bind
+  "set_offset_transform_pivot" :hash 743155724)
+ :void (pivot vector-2))
+
+(defgmethod
+ (control+get-offset-transform-pivot :class 'control :bind
+  "get_offset_transform_pivot" :hash 3341600327)
+ vector-2)
+
+(defgmethod
+ (control+set-offset-transform-pivot-ratio :class 'control :bind
+  "set_offset_transform_pivot_ratio" :hash 743155724)
+ :void (pivot vector-2))
+
+(defgmethod
+ (control+get-offset-transform-pivot-ratio :class 'control :bind
+  "get_offset_transform_pivot_ratio" :hash 3341600327)
+ vector-2)
+
+(defgmethod
+ (control+set-offset-transform-visual-only :class 'control :bind
+  "set_offset_transform_visual_only" :hash 2586408642)
+ :void (enabled bool))
+
+(defgmethod
+ (control+is-offset-transform-visual-only :class 'control :bind
+  "is_offset_transform_visual_only" :hash 36873697)
+ bool)
 
 (defgmethod
  (control+set-theme :class 'control :bind "set_theme" :hash 2326690814) :void
@@ -553,6 +684,16 @@
  string (at-position vector-2))
 
 (defgmethod
+ (control+set-translation-context :class 'control :bind
+  "set_translation_context" :hash 3304788590)
+ :void (context string-name))
+
+(defgmethod
+ (control+get-translation-context :class 'control :bind
+  "get_translation_context" :hash 2002593661)
+ string-name)
+
+(defgmethod
  (control+set-default-cursor-shape :class 'control :bind
   "set_default_cursor_shape" :hash 217062046)
  :void (shape control+cursor-shape))
@@ -565,7 +706,7 @@
 (defgmethod
  (control+get-cursor-shape :class 'control :bind "get_cursor_shape" :hash
   1395773853)
- control+cursor-shape (position vector-2))
+ control+cursor-shape (at-position vector-2))
 
 (defgmethod
  (control+set-focus-neighbor :class 'control :bind "set_focus_neighbor" :hash
@@ -633,13 +774,13 @@
 
 (defgmethod
  (control+set-accessibility-live :class 'control :bind "set_accessibility_live"
-  :hash 1720261470)
- :void (mode display-server+accessibility-live-mode))
+  :hash 353443434)
+ :void (mode accessibility-server+accessibility-live-mode))
 
 (defgmethod
  (control+get-accessibility-live :class 'control :bind "get_accessibility_live"
-  :hash 3311037003)
- display-server+accessibility-live-mode)
+  :hash 2858591811)
+ accessibility-server+accessibility-live-mode)
 
 (defgmethod
  (control+set-accessibility-controls-nodes :class 'control :bind
@@ -759,6 +900,11 @@
  (control+get-shortcut-context :class 'control :bind "get_shortcut_context"
   :hash 3160264692)
  node)
+
+(defgmethod
+ (control+update-maximum-size :class 'control :bind "update_maximum_size" :hash
+  3218959716)
+ :void)
 
 (defgmethod
  (control+update-minimum-size :class 'control :bind "update_minimum_size" :hash

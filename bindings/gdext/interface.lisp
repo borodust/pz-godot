@@ -153,6 +153,9 @@
 (defifun ("variant_get_type_name" variant-get-type-name) :void
  (p-type variant-type) (r-name uninitialized-string-ptr))
 
+(defifun ("variant_get_type_by_name" variant-get-type-by-name) variant-type
+ (p-type-name const-string-ptr))
+
 (defifun ("variant_can_convert" variant-can-convert) bool (p-from variant-type)
  (p-to variant-type))
 
@@ -557,6 +560,9 @@
 (defifun ("classdb_construct_object2" classdb-construct-object2) object-ptr
  (p-classname const-string-name-ptr))
 
+(defifun ("classdb_construct_object3" classdb-construct-object3) object-ptr
+ (p-classname const-string-name-ptr))
+
 (defifun ("classdb_get_method_bind" classdb-get-method-bind) method-bind-ptr
  (p-classname const-string-name-ptr) (p-methodname const-string-name-ptr)
  (p-hash int))
@@ -592,6 +598,12 @@
  (p-library class-library-ptr) (p-class-name const-string-name-ptr)
  (p-parent-class-name const-string-name-ptr)
  (p-extension-funcs (:pointer class-creation-info-5)))
+
+(defifun
+ ("classdb_register_extension_class6" classdb-register-extension-class6) :void
+ (p-library class-library-ptr) (p-class-name const-string-name-ptr)
+ (p-parent-class-name const-string-name-ptr)
+ (p-extension-funcs (:pointer class-creation-info-6)))
 
 (defifun
  ("classdb_register_extension_class_method"

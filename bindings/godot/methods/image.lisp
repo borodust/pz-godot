@@ -108,13 +108,14 @@
   592235273)
  packed-byte-array (quality float))
 
-(defgmethod (image+save-exr :class 'image :bind "save_exr" :hash 3108122999)
- error (path string) (grayscale bool))
+(defgmethod (image+save-exr :class 'image :bind "save_exr" :hash 2018602448)
+ error (path string) (grayscale bool) (color-image bool)
+ (max-linear-value float))
 
 (defgmethod
  (image+save-exr-to-buffer :class 'image :bind "save_exr_to_buffer" :hash
-  3178917920)
- packed-byte-array (grayscale bool))
+  1477518536)
+ packed-byte-array (grayscale bool) (color-image bool) (max-linear-value float))
 
 (defgmethod (image+save-dds :class 'image :bind "save_dds" :hash 2113323047)
  error (path string))

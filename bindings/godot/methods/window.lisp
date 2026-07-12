@@ -92,6 +92,21 @@
  bool (flag window+flags))
 
 (defgmethod
+ (window+set-hdr-output-requested :class 'window :bind
+  "set_hdr_output_requested" :hash 2586408642)
+ :void (requested bool))
+
+(defgmethod
+ (window+is-hdr-output-requested :class 'window :bind "is_hdr_output_requested"
+  :hash 36873697)
+ bool)
+
+(defgmethod
+ (window+get-output-max-linear-value :class 'window :bind
+  "get_output_max_linear_value" :hash 1740695150)
+ float)
+
+(defgmethod
  (window+is-maximize-allowed :class 'window :bind "is_maximize_allowed" :hash
   36873697)
  bool)
@@ -100,6 +115,16 @@
  (window+request-attention :class 'window :bind "request_attention" :hash
   3218959716)
  :void)
+
+(defgmethod
+ (window+set-taskbar-progress-value :class 'window :bind
+  "set_taskbar_progress_value" :hash 373806689)
+ :void (value float))
+
+(defgmethod
+ (window+set-taskbar-progress-state :class 'window :bind
+  "set_taskbar_progress_state" :hash 824071031)
+ :void (state display-server+progress-state))
 
 (defgmethod
  (window+move-to-foreground :class 'window :bind "move_to_foreground" :hash

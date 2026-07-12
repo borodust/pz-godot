@@ -30,6 +30,12 @@
  (layered-type rendering-server+texture-layered-type))
 
 (defgmethod
+ (rendering-server+texture-drawable-create :class 'rendering-server :bind
+  "texture_drawable_create" :hash 1993613667)
+ rid (width int) (height int) (format rendering-server+texture-drawable-format)
+ (color color) (with-mipmaps bool))
+
+(defgmethod
  (rendering-server+texture-2d-update :class 'rendering-server :bind
   "texture_2d_update" :hash 999539803)
  :void (texture rid) (image image) (layer int))
@@ -43,6 +49,12 @@
  (rendering-server+texture-proxy-update :class 'rendering-server :bind
   "texture_proxy_update" :hash 395945892)
  :void (texture rid) (proxy-to rid))
+
+(defgmethod
+ (rendering-server+texture-drawable-blit-rect :class 'rendering-server :bind
+  "texture_drawable_blit_rect" :hash 4077763890)
+ :void (textures array) (rect rect-2i) (material rid) (modulate color)
+ (source-textures array) (to-mipmap int))
 
 (defgmethod
  (rendering-server+texture-2d-placeholder-create :class 'rendering-server :bind
@@ -74,6 +86,17 @@
  (rendering-server+texture-3d-get :class 'rendering-server :bind
   "texture_3d_get" :hash 2684255073)
  array (texture rid))
+
+(defgmethod
+ (rendering-server+texture-drawable-generate-mipmaps :class 'rendering-server
+  :bind "texture_drawable_generate_mipmaps" :hash 2722037293)
+ :void (texture rid))
+
+(defgmethod
+ (rendering-server+texture-drawable-get-default-material :class
+  'rendering-server :bind "texture_drawable_get_default_material" :hash
+  2944877500)
+ rid)
 
 (defgmethod
  (rendering-server+texture-replace :class 'rendering-server :bind
@@ -543,6 +566,11 @@
  rid)
 
 (defgmethod
+ (rendering-server+area-light-create :class 'rendering-server :bind
+  "area_light_create" :hash 529393457)
+ rid)
+
+(defgmethod
  (rendering-server+light-set-color :class 'rendering-server :bind
   "light_set_color" :hash 2948539648)
  :void (light rid) (color color))
@@ -616,6 +644,16 @@
  (rendering-server+light-directional-set-sky-mode :class 'rendering-server
   :bind "light_directional_set_sky_mode" :hash 2559740754)
  :void (light rid) (mode rendering-server+light-directional-sky-mode))
+
+(defgmethod
+ (rendering-server+light-area-set-size :class 'rendering-server :bind
+  "light_area_set_size" :hash 3201125042)
+ :void (light rid) (size vector-2))
+
+(defgmethod
+ (rendering-server+light-area-set-normalize-energy :class 'rendering-server
+  :bind "light_area_set_normalize_energy" :hash 1265174801)
+ :void (light rid) (enable bool))
 
 (defgmethod
  (rendering-server+light-projectors-set-filter :class 'rendering-server :bind
@@ -988,8 +1026,8 @@
 
 (defgmethod
  (rendering-server+particles-request-process-time :class 'rendering-server
-  :bind "particles_request_process_time" :hash 1794382983)
- :void (particles rid) (time float))
+  :bind "particles_request_process_time" :hash 1515254041)
+ :void (particles rid) (process-time float) (process-time-residual float))
 
 (defgmethod
  (rendering-server+particles-set-explosiveness-ratio :class 'rendering-server
@@ -1055,6 +1093,19 @@
  (rendering-server+particles-set-transform-align :class 'rendering-server :bind
   "particles_set_transform_align" :hash 3264971368)
  :void (particles rid) (align rendering-server+particles-transform-align))
+
+(defgmethod
+ (rendering-server+particles-set-transform-align-channel-filter :class
+  'rendering-server :bind "particles_set_transform_align_channel_filter" :hash
+  1303285813)
+ :void (particles rid)
+ (channel-filter rendering-server+particles-transform-align-custom-src))
+
+(defgmethod
+ (rendering-server+particles-set-transform-align-axis :class 'rendering-server
+  :bind "particles_set_transform_align_axis" :hash 3065310065)
+ :void (particles rid)
+ (rotation-axis rendering-server+particles-transform-align-axis))
 
 (defgmethod
  (rendering-server+particles-set-trails :class 'rendering-server :bind
@@ -1296,8 +1347,8 @@
 
 (defgmethod
  (rendering-server+viewport-set-size :class 'rendering-server :bind
-  "viewport_set_size" :hash 4288446313)
- :void (viewport rid) (width int) (height int))
+  "viewport_set_size" :hash 3313592705)
+ :void (viewport rid) (width int) (height int) (view-count int))
 
 (defgmethod
  (rendering-server+viewport-set-active :class 'rendering-server :bind
@@ -1742,7 +1793,7 @@
   :bind "environment_set_volumetric_fog" :hash 1553633833)
  :void (env rid) (enable bool) (density float) (albedo color) (emission color)
  (emission-energy float) (anisotropy float) (length float)
- (p-detail-spread float) (gi-inject float) (temporal-reprojection bool)
+ (detail-spread float) (gi-inject float) (temporal-reprojection bool)
  (temporal-reprojection-amount float) (ambient-inject float) (sky-affect float))
 
 (defgmethod

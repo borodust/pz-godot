@@ -212,6 +212,11 @@
  :void (index int) (disabled bool))
 
 (defgmethod
+ (popup-menu+set-item-index :class 'popup-menu :bind "set_item_index" :hash
+  3937882851)
+ :void (index int) (target-index int))
+
+(defgmethod
  (popup-menu+toggle-item-checked :class 'popup-menu :bind "toggle_item_checked"
   :hash 1286410249)
  :void (index int))
@@ -443,6 +448,46 @@
  (popup-menu+get-system-menu :class 'popup-menu :bind "get_system_menu" :hash
   1222557358)
  native-menu+system-menus)
+
+(defgmethod
+ (popup-menu+set-search-bar-enabled :class 'popup-menu :bind
+  "set_search_bar_enabled" :hash 2586408642)
+ :void (enabled bool))
+
+(defgmethod
+ (popup-menu+is-search-bar-enabled :class 'popup-menu :bind
+  "is_search_bar_enabled" :hash 36873697)
+ bool)
+
+(defgmethod
+ (popup-menu+set-search-bar-min-item-count :class 'popup-menu :bind
+  "set_search_bar_min_item_count" :hash 1286410249)
+ :void (count int))
+
+(defgmethod
+ (popup-menu+get-search-bar-min-item-count :class 'popup-menu :bind
+  "get_search_bar_min_item_count" :hash 3905245786)
+ int)
+
+(defgmethod
+ (popup-menu+set-search-bar-fuzzy-search-enabled :class 'popup-menu :bind
+  "set_search_bar_fuzzy_search_enabled" :hash 2586408642)
+ :void (enabled bool))
+
+(defgmethod
+ (popup-menu+is-search-bar-fuzzy-search-enabled :class 'popup-menu :bind
+  "is_search_bar_fuzzy_search_enabled" :hash 36873697)
+ bool)
+
+(defgmethod
+ (popup-menu+set-search-bar-fuzzy-search-max-misses :class 'popup-menu :bind
+  "set_search_bar_fuzzy_search_max_misses" :hash 1286410249)
+ :void (max-misses int))
+
+(defgmethod
+ (popup-menu+get-search-bar-fuzzy-search-max-misses :class 'popup-menu :bind
+  "get_search_bar_fuzzy_search_max_misses" :hash 3905245786)
+ int)
 
 (defgmethod
  (popup-menu+set-shrink-height :class 'popup-menu :bind "set_shrink_height"

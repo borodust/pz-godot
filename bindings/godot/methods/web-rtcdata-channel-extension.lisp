@@ -12,7 +12,7 @@
  (web-rtcdata-channel-extension+%put-packet :class
   'web-rtcdata-channel-extension :bind "_put_packet" :hash 3099858825 :virtual
   common-lisp:t)
- error (p-buffer (:pointer :uint8)) (p-buffer-size int))
+ error (buffer (:pointer :uint8)) (buffer-size int))
 
 (defgmethod
  (web-rtcdata-channel-extension+%get-available-packet-count :class
@@ -40,7 +40,7 @@
  (web-rtcdata-channel-extension+%set-write-mode :class
   'web-rtcdata-channel-extension :bind "_set_write_mode" :hash 1999768052
   :virtual common-lisp:t)
- :void (p-write-mode web-rtcdata-channel+write-mode))
+ :void (write-mode web-rtcdata-channel+write-mode))
 
 (defgmethod
  (web-rtcdata-channel-extension+%get-write-mode :class

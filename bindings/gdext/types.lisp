@@ -280,7 +280,7 @@ them it is always safe to skip the constructor for the return value if you are i
 (defcfunproto class-get-property-list (:pointer property-info)
  (p-instance class-instance-ptr) (r-count (:pointer :uint32)))
 
-(cffi:defctype class-free-property-list (:pointer :void))
+(cffi:defctype class-free-property-list (:pointer :void) "DEPRECATED since 4.3")
 
 (defcfunproto class-free-property-list :void (p-instance class-instance-ptr)
  (p-list (:pointer property-info)))
@@ -333,14 +333,25 @@ them it is always safe to skip the constructor for the return value if you are i
 (defcfunproto class-call-virtual :void (p-instance class-instance-ptr)
  (p-args (:pointer const-type-ptr)) (r-ret type-ptr))
 
-(cffi:defctype class-create-instance (:pointer :void))
+(cffi:defctype class-create-instance (:pointer :void) "DEPRECATED since 4.4
+Called to construct an instance of the class.
+For classes descending from RefCounted, the reference count should be zero.")
 
 (defcfunproto class-create-instance object-ptr
  (p-class-userdata (:pointer :void)))
 
-(cffi:defctype class-create-instance-2 (:pointer :void))
+(cffi:defctype class-create-instance-2 (:pointer :void) "DEPRECATED since 4.7
+Called to construct an instance of the class.
+For classes descending from RefCounted, the reference count should be zero.")
 
 (defcfunproto class-create-instance-2 object-ptr
+ (p-class-userdata (:pointer :void)) (p-notify-postinitialize bool))
+
+(cffi:defctype class-create-instance-3 (:pointer :void)
+               "Called to construct an instance of the class.
+For classes descending from RefCounted, the reference count should already be incremented by 1.")
+
+(defcfunproto class-create-instance-3 object-ptr
  (p-class-userdata (:pointer :void)) (p-notify-postinitialize bool))
 
 (cffi:defctype class-free-instance (:pointer :void))
@@ -353,7 +364,7 @@ them it is always safe to skip the constructor for the return value if you are i
 (defcfunproto class-recreate-instance class-instance-ptr
  (p-class-userdata (:pointer :void)) (p-object object-ptr))
 
-(cffi:defctype class-get-virtual (:pointer :void))
+(cffi:defctype class-get-virtual (:pointer :void) "DEPRECATED since 4.4")
 
 (defcfunproto class-get-virtual class-call-virtual
  (p-class-userdata (:pointer :void)) (p-name const-string-name-ptr))
@@ -364,7 +375,8 @@ them it is always safe to skip the constructor for the return value if you are i
  (p-class-userdata (:pointer :void)) (p-name const-string-name-ptr)
  (p-hash :uint32))
 
-(cffi:defctype class-get-virtual-call-data (:pointer :void))
+(cffi:defctype class-get-virtual-call-data (:pointer :void)
+               "DEPRECATED since 4.4")
 
 (defcfunproto class-get-virtual-call-data (:pointer :void)
  (p-class-userdata (:pointer :void)) (p-name const-string-name-ptr))
@@ -457,6 +469,7 @@ them it is always safe to skip the constructor for the return value if you are i
 (cffi:defctype class-creation-info-3 (:struct class-creation-info-3))
 
 (cffi:defcstruct class-creation-info-4
+  "DEPRECATED since 4.5"
   (is-virtual bool)
   (is-abstract bool)
   (is-exposed bool)
@@ -482,7 +495,34 @@ them it is always safe to skip the constructor for the return value if you are i
   (class-userdata (:pointer :void)))
 (cffi:defctype class-creation-info-4 (:struct class-creation-info-4))
 
-(cffi:defctype class-creation-info-5 class-creation-info-4)
+(cffi:defctype class-creation-info-5 class-creation-info-4
+               "DEPRECATED since 4.7")
+
+(cffi:defcstruct class-creation-info-6
+  (is-virtual bool)
+  (is-abstract bool)
+  (is-exposed bool)
+  (is-runtime bool)
+  (icon-path const-string-ptr)
+  (set-func class-set)
+  (get-func class-get)
+  (get-property-list-func class-get-property-list)
+  (free-property-list-func class-free-property-list-2)
+  (property-can-revert-func class-property-can-revert)
+  (property-get-revert-func class-property-get-revert)
+  (validate-property-func class-validate-property)
+  (notification-func class-notification-2)
+  (to-string-func class-to-string)
+  (reference-func class-reference)
+  (unreference-func class-unreference)
+  (create-instance-func class-create-instance-3)
+  (free-instance-func class-free-instance)
+  (recreate-instance-func class-recreate-instance)
+  (get-virtual-func class-get-virtual-2)
+  (get-virtual-call-data-func class-get-virtual-call-data-2)
+  (call-virtual-with-data-func class-call-virtual-with-data)
+  (class-userdata (:pointer :void)))
+(cffi:defctype class-creation-info-6 (:struct class-creation-info-6))
 
 (cffi:defctype class-library-ptr (:pointer :void))
 
@@ -960,6 +1000,7 @@ and the function pointer typedef that shows its signature.")
  (r-initialization (:pointer initialization)))
 
 (cffi:defcstruct godot-version
+  "DEPRECATED since 4.5"
   (major :uint32)
   (minor :uint32)
   (patch :uint32)

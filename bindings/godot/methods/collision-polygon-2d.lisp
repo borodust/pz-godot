@@ -50,3 +50,15 @@
  (collision-polygon-2d+get-one-way-collision-margin :class
   'collision-polygon-2d :bind "get_one_way_collision_margin" :hash 1740695150)
  float)
+
+(defgmethod
+ (collision-polygon-2d+set-one-way-collision-direction :class
+  'collision-polygon-2d :bind "set_one_way_collision_direction" :hash
+  743155724)
+ :void (direction vector-2))
+
+(defgmethod
+ (collision-polygon-2d+get-one-way-collision-direction :class
+  'collision-polygon-2d :bind "get_one_way_collision_direction" :hash
+  3341600327)
+ vector-2)

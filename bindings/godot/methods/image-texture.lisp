@@ -7,11 +7,6 @@
  image-texture (image image))
 
 (defgmethod
- (image-texture+get-format :class 'image-texture :bind "get_format" :hash
-  3847873762)
- image+format)
-
-(defgmethod
  (image-texture+set-image :class 'image-texture :bind "set_image" :hash
   532598488)
  :void (image image))

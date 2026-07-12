@@ -105,6 +105,9 @@
 (defgproperty window+content-scale-factor 'window :get
  'window+get-content-scale-factor :set 'window+set-content-scale-factor)
 
+(defgproperty window+hdr-output-requested 'window :get
+ 'window+is-hdr-output-requested :set 'window+set-hdr-output-requested)
+
 (defgproperty window+auto-translate 'window :get 'window+is-auto-translating
  :set 'window+set-auto-translate)
 

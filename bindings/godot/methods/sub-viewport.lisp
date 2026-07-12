@@ -30,6 +30,16 @@
  bool)
 
 (defgmethod
+ (sub-viewport+set-view-count :class 'sub-viewport :bind "set_view_count" :hash
+  1286410249)
+ :void (view-count int))
+
+(defgmethod
+ (sub-viewport+get-view-count :class 'sub-viewport :bind "get_view_count" :hash
+  3905245786)
+ int)
+
+(defgmethod
  (sub-viewport+set-update-mode :class 'sub-viewport :bind "set_update_mode"
   :hash 1295690030)
  :void (mode sub-viewport+update-mode))

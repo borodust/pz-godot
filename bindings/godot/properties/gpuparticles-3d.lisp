@@ -70,6 +70,14 @@
 (defgproperty gpuparticles-3d+transform-align 'gpuparticles-3d :get
  'gpuparticles-3d+get-transform-align :set 'gpuparticles-3d+set-transform-align)
 
+(defgproperty gpuparticles-3d+transform-align-axis 'gpuparticles-3d :get
+ 'gpuparticles-3d+get-transform-align-axis :set
+ 'gpuparticles-3d+set-transform-align-axis)
+
+(defgproperty gpuparticles-3d+transform-align-channel-filter 'gpuparticles-3d
+ :get 'gpuparticles-3d+get-transform-align-channel-filter :set
+ 'gpuparticles-3d+set-transform-align-channel-filter)
+
 (defgproperty gpuparticles-3d+trail-enabled 'gpuparticles-3d :get
  'gpuparticles-3d+is-trail-enabled :set 'gpuparticles-3d+set-trail-enabled)
 

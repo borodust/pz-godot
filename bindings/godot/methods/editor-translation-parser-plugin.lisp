@@ -12,3 +12,9 @@
   'editor-translation-parser-plugin :bind "_get_recognized_extensions" :hash
   1139954409 :virtual common-lisp:t)
  packed-string-array)
+
+(defgmethod
+ (editor-translation-parser-plugin+%customize-strings :class
+  'editor-translation-parser-plugin :bind "_customize_strings" :hash 2560709669
+  :virtual common-lisp:t)
+ array (strings array))

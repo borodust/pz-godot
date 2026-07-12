@@ -17,6 +17,11 @@
  bool (path string))
 
 (defgmethod
+ (movie-writer+%get-supported-extensions :class 'movie-writer :bind
+  "_get_supported_extensions" :hash 1139954409 :virtual common-lisp:t)
+ packed-string-array)
+
+(defgmethod
  (movie-writer+%write-begin :class 'movie-writer :bind "_write_begin" :hash
   1866453460 :virtual common-lisp:t)
  error (movie-size vector-2i) (fps int) (base-path string))

@@ -62,6 +62,7 @@
                                      ,(first proto)))))
 
 
+(declaim (inline get-protocallback))
 (defun get-protocallback (callback-name)
   (cffi:get-callback callback-name))
 

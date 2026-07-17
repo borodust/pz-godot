@@ -600,13 +600,15 @@
                                    ',name ,bitfield-p src-val-sym argv-ptr-sym stack-ptr-sym)))))))
 
 
-(defun expand-vararg-compiler-macro (method-ptr-var bind-extractor args variants)
+(defun expand-vararg-compiler-macro (method-ptr-var bind-extractor builtin-p args variants)
   `(progn
      (when (cffi:null-pointer-p ,method-ptr-var)
        (setf ,method-ptr-var ,bind-extractor)
        (when (cffi:null-pointer-p ,method-ptr-var)
          (error "Failed to get method pointer with ~A" ',bind-extractor)))
-     (call-vararg-method-bind
+     (,(if builtin-p
+           'ptrcall-builtin-vararg-method
+           'call-vararg-method-bind)
       ,method-ptr-var
       ,@args
       ,@variants
@@ -673,7 +675,9 @@
                            (setf ,method-ptr-var ,bind-extractor)
                            (when (cffi:null-pointer-p ,method-ptr-var)
                              (error "Failed to get method pointer with ~A" ',bind-extractor)))
-                         (call-vararg-method-bind
+                         (,(if (builtinp extension)
+                               'ptrcall-builtin-vararg-method
+                               'call-vararg-method-bind)
                           ,method-ptr-var ,(if static
                                                (cffi:null-pointer)
                                                instance-var)
@@ -684,6 +688,7 @@
                        (define-compiler-macro ,lisp-name (,@lambda-list &rest ,variants)
                          (expand-vararg-compiler-macro ',method-ptr-var
                                                        ',bind-extractor
+                                                       ,(builtinp extension)
                                                        (list ,(if static
                                                                   (cffi:null-pointer)
                                                                   instance-var)
@@ -975,6 +980,17 @@
         ,argc
         ,(if ret ret '(cffi:null-pointer))
         (cffi:null-pointer))
+       ,(when ret ret))))
+
+
+(defmacro ptrcall-builtin-vararg-method (method-ptr object ret &rest args-and-rest)
+  (a:with-gensyms (argv argc)
+    `(with-method-varargs (,argv ,argc ,@args-and-rest)
+       (funcall-prototype ,method-ptr %gdext:ptr-built-in-method
+                          ,object
+                          ,argv
+                          ,(if ret ret '(cffi:null-pointer))
+                          ,argc)
        ,(when ret ret))))
 
 

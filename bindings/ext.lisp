@@ -600,6 +600,15 @@
                                    ',name ,bitfield-p src-val-sym argv-ptr-sym stack-ptr-sym)))))))
 
 
+(defmacro with-unintialized-variant ((var) &body body)
+  (let ((variant-class (get-godot-class (uiop:find-symbol* 'variant
+                                                           (find-package :%godot)))))
+    `(let ((,var (%gdext:mem-alloc2 ,(size-of variant-class) 0)))
+       (unwind-protect
+            (progn ,@body)
+         (%gdext:mem-free2 ,var 0)))))
+
+
 (defun expand-vararg-compiler-macro (method-ptr-var bind-extractor builtin-p args variants)
   `(progn
      (when (cffi:null-pointer-p ,method-ptr-var)
@@ -971,15 +980,18 @@
 
 
 (defmacro call-vararg-method-bind (method-bind object ret &rest args-and-rest)
-  (a:with-gensyms (argv argc)
+  (a:with-gensyms (argv argc result-dummy)
     `(with-method-varargs (,argv ,argc ,@args-and-rest)
-       (%gdext:object-method-bind-call
-        ,method-bind
-        ,object
-        ,argv
-        ,argc
-        ,(if ret ret '(cffi:null-pointer))
-        (cffi:null-pointer))
+       (,@(if ret
+              '(progn)
+              `(with-unintialized-variant (,result-dummy)))
+        (%gdext:object-method-bind-call
+         ,method-bind
+         ,object
+         ,argv
+         ,argc
+         ,(if ret ret result-dummy)
+         (cffi:null-pointer)))
        ,(when ret ret))))
 
 

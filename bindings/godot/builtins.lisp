@@ -1,19 +1,26 @@
 (common-lisp:in-package :%godot)
 
 
-(defgclass (variant :bind "Variant" :api :builtin :size 24))
+(defgclass
+ (variant :bind "Variant" :api :builtin :size 24 :instantiable common-lisp:nil))
 
-(defgclass (nil :bind "Nil" :api :builtin :size 0))
+(defgclass
+ (nil :bind "Nil" :api :builtin :size 0 :instantiable common-lisp:nil))
 
-(defgclass (bool :bind "bool" :api :builtin :size 1))
+(defgclass
+ (bool :bind "bool" :api :builtin :size 1 :instantiable common-lisp:nil))
 
-(defgclass (int :bind "int" :api :builtin :size 8))
+(defgclass
+ (int :bind "int" :api :builtin :size 8 :instantiable common-lisp:nil))
 
-(defgclass (float :bind "float" :api :builtin :size 8))
+(defgclass
+ (float :bind "float" :api :builtin :size 8 :instantiable common-lisp:nil))
 
-(defgclass (string :bind "String" :api :builtin :size 8))
+(defgclass
+ (string :bind "String" :api :builtin :size 8 :instantiable common-lisp:nil))
 
-(defgclass (vector-2 :bind "Vector2" :api :builtin :size 8)
+(defgclass
+ (vector-2 :bind "Vector2" :api :builtin :size 8 :instantiable common-lisp:nil)
  (:fields (x float :offset 0) (y float :offset 4)))
 
 
@@ -47,7 +54,9 @@
 
 (defgenum (vector-2+axis :class 'vector-2) (:x 0) (:y 1))
 
-(defgclass (vector-2i :bind "Vector2i" :api :builtin :size 8)
+(defgclass
+ (vector-2i :bind "Vector2i" :api :builtin :size 8 :instantiable
+  common-lisp:nil)
  (:fields (x :int32 :offset 0) (y :int32 :offset 4)))
 
 
@@ -85,13 +94,17 @@
 
 (defgenum (vector-2i+axis :class 'vector-2i) (:x 0) (:y 1))
 
-(defgclass (rect-2 :bind "Rect2" :api :builtin :size 16)
+(defgclass
+ (rect-2 :bind "Rect2" :api :builtin :size 16 :instantiable common-lisp:nil)
  (:fields (position vector-2 :offset 0) (size vector-2 :offset 8)))
 
-(defgclass (rect-2i :bind "Rect2i" :api :builtin :size 16)
+(defgclass
+ (rect-2i :bind "Rect2i" :api :builtin :size 16 :instantiable common-lisp:nil)
  (:fields (position vector-2i :offset 0) (size vector-2i :offset 8)))
 
-(defgclass (vector-3 :bind "Vector3" :api :builtin :size 12)
+(defgclass
+ (vector-3 :bind "Vector3" :api :builtin :size 12 :instantiable
+  common-lisp:nil)
  (:fields (x float :offset 0) (y float :offset 4) (z float :offset 8)))
 
 
@@ -157,7 +170,9 @@
 
 (defgenum (vector-3+axis :class 'vector-3) (:x 0) (:y 1) (:z 2))
 
-(defgclass (vector-3i :bind "Vector3i" :api :builtin :size 12)
+(defgclass
+ (vector-3i :bind "Vector3i" :api :builtin :size 12 :instantiable
+  common-lisp:nil)
  (:fields (x :int32 :offset 0) (y :int32 :offset 4) (z :int32 :offset 8)))
 
 
@@ -203,7 +218,9 @@
 
 (defgenum (vector-3i+axis :class 'vector-3i) (:x 0) (:y 1) (:z 2))
 
-(defgclass (transform-2d :bind "Transform2D" :api :builtin :size 24)
+(defgclass
+ (transform-2d :bind "Transform2D" :api :builtin :size 24 :instantiable
+  common-lisp:nil)
  (:fields (x vector-2 :offset 0) (y vector-2 :offset 8)
   (origin vector-2 :offset 16)))
 
@@ -219,7 +236,9 @@
 (defgconstant +transform-2d+flip-y+ :bind "FLIP_Y" :class 'transform-2d
  :documentation "Transform2D(1, 0, 0, -1, 0, 0)")
 
-(defgclass (vector-4 :bind "Vector4" :api :builtin :size 16)
+(defgclass
+ (vector-4 :bind "Vector4" :api :builtin :size 16 :instantiable
+  common-lisp:nil)
  (:fields (x float :offset 0) (y float :offset 4) (z float :offset 8)
   (w float :offset 12)))
 
@@ -238,7 +257,9 @@
 
 (defgenum (vector-4+axis :class 'vector-4) (:x 0) (:y 1) (:z 2) (:w 3))
 
-(defgclass (vector-4i :bind "Vector4i" :api :builtin :size 16)
+(defgclass
+ (vector-4i :bind "Vector4i" :api :builtin :size 16 :instantiable
+  common-lisp:nil)
  (:fields (x :int32 :offset 0) (y :int32 :offset 4) (z :int32 :offset 8)
   (w :int32 :offset 12)))
 
@@ -261,7 +282,8 @@
 
 (defgenum (vector-4i+axis :class 'vector-4i) (:x 0) (:y 1) (:z 2) (:w 3))
 
-(defgclass (plane :bind "Plane" :api :builtin :size 16)
+(defgclass
+ (plane :bind "Plane" :api :builtin :size 16 :instantiable common-lisp:nil)
  (:fields (normal vector-3 :offset 0) (d float :offset 12)))
 
 
@@ -276,7 +298,9 @@
 (defgconstant +plane+plane-xy+ :bind "PLANE_XY" :class 'plane :documentation
  "Plane(0, 0, 1, 0)")
 
-(defgclass (quaternion :bind "Quaternion" :api :builtin :size 16)
+(defgclass
+ (quaternion :bind "Quaternion" :api :builtin :size 16 :instantiable
+  common-lisp:nil)
  (:fields (x float :offset 0) (y float :offset 4) (z float :offset 8)
   (w float :offset 12)))
 
@@ -284,10 +308,12 @@
 (defgconstant +quaternion+identity+ :bind "IDENTITY" :class 'quaternion
  :documentation "Quaternion(0, 0, 0, 1)")
 
-(defgclass (aabb :bind "AABB" :api :builtin :size 24)
+(defgclass
+ (aabb :bind "AABB" :api :builtin :size 24 :instantiable common-lisp:nil)
  (:fields (position vector-3 :offset 0) (size vector-3 :offset 12)))
 
-(defgclass (basis :bind "Basis" :api :builtin :size 36)
+(defgclass
+ (basis :bind "Basis" :api :builtin :size 36 :instantiable common-lisp:nil)
  (:fields (x vector-3 :offset 0) (y vector-3 :offset 12)
   (z vector-3 :offset 24)))
 
@@ -307,7 +333,9 @@
 (defgconstant +basis+flip-z+ :bind "FLIP_Z" :class 'basis :documentation
  "Basis(1, 0, 0, 0, 1, 0, 0, 0, -1)")
 
-(defgclass (transform-3d :bind "Transform3D" :api :builtin :size 48)
+(defgclass
+ (transform-3d :bind "Transform3D" :api :builtin :size 48 :instantiable
+  common-lisp:nil)
  (:fields (basis basis :offset 0) (origin vector-3 :offset 36)))
 
 
@@ -326,7 +354,9 @@
 (defgconstant +transform-3d+flip-z+ :bind "FLIP_Z" :class 'transform-3d
  :documentation "Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)")
 
-(defgclass (projection :bind "Projection" :api :builtin :size 64)
+(defgclass
+ (projection :bind "Projection" :api :builtin :size 64 :instantiable
+  common-lisp:nil)
  (:fields (x vector-4 :offset 0) (y vector-4 :offset 16)
   (z vector-4 :offset 32) (w vector-4 :offset 48)))
 
@@ -342,7 +372,8 @@
 (defgenum (projection+planes :class 'projection) (:near 0) (:far 1) (:left 2)
  (:top 3) (:right 4) (:bottom 5))
 
-(defgclass (color :bind "Color" :api :builtin :size 16)
+(defgclass
+ (color :bind "Color" :api :builtin :size 16 :instantiable common-lisp:nil)
  (:fields (r float :offset 0) (g float :offset 4) (b float :offset 8)
   (a float :offset 12)))
 
@@ -930,42 +961,67 @@
 (defgconstant +color+yellow-green+ :bind "YELLOW_GREEN" :class 'color
  :documentation "Color(0.6039216, 0.8039216, 0.19607843, 1)")
 
-(defgclass (string-name :bind "StringName" :api :builtin :size 8))
-
-(defgclass (node-path :bind "NodePath" :api :builtin :size 8))
-
-(defgclass (rid :bind "RID" :api :builtin :size 8))
-
-(defgclass (callable :bind "Callable" :api :builtin :size 16))
-
-(defgclass (signal :bind "Signal" :api :builtin :size 16))
-
-(defgclass (dictionary :bind "Dictionary" :api :builtin :size 8))
-
-(defgclass (array :bind "Array" :api :builtin :size 8))
-
-(defgclass (packed-byte-array :bind "PackedByteArray" :api :builtin :size 16))
-
-(defgclass (packed-int-32array :bind "PackedInt32Array" :api :builtin :size 16))
-
-(defgclass (packed-int-64array :bind "PackedInt64Array" :api :builtin :size 16))
+(defgclass
+ (string-name :bind "StringName" :api :builtin :size 8 :instantiable
+  common-lisp:nil))
 
 (defgclass
- (packed-float-32array :bind "PackedFloat32Array" :api :builtin :size 16))
+ (node-path :bind "NodePath" :api :builtin :size 8 :instantiable
+  common-lisp:nil))
 
 (defgclass
- (packed-float-64array :bind "PackedFloat64Array" :api :builtin :size 16))
+ (rid :bind "RID" :api :builtin :size 8 :instantiable common-lisp:nil))
 
 (defgclass
- (packed-string-array :bind "PackedStringArray" :api :builtin :size 16))
+ (callable :bind "Callable" :api :builtin :size 16 :instantiable
+  common-lisp:nil))
 
 (defgclass
- (packed-vector-2array :bind "PackedVector2Array" :api :builtin :size 16))
+ (signal :bind "Signal" :api :builtin :size 16 :instantiable common-lisp:nil))
 
 (defgclass
- (packed-vector-3array :bind "PackedVector3Array" :api :builtin :size 16))
-
-(defgclass (packed-color-array :bind "PackedColorArray" :api :builtin :size 16))
+ (dictionary :bind "Dictionary" :api :builtin :size 8 :instantiable
+  common-lisp:nil))
 
 (defgclass
- (packed-vector-4array :bind "PackedVector4Array" :api :builtin :size 16))
+ (array :bind "Array" :api :builtin :size 8 :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-byte-array :bind "PackedByteArray" :api :builtin :size 16
+  :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-int-32array :bind "PackedInt32Array" :api :builtin :size 16
+  :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-int-64array :bind "PackedInt64Array" :api :builtin :size 16
+  :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-float-32array :bind "PackedFloat32Array" :api :builtin :size 16
+  :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-float-64array :bind "PackedFloat64Array" :api :builtin :size 16
+  :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-string-array :bind "PackedStringArray" :api :builtin :size 16
+  :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-vector-2array :bind "PackedVector2Array" :api :builtin :size 16
+  :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-vector-3array :bind "PackedVector3Array" :api :builtin :size 16
+  :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-color-array :bind "PackedColorArray" :api :builtin :size 16
+  :instantiable common-lisp:nil))
+
+(defgclass
+ (packed-vector-4array :bind "PackedVector4Array" :api :builtin :size 16
+  :instantiable common-lisp:nil))

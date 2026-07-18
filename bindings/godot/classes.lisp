@@ -1,17 +1,18 @@
 (common-lisp:in-package :%godot)
 
 
-(defgclass (aescontext :bind "AESContext" :api :core))
+(defgclass (aescontext :bind "AESContext" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (aescontext+mode :class 'aescontext) (:ecb-encrypt 0)
  (:ecb-decrypt 1) (:cbc-encrypt 2) (:cbc-decrypt 3) (:max 4))
 
-(defgclass (astar-2d :bind "AStar2D" :api :core))
+(defgclass (astar-2d :bind "AStar2D" :api :core :refcounted common-lisp:t))
 
-(defgclass (astar-3d :bind "AStar3D" :api :core))
+(defgclass (astar-3d :bind "AStar3D" :api :core :refcounted common-lisp:t))
 
-(defgclass (astar-grid-2d :bind "AStarGrid2D" :api :core))
+(defgclass
+ (astar-grid-2d :bind "AStarGrid2D" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (astar-grid-2d+heuristic :class 'astar-grid-2d) (:euclidean 0)
@@ -28,7 +29,9 @@
 (defgclass (accept-dialog :bind "AcceptDialog" :api :core)
  (:signals (confirmed) (canceled) (custom-action action string-name)))
 
-(defgclass (accessibility-server :bind "AccessibilityServer" :api :core))
+(defgclass
+ (accessibility-server :bind "AccessibilityServer" :api :core :instantiable
+  common-lisp:nil))
 
 
 (defgenum
@@ -97,13 +100,15 @@
  (:signals (sprite-frames-changed) (animation-changed) (frame-changed)
   (animation-looped) (animation-finished)))
 
-(defgclass (animated-texture :bind "AnimatedTexture" :api :core))
+(defgclass
+ (animated-texture :bind "AnimatedTexture" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgconstant +animated-texture+max-frames+ :value 256 :bind "MAX_FRAMES"
  :class 'animated-texture)
 
-(defgclass (animation :bind "Animation" :api :core))
+(defgclass (animation :bind "Animation" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (animation+track-type :class 'animation) (:value 0) (:position-3d 1)
@@ -130,13 +135,17 @@
 (defgenum (animation+find-mode :class 'animation) (:nearest 0) (:approx 1)
  (:exact 2))
 
-(defgclass (animation-library :bind "AnimationLibrary" :api :core)
+(defgclass
+ (animation-library :bind "AnimationLibrary" :api :core :refcounted
+  common-lisp:t)
  (:signals (animation-added anim-name string-name)
   (animation-removed anim-name string-name)
   (animation-renamed old-name string-name new-name string-name)
   (animation-changed anim-name string-name)))
 
-(defgclass (animation-mixer :bind "AnimationMixer" :api :core)
+(defgclass
+ (animation-mixer :bind "AnimationMixer" :api :core :instantiable
+  common-lisp:nil)
  (:signals (animation-list-changed) (animation-libraries-updated)
   (animation-finished anim-name string-name)
   (animation-started anim-name string-name) (caches-cleared) (mixer-applied)
@@ -157,7 +166,8 @@
  (animation-mixer+animation-callback-mode-discrete :class 'animation-mixer)
  (:dominant 0) (:recessive 1) (:force-continuous 2))
 
-(defgclass (animation-node :bind "AnimationNode" :api :core)
+(defgclass
+ (animation-node :bind "AnimationNode" :api :core :refcounted common-lisp:t)
  (:signals (tree-changed) (node-updated object-id int)
   (animation-node-renamed object-id int old-name string new-name string)
   (animation-node-removed object-id int node-name string)))
@@ -166,22 +176,33 @@
 (defgenum (animation-node+filter-action :class 'animation-node) (:ignore 0)
  (:pass 1) (:stop 2) (:blend 3))
 
-(defgclass (animation-node-add-2 :bind "AnimationNodeAdd2" :api :core))
+(defgclass
+ (animation-node-add-2 :bind "AnimationNodeAdd2" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (animation-node-add-3 :bind "AnimationNodeAdd3" :api :core))
+(defgclass
+ (animation-node-add-3 :bind "AnimationNodeAdd3" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (animation-node-animation :bind "AnimationNodeAnimation" :api :core))
+(defgclass
+ (animation-node-animation :bind "AnimationNodeAnimation" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum (animation-node-animation+play-mode :class 'animation-node-animation)
  (:forward 0) (:backward 1))
 
-(defgclass (animation-node-blend-2 :bind "AnimationNodeBlend2" :api :core))
-
-(defgclass (animation-node-blend-3 :bind "AnimationNodeBlend3" :api :core))
+(defgclass
+ (animation-node-blend-2 :bind "AnimationNodeBlend2" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (animation-node-blend-space-1d :bind "AnimationNodeBlendSpace1D" :api :core))
+ (animation-node-blend-3 :bind "AnimationNodeBlend3" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (animation-node-blend-space-1d :bind "AnimationNodeBlendSpace1D" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -196,7 +217,8 @@
  (:none 0) (:independent 1) (:cyclic-mutable 2) (:cyclic-constant 3))
 
 (defgclass
- (animation-node-blend-space-2d :bind "AnimationNodeBlendSpace2D" :api :core)
+ (animation-node-blend-space-2d :bind "AnimationNodeBlendSpace2D" :api :core
+  :refcounted common-lisp:t)
  (:signals (triangles-updated)))
 
 
@@ -212,7 +234,8 @@
  (:none 0) (:independent 1) (:cyclic-mutable 2) (:cyclic-constant 3))
 
 (defgclass
- (animation-node-blend-tree :bind "AnimationNodeBlendTree" :api :core)
+ (animation-node-blend-tree :bind "AnimationNodeBlendTree" :api :core
+  :refcounted common-lisp:t)
  (:signals (node-changed node-name string-name)))
 
 
@@ -241,9 +264,13 @@
  :value 5 :bind "CONNECTION_ERROR_CONNECTION_EXISTS" :class
  'animation-node-blend-tree)
 
-(defgclass (animation-node-extension :bind "AnimationNodeExtension" :api :core))
+(defgclass
+ (animation-node-extension :bind "AnimationNodeExtension" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (animation-node-one-shot :bind "AnimationNodeOneShot" :api :core))
+(defgclass
+ (animation-node-one-shot :bind "AnimationNodeOneShot" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum
@@ -254,10 +281,13 @@
 (defgenum (animation-node-one-shot+mix-mode :class 'animation-node-one-shot)
  (:blend 0) (:add 1))
 
-(defgclass (animation-node-output :bind "AnimationNodeOutput" :api :core))
+(defgclass
+ (animation-node-output :bind "AnimationNodeOutput" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (animation-node-state-machine :bind "AnimationNodeStateMachine" :api :core))
+ (animation-node-state-machine :bind "AnimationNodeStateMachine" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -267,13 +297,13 @@
 
 (defgclass
  (animation-node-state-machine-playback :bind
-  "AnimationNodeStateMachinePlayback" :api :core)
+  "AnimationNodeStateMachinePlayback" :api :core :refcounted common-lisp:t)
  (:signals (state-started state string-name)
   (state-finished state string-name)))
 
 (defgclass
  (animation-node-state-machine-transition :bind
-  "AnimationNodeStateMachineTransition" :api :core)
+  "AnimationNodeStateMachineTransition" :api :core :refcounted common-lisp:t)
  (:signals (advance-condition-changed)))
 
 
@@ -288,17 +318,25 @@
   'animation-node-state-machine-transition)
  (:disabled 0) (:enabled 1) (:auto 2))
 
-(defgclass (animation-node-sub-2 :bind "AnimationNodeSub2" :api :core))
-
-(defgclass (animation-node-sync :bind "AnimationNodeSync" :api :core))
+(defgclass
+ (animation-node-sub-2 :bind "AnimationNodeSub2" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (animation-node-time-scale :bind "AnimationNodeTimeScale" :api :core))
-
-(defgclass (animation-node-time-seek :bind "AnimationNodeTimeSeek" :api :core))
+ (animation-node-sync :bind "AnimationNodeSync" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (animation-node-transition :bind "AnimationNodeTransition" :api :core))
+ (animation-node-time-scale :bind "AnimationNodeTimeScale" :api :core
+  :refcounted common-lisp:t))
+
+(defgclass
+ (animation-node-time-seek :bind "AnimationNodeTimeSeek" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (animation-node-transition :bind "AnimationNodeTransition" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass (animation-player :bind "AnimationPlayer" :api :core)
  (:signals (current-animation-changed anim-name string-name)
@@ -314,7 +352,9 @@
  (animation-player+animation-method-call-mode :class 'animation-player)
  (:deferred 0) (:immediate 1))
 
-(defgclass (animation-root-node :bind "AnimationRootNode" :api :core))
+(defgclass
+ (animation-root-node :bind "AnimationRootNode" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (animation-tree :bind "AnimationTree" :api :core)
  (:signals (animation-player-changed)))
@@ -359,9 +399,11 @@
 
 (defgclass (area-light-3d :bind "AreaLight3D" :api :core))
 
-(defgclass (array-mesh :bind "ArrayMesh" :api :core))
+(defgclass (array-mesh :bind "ArrayMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (array-occluder-3d :bind "ArrayOccluder3D" :api :core))
+(defgclass
+ (array-occluder-3d :bind "ArrayOccluder3D" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (aspect-ratio-container :bind "AspectRatioContainer" :api :core))
 
@@ -374,87 +416,132 @@
  (aspect-ratio-container+alignment-mode :class 'aspect-ratio-container)
  (:begin 0) (:center 1) (:end 2))
 
-(defgclass (atlas-texture :bind "AtlasTexture" :api :core))
-
-(defgclass (audio-bus-layout :bind "AudioBusLayout" :api :core))
-
-(defgclass (audio-effect :bind "AudioEffect" :api :core))
-
-(defgclass (audio-effect-amplify :bind "AudioEffectAmplify" :api :core))
+(defgclass
+ (atlas-texture :bind "AtlasTexture" :api :core :refcounted common-lisp:t))
 
 (defgclass
- (audio-effect-band-limit-filter :bind "AudioEffectBandLimitFilter" :api :core))
+ (audio-bus-layout :bind "AudioBusLayout" :api :core :refcounted common-lisp:t))
 
 (defgclass
- (audio-effect-band-pass-filter :bind "AudioEffectBandPassFilter" :api :core))
+ (audio-effect :bind "AudioEffect" :api :core :refcounted common-lisp:t))
 
-(defgclass (audio-effect-capture :bind "AudioEffectCapture" :api :core))
+(defgclass
+ (audio-effect-amplify :bind "AudioEffectAmplify" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (audio-effect-chorus :bind "AudioEffectChorus" :api :core))
+(defgclass
+ (audio-effect-band-limit-filter :bind "AudioEffectBandLimitFilter" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (audio-effect-compressor :bind "AudioEffectCompressor" :api :core))
+(defgclass
+ (audio-effect-band-pass-filter :bind "AudioEffectBandPassFilter" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (audio-effect-delay :bind "AudioEffectDelay" :api :core))
+(defgclass
+ (audio-effect-capture :bind "AudioEffectCapture" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (audio-effect-distortion :bind "AudioEffectDistortion" :api :core))
+(defgclass
+ (audio-effect-chorus :bind "AudioEffectChorus" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (audio-effect-compressor :bind "AudioEffectCompressor" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (audio-effect-delay :bind "AudioEffectDelay" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (audio-effect-distortion :bind "AudioEffectDistortion" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (audio-effect-distortion+mode :class 'audio-effect-distortion)
  (:clip 0) (:atan 1) (:lofi 2) (:overdrive 3) (:waveshape 4))
 
-(defgclass (audio-effect-eq :bind "AudioEffectEQ" :api :core))
+(defgclass
+ (audio-effect-eq :bind "AudioEffectEQ" :api :core :refcounted common-lisp:t))
 
-(defgclass (audio-effect-eq10 :bind "AudioEffectEQ10" :api :core))
+(defgclass
+ (audio-effect-eq10 :bind "AudioEffectEQ10" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (audio-effect-eq21 :bind "AudioEffectEQ21" :api :core))
+(defgclass
+ (audio-effect-eq21 :bind "AudioEffectEQ21" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (audio-effect-eq6 :bind "AudioEffectEQ6" :api :core))
+(defgclass
+ (audio-effect-eq6 :bind "AudioEffectEQ6" :api :core :refcounted common-lisp:t))
 
-(defgclass (audio-effect-filter :bind "AudioEffectFilter" :api :core))
+(defgclass
+ (audio-effect-filter :bind "AudioEffectFilter" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (audio-effect-filter+filter-db :class 'audio-effect-filter) (:6db 0)
  (:12db 1) (:18db 2) (:24db 3))
 
 (defgclass
- (audio-effect-hard-limiter :bind "AudioEffectHardLimiter" :api :core))
+ (audio-effect-hard-limiter :bind "AudioEffectHardLimiter" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (audio-effect-high-pass-filter :bind "AudioEffectHighPassFilter" :api :core))
+ (audio-effect-high-pass-filter :bind "AudioEffectHighPassFilter" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (audio-effect-high-shelf-filter :bind "AudioEffectHighShelfFilter" :api :core))
-
-(defgclass (audio-effect-instance :bind "AudioEffectInstance" :api :core))
-
-(defgclass (audio-effect-limiter :bind "AudioEffectLimiter" :api :core))
+ (audio-effect-high-shelf-filter :bind "AudioEffectHighShelfFilter" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (audio-effect-low-pass-filter :bind "AudioEffectLowPassFilter" :api :core))
+ (audio-effect-instance :bind "AudioEffectInstance" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (audio-effect-low-shelf-filter :bind "AudioEffectLowShelfFilter" :api :core))
+ (audio-effect-limiter :bind "AudioEffectLimiter" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (audio-effect-notch-filter :bind "AudioEffectNotchFilter" :api :core))
+ (audio-effect-low-pass-filter :bind "AudioEffectLowPassFilter" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (audio-effect-panner :bind "AudioEffectPanner" :api :core))
+(defgclass
+ (audio-effect-low-shelf-filter :bind "AudioEffectLowShelfFilter" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (audio-effect-phaser :bind "AudioEffectPhaser" :api :core))
+(defgclass
+ (audio-effect-notch-filter :bind "AudioEffectNotchFilter" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (audio-effect-pitch-shift :bind "AudioEffectPitchShift" :api :core))
+(defgclass
+ (audio-effect-panner :bind "AudioEffectPanner" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (audio-effect-phaser :bind "AudioEffectPhaser" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (audio-effect-pitch-shift :bind "AudioEffectPitchShift" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (audio-effect-pitch-shift+fftsize :class 'audio-effect-pitch-shift)
  (:|256| 0) (:|512| 1) (:|1024| 2) (:|2048| 3) (:|4096| 4) (:max 5))
 
-(defgclass (audio-effect-record :bind "AudioEffectRecord" :api :core))
-
-(defgclass (audio-effect-reverb :bind "AudioEffectReverb" :api :core))
+(defgclass
+ (audio-effect-record :bind "AudioEffectRecord" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (audio-effect-spectrum-analyzer :bind "AudioEffectSpectrumAnalyzer" :api
-  :core))
+ (audio-effect-reverb :bind "AudioEffectReverb" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (audio-effect-spectrum-analyzer :bind "AudioEffectSpectrumAnalyzer" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -464,7 +551,8 @@
 
 (defgclass
  (audio-effect-spectrum-analyzer-instance :bind
-  "AudioEffectSpectrumAnalyzerInstance" :api :core))
+  "AudioEffectSpectrumAnalyzerInstance" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum
@@ -473,7 +561,8 @@
  (:average 0) (:max 1))
 
 (defgclass
- (audio-effect-stereo-enhance :bind "AudioEffectStereoEnhance" :api :core))
+ (audio-effect-stereo-enhance :bind "AudioEffectStereoEnhance" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass (audio-listener-2d :bind "AudioListener2D" :api :core))
 
@@ -483,9 +572,12 @@
 (defgenum (audio-listener-3d+doppler-tracking :class 'audio-listener-3d)
  (:disabled 0) (:idle-step 1) (:physics-step 2))
 
-(defgclass (audio-sample :bind "AudioSample" :api :core))
+(defgclass
+ (audio-sample :bind "AudioSample" :api :core :refcounted common-lisp:t))
 
-(defgclass (audio-sample-playback :bind "AudioSamplePlayback" :api :core))
+(defgclass
+ (audio-sample-playback :bind "AudioSamplePlayback" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (audio-server :bind "AudioServer" :api :core)
  (:signals (bus-layout-changed)
@@ -499,10 +591,13 @@
 (defgenum (audio-server+playback-type :class 'audio-server) (:default 0)
  (:stream 1) (:sample 2) (:max 3))
 
-(defgclass (audio-stream :bind "AudioStream" :api :core)
+(defgclass
+ (audio-stream :bind "AudioStream" :api :core :refcounted common-lisp:t)
  (:signals (parameter-list-changed)))
 
-(defgclass (audio-stream-generator :bind "AudioStreamGenerator" :api :core))
+(defgclass
+ (audio-stream-generator :bind "AudioStreamGenerator" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum
@@ -512,9 +607,11 @@
 
 (defgclass
  (audio-stream-generator-playback :bind "AudioStreamGeneratorPlayback" :api
-  :core))
+  :core :instantiable common-lisp:nil :refcounted common-lisp:t))
 
-(defgclass (audio-stream-interactive :bind "AudioStreamInteractive" :api :core))
+(defgclass
+ (audio-stream-interactive :bind "AudioStreamInteractive" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgconstant +audio-stream-interactive+clip-any+ :value -1 :bind "CLIP_ANY"
@@ -540,29 +637,36 @@
  (audio-stream-interactive+auto-advance-mode :class 'audio-stream-interactive)
  (:disabled 0) (:enabled 1) (:return-to-hold 2))
 
-(defgclass (audio-stream-mp3 :bind "AudioStreamMP3" :api :core))
+(defgclass
+ (audio-stream-mp3 :bind "AudioStreamMP3" :api :core :refcounted common-lisp:t))
 
-(defgclass (audio-stream-microphone :bind "AudioStreamMicrophone" :api :core))
+(defgclass
+ (audio-stream-microphone :bind "AudioStreamMicrophone" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (audio-stream-ogg-vorbis :bind "AudioStreamOggVorbis" :api :core))
+(defgclass
+ (audio-stream-ogg-vorbis :bind "AudioStreamOggVorbis" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (audio-stream-playback :bind "AudioStreamPlayback" :api :core))
+(defgclass
+ (audio-stream-playback :bind "AudioStreamPlayback" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (audio-stream-playback-interactive :bind "AudioStreamPlaybackInteractive" :api
-  :core))
+  :core :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
  (audio-stream-playback-ogg-vorbis :bind "AudioStreamPlaybackOggVorbis" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (audio-stream-playback-playlist :bind "AudioStreamPlaybackPlaylist" :api
-  :core))
+ (audio-stream-playback-playlist :bind "AudioStreamPlaybackPlaylist" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
  (audio-stream-playback-polyphonic :bind "AudioStreamPlaybackPolyphonic" :api
-  :core))
+  :core :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgconstant +audio-stream-playback-polyphonic+invalid-id+ :value -1 :bind
@@ -570,11 +674,11 @@
 
 (defgclass
  (audio-stream-playback-resampled :bind "AudioStreamPlaybackResampled" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (audio-stream-playback-synchronized :bind "AudioStreamPlaybackSynchronized"
-  :api :core))
+  :api :core :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass (audio-stream-player :bind "AudioStreamPlayer" :api :core)
  (:signals (finished)))
@@ -600,15 +704,21 @@
  (audio-stream-player-3d+doppler-tracking :class 'audio-stream-player-3d)
  (:disabled 0) (:idle-step 1) (:physics-step 2))
 
-(defgclass (audio-stream-playlist :bind "AudioStreamPlaylist" :api :core))
+(defgclass
+ (audio-stream-playlist :bind "AudioStreamPlaylist" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgconstant +audio-stream-playlist+max-streams+ :value 64 :bind "MAX_STREAMS"
  :class 'audio-stream-playlist)
 
-(defgclass (audio-stream-polyphonic :bind "AudioStreamPolyphonic" :api :core))
+(defgclass
+ (audio-stream-polyphonic :bind "AudioStreamPolyphonic" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (audio-stream-randomizer :bind "AudioStreamRandomizer" :api :core))
+(defgclass
+ (audio-stream-randomizer :bind "AudioStreamRandomizer" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum
@@ -616,13 +726,15 @@
  (:random-no-repeats 0) (:random 1) (:sequential 2))
 
 (defgclass
- (audio-stream-synchronized :bind "AudioStreamSynchronized" :api :core))
+ (audio-stream-synchronized :bind "AudioStreamSynchronized" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgconstant +audio-stream-synchronized+max-streams+ :value 32 :bind
  "MAX_STREAMS" :class 'audio-stream-synchronized)
 
-(defgclass (audio-stream-wav :bind "AudioStreamWAV" :api :core))
+(defgclass
+ (audio-stream-wav :bind "AudioStreamWAV" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (audio-stream-wav+format :class 'audio-stream-wav) (:8-bits 0)
@@ -632,7 +744,8 @@
 (defgenum (audio-stream-wav+loop-mode :class 'audio-stream-wav) (:disabled 0)
  (:forward 1) (:pingpong 2) (:backward 3))
 
-(defgclass (await-tweener :bind "AwaitTweener" :api :core))
+(defgclass
+ (await-tweener :bind "AwaitTweener" :api :core :refcounted common-lisp:t))
 
 (defgclass (back-buffer-copy :bind "BackBufferCopy" :api :core))
 
@@ -650,7 +763,9 @@
 
 (defgenum (base-button+action-mode :class 'base-button) (:press 0) (:release 1))
 
-(defgclass (base-material-3d :bind "BaseMaterial3D" :api :core))
+(defgclass
+ (base-material-3d :bind "BaseMaterial3D" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum (base-material-3d+texture-param :class 'base-material-3d) (:albedo 0)
@@ -756,9 +871,10 @@
  (:always 0) (:less 1) (:equal 2) (:less-or-equal 3) (:greater 4)
  (:not-equal 5) (:greater-or-equal 6))
 
-(defgclass (bit-map :bind "BitMap" :api :core))
+(defgclass (bit-map :bind "BitMap" :api :core :refcounted common-lisp:t))
 
-(defgclass (blit-material :bind "BlitMaterial" :api :core))
+(defgclass
+ (blit-material :bind "BlitMaterial" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (blit-material+blend-mode :class 'blit-material) (:mix 0) (:add 1)
@@ -774,7 +890,7 @@
 (defgenum (bone-constraint-3d+reference-type :class 'bone-constraint-3d)
  (:bone 0) (:node 1))
 
-(defgclass (bone-map :bind "BoneMap" :api :core)
+(defgclass (bone-map :bind "BoneMap" :api :core :refcounted common-lisp:t)
  (:signals (bone-map-updated) (profile-updated)))
 
 (defgclass (bone-twist-disperser-3d :bind "BoneTwistDisperser3D" :api :core))
@@ -790,15 +906,18 @@
 (defgenum (box-container+alignment-mode :class 'box-container) (:begin 0)
  (:center 1) (:end 2))
 
-(defgclass (box-mesh :bind "BoxMesh" :api :core))
+(defgclass (box-mesh :bind "BoxMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (box-occluder-3d :bind "BoxOccluder3D" :api :core))
+(defgclass
+ (box-occluder-3d :bind "BoxOccluder3D" :api :core :refcounted common-lisp:t))
 
-(defgclass (box-shape-3d :bind "BoxShape3D" :api :core))
+(defgclass
+ (box-shape-3d :bind "BoxShape3D" :api :core :refcounted common-lisp:t))
 
 (defgclass (button :bind "Button" :api :core))
 
-(defgclass (button-group :bind "ButtonGroup" :api :core)
+(defgclass
+ (button-group :bind "ButtonGroup" :api :core :refcounted common-lisp:t)
  (:signals (pressed button base-button)))
 
 (defgclass (ccdik3d :bind "CCDIK3D" :api :core))
@@ -871,9 +990,12 @@
 (defgenum (csgpolygon-3d+path-interval-type :class 'csgpolygon-3d)
  (:distance 0) (:subdivide 1))
 
-(defgclass (csgprimitive-3d :bind "CSGPrimitive3D" :api :core))
+(defgclass
+ (csgprimitive-3d :bind "CSGPrimitive3D" :api :core :instantiable
+  common-lisp:nil))
 
-(defgclass (csgshape-3d :bind "CSGShape3D" :api :core))
+(defgclass
+ (csgshape-3d :bind "CSGShape3D" :api :core :instantiable common-lisp:nil))
 
 
 (defgenum (csgshape-3d+operation :class 'csgshape-3d) (:union 0)
@@ -883,7 +1005,9 @@
 
 (defgclass (csgtorus-3d :bind "CSGTorus3D" :api :core))
 
-(defgclass (callback-tweener :bind "CallbackTweener" :api :core))
+(defgclass
+ (callback-tweener :bind "CallbackTweener" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (camera-2d :bind "Camera2D" :api :core))
 
@@ -908,15 +1032,20 @@
 (defgenum (camera-3d+doppler-tracking :class 'camera-3d) (:disabled 0)
  (:idle-step 1) (:physics-step 2))
 
-(defgclass (camera-attributes :bind "CameraAttributes" :api :core))
+(defgclass
+ (camera-attributes :bind "CameraAttributes" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (camera-attributes-physical :bind "CameraAttributesPhysical" :api :core))
+ (camera-attributes-physical :bind "CameraAttributesPhysical" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (camera-attributes-practical :bind "CameraAttributesPractical" :api :core))
+ (camera-attributes-practical :bind "CameraAttributesPractical" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (camera-feed :bind "CameraFeed" :api :core)
+(defgclass
+ (camera-feed :bind "CameraFeed" :api :core :refcounted common-lisp:t)
  (:signals (frame-changed) (format-changed)))
 
 
@@ -935,11 +1064,13 @@
 (defgenum (camera-server+feed-image :class 'camera-server) (:rgba-image 0)
  (:ycbcr-image 0) (:y-image 0) (:cbcr-image 1))
 
-(defgclass (camera-texture :bind "CameraTexture" :api :core))
+(defgclass
+ (camera-texture :bind "CameraTexture" :api :core :refcounted common-lisp:t))
 
 (defgclass (canvas-group :bind "CanvasGroup" :api :core))
 
-(defgclass (canvas-item :bind "CanvasItem" :api :core)
+(defgclass
+ (canvas-item :bind "CanvasItem" :api :core :instantiable common-lisp:nil)
  (:signals (draw) (visibility-changed) (hidden) (item-rect-changed)))
 
 
@@ -988,7 +1119,9 @@
 (defgenum (canvas-item+oversampling-with-scale :class 'canvas-item)
  (:parent-node 0) (:disabled 1) (:enabled 2) (:max 3))
 
-(defgclass (canvas-item-material :bind "CanvasItemMaterial" :api :core))
+(defgclass
+ (canvas-item-material :bind "CanvasItemMaterial" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (canvas-item-material+blend-mode :class 'canvas-item-material)
@@ -1003,19 +1136,26 @@
 
 (defgclass (canvas-modulate :bind "CanvasModulate" :api :core))
 
-(defgclass (canvas-texture :bind "CanvasTexture" :api :core))
+(defgclass
+ (canvas-texture :bind "CanvasTexture" :api :core :refcounted common-lisp:t))
 
-(defgclass (capsule-mesh :bind "CapsuleMesh" :api :core))
+(defgclass
+ (capsule-mesh :bind "CapsuleMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (capsule-shape-2d :bind "CapsuleShape2D" :api :core))
+(defgclass
+ (capsule-shape-2d :bind "CapsuleShape2D" :api :core :refcounted common-lisp:t))
 
-(defgclass (capsule-shape-3d :bind "CapsuleShape3D" :api :core))
+(defgclass
+ (capsule-shape-3d :bind "CapsuleShape3D" :api :core :refcounted common-lisp:t))
 
 (defgclass (center-container :bind "CenterContainer" :api :core))
 
-(defgclass (chain-ik3d :bind "ChainIK3D" :api :core))
+(defgclass
+ (chain-ik3d :bind "ChainIK3D" :api :core :instantiable common-lisp:nil))
 
-(defgclass (char-fxtransform :bind "CharFXTransform" :api :core))
+(defgclass
+ (char-fxtransform :bind "CharFXTransform" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (character-body-2d :bind "CharacterBody2D" :api :core))
 
@@ -1041,7 +1181,8 @@
 
 (defgclass (check-button :bind "CheckButton" :api :core))
 
-(defgclass (circle-shape-2d :bind "CircleShape2D" :api :core))
+(defgclass
+ (circle-shape-2d :bind "CircleShape2D" :api :core :refcounted common-lisp:t))
 
 (defgclass (class-db :bind "ClassDB" :api :core))
 
@@ -1064,9 +1205,13 @@
 (defgenum (code-edit+code-completion-location :class 'code-edit) (:local 0)
  (:parent-mask 256) (:other-user-code 512) (:other 1024))
 
-(defgclass (code-highlighter :bind "CodeHighlighter" :api :core))
+(defgclass
+ (code-highlighter :bind "CodeHighlighter" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (collision-object-2d :bind "CollisionObject2D" :api :core)
+(defgclass
+ (collision-object-2d :bind "CollisionObject2D" :api :core :instantiable
+  common-lisp:nil)
  (:signals (input-event viewport node event input-event shape-idx int)
   (mouse-entered) (mouse-exited) (mouse-shape-entered shape-idx int)
   (mouse-shape-exited shape-idx int)))
@@ -1075,7 +1220,9 @@
 (defgenum (collision-object-2d+disable-mode :class 'collision-object-2d)
  (:remove 0) (:make-static 1) (:keep-active 2))
 
-(defgclass (collision-object-3d :bind "CollisionObject3D" :api :core)
+(defgclass
+ (collision-object-3d :bind "CollisionObject3D" :api :core :instantiable
+  common-lisp:nil)
  (:signals
   (input-event camera node event input-event event-position vector-3 normal
    vector-3 shape-idx int)
@@ -1097,7 +1244,8 @@
 
 (defgclass (collision-shape-3d :bind "CollisionShape3D" :api :core))
 
-(defgclass (color-palette :bind "ColorPalette" :api :core))
+(defgclass
+ (color-palette :bind "ColorPalette" :api :core :refcounted common-lisp:t))
 
 (defgclass (color-picker :bind "ColorPicker" :api :core)
  (:signals (color-changed color color) (preset-added color color)
@@ -1117,32 +1265,48 @@
 
 (defgclass (color-rect :bind "ColorRect" :api :core))
 
-(defgclass (compositor :bind "Compositor" :api :core))
+(defgclass (compositor :bind "Compositor" :api :core :refcounted common-lisp:t))
 
-(defgclass (compositor-effect :bind "CompositorEffect" :api :core))
+(defgclass
+ (compositor-effect :bind "CompositorEffect" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (compositor-effect+effect-callback-type :class 'compositor-effect)
  (:pre-opaque 0) (:post-opaque 1) (:post-sky 2) (:pre-transparent 3)
  (:post-transparent 4) (:max 5))
 
-(defgclass (compressed-cubemap :bind "CompressedCubemap" :api :core))
-
-(defgclass (compressed-cubemap-array :bind "CompressedCubemapArray" :api :core))
-
-(defgclass (compressed-texture-2d :bind "CompressedTexture2D" :api :core))
+(defgclass
+ (compressed-cubemap :bind "CompressedCubemap" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (compressed-texture-2darray :bind "CompressedTexture2DArray" :api :core))
-
-(defgclass (compressed-texture-3d :bind "CompressedTexture3D" :api :core))
+ (compressed-cubemap-array :bind "CompressedCubemapArray" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (compressed-texture-layered :bind "CompressedTextureLayered" :api :core))
+ (compressed-texture-2d :bind "CompressedTexture2D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (concave-polygon-shape-2d :bind "ConcavePolygonShape2D" :api :core))
+(defgclass
+ (compressed-texture-2darray :bind "CompressedTexture2DArray" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (concave-polygon-shape-3d :bind "ConcavePolygonShape3D" :api :core))
+(defgclass
+ (compressed-texture-3d :bind "CompressedTexture3D" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (compressed-texture-layered :bind "CompressedTextureLayered" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
+
+(defgclass
+ (concave-polygon-shape-2d :bind "ConcavePolygonShape2D" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (concave-polygon-shape-3d :bind "ConcavePolygonShape3D" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (cone-twist-joint-3d :bind "ConeTwistJoint3D" :api :core))
 
@@ -1151,7 +1315,8 @@
  (:swing-span 0) (:twist-span 1) (:bias 2) (:softness 3) (:relaxation 4)
  (:max 5))
 
-(defgclass (config-file :bind "ConfigFile" :api :core))
+(defgclass
+ (config-file :bind "ConfigFile" :api :core :refcounted common-lisp:t))
 
 (defgclass (confirmation-dialog :bind "ConfirmationDialog" :api :core))
 
@@ -1278,9 +1443,13 @@
   'convert-transform-modifier-3d)
  (:position 0) (:rotation 1) (:scale 2))
 
-(defgclass (convex-polygon-shape-2d :bind "ConvexPolygonShape2D" :api :core))
+(defgclass
+ (convex-polygon-shape-2d :bind "ConvexPolygonShape2D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (convex-polygon-shape-3d :bind "ConvexPolygonShape3D" :api :core))
+(defgclass
+ (convex-polygon-shape-3d :bind "ConvexPolygonShape3D" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (copy-transform-modifier-3d :bind "CopyTransformModifier3D" :api :core))
@@ -1297,39 +1466,46 @@
   'copy-transform-modifier-3d)
  (:x 1) (:y 2) (:z 4) (:all 7))
 
-(defgclass (crypto :bind "Crypto" :api :core))
+(defgclass (crypto :bind "Crypto" :api :core :refcounted common-lisp:t))
 
-(defgclass (crypto-key :bind "CryptoKey" :api :core))
+(defgclass (crypto-key :bind "CryptoKey" :api :core :refcounted common-lisp:t))
 
-(defgclass (cubemap :bind "Cubemap" :api :core))
+(defgclass (cubemap :bind "Cubemap" :api :core :refcounted common-lisp:t))
 
-(defgclass (cubemap-array :bind "CubemapArray" :api :core))
+(defgclass
+ (cubemap-array :bind "CubemapArray" :api :core :refcounted common-lisp:t))
 
-(defgclass (curve :bind "Curve" :api :core)
+(defgclass (curve :bind "Curve" :api :core :refcounted common-lisp:t)
  (:signals (range-changed) (domain-changed)))
 
 
 (defgenum (curve+tangent-mode :class 'curve) (:free 0) (:linear 1)
  (:mode-count 2))
 
-(defgclass (curve-2d :bind "Curve2D" :api :core))
+(defgclass (curve-2d :bind "Curve2D" :api :core :refcounted common-lisp:t))
 
-(defgclass (curve-3d :bind "Curve3D" :api :core))
+(defgclass (curve-3d :bind "Curve3D" :api :core :refcounted common-lisp:t))
 
-(defgclass (curve-texture :bind "CurveTexture" :api :core))
+(defgclass
+ (curve-texture :bind "CurveTexture" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (curve-texture+texture-mode :class 'curve-texture) (:rgb 0) (:red 1))
 
-(defgclass (curve-xyztexture :bind "CurveXYZTexture" :api :core))
+(defgclass
+ (curve-xyztexture :bind "CurveXYZTexture" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (cylinder-mesh :bind "CylinderMesh" :api :core))
+(defgclass
+ (cylinder-mesh :bind "CylinderMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (cylinder-shape-3d :bind "CylinderShape3D" :api :core))
+(defgclass
+ (cylinder-shape-3d :bind "CylinderShape3D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (dpitexture :bind "DPITexture" :api :core))
+(defgclass (dpitexture :bind "DPITexture" :api :core :refcounted common-lisp:t))
 
-(defgclass (dtlsserver :bind "DTLSServer" :api :core))
+(defgclass (dtlsserver :bind "DTLSServer" :api :core :refcounted common-lisp:t))
 
 (defgclass (damped-spring-joint-2d :bind "DampedSpringJoint2D" :api :core))
 
@@ -1339,7 +1515,9 @@
 (defgenum (decal+decal-texture :class 'decal) (:albedo 0) (:normal 1) (:orm 2)
  (:emission 3) (:max 4))
 
-(defgclass (dir-access :bind "DirAccess" :api :core))
+(defgclass
+ (dir-access :bind "DirAccess" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
 (defgclass (directional-light-2d :bind "DirectionalLight2D" :api :core))
 
@@ -1353,7 +1531,9 @@
 (defgenum (directional-light-3d+sky-mode :class 'directional-light-3d)
  (:light-and-sky 0) (:light-only 1) (:sky-only 2))
 
-(defgclass (display-server :bind "DisplayServer" :api :core)
+(defgclass
+ (display-server :bind "DisplayServer" :api :core :instantiable
+  common-lisp:nil)
  (:signals (orientation-changed orientation int)))
 
 
@@ -1511,13 +1691,16 @@
 (defgenum (display-server+ttsutterance-event :class 'display-server)
  (:started 0) (:ended 1) (:canceled 2) (:boundary 3))
 
-(defgclass (drawable-texture-2d :bind "DrawableTexture2D" :api :core))
+(defgclass
+ (drawable-texture-2d :bind "DrawableTexture2D" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (drawable-texture-2d+drawable-format :class 'drawable-texture-2d)
  (:rgba8 0) (:rgba8-srgb 1) (:rgbah 2) (:rgbaf 3))
 
-(defgclass (enet-connection :bind "ENetConnection" :api :core))
+(defgclass
+ (enet-connection :bind "ENetConnection" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (enet-connection+compression-mode :class 'enet-connection) (:none 0)
@@ -1531,9 +1714,13 @@
 (defgenum (enet-connection+host-statistic :class 'enet-connection)
  (:sent-data 0) (:sent-packets 1) (:received-data 2) (:received-packets 3))
 
-(defgclass (enet-multiplayer-peer :bind "ENetMultiplayerPeer" :api :core))
+(defgclass
+ (enet-multiplayer-peer :bind "ENetMultiplayerPeer" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (enet-packet-peer :bind "ENetPacketPeer" :api :core))
+(defgclass
+ (enet-packet-peer :bind "ENetPacketPeer" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgconstant +enet-packet-peer+packet-loss-scale+ :value 65536 :bind
@@ -1574,7 +1761,8 @@
 (defgclass (editor-command-palette :bind "EditorCommandPalette" :api :editor))
 
 (defgclass
- (editor-context-menu-plugin :bind "EditorContextMenuPlugin" :api :editor))
+ (editor-context-menu-plugin :bind "EditorContextMenuPlugin" :api :editor
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -1583,9 +1771,13 @@
  (:scene-tree 0) (:filesystem 1) (:script-editor 2) (:filesystem-create 3)
  (:script-editor-code 4) (:scene-tabs 5) (:2d-editor 6) (:inspector-property 7))
 
-(defgclass (editor-debugger-plugin :bind "EditorDebuggerPlugin" :api :editor))
+(defgclass
+ (editor-debugger-plugin :bind "EditorDebuggerPlugin" :api :editor :refcounted
+  common-lisp:t))
 
-(defgclass (editor-debugger-session :bind "EditorDebuggerSession" :api :editor)
+(defgclass
+ (editor-debugger-session :bind "EditorDebuggerSession" :api :editor
+  :instantiable common-lisp:nil :refcounted common-lisp:t)
  (:signals (started) (stopped) (breaked can-debug bool) (continued)))
 
 (defgclass (editor-dock :bind "EditorDock" :api :editor)
@@ -1600,7 +1792,9 @@
  (:left-bl 1) (:left-ur 2) (:left-br 3) (:right-ul 4) (:right-bl 5)
  (:right-ur 6) (:right-br 7) (:bottom 8) (:bottom-l 9) (:bottom-r 10) (:max 11))
 
-(defgclass (editor-export-platform :bind "EditorExportPlatform" :api :editor))
+(defgclass
+ (editor-export-platform :bind "EditorExportPlatform" :api :editor
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum
@@ -1616,43 +1810,52 @@
 
 (defgclass
  (editor-export-platform-android :bind "EditorExportPlatformAndroid" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
  (editor-export-platform-apple-embedded :bind
-  "EditorExportPlatformAppleEmbedded" :api :editor))
+  "EditorExportPlatformAppleEmbedded" :api :editor :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
  (editor-export-platform-extension :bind "EditorExportPlatformExtension" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
- (editor-export-platform-ios :bind "EditorExportPlatformIOS" :api :editor))
+ (editor-export-platform-ios :bind "EditorExportPlatformIOS" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass
  (editor-export-platform-linux-bsd :bind "EditorExportPlatformLinuxBSD" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
- (editor-export-platform-mac-os :bind "EditorExportPlatformMacOS" :api :editor))
+ (editor-export-platform-mac-os :bind "EditorExportPlatformMacOS" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass
- (editor-export-platform-pc :bind "EditorExportPlatformPC" :api :editor))
+ (editor-export-platform-pc :bind "EditorExportPlatformPC" :api :editor
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
  (editor-export-platform-vision-os :bind "EditorExportPlatformVisionOS" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
- (editor-export-platform-web :bind "EditorExportPlatformWeb" :api :editor))
+ (editor-export-platform-web :bind "EditorExportPlatformWeb" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass
  (editor-export-platform-windows :bind "EditorExportPlatformWindows" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
-(defgclass (editor-export-plugin :bind "EditorExportPlugin" :api :editor))
+(defgclass
+ (editor-export-plugin :bind "EditorExportPlugin" :api :editor :refcounted
+  common-lisp:t))
 
-(defgclass (editor-export-preset :bind "EditorExportPreset" :api :editor))
+(defgclass
+ (editor-export-preset :bind "EditorExportPreset" :api :editor :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum (editor-export-preset+export-filter :class 'editor-export-preset)
@@ -1669,7 +1872,9 @@
  (editor-export-preset+script-export-mode :class 'editor-export-preset)
  (:text 0) (:binary-tokens 1) (:binary-tokens-compressed 2))
 
-(defgclass (editor-feature-profile :bind "EditorFeatureProfile" :api :editor))
+(defgclass
+ (editor-feature-profile :bind "EditorFeatureProfile" :api :editor :refcounted
+  common-lisp:t))
 
 
 (defgenum (editor-feature-profile+feature :class 'editor-feature-profile)
@@ -1679,7 +1884,9 @@
 
 (defgclass (editor-file-dialog :bind "EditorFileDialog" :api :editor))
 
-(defgclass (editor-file-system :bind "EditorFileSystem" :api :editor)
+(defgclass
+ (editor-file-system :bind "EditorFileSystem" :api :editor :instantiable
+  common-lisp:nil)
  (:signals (filesystem-changed) (script-classes-updated)
   (sources-changed exist bool)
   (resources-reimporting resources packed-string-array)
@@ -1691,9 +1898,12 @@
 
 (defgclass
  (editor-file-system-import-format-support-query :bind
-  "EditorFileSystemImportFormatSupportQuery" :api :editor))
+  "EditorFileSystemImportFormatSupportQuery" :api :editor :refcounted
+  common-lisp:t))
 
-(defgclass (editor-import-plugin :bind "EditorImportPlugin" :api :editor))
+(defgclass
+ (editor-import-plugin :bind "EditorImportPlugin" :api :editor :refcounted
+  common-lisp:t))
 
 (defgclass (editor-inspector :bind "EditorInspector" :api :editor)
  (:signals (property-selected property string)
@@ -1704,14 +1914,21 @@
   (property-toggled property string checked bool) (edited-object-changed)
   (restart-requested)))
 
-(defgclass (editor-inspector-plugin :bind "EditorInspectorPlugin" :api :editor))
-
-(defgclass (editor-interface :bind "EditorInterface" :api :editor))
-
-(defgclass (editor-node-3dgizmo :bind "EditorNode3DGizmo" :api :editor))
+(defgclass
+ (editor-inspector-plugin :bind "EditorInspectorPlugin" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass
- (editor-node-3dgizmo-plugin :bind "EditorNode3DGizmoPlugin" :api :editor))
+ (editor-interface :bind "EditorInterface" :api :editor :instantiable
+  common-lisp:nil))
+
+(defgclass
+ (editor-node-3dgizmo :bind "EditorNode3DGizmo" :api :editor :refcounted
+  common-lisp:t))
+
+(defgclass
+ (editor-node-3dgizmo-plugin :bind "EditorNode3DGizmoPlugin" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass (editor-paths :bind "EditorPaths" :api :editor))
 
@@ -1754,25 +1971,28 @@
 
 (defgclass
  (editor-resource-conversion-plugin :bind "EditorResourceConversionPlugin" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass (editor-resource-picker :bind "EditorResourcePicker" :api :editor)
  (:signals (resource-selected resource resource inspect bool)
   (resource-changed resource resource)))
 
-(defgclass (editor-resource-preview :bind "EditorResourcePreview" :api :editor)
+(defgclass
+ (editor-resource-preview :bind "EditorResourcePreview" :api :editor
+  :instantiable common-lisp:nil)
  (:signals (preview-invalidated path string)))
 
 (defgclass
  (editor-resource-preview-generator :bind "EditorResourcePreviewGenerator" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
  (editor-resource-tooltip-plugin :bind "EditorResourceTooltipPlugin" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
- (editor-scene-format-importer :bind "EditorSceneFormatImporter" :api :editor))
+ (editor-scene-format-importer :bind "EditorSceneFormatImporter" :api :editor
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -1784,26 +2004,27 @@
 
 (defgclass
  (editor-scene-format-importer-blend :bind "EditorSceneFormatImporterBlend"
-  :api :editor))
+  :api :editor :refcounted common-lisp:t))
 
 (defgclass
  (editor-scene-format-importer-fbx2gltf :bind
-  "EditorSceneFormatImporterFBX2GLTF" :api :editor))
+  "EditorSceneFormatImporterFBX2GLTF" :api :editor :refcounted common-lisp:t))
 
 (defgclass
  (editor-scene-format-importer-gltf :bind "EditorSceneFormatImporterGLTF" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
  (editor-scene-format-importer-ufbx :bind "EditorSceneFormatImporterUFBX" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
- (editor-scene-post-import :bind "EditorScenePostImport" :api :editor))
+ (editor-scene-post-import :bind "EditorScenePostImport" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass
  (editor-scene-post-import-plugin :bind "EditorScenePostImportPlugin" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 
 (defgenum
@@ -1812,14 +2033,17 @@
  (:node 0) (:mesh-3d-node 1) (:mesh 2) (:material 3) (:animation 4)
  (:animation-node 5) (:skeleton-3d-node 6) (:max 7))
 
-(defgclass (editor-script :bind "EditorScript" :api :editor))
+(defgclass
+ (editor-script :bind "EditorScript" :api :editor :refcounted common-lisp:t))
 
 (defgclass (editor-script-picker :bind "EditorScriptPicker" :api :editor))
 
 (defgclass (editor-selection :bind "EditorSelection" :api :editor)
  (:signals (selection-changed)))
 
-(defgclass (editor-settings :bind "EditorSettings" :api :editor)
+(defgclass
+ (editor-settings :bind "EditorSettings" :api :editor :refcounted
+  common-lisp:t)
  (:signals (settings-changed)))
 
 
@@ -1835,9 +2059,12 @@
  (:default 0) (:prefer-slider 1) (:hide 2))
 
 (defgclass
- (editor-syntax-highlighter :bind "EditorSyntaxHighlighter" :api :editor))
+ (editor-syntax-highlighter :bind "EditorSyntaxHighlighter" :api :editor
+  :refcounted common-lisp:t))
 
-(defgclass (editor-toaster :bind "EditorToaster" :api :editor))
+(defgclass
+ (editor-toaster :bind "EditorToaster" :api :editor :instantiable
+  common-lisp:nil))
 
 
 (defgenum (editor-toaster+severity :class 'editor-toaster) (:info 0)
@@ -1845,10 +2072,11 @@
 
 (defgclass
  (editor-translation-parser-plugin :bind "EditorTranslationParserPlugin" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
- (editor-undo-redo-manager :bind "EditorUndoRedoManager" :api :editor)
+ (editor-undo-redo-manager :bind "EditorUndoRedoManager" :api :editor
+  :instantiable common-lisp:nil)
  (:signals (history-changed) (version-changed)))
 
 
@@ -1866,15 +2094,19 @@
 (defgenum (editor-vcsinterface+tree-area :class 'editor-vcsinterface)
  (:commit 0) (:staged 1) (:unstaged 2))
 
-(defgclass (encoded-object-as-id :bind "EncodedObjectAsID" :api :core))
+(defgclass
+ (encoded-object-as-id :bind "EncodedObjectAsID" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (engine :bind "Engine" :api :core))
 
 (defgclass (engine-debugger :bind "EngineDebugger" :api :core))
 
-(defgclass (engine-profiler :bind "EngineProfiler" :api :core))
+(defgclass
+ (engine-profiler :bind "EngineProfiler" :api :core :refcounted common-lisp:t))
 
-(defgclass (environment :bind "Environment" :api :core))
+(defgclass
+ (environment :bind "Environment" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (environment+bgmode :class 'environment) (:clear-color 0) (:color 1)
@@ -1904,17 +2136,21 @@
 (defgenum (environment+sdfgiyscale :class 'environment) (:50-percent 0)
  (:75-percent 1) (:100-percent 2))
 
-(defgclass (expression :bind "Expression" :api :core))
+(defgclass (expression :bind "Expression" :api :core :refcounted common-lisp:t))
 
-(defgclass (external-texture :bind "ExternalTexture" :api :core))
+(defgclass
+ (external-texture :bind "ExternalTexture" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (fabrik3d :bind "FABRIK3D" :api :core))
 
-(defgclass (fbxdocument :bind "FBXDocument" :api :core))
+(defgclass
+ (fbxdocument :bind "FBXDocument" :api :core :refcounted common-lisp:t))
 
-(defgclass (fbxstate :bind "FBXState" :api :core))
+(defgclass (fbxstate :bind "FBXState" :api :core :refcounted common-lisp:t))
 
-(defgclass (fast-noise-lite :bind "FastNoiseLite" :api :core))
+(defgclass
+ (fast-noise-lite :bind "FastNoiseLite" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (fast-noise-lite+noise-type :class 'fast-noise-lite) (:value 5)
@@ -1941,7 +2177,9 @@
 (defgenum (fast-noise-lite+domain-warp-fractal-type :class 'fast-noise-lite)
  (:none 0) (:progressive 1) (:independent 2))
 
-(defgclass (file-access :bind "FileAccess" :api :core))
+(defgclass
+ (file-access :bind "FileAccess" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
 
 (defgenum (file-access+mode-flags :class 'file-access) (:read 1) (:write 2)
@@ -1982,7 +2220,9 @@
  (:create-folder 1) (:file-filter 2) (:file-sort 3) (:favorites 4) (:recent 5)
  (:layout 6) (:overwrite-warning 7) (:delete 8))
 
-(defgclass (file-system-dock :bind "FileSystemDock" :api :editor)
+(defgclass
+ (file-system-dock :bind "FileSystemDock" :api :editor :instantiable
+  common-lisp:nil)
  (:signals (inherit file string) (instantiate files packed-string-array)
   (resource-removed resource resource) (file-removed file string)
   (folder-removed folder string) (files-moved old-file string new-file string)
@@ -1999,7 +2239,8 @@
 (defgenum (flow-container+last-wrap-alignment-mode :class 'flow-container)
  (:inherit 0) (:begin 1) (:center 2) (:end 3))
 
-(defgclass (fog-material :bind "FogMaterial" :api :core))
+(defgclass
+ (fog-material :bind "FogMaterial" :api :core :refcounted common-lisp:t))
 
 (defgclass (fog-volume :bind "FogVolume" :api :core))
 
@@ -2010,24 +2251,31 @@
 (defgenum (foldable-container+title-position :class 'foldable-container)
  (:top 0) (:bottom 1))
 
-(defgclass (foldable-group :bind "FoldableGroup" :api :core)
+(defgclass
+ (foldable-group :bind "FoldableGroup" :api :core :refcounted common-lisp:t)
  (:signals (expanded container foldable-container)))
 
-(defgclass (font :bind "Font" :api :core))
+(defgclass
+ (font :bind "Font" :api :core :instantiable common-lisp:nil :refcounted
+  common-lisp:t))
 
-(defgclass (font-file :bind "FontFile" :api :core))
+(defgclass (font-file :bind "FontFile" :api :core :refcounted common-lisp:t))
 
-(defgclass (font-variation :bind "FontVariation" :api :core))
+(defgclass
+ (font-variation :bind "FontVariation" :api :core :refcounted common-lisp:t))
 
 (defgclass (framebuffer-cache-rd :bind "FramebufferCacheRD" :api :core))
 
-(defgclass (gdextension :bind "GDExtension" :api :core))
+(defgclass
+ (gdextension :bind "GDExtension" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (gdextension+initialization-level :class 'gdextension) (:core 0)
  (:servers 1) (:scene 2) (:editor 3))
 
-(defgclass (gdextension-manager :bind "GDExtensionManager" :api :core)
+(defgclass
+ (gdextension-manager :bind "GDExtensionManager" :api :core :instantiable
+  common-lisp:nil)
  (:signals (extensions-reloaded) (extension-loaded extension ||)
   (extension-unloading extension ||)))
 
@@ -2035,19 +2283,25 @@
 (defgenum (gdextension-manager+load-status :class 'gdextension-manager) (:ok 0)
  (:failed 1) (:already-loaded 2) (:not-loaded 3) (:needs-restart 4))
 
-(defgclass (gdscript :bind "GDScript" :api :core))
+(defgclass (gdscript :bind "GDScript" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (gdscript-language-protocol :bind "GDScriptLanguageProtocol" :api :editor))
 
 (defgclass
- (gdscript-syntax-highlighter :bind "GDScriptSyntaxHighlighter" :api :editor))
+ (gdscript-syntax-highlighter :bind "GDScriptSyntaxHighlighter" :api :editor
+  :refcounted common-lisp:t))
 
-(defgclass (gdscript-text-document :bind "GDScriptTextDocument" :api :editor))
+(defgclass
+ (gdscript-text-document :bind "GDScriptTextDocument" :api :editor :refcounted
+  common-lisp:t))
 
-(defgclass (gdscript-workspace :bind "GDScriptWorkspace" :api :editor))
+(defgclass
+ (gdscript-workspace :bind "GDScriptWorkspace" :api :editor :refcounted
+  common-lisp:t))
 
-(defgclass (gltfaccessor :bind "GLTFAccessor" :api :core))
+(defgclass
+ (gltfaccessor :bind "GLTFAccessor" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (gltfaccessor+gltfaccessor-type :class 'gltfaccessor) (:scalar 0)
@@ -2060,13 +2314,16 @@
  (:single-float 5126) (:double-float 5130) (:half-float 5131)
  (:signed-long 5134) (:unsigned-long 5135))
 
-(defgclass (gltfanimation :bind "GLTFAnimation" :api :core))
+(defgclass
+ (gltfanimation :bind "GLTFAnimation" :api :core :refcounted common-lisp:t))
 
-(defgclass (gltfbuffer-view :bind "GLTFBufferView" :api :core))
+(defgclass
+ (gltfbuffer-view :bind "GLTFBufferView" :api :core :refcounted common-lisp:t))
 
-(defgclass (gltfcamera :bind "GLTFCamera" :api :core))
+(defgclass (gltfcamera :bind "GLTFCamera" :api :core :refcounted common-lisp:t))
 
-(defgclass (gltfdocument :bind "GLTFDocument" :api :core))
+(defgclass
+ (gltfdocument :bind "GLTFDocument" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (gltfdocument+root-node-mode :class 'gltfdocument) (:single-root 0)
@@ -2086,20 +2343,24 @@
  (:generate-tangent-arrays 8) (:use-named-skin-binds 16)
  (:discard-meshes-and-materials 32) (:force-disable-mesh-compression 64))
 
-(defgclass (gltfdocument-extension :bind "GLTFDocumentExtension" :api :core))
+(defgclass
+ (gltfdocument-extension :bind "GLTFDocumentExtension" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (gltfdocument-extension-convert-importer-mesh :bind
-  "GLTFDocumentExtensionConvertImporterMesh" :api :core))
+  "GLTFDocumentExtensionConvertImporterMesh" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (gltflight :bind "GLTFLight" :api :core))
+(defgclass (gltflight :bind "GLTFLight" :api :core :refcounted common-lisp:t))
 
-(defgclass (gltfmesh :bind "GLTFMesh" :api :core))
+(defgclass (gltfmesh :bind "GLTFMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (gltfnode :bind "GLTFNode" :api :core))
+(defgclass (gltfnode :bind "GLTFNode" :api :core :refcounted common-lisp:t))
 
 (defgclass
- (gltfobject-model-property :bind "GLTFObjectModelProperty" :api :core))
+ (gltfobject-model-property :bind "GLTFObjectModelProperty" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -2108,17 +2369,23 @@
  (:unknown 0) (:bool 1) (:float 2) (:float-array 3) (:float2 4) (:float3 5)
  (:float4 6) (:float2x2 7) (:float3x3 8) (:float4x4 9) (:int 10))
 
-(defgclass (gltfphysics-body :bind "GLTFPhysicsBody" :api :core))
+(defgclass
+ (gltfphysics-body :bind "GLTFPhysicsBody" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (gltfphysics-shape :bind "GLTFPhysicsShape" :api :core))
+(defgclass
+ (gltfphysics-shape :bind "GLTFPhysicsShape" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (gltfskeleton :bind "GLTFSkeleton" :api :core))
+(defgclass
+ (gltfskeleton :bind "GLTFSkeleton" :api :core :refcounted common-lisp:t))
 
-(defgclass (gltfskin :bind "GLTFSkin" :api :core))
+(defgclass (gltfskin :bind "GLTFSkin" :api :core :refcounted common-lisp:t))
 
-(defgclass (gltfspec-gloss :bind "GLTFSpecGloss" :api :core))
+(defgclass
+ (gltfspec-gloss :bind "GLTFSpecGloss" :api :core :refcounted common-lisp:t))
 
-(defgclass (gltfstate :bind "GLTFState" :api :core))
+(defgclass (gltfstate :bind "GLTFState" :api :core :refcounted common-lisp:t))
 
 
 (defgconstant +gltfstate+handle-binary-discard-textures+ :value 0 :bind
@@ -2141,9 +2408,12 @@
  (:discard-textures 0) (:extract-textures 1) (:embed-as-basisu 2)
  (:embed-as-uncompressed 3))
 
-(defgclass (gltftexture :bind "GLTFTexture" :api :core))
+(defgclass
+ (gltftexture :bind "GLTFTexture" :api :core :refcounted common-lisp:t))
 
-(defgclass (gltftexture-sampler :bind "GLTFTextureSampler" :api :core))
+(defgclass
+ (gltftexture-sampler :bind "GLTFTextureSampler" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (gpuparticles-2d :bind "GPUParticles2D" :api :core)
  (:signals (finished)))
@@ -2177,7 +2447,8 @@
  (:z-billboard-y-to-velocity 3) (:local-billboard 4))
 
 (defgclass
- (gpuparticles-attractor-3d :bind "GPUParticlesAttractor3D" :api :core))
+ (gpuparticles-attractor-3d :bind "GPUParticlesAttractor3D" :api :core
+  :instantiable common-lisp:nil))
 
 (defgclass
  (gpuparticles-attractor-box-3d :bind "GPUParticlesAttractorBox3D" :api :core))
@@ -2191,7 +2462,8 @@
   "GPUParticlesAttractorVectorField3D" :api :core))
 
 (defgclass
- (gpuparticles-collision-3d :bind "GPUParticlesCollision3D" :api :core))
+ (gpuparticles-collision-3d :bind "GPUParticlesCollision3D" :api :core
+  :instantiable common-lisp:nil))
 
 (defgclass
  (gpuparticles-collision-box-3d :bind "GPUParticlesCollisionBox3D" :api :core))
@@ -2280,9 +2552,11 @@
  (geometry-instance-3d+visibility-range-fade-mode :class 'geometry-instance-3d)
  (:disabled 0) (:self 1) (:dependencies 2))
 
-(defgclass (godot-instance :bind "GodotInstance" :api :core))
+(defgclass
+ (godot-instance :bind "GodotInstance" :api :core :instantiable
+  common-lisp:nil))
 
-(defgclass (gradient :bind "Gradient" :api :core))
+(defgclass (gradient :bind "Gradient" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (gradient+interpolation-mode :class 'gradient) (:linear 0)
@@ -2292,9 +2566,13 @@
 (defgenum (gradient+color-space :class 'gradient) (:srgb 0) (:linear-srgb 1)
  (:oklab 2))
 
-(defgclass (gradient-texture-1d :bind "GradientTexture1D" :api :core))
+(defgclass
+ (gradient-texture-1d :bind "GradientTexture1D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (gradient-texture-2d :bind "GradientTexture2D" :api :core))
+(defgclass
+ (gradient-texture-2d :bind "GradientTexture2D" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (gradient-texture-2d+fill :class 'gradient-texture-2d) (:linear 0)
@@ -2362,7 +2640,8 @@
 
 (defgclass (hflow-container :bind "HFlowContainer" :api :core))
 
-(defgclass (hmaccontext :bind "HMACContext" :api :core))
+(defgclass
+ (hmaccontext :bind "HMACContext" :api :core :refcounted common-lisp:t))
 
 (defgclass (hscroll-bar :bind "HScrollBar" :api :core))
 
@@ -2372,7 +2651,7 @@
 
 (defgclass (hsplit-container :bind "HSplitContainer" :api :core))
 
-(defgclass (httpclient :bind "HTTPClient" :api :core))
+(defgclass (httpclient :bind "HTTPClient" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (httpclient+method :class 'httpclient) (:get 0) (:head 1) (:post 2)
@@ -2422,13 +2701,16 @@
  (:download-file-cant-open 10) (:download-file-write-error 11)
  (:redirect-limit-reached 12) (:timeout 13))
 
-(defgclass (hashing-context :bind "HashingContext" :api :core))
+(defgclass
+ (hashing-context :bind "HashingContext" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (hashing-context+hash-type :class 'hashing-context) (:md5 0)
  (:sha1 1) (:sha256 2))
 
-(defgclass (height-map-shape-3d :bind "HeightMapShape3D" :api :core))
+(defgclass
+ (height-map-shape-3d :bind "HeightMapShape3D" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (hinge-joint-3d :bind "HingeJoint3D" :api :core))
 
@@ -2442,9 +2724,10 @@
 (defgenum (hinge-joint-3d+flag :class 'hinge-joint-3d) (:use-limit 0)
  (:enable-motor 1) (:max 2))
 
-(defgclass (ikmodifier-3d :bind "IKModifier3D" :api :core))
+(defgclass
+ (ikmodifier-3d :bind "IKModifier3D" :api :core :instantiable common-lisp:nil))
 
-(defgclass (ip :bind "IP" :api :core))
+(defgclass (ip :bind "IP" :api :core :instantiable common-lisp:nil))
 
 
 (defgconstant +ip+resolver-max-queries+ :value 256 :bind "RESOLVER_MAX_QUERIES"
@@ -2461,7 +2744,7 @@
 
 (defgenum (ip+type :class 'ip) (:none 0) (:ipv4 1) (:ipv6 2) (:any 3))
 
-(defgclass (image :bind "Image" :api :core))
+(defgclass (image :bind "Image" :api :core :refcounted common-lisp:t))
 
 
 (defgconstant +image+max-width+ :value 16777216 :bind "MAX_WIDTH" :class 'image)
@@ -2504,7 +2787,9 @@
 
 (defgenum (image+astcformat :class 'image) (:|4X4| 0) (:|8X8| 1))
 
-(defgclass (image-format-loader :bind "ImageFormatLoader" :api :core))
+(defgclass
+ (image-format-loader :bind "ImageFormatLoader" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum
@@ -2513,22 +2798,29 @@
  (:none 0) (:force-linear 1) (:convert-colors 2))
 
 (defgclass
- (image-format-loader-extension :bind "ImageFormatLoaderExtension" :api :core))
+ (image-format-loader-extension :bind "ImageFormatLoaderExtension" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (image-texture :bind "ImageTexture" :api :core))
+(defgclass
+ (image-texture :bind "ImageTexture" :api :core :refcounted common-lisp:t))
 
-(defgclass (image-texture-3d :bind "ImageTexture3D" :api :core))
+(defgclass
+ (image-texture-3d :bind "ImageTexture3D" :api :core :refcounted common-lisp:t))
 
-(defgclass (image-texture-layered :bind "ImageTextureLayered" :api :core))
+(defgclass
+ (image-texture-layered :bind "ImageTextureLayered" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
-(defgclass (immediate-mesh :bind "ImmediateMesh" :api :core))
+(defgclass
+ (immediate-mesh :bind "ImmediateMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (importer-mesh :bind "ImporterMesh" :api :core))
+(defgclass
+ (importer-mesh :bind "ImporterMesh" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (importer-mesh-instance-3d :bind "ImporterMeshInstance3D" :api :core))
 
-(defgclass (input :bind "Input" :api :core)
+(defgclass (input :bind "Input" :api :core :instantiable common-lisp:nil)
  (:signals (joy-connection-changed device int connected bool)))
 
 
@@ -2541,7 +2833,9 @@
  (:forbidden 8) (:vsize 9) (:hsize 10) (:bdiagsize 11) (:fdiagsize 12)
  (:move 13) (:vsplit 14) (:hsplit 15) (:help 16))
 
-(defgclass (input-event :bind "InputEvent" :api :core))
+(defgclass
+ (input-event :bind "InputEvent" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
 
 (defgconstant +input-event+device-id-emulation+ :value -1 :bind
@@ -2555,48 +2849,78 @@
 (defgconstant +input-event+device-id-mouse+ :value 32 :bind "DEVICE_ID_MOUSE"
  :class 'input-event)
 
-(defgclass (input-event-action :bind "InputEventAction" :api :core))
-
-(defgclass (input-event-from-window :bind "InputEventFromWindow" :api :core))
-
-(defgclass (input-event-gesture :bind "InputEventGesture" :api :core))
+(defgclass
+ (input-event-action :bind "InputEventAction" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (input-event-joypad-button :bind "InputEventJoypadButton" :api :core))
+ (input-event-from-window :bind "InputEventFromWindow" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
- (input-event-joypad-motion :bind "InputEventJoypadMotion" :api :core))
-
-(defgclass (input-event-key :bind "InputEventKey" :api :core))
-
-(defgclass (input-event-midi :bind "InputEventMIDI" :api :core))
+ (input-event-gesture :bind "InputEventGesture" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
- (input-event-magnify-gesture :bind "InputEventMagnifyGesture" :api :core))
-
-(defgclass (input-event-mouse :bind "InputEventMouse" :api :core))
-
-(defgclass (input-event-mouse-button :bind "InputEventMouseButton" :api :core))
-
-(defgclass (input-event-mouse-motion :bind "InputEventMouseMotion" :api :core))
-
-(defgclass (input-event-pan-gesture :bind "InputEventPanGesture" :api :core))
-
-(defgclass (input-event-screen-drag :bind "InputEventScreenDrag" :api :core))
-
-(defgclass (input-event-screen-touch :bind "InputEventScreenTouch" :api :core))
-
-(defgclass (input-event-shortcut :bind "InputEventShortcut" :api :core))
+ (input-event-joypad-button :bind "InputEventJoypadButton" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (input-event-with-modifiers :bind "InputEventWithModifiers" :api :core))
+ (input-event-joypad-motion :bind "InputEventJoypadMotion" :api :core
+  :refcounted common-lisp:t))
+
+(defgclass
+ (input-event-key :bind "InputEventKey" :api :core :refcounted common-lisp:t))
+
+(defgclass
+ (input-event-midi :bind "InputEventMIDI" :api :core :refcounted common-lisp:t))
+
+(defgclass
+ (input-event-magnify-gesture :bind "InputEventMagnifyGesture" :api :core
+  :refcounted common-lisp:t))
+
+(defgclass
+ (input-event-mouse :bind "InputEventMouse" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
+
+(defgclass
+ (input-event-mouse-button :bind "InputEventMouseButton" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (input-event-mouse-motion :bind "InputEventMouseMotion" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (input-event-pan-gesture :bind "InputEventPanGesture" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (input-event-screen-drag :bind "InputEventScreenDrag" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (input-event-screen-touch :bind "InputEventScreenTouch" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (input-event-shortcut :bind "InputEventShortcut" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (input-event-with-modifiers :bind "InputEventWithModifiers" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass (input-map :bind "InputMap" :api :core)
  (:signals (project-settings-loaded)))
 
-(defgclass (instance-placeholder :bind "InstancePlaceholder" :api :core))
+(defgclass
+ (instance-placeholder :bind "InstancePlaceholder" :api :core :instantiable
+  common-lisp:nil))
 
-(defgclass (interval-tweener :bind "IntervalTweener" :api :core))
+(defgclass
+ (interval-tweener :bind "IntervalTweener" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (item-list :bind "ItemList" :api :core)
  (:signals (item-selected index int)
@@ -2615,11 +2939,12 @@
 (defgenum (item-list+scroll-hint-mode :class 'item-list) (:disabled 0)
  (:both 1) (:top 2) (:bottom 3))
 
-(defgclass (iterate-ik3d :bind "IterateIK3D" :api :core))
+(defgclass
+ (iterate-ik3d :bind "IterateIK3D" :api :core :instantiable common-lisp:nil))
 
 (defgclass (jnisingleton :bind "JNISingleton" :api :core))
 
-(defgclass (json :bind "JSON" :api :core))
+(defgclass (json :bind "JSON" :api :core :refcounted common-lisp:t))
 
 (defgclass (jsonrpc :bind "JSONRPC" :api :core))
 
@@ -2630,28 +2955,41 @@
 
 (defgclass (jacobian-ik3d :bind "JacobianIK3D" :api :core))
 
-(defgclass (java-class :bind "JavaClass" :api :core))
+(defgclass (java-class :bind "JavaClass" :api :core :refcounted common-lisp:t))
 
 (defgclass (java-class-wrapper :bind "JavaClassWrapper" :api :core))
 
-(defgclass (java-object :bind "JavaObject" :api :core))
+(defgclass
+ (java-object :bind "JavaObject" :api :core :refcounted common-lisp:t))
 
-(defgclass (java-script-bridge :bind "JavaScriptBridge" :api :core)
+(defgclass
+ (java-script-bridge :bind "JavaScriptBridge" :api :core :instantiable
+  common-lisp:nil)
  (:signals (pwa-update-available)))
 
-(defgclass (java-script-object :bind "JavaScriptObject" :api :core))
+(defgclass
+ (java-script-object :bind "JavaScriptObject" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
-(defgclass (joint-2d :bind "Joint2D" :api :core))
+(defgclass (joint-2d :bind "Joint2D" :api :core :instantiable common-lisp:nil))
 
-(defgclass (joint-3d :bind "Joint3D" :api :core))
+(defgclass (joint-3d :bind "Joint3D" :api :core :instantiable common-lisp:nil))
 
-(defgclass (joint-limitation-3d :bind "JointLimitation3D" :api :core))
+(defgclass
+ (joint-limitation-3d :bind "JointLimitation3D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (joint-limitation-cone-3d :bind "JointLimitationCone3D" :api :core))
+(defgclass
+ (joint-limitation-cone-3d :bind "JointLimitationCone3D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (kinematic-collision-2d :bind "KinematicCollision2D" :api :core))
+(defgclass
+ (kinematic-collision-2d :bind "KinematicCollision2D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (kinematic-collision-3d :bind "KinematicCollision3D" :api :core))
+(defgclass
+ (kinematic-collision-3d :bind "KinematicCollision3D" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (label :bind "Label" :api :core))
 
@@ -2665,9 +3003,10 @@
 (defgenum (label-3d+alpha-cut-mode :class 'label-3d) (:disabled 0) (:discard 1)
  (:opaque-prepass 2) (:hash 3))
 
-(defgclass (label-settings :bind "LabelSettings" :api :core))
+(defgclass
+ (label-settings :bind "LabelSettings" :api :core :refcounted common-lisp:t))
 
-(defgclass (light-2d :bind "Light2D" :api :core))
+(defgclass (light-2d :bind "Light2D" :api :core :instantiable common-lisp:nil))
 
 
 (defgenum (light-2d+shadow-filter :class 'light-2d) (:none 0) (:pcf5 1)
@@ -2676,7 +3015,7 @@
 
 (defgenum (light-2d+blend-mode :class 'light-2d) (:add 0) (:sub 1) (:mix 2))
 
-(defgclass (light-3d :bind "Light3D" :api :core))
+(defgclass (light-3d :bind "Light3D" :api :core :instantiable common-lisp:nil))
 
 
 (defgenum (light-3d+param :class 'light-3d) (:energy 0) (:indirect-energy 1)
@@ -2713,7 +3052,8 @@
 (defgenum (lightmap-gi+environment-mode :class 'lightmap-gi) (:disabled 0)
  (:scene 1) (:custom-sky 2) (:custom-color 3))
 
-(defgclass (lightmap-gidata :bind "LightmapGIData" :api :core))
+(defgclass
+ (lightmap-gidata :bind "LightmapGIData" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (lightmap-gidata+shadowmask-mode :class 'lightmap-gidata) (:none 0)
@@ -2721,9 +3061,12 @@
 
 (defgclass (lightmap-probe :bind "LightmapProbe" :api :core))
 
-(defgclass (lightmapper :bind "Lightmapper" :api :core))
+(defgclass
+ (lightmapper :bind "Lightmapper" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
-(defgclass (lightmapper-rd :bind "LightmapperRD" :api :core))
+(defgclass
+ (lightmapper-rd :bind "LightmapperRD" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (limit-angular-velocity-modifier-3d :bind "LimitAngularVelocityModifier3D"
@@ -2773,7 +3116,7 @@
 (defgenum (link-button+underline-mode :class 'link-button) (:always 0)
  (:on-hover 1) (:never 2))
 
-(defgclass (logger :bind "Logger" :api :core))
+(defgclass (logger :bind "Logger" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (logger+error-type :class 'logger) (:error 0) (:warning 1)
@@ -2844,7 +3187,7 @@
 
 (defgclass (marshalls :bind "Marshalls" :api :core))
 
-(defgclass (material :bind "Material" :api :core))
+(defgclass (material :bind "Material" :api :core :refcounted common-lisp:t))
 
 
 (defgconstant +material+render-priority-max+ :value 127 :bind
@@ -2859,7 +3202,7 @@
 (defgclass (menu-button :bind "MenuButton" :api :core)
  (:signals (about-to-popup)))
 
-(defgclass (mesh :bind "Mesh" :api :core))
+(defgclass (mesh :bind "Mesh" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (mesh+primitive-type :class 'mesh) (:points 0) (:lines 1)
@@ -2894,7 +3237,7 @@
 
 (defgclass
  (mesh-convex-decomposition-settings :bind "MeshConvexDecompositionSettings"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -2902,30 +3245,38 @@
   'mesh-convex-decomposition-settings)
  (:voxel 0) (:tetrahedron 1))
 
-(defgclass (mesh-data-tool :bind "MeshDataTool" :api :core))
+(defgclass
+ (mesh-data-tool :bind "MeshDataTool" :api :core :refcounted common-lisp:t))
 
 (defgclass (mesh-instance-2d :bind "MeshInstance2D" :api :core)
  (:signals (texture-changed)))
 
 (defgclass (mesh-instance-3d :bind "MeshInstance3D" :api :core))
 
-(defgclass (mesh-library :bind "MeshLibrary" :api :core))
+(defgclass
+ (mesh-library :bind "MeshLibrary" :api :core :refcounted common-lisp:t))
 
-(defgclass (mesh-texture :bind "MeshTexture" :api :core))
+(defgclass
+ (mesh-texture :bind "MeshTexture" :api :core :refcounted common-lisp:t))
 
-(defgclass (method-tweener :bind "MethodTweener" :api :core))
+(defgclass
+ (method-tweener :bind "MethodTweener" :api :core :refcounted common-lisp:t))
 
 (defgclass (missing-node :bind "MissingNode" :api :core))
 
-(defgclass (missing-resource :bind "MissingResource" :api :core))
+(defgclass
+ (missing-resource :bind "MissingResource" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (mobile-vrinterface :bind "MobileVRInterface" :api :core))
+(defgclass
+ (mobile-vrinterface :bind "MobileVRInterface" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (modifier-bone-target-3d :bind "ModifierBoneTarget3D" :api :core))
 
 (defgclass (movie-writer :bind "MovieWriter" :api :core))
 
-(defgclass (multi-mesh :bind "MultiMesh" :api :core))
+(defgclass (multi-mesh :bind "MultiMesh" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (multi-mesh+transform-format :class 'multi-mesh) (:|2D| 0) (:|3D| 1))
@@ -2939,7 +3290,9 @@
 
 (defgclass (multi-mesh-instance-3d :bind "MultiMeshInstance3D" :api :core))
 
-(defgclass (multiplayer-api :bind "MultiplayerAPI" :api :core)
+(defgclass
+ (multiplayer-api :bind "MultiplayerAPI" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t)
  (:signals (peer-connected id int) (peer-disconnected id int)
   (connected-to-server) (connection-failed) (server-disconnected)))
 
@@ -2948,9 +3301,12 @@
  (:any-peer 1) (:authority 2))
 
 (defgclass
- (multiplayer-apiextension :bind "MultiplayerAPIExtension" :api :core))
+ (multiplayer-apiextension :bind "MultiplayerAPIExtension" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (multiplayer-peer :bind "MultiplayerPeer" :api :core)
+(defgclass
+ (multiplayer-peer :bind "MultiplayerPeer" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t)
  (:signals (peer-connected id int) (peer-disconnected id int)))
 
 
@@ -2970,7 +3326,8 @@
  (:unreliable 0) (:unreliable-ordered 1) (:reliable 2))
 
 (defgclass
- (multiplayer-peer-extension :bind "MultiplayerPeerExtension" :api :core))
+ (multiplayer-peer-extension :bind "MultiplayerPeerExtension" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass (multiplayer-spawner :bind "MultiplayerSpawner" :api :core)
  (:signals (despawned node node) (spawned node node)))
@@ -2986,7 +3343,7 @@
   'multiplayer-synchronizer)
  (:idle 0) (:physics 1) (:none 2))
 
-(defgclass (mutex :bind "Mutex" :api :core))
+(defgclass (mutex :bind "Mutex" :api :core :refcounted common-lisp:t))
 
 (defgclass (native-menu :bind "NativeMenu" :api :core))
 
@@ -3013,7 +3370,8 @@
 
 (defgclass (navigation-link-3d :bind "NavigationLink3D" :api :core))
 
-(defgclass (navigation-mesh :bind "NavigationMesh" :api :core))
+(defgclass
+ (navigation-mesh :bind "NavigationMesh" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (navigation-mesh+sample-partition-type :class 'navigation-mesh)
@@ -3033,11 +3391,11 @@
 
 (defgclass
  (navigation-mesh-source-geometry-data-2d :bind
-  "NavigationMeshSourceGeometryData2D" :api :core))
+  "NavigationMeshSourceGeometryData2D" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (navigation-mesh-source-geometry-data-3d :bind
-  "NavigationMeshSourceGeometryData3D" :api :core))
+  "NavigationMeshSourceGeometryData3D" :api :core :refcounted common-lisp:t))
 
 (defgclass (navigation-obstacle-2d :bind "NavigationObstacle2D" :api :core))
 
@@ -3045,7 +3403,7 @@
 
 (defgclass
  (navigation-path-query-parameters-2d :bind "NavigationPathQueryParameters2D"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -3067,7 +3425,7 @@
 
 (defgclass
  (navigation-path-query-parameters-3d :bind "NavigationPathQueryParameters3D"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -3089,7 +3447,7 @@
 
 (defgclass
  (navigation-path-query-result-2d :bind "NavigationPathQueryResult2D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -3099,7 +3457,7 @@
 
 (defgclass
  (navigation-path-query-result-3d :bind "NavigationPathQueryResult3D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -3107,7 +3465,9 @@
   'navigation-path-query-result-3d)
  (:region 0) (:link 1))
 
-(defgclass (navigation-polygon :bind "NavigationPolygon" :api :core))
+(defgclass
+ (navigation-polygon :bind "NavigationPolygon" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (navigation-polygon+sample-partition-type :class 'navigation-polygon)
@@ -3128,7 +3488,9 @@
 (defgclass (navigation-region-3d :bind "NavigationRegion3D" :api :core)
  (:signals (navigation-mesh-changed) (bake-finished)))
 
-(defgclass (navigation-server-2d :bind "NavigationServer2D" :api :core)
+(defgclass
+ (navigation-server-2d :bind "NavigationServer2D" :api :core :instantiable
+  common-lisp:nil)
  (:signals (map-changed map rid) (navigation-debug-changed)
   (avoidance-debug-changed)))
 
@@ -3141,7 +3503,9 @@
 (defgclass
  (navigation-server-2dmanager :bind "NavigationServer2DManager" :api :core))
 
-(defgclass (navigation-server-3d :bind "NavigationServer3D" :api :core)
+(defgclass
+ (navigation-server-3d :bind "NavigationServer3D" :api :core :instantiable
+  common-lisp:nil)
  (:signals (map-changed map rid) (navigation-debug-changed)
   (avoidance-debug-changed)))
 
@@ -3418,15 +3782,22 @@
 (defgenum (node-3d+rotation-edit-mode :class 'node-3d) (:euler 0)
  (:quaternion 1) (:basis 2))
 
-(defgclass (node-3dgizmo :bind "Node3DGizmo" :api :core))
+(defgclass
+ (node-3dgizmo :bind "Node3DGizmo" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
-(defgclass (noise :bind "Noise" :api :core))
+(defgclass
+ (noise :bind "Noise" :api :core :instantiable common-lisp:nil :refcounted
+  common-lisp:t))
 
-(defgclass (noise-texture-2d :bind "NoiseTexture2D" :api :core))
+(defgclass
+ (noise-texture-2d :bind "NoiseTexture2D" :api :core :refcounted common-lisp:t))
 
-(defgclass (noise-texture-3d :bind "NoiseTexture3D" :api :core))
+(defgclass
+ (noise-texture-3d :bind "NoiseTexture3D" :api :core :refcounted common-lisp:t))
 
-(defgclass (ormmaterial-3d :bind "ORMMaterial3D" :api :core))
+(defgclass
+ (ormmaterial-3d :bind "ORMMaterial3D" :api :core :refcounted common-lisp:t))
 
 (defgclass (os :bind "OS" :api :core))
 
@@ -3462,22 +3833,31 @@
  (:deferred 1) (:persist 2) (:one-shot 4) (:reference-counted 8)
  (:append-source-object 16))
 
-(defgclass (occluder-3d :bind "Occluder3D" :api :core))
+(defgclass
+ (occluder-3d :bind "Occluder3D" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
 (defgclass (occluder-instance-3d :bind "OccluderInstance3D" :api :core))
 
-(defgclass (occluder-polygon-2d :bind "OccluderPolygon2D" :api :core))
+(defgclass
+ (occluder-polygon-2d :bind "OccluderPolygon2D" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (occluder-polygon-2d+cull-mode :class 'occluder-polygon-2d)
  (:disabled 0) (:clockwise 1) (:counter-clockwise 2))
 
-(defgclass (offline-multiplayer-peer :bind "OfflineMultiplayerPeer" :api :core))
-
-(defgclass (ogg-packet-sequence :bind "OggPacketSequence" :api :core))
+(defgclass
+ (offline-multiplayer-peer :bind "OfflineMultiplayerPeer" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (ogg-packet-sequence-playback :bind "OggPacketSequencePlayback" :api :core))
+ (ogg-packet-sequence :bind "OggPacketSequence" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (ogg-packet-sequence-playback :bind "OggPacketSequencePlayback" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass (omni-light-3d :bind "OmniLight3D" :api :core))
 
@@ -3485,7 +3865,9 @@
 (defgenum (omni-light-3d+shadow-mode :class 'omni-light-3d)
  (:dual-paraboloid 0) (:cube 1))
 
-(defgclass (open-xrapiextension :bind "OpenXRAPIExtension" :api :core))
+(defgclass
+ (open-xrapiextension :bind "OpenXRAPIExtension" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum
@@ -3493,25 +3875,32 @@
   'open-xrapiextension)
  (:none 0) (:real 1) (:emulating 2))
 
-(defgclass (open-xraction :bind "OpenXRAction" :api :core))
+(defgclass
+ (open-xraction :bind "OpenXRAction" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (open-xraction+action-type :class 'open-xraction) (:bool 0)
  (:float 1) (:vector2 2) (:pose 3))
 
 (defgclass
- (open-xraction-binding-modifier :bind "OpenXRActionBindingModifier" :api
-  :core))
+ (open-xraction-binding-modifier :bind "OpenXRActionBindingModifier" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (open-xraction-map :bind "OpenXRActionMap" :api :core))
+(defgclass
+ (open-xraction-map :bind "OpenXRActionMap" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (open-xraction-set :bind "OpenXRActionSet" :api :core))
+(defgclass
+ (open-xraction-set :bind "OpenXRActionSet" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (open-xranalog-threshold-modifier :bind "OpenXRAnalogThresholdModifier" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
-(defgclass (open-xranchor-tracker :bind "OpenXRAnchorTracker" :api :core)
+(defgclass
+ (open-xranchor-tracker :bind "OpenXRAnchorTracker" :api :core :refcounted
+  common-lisp:t)
  (:signals (uuid-changed)))
 
 (defgclass
@@ -3525,14 +3914,18 @@
  (:application-main 0) (:application-worker 1) (:renderer-main 2)
  (:renderer-worker 3))
 
-(defgclass (open-xrbinding-modifier :bind "OpenXRBindingModifier" :api :core))
+(defgclass
+ (open-xrbinding-modifier :bind "OpenXRBindingModifier" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
  (open-xrbinding-modifier-editor :bind "OpenXRBindingModifierEditor" :api
   :editor)
  (:signals (binding-modifier-removed binding-modifier-editor object)))
 
-(defgclass (open-xrcomposition-layer :bind "OpenXRCompositionLayer" :api :core))
+(defgclass
+ (open-xrcomposition-layer :bind "OpenXRCompositionLayer" :api :core
+  :instantiable common-lisp:nil))
 
 
 (defgenum (open-xrcomposition-layer+filter :class 'open-xrcomposition-layer)
@@ -3569,7 +3962,8 @@
  (open-xrcomposition-layer-quad :bind "OpenXRCompositionLayerQuad" :api :core))
 
 (defgclass
- (open-xrdpad-binding-modifier :bind "OpenXRDpadBindingModifier" :api :core))
+ (open-xrdpad-binding-modifier :bind "OpenXRDpadBindingModifier" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass (open-xrextension-wrapper :bind "OpenXRExtensionWrapper" :api :core))
 
@@ -3583,7 +3977,9 @@
 
 (defgclass (open-xrfuture-extension :bind "OpenXRFutureExtension" :api :core))
 
-(defgclass (open-xrfuture-result :bind "OpenXRFutureResult" :api :core)
+(defgclass
+ (open-xrfuture-result :bind "OpenXRFutureResult" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t)
  (:signals (completed result open-xrfuture-result)))
 
 
@@ -3607,17 +4003,25 @@
 (defgenum (open-xrhand+bone-update :class 'open-xrhand) (:full 0)
  (:rotation-only 1) (:max 2))
 
-(defgclass (open-xrhaptic-base :bind "OpenXRHapticBase" :api :core))
-
-(defgclass (open-xrhaptic-vibration :bind "OpenXRHapticVibration" :api :core))
-
-(defgclass (open-xripbinding :bind "OpenXRIPBinding" :api :core))
+(defgclass
+ (open-xrhaptic-base :bind "OpenXRHapticBase" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
- (open-xripbinding-modifier :bind "OpenXRIPBindingModifier" :api :core))
+ (open-xrhaptic-vibration :bind "OpenXRHapticVibration" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (open-xrinteraction-profile :bind "OpenXRInteractionProfile" :api :core))
+ (open-xripbinding :bind "OpenXRIPBinding" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (open-xripbinding-modifier :bind "OpenXRIPBindingModifier" :api :core
+  :refcounted common-lisp:t))
+
+(defgclass
+ (open-xrinteraction-profile :bind "OpenXRInteractionProfile" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (open-xrinteraction-profile-editor :bind "OpenXRInteractionProfileEditor" :api
@@ -3625,13 +4029,16 @@
 
 (defgclass
  (open-xrinteraction-profile-editor-base :bind
-  "OpenXRInteractionProfileEditorBase" :api :editor))
+  "OpenXRInteractionProfileEditorBase" :api :editor :instantiable
+  common-lisp:nil))
 
 (defgclass
  (open-xrinteraction-profile-metadata :bind "OpenXRInteractionProfileMetadata"
   :api :core))
 
-(defgclass (open-xrinterface :bind "OpenXRInterface" :api :core)
+(defgclass
+ (open-xrinterface :bind "OpenXRInterface" :api :core :refcounted
+  common-lisp:t)
  (:signals (session-begun) (session-stopping) (session-synchronized)
   (session-focussed) (session-visible) (session-loss-pending)
   (instance-exiting) (pose-recentered)
@@ -3688,9 +4095,13 @@
  (:none 0) (:orientation-valid 1) (:orientation-tracked 2) (:position-valid 4)
  (:position-tracked 8) (:linear-velocity-valid 16) (:angular-velocity-valid 32))
 
-(defgclass (open-xrmarker-tracker :bind "OpenXRMarkerTracker" :api :core))
+(defgclass
+ (open-xrmarker-tracker :bind "OpenXRMarkerTracker" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (open-xrplane-tracker :bind "OpenXRPlaneTracker" :api :core)
+(defgclass
+ (open-xrplane-tracker :bind "OpenXRPlaneTracker" :api :core :refcounted
+  common-lisp:t)
  (:signals (mesh-changed)))
 
 (defgclass (open-xrrender-model :bind "OpenXRRenderModel" :api :core)
@@ -3725,11 +4136,13 @@
 
 (defgclass
  (open-xrspatial-capability-configuration-anchor :bind
-  "OpenXRSpatialCapabilityConfigurationAnchor" :api :core))
+  "OpenXRSpatialCapabilityConfigurationAnchor" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (open-xrspatial-capability-configuration-april-tag :bind
-  "OpenXRSpatialCapabilityConfigurationAprilTag" :api :core))
+  "OpenXRSpatialCapabilityConfigurationAprilTag" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum
@@ -3739,7 +4152,8 @@
 
 (defgclass
  (open-xrspatial-capability-configuration-aruco :bind
-  "OpenXRSpatialCapabilityConfigurationAruco" :api :core))
+  "OpenXRSpatialCapabilityConfigurationAruco" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum
@@ -3752,38 +4166,43 @@
 
 (defgclass
  (open-xrspatial-capability-configuration-base-header :bind
-  "OpenXRSpatialCapabilityConfigurationBaseHeader" :api :core))
+  "OpenXRSpatialCapabilityConfigurationBaseHeader" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (open-xrspatial-capability-configuration-micro-qr-code :bind
-  "OpenXRSpatialCapabilityConfigurationMicroQrCode" :api :core))
+  "OpenXRSpatialCapabilityConfigurationMicroQrCode" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (open-xrspatial-capability-configuration-plane-tracking :bind
-  "OpenXRSpatialCapabilityConfigurationPlaneTracking" :api :core))
+  "OpenXRSpatialCapabilityConfigurationPlaneTracking" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (open-xrspatial-capability-configuration-qr-code :bind
-  "OpenXRSpatialCapabilityConfigurationQrCode" :api :core))
+  "OpenXRSpatialCapabilityConfigurationQrCode" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (open-xrspatial-component-anchor-list :bind "OpenXRSpatialComponentAnchorList"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (open-xrspatial-component-bounded-2dlist :bind
-  "OpenXRSpatialComponentBounded2DList" :api :core))
+  "OpenXRSpatialComponentBounded2DList" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (open-xrspatial-component-bounded-3dlist :bind
-  "OpenXRSpatialComponentBounded3DList" :api :core))
+  "OpenXRSpatialComponentBounded3DList" :api :core :refcounted common-lisp:t))
 
 (defgclass
- (open-xrspatial-component-data :bind "OpenXRSpatialComponentData" :api :core))
+ (open-xrspatial-component-data :bind "OpenXRSpatialComponentData" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (open-xrspatial-component-marker-list :bind "OpenXRSpatialComponentMarkerList"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -3793,23 +4212,24 @@
 
 (defgclass
  (open-xrspatial-component-mesh-2dlist :bind "OpenXRSpatialComponentMesh2DList"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (open-xrspatial-component-mesh-3dlist :bind "OpenXRSpatialComponentMesh3DList"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (open-xrspatial-component-parent-list :bind "OpenXRSpatialComponentParentList"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (open-xrspatial-component-persistence-list :bind
-  "OpenXRSpatialComponentPersistenceList" :api :core))
+  "OpenXRSpatialComponentPersistenceList" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (open-xrspatial-component-plane-alignment-list :bind
-  "OpenXRSpatialComponentPlaneAlignmentList" :api :core))
+  "OpenXRSpatialComponentPlaneAlignmentList" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum
@@ -3819,7 +4239,8 @@
 
 (defgclass
  (open-xrspatial-component-plane-semantic-label-list :bind
-  "OpenXRSpatialComponentPlaneSemanticLabelList" :api :core))
+  "OpenXRSpatialComponentPlaneSemanticLabelList" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum
@@ -3829,11 +4250,11 @@
 
 (defgclass
  (open-xrspatial-component-polygon-2dlist :bind
-  "OpenXRSpatialComponentPolygon2DList" :api :core))
+  "OpenXRSpatialComponentPolygon2DList" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (open-xrspatial-context-persistence-config :bind
-  "OpenXRSpatialContextPersistenceConfig" :api :core))
+  "OpenXRSpatialContextPersistenceConfig" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (open-xrspatial-entity-extension :bind "OpenXRSpatialEntityExtension" :api
@@ -3859,7 +4280,8 @@
  (:persistence 1000763000))
 
 (defgclass
- (open-xrspatial-entity-tracker :bind "OpenXRSpatialEntityTracker" :api :core)
+ (open-xrspatial-entity-tracker :bind "OpenXRSpatialEntityTracker" :api :core
+  :refcounted common-lisp:t)
  (:signals (next-changed)
   (spatial-tracking-state-changed spatial-tracking-state int)))
 
@@ -3879,49 +4301,67 @@
 
 (defgclass
  (open-xrspatial-query-result-data :bind "OpenXRSpatialQueryResultData" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
-(defgclass (open-xrstructure-base :bind "OpenXRStructureBase" :api :core))
+(defgclass
+ (open-xrstructure-base :bind "OpenXRStructureBase" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (open-xrvisibility-mask :bind "OpenXRVisibilityMask" :api :core))
 
-(defgclass (optimized-translation :bind "OptimizedTranslation" :api :core))
+(defgclass
+ (optimized-translation :bind "OptimizedTranslation" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (option-button :bind "OptionButton" :api :core)
  (:signals (item-selected index int) (item-focused index int)))
 
-(defgclass (pckpacker :bind "PCKPacker" :api :core))
-
-(defgclass (packed-data-container :bind "PackedDataContainer" :api :core))
+(defgclass (pckpacker :bind "PCKPacker" :api :core :refcounted common-lisp:t))
 
 (defgclass
- (packed-data-container-ref :bind "PackedDataContainerRef" :api :core))
+ (packed-data-container :bind "PackedDataContainer" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (packed-scene :bind "PackedScene" :api :core))
+(defgclass
+ (packed-data-container-ref :bind "PackedDataContainerRef" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
+
+(defgclass
+ (packed-scene :bind "PackedScene" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (packed-scene+gen-edit-state :class 'packed-scene) (:disabled 0)
  (:instance 1) (:main 2) (:main-inherited 3))
 
-(defgclass (packet-peer :bind "PacketPeer" :api :core))
+(defgclass
+ (packet-peer :bind "PacketPeer" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
-(defgclass (packet-peer-dtls :bind "PacketPeerDTLS" :api :core))
+(defgclass
+ (packet-peer-dtls :bind "PacketPeerDTLS" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (packet-peer-dtls+status :class 'packet-peer-dtls) (:disconnected 0)
  (:handshaking 1) (:connected 2) (:error 3) (:error-hostname-mismatch 4))
 
-(defgclass (packet-peer-extension :bind "PacketPeerExtension" :api :core))
+(defgclass
+ (packet-peer-extension :bind "PacketPeerExtension" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (packet-peer-stream :bind "PacketPeerStream" :api :core))
+(defgclass
+ (packet-peer-stream :bind "PacketPeerStream" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (packet-peer-udp :bind "PacketPeerUDP" :api :core))
+(defgclass
+ (packet-peer-udp :bind "PacketPeerUDP" :api :core :refcounted common-lisp:t))
 
 (defgclass (panel :bind "Panel" :api :core))
 
 (defgclass (panel-container :bind "PanelContainer" :api :core))
 
-(defgclass (panorama-sky-material :bind "PanoramaSkyMaterial" :api :core))
+(defgclass
+ (panorama-sky-material :bind "PanoramaSkyMaterial" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (parallax-2d :bind "Parallax2D" :api :core))
 
@@ -3930,7 +4370,8 @@
 (defgclass (parallax-layer :bind "ParallaxLayer" :api :core))
 
 (defgclass
- (particle-process-material :bind "ParticleProcessMaterial" :api :core)
+ (particle-process-material :bind "ParticleProcessMaterial" :api :core
+  :refcounted common-lisp:t)
  (:signals (emission-shape-changed)))
 
 
@@ -4031,59 +4472,73 @@
 (defgclass
  (physical-bone-simulator-3d :bind "PhysicalBoneSimulator3D" :api :core))
 
-(defgclass (physical-sky-material :bind "PhysicalSkyMaterial" :api :core))
-
-(defgclass (physics-body-2d :bind "PhysicsBody2D" :api :core))
-
-(defgclass (physics-body-3d :bind "PhysicsBody3D" :api :core))
+(defgclass
+ (physical-sky-material :bind "PhysicalSkyMaterial" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (physics-direct-body-state-2d :bind "PhysicsDirectBodyState2D" :api :core))
+ (physics-body-2d :bind "PhysicsBody2D" :api :core :instantiable
+  common-lisp:nil))
+
+(defgclass
+ (physics-body-3d :bind "PhysicsBody3D" :api :core :instantiable
+  common-lisp:nil))
+
+(defgclass
+ (physics-direct-body-state-2d :bind "PhysicsDirectBodyState2D" :api :core
+  :instantiable common-lisp:nil))
 
 (defgclass
  (physics-direct-body-state-2dextension :bind
   "PhysicsDirectBodyState2DExtension" :api :core))
 
 (defgclass
- (physics-direct-body-state-3d :bind "PhysicsDirectBodyState3D" :api :core))
+ (physics-direct-body-state-3d :bind "PhysicsDirectBodyState3D" :api :core
+  :instantiable common-lisp:nil))
 
 (defgclass
  (physics-direct-body-state-3dextension :bind
   "PhysicsDirectBodyState3DExtension" :api :core))
 
 (defgclass
- (physics-direct-space-state-2d :bind "PhysicsDirectSpaceState2D" :api :core))
+ (physics-direct-space-state-2d :bind "PhysicsDirectSpaceState2D" :api :core
+  :instantiable common-lisp:nil))
 
 (defgclass
  (physics-direct-space-state-2dextension :bind
   "PhysicsDirectSpaceState2DExtension" :api :core))
 
 (defgclass
- (physics-direct-space-state-3d :bind "PhysicsDirectSpaceState3D" :api :core))
+ (physics-direct-space-state-3d :bind "PhysicsDirectSpaceState3D" :api :core
+  :instantiable common-lisp:nil))
 
 (defgclass
  (physics-direct-space-state-3dextension :bind
   "PhysicsDirectSpaceState3DExtension" :api :core))
 
-(defgclass (physics-material :bind "PhysicsMaterial" :api :core))
+(defgclass
+ (physics-material :bind "PhysicsMaterial" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (physics-point-query-parameters-2d :bind "PhysicsPointQueryParameters2D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (physics-point-query-parameters-3d :bind "PhysicsPointQueryParameters3D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (physics-ray-query-parameters-2d :bind "PhysicsRayQueryParameters2D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (physics-ray-query-parameters-3d :bind "PhysicsRayQueryParameters3D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
-(defgclass (physics-server-2d :bind "PhysicsServer2D" :api :core))
+(defgclass
+ (physics-server-2d :bind "PhysicsServer2D" :api :core :instantiable
+  common-lisp:nil))
 
 
 (defgenum (physics-server-2d+space-parameter :class 'physics-server-2d)
@@ -4168,7 +4623,9 @@
 
 (defgclass (physics-server-2dmanager :bind "PhysicsServer2DManager" :api :core))
 
-(defgclass (physics-server-3d :bind "PhysicsServer3D" :api :core))
+(defgclass
+ (physics-server-3d :bind "PhysicsServer3D" :api :core :instantiable
+  common-lisp:nil))
 
 
 (defgenum (physics-server-3d+joint-type :class 'physics-server-3d) (:pin 0)
@@ -4295,25 +4752,27 @@
 
 (defgclass
  (physics-shape-query-parameters-2d :bind "PhysicsShapeQueryParameters2D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (physics-shape-query-parameters-3d :bind "PhysicsShapeQueryParameters3D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (physics-test-motion-parameters-2d :bind "PhysicsTestMotionParameters2D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (physics-test-motion-parameters-3d :bind "PhysicsTestMotionParameters3D" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (physics-test-motion-result-2d :bind "PhysicsTestMotionResult2D" :api :core))
+ (physics-test-motion-result-2d :bind "PhysicsTestMotionResult2D" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (physics-test-motion-result-3d :bind "PhysicsTestMotionResult3D" :api :core))
+ (physics-test-motion-result-3d :bind "PhysicsTestMotionResult3D" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass (pin-joint-2d :bind "PinJoint2D" :api :core))
 
@@ -4323,39 +4782,56 @@
 (defgenum (pin-joint-3d+param :class 'pin-joint-3d) (:bias 0) (:damping 1)
  (:impulse-clamp 2))
 
-(defgclass (placeholder-cubemap :bind "PlaceholderCubemap" :api :core))
+(defgclass
+ (placeholder-cubemap :bind "PlaceholderCubemap" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (placeholder-cubemap-array :bind "PlaceholderCubemapArray" :api :core))
-
-(defgclass (placeholder-material :bind "PlaceholderMaterial" :api :core))
-
-(defgclass (placeholder-mesh :bind "PlaceholderMesh" :api :core))
-
-(defgclass (placeholder-texture-2d :bind "PlaceholderTexture2D" :api :core))
+ (placeholder-cubemap-array :bind "PlaceholderCubemapArray" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (placeholder-texture-2darray :bind "PlaceholderTexture2DArray" :api :core))
-
-(defgclass (placeholder-texture-3d :bind "PlaceholderTexture3D" :api :core))
+ (placeholder-material :bind "PlaceholderMaterial" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (placeholder-texture-layered :bind "PlaceholderTextureLayered" :api :core))
+ (placeholder-mesh :bind "PlaceholderMesh" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (plane-mesh :bind "PlaneMesh" :api :core))
+(defgclass
+ (placeholder-texture-2d :bind "PlaceholderTexture2D" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (placeholder-texture-2darray :bind "PlaceholderTexture2DArray" :api :core
+  :refcounted common-lisp:t))
+
+(defgclass
+ (placeholder-texture-3d :bind "PlaceholderTexture3D" :api :core :refcounted
+  common-lisp:t))
+
+(defgclass
+ (placeholder-texture-layered :bind "PlaceholderTextureLayered" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
+
+(defgclass (plane-mesh :bind "PlaneMesh" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (plane-mesh+orientation :class 'plane-mesh) (:x 0) (:y 1) (:z 2))
 
 (defgclass (point-light-2d :bind "PointLight2D" :api :core))
 
-(defgclass (point-mesh :bind "PointMesh" :api :core))
+(defgclass (point-mesh :bind "PointMesh" :api :core :refcounted common-lisp:t))
 
 (defgclass (polygon-2d :bind "Polygon2D" :api :core))
 
-(defgclass (polygon-occluder-3d :bind "PolygonOccluder3D" :api :core))
+(defgclass
+ (polygon-occluder-3d :bind "PolygonOccluder3D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (polygon-path-finder :bind "PolygonPathFinder" :api :core))
+(defgclass
+ (polygon-path-finder :bind "PolygonPathFinder" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (popup :bind "Popup" :api :core) (:signals (popup-hide)))
 
@@ -4366,8 +4842,8 @@
 (defgclass (popup-panel :bind "PopupPanel" :api :core))
 
 (defgclass
- (portable-compressed-texture-2d :bind "PortableCompressedTexture2D" :api
-  :core))
+ (portable-compressed-texture-2d :bind "PortableCompressedTexture2D" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -4376,11 +4852,14 @@
  (:lossless 0) (:lossy 1) (:basis-universal 2) (:s3tc 3) (:etc2 4) (:bptc 5)
  (:astc 6))
 
-(defgclass (primitive-mesh :bind "PrimitiveMesh" :api :core))
+(defgclass
+ (primitive-mesh :bind "PrimitiveMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (prism-mesh :bind "PrismMesh" :api :core))
+(defgclass (prism-mesh :bind "PrismMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (procedural-sky-material :bind "ProceduralSkyMaterial" :api :core))
+(defgclass
+ (procedural-sky-material :bind "ProceduralSkyMaterial" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (progress-bar :bind "ProgressBar" :api :core))
 
@@ -4391,71 +4870,94 @@
 (defgclass (project-settings :bind "ProjectSettings" :api :core)
  (:signals (settings-changed)))
 
-(defgclass (property-tweener :bind "PropertyTweener" :api :core))
+(defgclass
+ (property-tweener :bind "PropertyTweener" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (quad-mesh :bind "QuadMesh" :api :core))
+(defgclass (quad-mesh :bind "QuadMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (quad-occluder-3d :bind "QuadOccluder3D" :api :core))
+(defgclass
+ (quad-occluder-3d :bind "QuadOccluder3D" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (rdacceleration-structure-geometry :bind "RDAccelerationStructureGeometry"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (rdacceleration-structure-instance :bind "RDAccelerationStructureInstance"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
-(defgclass (rdattachment-format :bind "RDAttachmentFormat" :api :core))
+(defgclass
+ (rdattachment-format :bind "RDAttachmentFormat" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (rdframebuffer-pass :bind "RDFramebufferPass" :api :core))
+(defgclass
+ (rdframebuffer-pass :bind "RDFramebufferPass" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgconstant +rdframebuffer-pass+attachment-unused+ :value -1 :bind
  "ATTACHMENT_UNUSED" :class 'rdframebuffer-pass)
 
-(defgclass (rdhit-group :bind "RDHitGroup" :api :core))
+(defgclass
+ (rdhit-group :bind "RDHitGroup" :api :core :refcounted common-lisp:t))
 
 (defgclass
- (rdpipeline-color-blend-state :bind "RDPipelineColorBlendState" :api :core))
+ (rdpipeline-color-blend-state :bind "RDPipelineColorBlendState" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (rdpipeline-color-blend-state-attachment :bind
-  "RDPipelineColorBlendStateAttachment" :api :core))
+  "RDPipelineColorBlendStateAttachment" :api :core :refcounted common-lisp:t))
 
 (defgclass
- (rdpipeline-depth-stencil-state :bind "RDPipelineDepthStencilState" :api
-  :core))
+ (rdpipeline-depth-stencil-state :bind "RDPipelineDepthStencilState" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (rdpipeline-multisample-state :bind "RDPipelineMultisampleState" :api :core))
+ (rdpipeline-multisample-state :bind "RDPipelineMultisampleState" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (rdpipeline-rasterization-state :bind "RDPipelineRasterizationState" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
-(defgclass (rdpipeline-shader :bind "RDPipelineShader" :api :core))
+(defgclass
+ (rdpipeline-shader :bind "RDPipelineShader" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (rdpipeline-specialization-constant :bind "RDPipelineSpecializationConstant"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
-(defgclass (rdsampler-state :bind "RDSamplerState" :api :core))
+(defgclass
+ (rdsampler-state :bind "RDSamplerState" :api :core :refcounted common-lisp:t))
 
-(defgclass (rdshader-file :bind "RDShaderFile" :api :core))
+(defgclass
+ (rdshader-file :bind "RDShaderFile" :api :core :refcounted common-lisp:t))
 
-(defgclass (rdshader-spirv :bind "RDShaderSPIRV" :api :core))
+(defgclass
+ (rdshader-spirv :bind "RDShaderSPIRV" :api :core :refcounted common-lisp:t))
 
-(defgclass (rdshader-source :bind "RDShaderSource" :api :core))
+(defgclass
+ (rdshader-source :bind "RDShaderSource" :api :core :refcounted common-lisp:t))
 
-(defgclass (rdtexture-format :bind "RDTextureFormat" :api :core))
+(defgclass
+ (rdtexture-format :bind "RDTextureFormat" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (rdtexture-view :bind "RDTextureView" :api :core))
+(defgclass
+ (rdtexture-view :bind "RDTextureView" :api :core :refcounted common-lisp:t))
 
-(defgclass (rduniform :bind "RDUniform" :api :core))
+(defgclass (rduniform :bind "RDUniform" :api :core :refcounted common-lisp:t))
 
-(defgclass (rdvertex-attribute :bind "RDVertexAttribute" :api :core))
+(defgclass
+ (rdvertex-attribute :bind "RDVertexAttribute" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (random-number-generator :bind "RandomNumberGenerator" :api :core))
+(defgclass
+ (random-number-generator :bind "RandomNumberGenerator" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (range :bind "Range" :api :core)
  (:signals (value-changed value float) (changed)))
@@ -4464,9 +4966,12 @@
 
 (defgclass (ray-cast-3d :bind "RayCast3D" :api :core))
 
-(defgclass (rectangle-shape-2d :bind "RectangleShape2D" :api :core))
+(defgclass
+ (rectangle-shape-2d :bind "RectangleShape2D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (ref-counted :bind "RefCounted" :api :core))
+(defgclass
+ (ref-counted :bind "RefCounted" :api :core :refcounted common-lisp:t))
 
 (defgclass (reference-rect :bind "ReferenceRect" :api :core))
 
@@ -4480,40 +4985,50 @@
 (defgenum (reflection-probe+ambient-mode :class 'reflection-probe)
  (:disabled 0) (:environment 1) (:color 2))
 
-(defgclass (reg-ex :bind "RegEx" :api :core))
+(defgclass (reg-ex :bind "RegEx" :api :core :refcounted common-lisp:t))
 
-(defgclass (reg-ex-match :bind "RegExMatch" :api :core))
+(defgclass
+ (reg-ex-match :bind "RegExMatch" :api :core :refcounted common-lisp:t))
 
 (defgclass (remote-transform-2d :bind "RemoteTransform2D" :api :core))
 
 (defgclass (remote-transform-3d :bind "RemoteTransform3D" :api :core))
 
-(defgclass (render-data :bind "RenderData" :api :core))
+(defgclass
+ (render-data :bind "RenderData" :api :core :instantiable common-lisp:nil))
 
 (defgclass (render-data-extension :bind "RenderDataExtension" :api :core))
 
 (defgclass (render-data-rd :bind "RenderDataRD" :api :core))
 
-(defgclass (render-scene-buffers :bind "RenderSceneBuffers" :api :core))
+(defgclass
+ (render-scene-buffers :bind "RenderSceneBuffers" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
  (render-scene-buffers-configuration :bind "RenderSceneBuffersConfiguration"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
- (render-scene-buffers-extension :bind "RenderSceneBuffersExtension" :api
-  :core))
+ (render-scene-buffers-extension :bind "RenderSceneBuffersExtension" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (render-scene-buffers-rd :bind "RenderSceneBuffersRD" :api :core))
+(defgclass
+ (render-scene-buffers-rd :bind "RenderSceneBuffersRD" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (render-scene-data :bind "RenderSceneData" :api :core))
+(defgclass
+ (render-scene-data :bind "RenderSceneData" :api :core :instantiable
+  common-lisp:nil))
 
 (defgclass
  (render-scene-data-extension :bind "RenderSceneDataExtension" :api :core))
 
 (defgclass (render-scene-data-rd :bind "RenderSceneDataRD" :api :core))
 
-(defgclass (rendering-device :bind "RenderingDevice" :api :core))
+(defgclass
+ (rendering-device :bind "RenderingDevice" :api :core :instantiable
+  common-lisp:nil))
 
 
 (defgconstant +rendering-device+invalid-id+ :value -1 :bind "INVALID_ID" :class
@@ -4874,7 +5389,9 @@
  (:clear-stencil 262144) (:ignore-stencil 524288) (:clear-all 327935)
  (:ignore-all 720640))
 
-(defgclass (rendering-server :bind "RenderingServer" :api :core)
+(defgclass
+ (rendering-server :bind "RenderingServer" :api :core :instantiable
+  common-lisp:nil)
  (:signals (frame-pre-draw) (frame-post-draw)))
 
 
@@ -5384,73 +5901,96 @@
 (defgenum (rendering-server+features :class 'rendering-server) (:shaders 0)
  (:multithreaded 1))
 
-(defgclass (resource :bind "Resource" :api :core)
+(defgclass (resource :bind "Resource" :api :core :refcounted common-lisp:t)
  (:signals (changed) (setup-local-to-scene-requested)))
 
 
 (defgenum (resource+deep-duplicate-mode :class 'resource) (:none 0)
  (:internal 1) (:all 2))
 
-(defgclass (resource-format-loader :bind "ResourceFormatLoader" :api :core))
+(defgclass
+ (resource-format-loader :bind "ResourceFormatLoader" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (resource-format-loader+cache-mode :class 'resource-format-loader)
  (:ignore 0) (:reuse 1) (:replace 2) (:ignore-deep 3) (:replace-deep 4))
 
-(defgclass (resource-format-saver :bind "ResourceFormatSaver" :api :core))
+(defgclass
+ (resource-format-saver :bind "ResourceFormatSaver" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (resource-importer :bind "ResourceImporter" :api :core))
+(defgclass
+ (resource-importer :bind "ResourceImporter" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum (resource-importer+import-order :class 'resource-importer)
  (:default 0) (:scene 100))
 
 (defgclass
- (resource-importer-bmfont :bind "ResourceImporterBMFont" :api :editor))
+ (resource-importer-bmfont :bind "ResourceImporterBMFont" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass
- (resource-importer-bit-map :bind "ResourceImporterBitMap" :api :editor))
+ (resource-importer-bit-map :bind "ResourceImporterBitMap" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass
  (resource-importer-csvtranslation :bind "ResourceImporterCSVTranslation" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
  (resource-importer-dynamic-font :bind "ResourceImporterDynamicFont" :api
-  :editor))
-
-(defgclass (resource-importer-image :bind "ResourceImporterImage" :api :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
- (resource-importer-image-font :bind "ResourceImporterImageFont" :api :editor))
+ (resource-importer-image :bind "ResourceImporterImage" :api :editor
+  :refcounted common-lisp:t))
+
+(defgclass
+ (resource-importer-image-font :bind "ResourceImporterImageFont" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass
  (resource-importer-layered-texture :bind "ResourceImporterLayeredTexture" :api
-  :editor))
-
-(defgclass (resource-importer-mp3 :bind "ResourceImporterMP3" :api :editor))
-
-(defgclass (resource-importer-obj :bind "ResourceImporterOBJ" :api :editor))
+  :editor :refcounted common-lisp:t))
 
 (defgclass
- (resource-importer-ogg-vorbis :bind "ResourceImporterOggVorbis" :api :editor))
-
-(defgclass (resource-importer-svg :bind "ResourceImporterSVG" :api :editor))
-
-(defgclass (resource-importer-scene :bind "ResourceImporterScene" :api :editor))
+ (resource-importer-mp3 :bind "ResourceImporterMP3" :api :editor :refcounted
+  common-lisp:t))
 
 (defgclass
- (resource-importer-shader-file :bind "ResourceImporterShaderFile" :api
-  :editor))
+ (resource-importer-obj :bind "ResourceImporterOBJ" :api :editor :refcounted
+  common-lisp:t))
 
 (defgclass
- (resource-importer-texture :bind "ResourceImporterTexture" :api :editor))
+ (resource-importer-ogg-vorbis :bind "ResourceImporterOggVorbis" :api :editor
+  :refcounted common-lisp:t))
+
+(defgclass
+ (resource-importer-svg :bind "ResourceImporterSVG" :api :editor :refcounted
+  common-lisp:t))
+
+(defgclass
+ (resource-importer-scene :bind "ResourceImporterScene" :api :editor
+  :refcounted common-lisp:t))
+
+(defgclass
+ (resource-importer-shader-file :bind "ResourceImporterShaderFile" :api :editor
+  :refcounted common-lisp:t))
+
+(defgclass
+ (resource-importer-texture :bind "ResourceImporterTexture" :api :editor
+  :refcounted common-lisp:t))
 
 (defgclass
  (resource-importer-texture-atlas :bind "ResourceImporterTextureAtlas" :api
-  :editor))
+  :editor :refcounted common-lisp:t))
 
-(defgclass (resource-importer-wav :bind "ResourceImporterWAV" :api :editor))
+(defgclass
+ (resource-importer-wav :bind "ResourceImporterWAV" :api :editor :refcounted
+  common-lisp:t))
 
 (defgclass (resource-loader :bind "ResourceLoader" :api :core))
 
@@ -5473,7 +6013,8 @@
  (:omit-editor-properties 8) (:save-big-endian 16) (:compress 32)
  (:replace-subresource-paths 64))
 
-(defgclass (resource-uid :bind "ResourceUID" :api :core))
+(defgclass
+ (resource-uid :bind "ResourceUID" :api :core :instantiable common-lisp:nil))
 
 
 (defgconstant +resource-uid+invalid-id+ :value -1 :bind "INVALID_ID" :class
@@ -5487,13 +6028,16 @@
   'retarget-modifier-3d)
  (:position 1) (:rotation 2) (:scale 4) (:all 7))
 
-(defgclass (ribbon-trail-mesh :bind "RibbonTrailMesh" :api :core))
+(defgclass
+ (ribbon-trail-mesh :bind "RibbonTrailMesh" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (ribbon-trail-mesh+shape :class 'ribbon-trail-mesh) (:flat 0)
  (:cross 1))
 
-(defgclass (rich-text-effect :bind "RichTextEffect" :api :core))
+(defgclass
+ (rich-text-effect :bind "RichTextEffect" :api :core :refcounted common-lisp:t))
 
 (defgclass (rich-text-label :bind "RichTextLabel" :api :core)
  (:signals (meta-clicked meta variant) (meta-hover-started meta variant)
@@ -5568,18 +6112,24 @@
 
 (defgclass (root-motion-view :bind "RootMotionView" :api :core))
 
-(defgclass (scene-multiplayer :bind "SceneMultiplayer" :api :core)
+(defgclass
+ (scene-multiplayer :bind "SceneMultiplayer" :api :core :refcounted
+  common-lisp:t)
  (:signals (peer-authenticating id int) (peer-authentication-failed id int)
   (peer-packet id int packet packed-byte-array)))
 
-(defgclass (scene-replication-config :bind "SceneReplicationConfig" :api :core))
+(defgclass
+ (scene-replication-config :bind "SceneReplicationConfig" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
  (scene-replication-config+replication-mode :class 'scene-replication-config)
  (:never 0) (:always 1) (:on-change 2))
 
-(defgclass (scene-state :bind "SceneState" :api :core))
+(defgclass
+ (scene-state :bind "SceneState" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
 
 (defgenum (scene-state+gen-edit-state :class 'scene-state) (:disabled 0)
@@ -5595,20 +6145,30 @@
 (defgenum (scene-tree+group-call-flags :class 'scene-tree) (:default 0)
  (:reverse 1) (:deferred 2) (:unique 4))
 
-(defgclass (scene-tree-timer :bind "SceneTreeTimer" :api :core)
+(defgclass
+ (scene-tree-timer :bind "SceneTreeTimer" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t)
  (:signals (timeout)))
 
-(defgclass (script :bind "Script" :api :core))
+(defgclass
+ (script :bind "Script" :api :core :instantiable common-lisp:nil :refcounted
+  common-lisp:t))
 
-(defgclass (script-backtrace :bind "ScriptBacktrace" :api :core))
+(defgclass
+ (script-backtrace :bind "ScriptBacktrace" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (script-create-dialog :bind "ScriptCreateDialog" :api :editor)
  (:signals (script-created script script)))
 
-(defgclass (script-editor :bind "ScriptEditor" :api :editor)
+(defgclass
+ (script-editor :bind "ScriptEditor" :api :editor :instantiable
+  common-lisp:nil)
  (:signals (editor-script-changed script script) (script-close script script)))
 
-(defgclass (script-editor-base :bind "ScriptEditorBase" :api :editor)
+(defgclass
+ (script-editor-base :bind "ScriptEditorBase" :api :editor :instantiable
+  common-lisp:nil)
  (:signals (name-changed) (edited-script-changed)
   (search-in-files-requested text string) (request-save-history)
   (request-help topic string)
@@ -5617,9 +6177,13 @@
   (replace-in-files-requested text string)
   (go-to-method script object method string)))
 
-(defgclass (script-extension :bind "ScriptExtension" :api :core))
+(defgclass
+ (script-extension :bind "ScriptExtension" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (script-language :bind "ScriptLanguage" :api :core))
+(defgclass
+ (script-language :bind "ScriptLanguage" :api :core :instantiable
+  common-lisp:nil))
 
 
 (defgenum (script-language+script-name-casing :class 'script-language)
@@ -5650,7 +6214,9 @@
  (:constant 6) (:node-path 7) (:file-path 8) (:plain-text 9) (:keyword 10)
  (:max 11))
 
-(defgclass (scroll-bar :bind "ScrollBar" :api :core) (:signals (scrolling)))
+(defgclass
+ (scroll-bar :bind "ScrollBar" :api :core :instantiable common-lisp:nil)
+ (:signals (scrolling)))
 
 (defgclass (scroll-container :bind "ScrollContainer" :api :core)
  (:signals (scroll-started) (scroll-ended)))
@@ -5663,17 +6229,23 @@
 (defgenum (scroll-container+scroll-hint-mode :class 'scroll-container)
  (:disabled 0) (:all 1) (:top-and-left 2) (:bottom-and-right 3))
 
-(defgclass (segment-shape-2d :bind "SegmentShape2D" :api :core))
+(defgclass
+ (segment-shape-2d :bind "SegmentShape2D" :api :core :refcounted common-lisp:t))
 
-(defgclass (semaphore :bind "Semaphore" :api :core))
+(defgclass (semaphore :bind "Semaphore" :api :core :refcounted common-lisp:t))
 
-(defgclass (separation-ray-shape-2d :bind "SeparationRayShape2D" :api :core))
+(defgclass
+ (separation-ray-shape-2d :bind "SeparationRayShape2D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (separation-ray-shape-3d :bind "SeparationRayShape3D" :api :core))
+(defgclass
+ (separation-ray-shape-3d :bind "SeparationRayShape3D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (separator :bind "Separator" :api :core))
+(defgclass
+ (separator :bind "Separator" :api :core :instantiable common-lisp:nil))
 
-(defgclass (shader :bind "Shader" :api :core))
+(defgclass (shader :bind "Shader" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (shader+mode :class 'shader) (:spatial 0) (:canvas-item 1)
@@ -5681,21 +6253,27 @@
 
 (defgclass (shader-globals-override :bind "ShaderGlobalsOverride" :api :core))
 
-(defgclass (shader-include :bind "ShaderInclude" :api :core))
+(defgclass
+ (shader-include :bind "ShaderInclude" :api :core :refcounted common-lisp:t))
 
 (defgclass (shader-include-db :bind "ShaderIncludeDB" :api :core))
 
-(defgclass (shader-material :bind "ShaderMaterial" :api :core))
+(defgclass
+ (shader-material :bind "ShaderMaterial" :api :core :refcounted common-lisp:t))
 
-(defgclass (shape-2d :bind "Shape2D" :api :core))
+(defgclass
+ (shape-2d :bind "Shape2D" :api :core :instantiable common-lisp:nil :refcounted
+  common-lisp:t))
 
-(defgclass (shape-3d :bind "Shape3D" :api :core))
+(defgclass
+ (shape-3d :bind "Shape3D" :api :core :instantiable common-lisp:nil :refcounted
+  common-lisp:t))
 
 (defgclass (shape-cast-2d :bind "ShapeCast2D" :api :core))
 
 (defgclass (shape-cast-3d :bind "ShapeCast3D" :api :core))
 
-(defgclass (shortcut :bind "Shortcut" :api :core))
+(defgclass (shortcut :bind "Shortcut" :api :core :refcounted common-lisp:t))
 
 (defgclass (skeleton-2d :bind "Skeleton2D" :api :core)
  (:signals (bone-setup-changed)))
@@ -5715,38 +6293,41 @@
 
 (defgclass (skeleton-ik3d :bind "SkeletonIK3D" :api :core))
 
-(defgclass (skeleton-modification-2d :bind "SkeletonModification2D" :api :core))
+(defgclass
+ (skeleton-modification-2d :bind "SkeletonModification2D" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (skeleton-modification-2dccdik :bind "SkeletonModification2DCCDIK" :api :core))
+ (skeleton-modification-2dccdik :bind "SkeletonModification2DCCDIK" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (skeleton-modification-2dfabrik :bind "SkeletonModification2DFABRIK" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (skeleton-modification-2djiggle :bind "SkeletonModification2DJiggle" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (skeleton-modification-2dlook-at :bind "SkeletonModification2DLookAt" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (skeleton-modification-2dphysical-bones :bind
-  "SkeletonModification2DPhysicalBones" :api :core))
+  "SkeletonModification2DPhysicalBones" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (skeleton-modification-2dstack-holder :bind
-  "SkeletonModification2DStackHolder" :api :core))
+  "SkeletonModification2DStackHolder" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (skeleton-modification-2dtwo-bone-ik :bind "SkeletonModification2DTwoBoneIK"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
- (skeleton-modification-stack-2d :bind "SkeletonModificationStack2D" :api
-  :core))
+ (skeleton-modification-stack-2d :bind "SkeletonModificationStack2D" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass (skeleton-modifier-3d :bind "SkeletonModifier3D" :api :core)
  (:signals (modification-processed)))
@@ -5770,7 +6351,9 @@
 (defgenum (skeleton-modifier-3d+rotation-axis :class 'skeleton-modifier-3d)
  (:x 0) (:y 1) (:z 2) (:all 3) (:custom 4))
 
-(defgclass (skeleton-profile :bind "SkeletonProfile" :api :core)
+(defgclass
+ (skeleton-profile :bind "SkeletonProfile" :api :core :refcounted
+  common-lisp:t)
  (:signals (profile-updated)))
 
 
@@ -5778,13 +6361,16 @@
  (:average-children 0) (:specific-child 1) (:end 2))
 
 (defgclass
- (skeleton-profile-humanoid :bind "SkeletonProfileHumanoid" :api :core))
+ (skeleton-profile-humanoid :bind "SkeletonProfileHumanoid" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (skin :bind "Skin" :api :core))
+(defgclass (skin :bind "Skin" :api :core :refcounted common-lisp:t))
 
-(defgclass (skin-reference :bind "SkinReference" :api :core))
+(defgclass
+ (skin-reference :bind "SkinReference" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
-(defgclass (sky :bind "Sky" :api :core))
+(defgclass (sky :bind "Sky" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (sky+radiance-size :class 'sky) (:|32| 0) (:|64| 1) (:|128| 2)
@@ -5794,7 +6380,7 @@
 (defgenum (sky+process-mode :class 'sky) (:automatic 0) (:quality 1)
  (:incremental 2) (:realtime 3))
 
-(defgclass (slider :bind "Slider" :api :core)
+(defgclass (slider :bind "Slider" :api :core :instantiable common-lisp:nil)
  (:signals (drag-started) (drag-ended value-changed bool)))
 
 
@@ -5817,7 +6403,9 @@
  (:angular-orthogonal-softness 19) (:angular-orthogonal-restitution 20)
  (:angular-orthogonal-damping 21) (:max 22))
 
-(defgclass (socket-server :bind "SocketServer" :api :core))
+(defgclass
+ (socket-server :bind "SocketServer" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
 (defgclass (soft-body-3d :bind "SoftBody3D" :api :core))
 
@@ -5825,11 +6413,15 @@
 (defgenum (soft-body-3d+disable-mode :class 'soft-body-3d) (:remove 0)
  (:keep-active 1))
 
-(defgclass (sphere-mesh :bind "SphereMesh" :api :core))
+(defgclass
+ (sphere-mesh :bind "SphereMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (sphere-occluder-3d :bind "SphereOccluder3D" :api :core))
+(defgclass
+ (sphere-occluder-3d :bind "SphereOccluder3D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (sphere-shape-3d :bind "SphereShape3D" :api :core))
+(defgclass
+ (sphere-shape-3d :bind "SphereShape3D" :api :core :refcounted common-lisp:t))
 
 (defgclass (spin-box :bind "SpinBox" :api :core))
 
@@ -5872,7 +6464,8 @@
 (defgclass (sprite-3d :bind "Sprite3D" :api :core)
  (:signals (frame-changed) (texture-changed)))
 
-(defgclass (sprite-base-3d :bind "SpriteBase3D" :api :core))
+(defgclass
+ (sprite-base-3d :bind "SpriteBase3D" :api :core :instantiable common-lisp:nil))
 
 
 (defgenum (sprite-base-3d+draw-flags :class 'sprite-base-3d) (:transparent 0)
@@ -5882,13 +6475,16 @@
 (defgenum (sprite-base-3d+alpha-cut-mode :class 'sprite-base-3d) (:disabled 0)
  (:discard 1) (:opaque-prepass 2) (:hash 3))
 
-(defgclass (sprite-frames :bind "SpriteFrames" :api :core))
+(defgclass
+ (sprite-frames :bind "SpriteFrames" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (sprite-frames+loop-mode :class 'sprite-frames) (:none 0) (:linear 1)
  (:pingpong 2))
 
-(defgclass (standard-material-3d :bind "StandardMaterial3D" :api :core))
+(defgclass
+ (standard-material-3d :bind "StandardMaterial3D" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (static-body-2d :bind "StaticBody2D" :api :core))
 
@@ -5897,39 +6493,56 @@
 (defgclass (status-indicator :bind "StatusIndicator" :api :core)
  (:signals (pressed mouse-button int mouse-position vector-2i)))
 
-(defgclass (stream-peer :bind "StreamPeer" :api :core))
+(defgclass
+ (stream-peer :bind "StreamPeer" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
-(defgclass (stream-peer-buffer :bind "StreamPeerBuffer" :api :core))
+(defgclass
+ (stream-peer-buffer :bind "StreamPeerBuffer" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (stream-peer-extension :bind "StreamPeerExtension" :api :core))
+(defgclass
+ (stream-peer-extension :bind "StreamPeerExtension" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (stream-peer-gzip :bind "StreamPeerGZIP" :api :core))
+(defgclass
+ (stream-peer-gzip :bind "StreamPeerGZIP" :api :core :refcounted common-lisp:t))
 
-(defgclass (stream-peer-socket :bind "StreamPeerSocket" :api :core))
+(defgclass
+ (stream-peer-socket :bind "StreamPeerSocket" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum (stream-peer-socket+status :class 'stream-peer-socket) (:none 0)
  (:connecting 1) (:connected 2) (:error 3))
 
-(defgclass (stream-peer-tcp :bind "StreamPeerTCP" :api :core))
+(defgclass
+ (stream-peer-tcp :bind "StreamPeerTCP" :api :core :refcounted common-lisp:t))
 
-(defgclass (stream-peer-tls :bind "StreamPeerTLS" :api :core))
+(defgclass
+ (stream-peer-tls :bind "StreamPeerTLS" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (stream-peer-tls+status :class 'stream-peer-tls) (:disconnected 0)
  (:handshaking 1) (:connected 2) (:error 3) (:error-hostname-mismatch 4))
 
-(defgclass (stream-peer-uds :bind "StreamPeerUDS" :api :core))
+(defgclass
+ (stream-peer-uds :bind "StreamPeerUDS" :api :core :refcounted common-lisp:t))
 
-(defgclass (style-box :bind "StyleBox" :api :core))
+(defgclass (style-box :bind "StyleBox" :api :core :refcounted common-lisp:t))
 
-(defgclass (style-box-empty :bind "StyleBoxEmpty" :api :core))
+(defgclass
+ (style-box-empty :bind "StyleBoxEmpty" :api :core :refcounted common-lisp:t))
 
-(defgclass (style-box-flat :bind "StyleBoxFlat" :api :core))
+(defgclass
+ (style-box-flat :bind "StyleBoxFlat" :api :core :refcounted common-lisp:t))
 
-(defgclass (style-box-line :bind "StyleBoxLine" :api :core))
+(defgclass
+ (style-box-line :bind "StyleBoxLine" :api :core :refcounted common-lisp:t))
 
-(defgclass (style-box-texture :bind "StyleBoxTexture" :api :core))
+(defgclass
+ (style-box-texture :bind "StyleBoxTexture" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (style-box-texture+axis-stretch-mode :class 'style-box-texture)
@@ -5947,9 +6560,12 @@
 
 (defgclass (sub-viewport-container :bind "SubViewportContainer" :api :core))
 
-(defgclass (subtween-tweener :bind "SubtweenTweener" :api :core))
+(defgclass
+ (subtween-tweener :bind "SubtweenTweener" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (surface-tool :bind "SurfaceTool" :api :core))
+(defgclass
+ (surface-tool :bind "SurfaceTool" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (surface-tool+custom-format :class 'surface-tool) (:rgba8-unorm 0)
@@ -5960,13 +6576,18 @@
 (defgenum (surface-tool+skin-weight-count :class 'surface-tool) (:4-weights 0)
  (:8-weights 1))
 
-(defgclass (syntax-highlighter :bind "SyntaxHighlighter" :api :core))
+(defgclass
+ (syntax-highlighter :bind "SyntaxHighlighter" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (system-font :bind "SystemFont" :api :core))
+(defgclass
+ (system-font :bind "SystemFont" :api :core :refcounted common-lisp:t))
 
-(defgclass (tcpserver :bind "TCPServer" :api :core))
+(defgclass (tcpserver :bind "TCPServer" :api :core :refcounted common-lisp:t))
 
-(defgclass (tlsoptions :bind "TLSOptions" :api :core))
+(defgclass
+ (tlsoptions :bind "TLSOptions" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
 (defgclass (tab-bar :bind "TabBar" :api :core)
  (:signals (tab-selected tab int) (tab-changed tab int) (tab-clicked tab int)
@@ -6030,13 +6651,16 @@
 (defgenum (text-edit+gutter-type :class 'text-edit) (:string 0) (:icon 1)
  (:custom 2))
 
-(defgclass (text-line :bind "TextLine" :api :core))
+(defgclass (text-line :bind "TextLine" :api :core :refcounted common-lisp:t))
 
-(defgclass (text-mesh :bind "TextMesh" :api :core))
+(defgclass (text-mesh :bind "TextMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (text-paragraph :bind "TextParagraph" :api :core))
+(defgclass
+ (text-paragraph :bind "TextParagraph" :api :core :refcounted common-lisp:t))
 
-(defgclass (text-server :bind "TextServer" :api :core))
+(defgclass
+ (text-server :bind "TextServer" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
 
 (defgenum (text-server+font-antialiasing :class 'text-server) (:none 0)
@@ -6133,29 +6757,40 @@
 (defgenum (text-server+fixed-size-scale-mode :class 'text-server) (:disable 0)
  (:integer-only 1) (:enabled 2))
 
-(defgclass (text-server-advanced :bind "TextServerAdvanced" :api :core))
+(defgclass
+ (text-server-advanced :bind "TextServerAdvanced" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (text-server-dummy :bind "TextServerDummy" :api :core))
+(defgclass
+ (text-server-dummy :bind "TextServerDummy" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (text-server-extension :bind "TextServerExtension" :api :core))
+(defgclass
+ (text-server-extension :bind "TextServerExtension" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (text-server-manager :bind "TextServerManager" :api :core)
  (:signals (interface-added interface-name string-name)
   (interface-removed interface-name string-name)))
 
-(defgclass (texture :bind "Texture" :api :core))
+(defgclass (texture :bind "Texture" :api :core :refcounted common-lisp:t))
 
-(defgclass (texture-2d :bind "Texture2D" :api :core))
+(defgclass (texture-2d :bind "Texture2D" :api :core :refcounted common-lisp:t))
 
-(defgclass (texture-2darray :bind "Texture2DArray" :api :core))
+(defgclass
+ (texture-2darray :bind "Texture2DArray" :api :core :refcounted common-lisp:t))
 
-(defgclass (texture-2darray-rd :bind "Texture2DArrayRD" :api :core))
+(defgclass
+ (texture-2darray-rd :bind "Texture2DArrayRD" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (texture-2drd :bind "Texture2DRD" :api :core))
+(defgclass
+ (texture-2drd :bind "Texture2DRD" :api :core :refcounted common-lisp:t))
 
-(defgclass (texture-3d :bind "Texture3D" :api :core))
+(defgclass (texture-3d :bind "Texture3D" :api :core :refcounted common-lisp:t))
 
-(defgclass (texture-3drd :bind "Texture3DRD" :api :core))
+(defgclass
+ (texture-3drd :bind "Texture3DRD" :api :core :refcounted common-lisp:t))
 
 (defgclass (texture-button :bind "TextureButton" :api :core))
 
@@ -6164,17 +6799,24 @@
  (:tile 1) (:keep 2) (:keep-centered 3) (:keep-aspect 4)
  (:keep-aspect-centered 5) (:keep-aspect-covered 6))
 
-(defgclass (texture-cubemap-array-rd :bind "TextureCubemapArrayRD" :api :core))
+(defgclass
+ (texture-cubemap-array-rd :bind "TextureCubemapArrayRD" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (texture-cubemap-rd :bind "TextureCubemapRD" :api :core))
+(defgclass
+ (texture-cubemap-rd :bind "TextureCubemapRD" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (texture-layered :bind "TextureLayered" :api :core))
+(defgclass
+ (texture-layered :bind "TextureLayered" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (texture-layered+layered-type :class 'texture-layered) (:2d-array 0)
  (:cubemap 1) (:cubemap-array 2))
 
-(defgclass (texture-layered-rd :bind "TextureLayeredRD" :api :core))
+(defgclass
+ (texture-layered-rd :bind "TextureLayeredRD" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass (texture-progress-bar :bind "TextureProgressBar" :api :core))
 
@@ -6196,7 +6838,7 @@
  (:keep 2) (:keep-centered 3) (:keep-aspect 4) (:keep-aspect-centered 5)
  (:keep-aspect-covered 6))
 
-(defgclass (theme :bind "Theme" :api :core))
+(defgclass (theme :bind "Theme" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (theme+data-type :class 'theme) (:color 0) (:constant 1) (:font 2)
@@ -6204,7 +6846,7 @@
 
 (defgclass (theme-db :bind "ThemeDB" :api :core) (:signals (fallback-changed)))
 
-(defgclass (thread :bind "Thread" :api :core))
+(defgclass (thread :bind "Thread" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (thread+priority :class 'thread) (:low 0) (:normal 1) (:high 2))
@@ -6224,9 +6866,10 @@
 (defgenum (tile-map-layer+debug-visibility-mode :class 'tile-map-layer)
  (:default 0) (:force-hide 2) (:force-show 1))
 
-(defgclass (tile-map-pattern :bind "TileMapPattern" :api :core))
+(defgclass
+ (tile-map-pattern :bind "TileMapPattern" :api :core :refcounted common-lisp:t))
 
-(defgclass (tile-set :bind "TileSet" :api :core))
+(defgclass (tile-set :bind "TileSet" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (tile-set+tile-shape :class 'tile-set) (:square 0) (:isometric 1)
@@ -6253,7 +6896,9 @@
 (defgenum (tile-set+terrain-mode :class 'tile-set) (:corners-and-sides 0)
  (:corners 1) (:sides 2))
 
-(defgclass (tile-set-atlas-source :bind "TileSetAtlasSource" :api :core))
+(defgclass
+ (tile-set-atlas-source :bind "TileSetAtlasSource" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgconstant +tile-set-atlas-source+transform-flip-h+ :value 4096 :bind
@@ -6274,9 +6919,11 @@
 
 (defgclass
  (tile-set-scenes-collection-source :bind "TileSetScenesCollectionSource" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
-(defgclass (tile-set-source :bind "TileSetSource" :api :core))
+(defgclass
+ (tile-set-source :bind "TileSetSource" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass (time :bind "Time" :api :core))
 
@@ -6294,7 +6941,7 @@
 
 (defgenum (timer+timer-process-callback :class 'timer) (:physics 0) (:idle 1))
 
-(defgclass (torus-mesh :bind "TorusMesh" :api :core))
+(defgclass (torus-mesh :bind "TorusMesh" :api :core :refcounted common-lisp:t))
 
 (defgclass (touch-screen-button :bind "TouchScreenButton" :api :core)
  (:signals (pressed) (released)))
@@ -6303,9 +6950,12 @@
 (defgenum (touch-screen-button+visibility-mode :class 'touch-screen-button)
  (:always 0) (:touchscreen-only 1))
 
-(defgclass (translation :bind "Translation" :api :core))
+(defgclass
+ (translation :bind "Translation" :api :core :refcounted common-lisp:t))
 
-(defgclass (translation-domain :bind "TranslationDomain" :api :core))
+(defgclass
+ (translation-domain :bind "TranslationDomain" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (translation-server :bind "TranslationServer" :api :core))
 
@@ -6332,17 +6982,20 @@
 (defgenum (tree+scroll-hint-mode :class 'tree) (:disabled 0) (:both 1) (:top 2)
  (:bottom 3))
 
-(defgclass (tree-item :bind "TreeItem" :api :core))
+(defgclass
+ (tree-item :bind "TreeItem" :api :core :instantiable common-lisp:nil))
 
 
 (defgenum (tree-item+tree-cell-mode :class 'tree-item) (:string 0) (:check 1)
  (:range 2) (:icon 3) (:custom 4))
 
-(defgclass (triangle-mesh :bind "TriangleMesh" :api :core))
+(defgclass
+ (triangle-mesh :bind "TriangleMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (tube-trail-mesh :bind "TubeTrailMesh" :api :core))
+(defgclass
+ (tube-trail-mesh :bind "TubeTrailMesh" :api :core :refcounted common-lisp:t))
 
-(defgclass (tween :bind "Tween" :api :core)
+(defgclass (tween :bind "Tween" :api :core :refcounted common-lisp:t)
  (:signals (step-finished idx int) (loop-finished loop-count int) (finished)))
 
 
@@ -6361,15 +7014,18 @@
 (defgenum (tween+ease-type :class 'tween) (:in 0) (:out 1) (:in-out 2)
  (:out-in 3))
 
-(defgclass (tweener :bind "Tweener" :api :core) (:signals (finished)))
+(defgclass
+ (tweener :bind "Tweener" :api :core :instantiable common-lisp:nil :refcounted
+  common-lisp:t)
+ (:signals (finished)))
 
 (defgclass (two-bone-ik3d :bind "TwoBoneIK3D" :api :core))
 
-(defgclass (udpserver :bind "UDPServer" :api :core))
+(defgclass (udpserver :bind "UDPServer" :api :core :refcounted common-lisp:t))
 
-(defgclass (udsserver :bind "UDSServer" :api :core))
+(defgclass (udsserver :bind "UDSServer" :api :core :refcounted common-lisp:t))
 
-(defgclass (upnp :bind "UPNP" :api :core))
+(defgclass (upnp :bind "UPNP" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (upnp+upnpresult :class 'upnp) (:success 0) (:not-authorized 1)
@@ -6385,7 +7041,7 @@
  (:invalid-param 22) (:http-error 23) (:socket-error 24) (:mem-alloc-error 25)
  (:no-gateway 26) (:no-devices 27) (:unknown-error 28))
 
-(defgclass (upnpdevice :bind "UPNPDevice" :api :core))
+(defgclass (upnpdevice :bind "UPNPDevice" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (upnpdevice+igdstatus :class 'upnpdevice) (:ok 0) (:http-error 1)
@@ -6416,16 +7072,21 @@
 
 (defgclass (vehicle-wheel-3d :bind "VehicleWheel3D" :api :core))
 
-(defgclass (video-stream :bind "VideoStream" :api :core))
+(defgclass
+ (video-stream :bind "VideoStream" :api :core :refcounted common-lisp:t))
 
-(defgclass (video-stream-playback :bind "VideoStreamPlayback" :api :core))
+(defgclass
+ (video-stream-playback :bind "VideoStreamPlayback" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (video-stream-player :bind "VideoStreamPlayer" :api :core)
  (:signals (finished)))
 
-(defgclass (video-stream-theora :bind "VideoStreamTheora" :api :core))
+(defgclass
+ (video-stream-theora :bind "VideoStreamTheora" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (viewport :bind "Viewport" :api :core)
+(defgclass (viewport :bind "Viewport" :api :core :instantiable common-lisp:nil)
  (:signals (size-changed) (gui-focus-changed node control)))
 
 
@@ -6493,7 +7154,9 @@
 (defgenum (viewport+vrsupdate-mode :class 'viewport) (:disabled 0) (:once 1)
  (:always 2) (:max 3))
 
-(defgclass (viewport-texture :bind "ViewportTexture" :api :core))
+(defgclass
+ (viewport-texture :bind "ViewportTexture" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (virtual-joystick :bind "VirtualJoystick" :api :core)
  (:signals (pressed) (tapped) (released input-vector vector-2)
@@ -6535,7 +7198,8 @@
 
 (defgclass (visual-instance-3d :bind "VisualInstance3D" :api :core))
 
-(defgclass (visual-shader :bind "VisualShader" :api :core))
+(defgclass
+ (visual-shader :bind "VisualShader" :api :core :refcounted common-lisp:t))
 
 
 (defgconstant +visual-shader+node-id-invalid+ :value -1 :bind "NODE_ID_INVALID"
@@ -6559,7 +7223,9 @@
  (:int 1) (:uint 2) (:vector-2d 3) (:vector-3d 4) (:vector-4d 5) (:boolean 6)
  (:transform 7) (:max 8))
 
-(defgclass (visual-shader-node :bind "VisualShaderNode" :api :core))
+(defgclass
+ (visual-shader-node :bind "VisualShaderNode" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum (visual-shader-node+port-type :class 'visual-shader-node) (:scalar 0)
@@ -6567,7 +7233,8 @@
  (:boolean 6) (:transform 7) (:sampler 8) (:max 9))
 
 (defgclass
- (visual-shader-node-billboard :bind "VisualShaderNodeBillboard" :api :core))
+ (visual-shader-node-billboard :bind "VisualShaderNodeBillboard" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6577,13 +7244,15 @@
 
 (defgclass
  (visual-shader-node-boolean-constant :bind "VisualShaderNodeBooleanConstant"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-boolean-parameter :bind "VisualShaderNodeBooleanParameter"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
-(defgclass (visual-shader-node-clamp :bind "VisualShaderNodeClamp" :api :core))
+(defgclass
+ (visual-shader-node-clamp :bind "VisualShaderNodeClamp" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (visual-shader-node-clamp+op-type :class 'visual-shader-node-clamp)
@@ -6592,10 +7261,11 @@
 
 (defgclass
  (visual-shader-node-color-constant :bind "VisualShaderNodeColorConstant" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-color-func :bind "VisualShaderNodeColorFunc" :api :core))
+ (visual-shader-node-color-func :bind "VisualShaderNodeColorFunc" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6604,7 +7274,8 @@
  (:srgb-to-linear 5) (:max 6))
 
 (defgclass
- (visual-shader-node-color-op :bind "VisualShaderNodeColorOp" :api :core))
+ (visual-shader-node-color-op :bind "VisualShaderNodeColorOp" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6614,13 +7285,15 @@
 
 (defgclass
  (visual-shader-node-color-parameter :bind "VisualShaderNodeColorParameter"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-comment :bind "VisualShaderNodeComment" :api :core))
+ (visual-shader-node-comment :bind "VisualShaderNodeComment" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-compare :bind "VisualShaderNodeCompare" :api :core))
+ (visual-shader-node-compare :bind "VisualShaderNodeCompare" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6641,10 +7314,12 @@
  (:all 0) (:any 1) (:max 2))
 
 (defgclass
- (visual-shader-node-constant :bind "VisualShaderNodeConstant" :api :core))
+ (visual-shader-node-constant :bind "VisualShaderNodeConstant" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-cubemap :bind "VisualShaderNodeCubemap" :api :core))
+ (visual-shader-node-cubemap :bind "VisualShaderNodeCubemap" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6658,22 +7333,23 @@
 
 (defgclass
  (visual-shader-node-cubemap-parameter :bind "VisualShaderNodeCubemapParameter"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-curve-texture :bind "VisualShaderNodeCurveTexture" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-curve-xyztexture :bind "VisualShaderNodeCurveXYZTexture"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-custom :bind "VisualShaderNodeCustom" :api :core))
+ (visual-shader-node-custom :bind "VisualShaderNodeCustom" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-derivative-func :bind "VisualShaderNodeDerivativeFunc"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6694,29 +7370,32 @@
  (:none 0) (:coarse 1) (:fine 2) (:max 3))
 
 (defgclass
- (visual-shader-node-determinant :bind "VisualShaderNodeDeterminant" :api
-  :core))
+ (visual-shader-node-determinant :bind "VisualShaderNodeDeterminant" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-distance-fade :bind "VisualShaderNodeDistanceFade" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-dot-product :bind "VisualShaderNodeDotProduct" :api :core))
+ (visual-shader-node-dot-product :bind "VisualShaderNodeDotProduct" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-expression :bind "VisualShaderNodeExpression" :api :core))
+ (visual-shader-node-expression :bind "VisualShaderNodeExpression" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-face-forward :bind "VisualShaderNodeFaceForward" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-float-constant :bind "VisualShaderNodeFloatConstant" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-float-func :bind "VisualShaderNodeFloatFunc" :api :core))
+ (visual-shader-node-float-func :bind "VisualShaderNodeFloatFunc" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6729,7 +7408,8 @@
  (:max 32))
 
 (defgclass
- (visual-shader-node-float-op :bind "VisualShaderNodeFloatOp" :api :core))
+ (visual-shader-node-float-op :bind "VisualShaderNodeFloatOp" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6739,7 +7419,7 @@
 
 (defgclass
  (visual-shader-node-float-parameter :bind "VisualShaderNodeFloatParameter"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6747,36 +7427,47 @@
   'visual-shader-node-float-parameter)
  (:none 0) (:range 1) (:range-step 2) (:max 3))
 
-(defgclass (visual-shader-node-frame :bind "VisualShaderNodeFrame" :api :core))
+(defgclass
+ (visual-shader-node-frame :bind "VisualShaderNodeFrame" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (visual-shader-node-fresnel :bind "VisualShaderNodeFresnel" :api :core))
+ (visual-shader-node-fresnel :bind "VisualShaderNodeFresnel" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-global-expression :bind "VisualShaderNodeGlobalExpression"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-group-base :bind "VisualShaderNodeGroupBase" :api :core))
+ (visual-shader-node-group-base :bind "VisualShaderNodeGroupBase" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
-(defgclass (visual-shader-node-if :bind "VisualShaderNodeIf" :api :core))
+(defgclass
+ (visual-shader-node-if :bind "VisualShaderNodeIf" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (visual-shader-node-input :bind "VisualShaderNodeInput" :api :core)
+(defgclass
+ (visual-shader-node-input :bind "VisualShaderNodeInput" :api :core :refcounted
+  common-lisp:t)
  (:signals (input-type-changed)))
 
 (defgclass
  (visual-shader-node-int-constant :bind "VisualShaderNodeIntConstant" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-int-func :bind "VisualShaderNodeIntFunc" :api :core))
+ (visual-shader-node-int-func :bind "VisualShaderNodeIntFunc" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
  (visual-shader-node-int-func+function :class 'visual-shader-node-int-func)
  (:abs 0) (:negate 1) (:sign 2) (:bitwise-not 3) (:max 4))
 
-(defgclass (visual-shader-node-int-op :bind "VisualShaderNodeIntOp" :api :core))
+(defgclass
+ (visual-shader-node-int-op :bind "VisualShaderNodeIntOp" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6787,7 +7478,7 @@
 
 (defgclass
  (visual-shader-node-int-parameter :bind "VisualShaderNodeIntParameter" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6795,7 +7486,9 @@
   'visual-shader-node-int-parameter)
  (:none 0) (:range 1) (:range-step 2) (:enum 3) (:max 4))
 
-(defgclass (visual-shader-node-is :bind "VisualShaderNodeIs" :api :core))
+(defgclass
+ (visual-shader-node-is :bind "VisualShaderNodeIs" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (visual-shader-node-is+function :class 'visual-shader-node-is)
@@ -6803,9 +7496,11 @@
 
 (defgclass
  (visual-shader-node-linear-scene-depth :bind
-  "VisualShaderNodeLinearSceneDepth" :api :core))
+  "VisualShaderNodeLinearSceneDepth" :api :core :refcounted common-lisp:t))
 
-(defgclass (visual-shader-node-mix :bind "VisualShaderNodeMix" :api :core))
+(defgclass
+ (visual-shader-node-mix :bind "VisualShaderNodeMix" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (visual-shader-node-mix+op-type :class 'visual-shader-node-mix)
@@ -6814,7 +7509,7 @@
 
 (defgclass
  (visual-shader-node-multiply-add :bind "VisualShaderNodeMultiplyAdd" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6824,13 +7519,15 @@
 
 (defgclass
  (visual-shader-node-outer-product :bind "VisualShaderNodeOuterProduct" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-output :bind "VisualShaderNodeOutput" :api :core))
+ (visual-shader-node-output :bind "VisualShaderNodeOutput" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-parameter :bind "VisualShaderNodeParameter" :api :core))
+ (visual-shader-node-parameter :bind "VisualShaderNodeParameter" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6839,11 +7536,11 @@
 
 (defgclass
  (visual-shader-node-parameter-ref :bind "VisualShaderNodeParameterRef" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-particle-accelerator :bind
-  "VisualShaderNodeParticleAccelerator" :api :core))
+  "VisualShaderNodeParticleAccelerator" :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6853,15 +7550,15 @@
 
 (defgclass
  (visual-shader-node-particle-box-emitter :bind
-  "VisualShaderNodeParticleBoxEmitter" :api :core))
+  "VisualShaderNodeParticleBoxEmitter" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-particle-cone-velocity :bind
-  "VisualShaderNodeParticleConeVelocity" :api :core))
+  "VisualShaderNodeParticleConeVelocity" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-particle-emit :bind "VisualShaderNodeParticleEmit" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6871,23 +7568,24 @@
 
 (defgclass
  (visual-shader-node-particle-emitter :bind "VisualShaderNodeParticleEmitter"
-  :api :core))
+  :api :core :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-particle-mesh-emitter :bind
-  "VisualShaderNodeParticleMeshEmitter" :api :core))
+  "VisualShaderNodeParticleMeshEmitter" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-particle-multiply-by-axis-angle :bind
-  "VisualShaderNodeParticleMultiplyByAxisAngle" :api :core))
+  "VisualShaderNodeParticleMultiplyByAxisAngle" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (visual-shader-node-particle-output :bind "VisualShaderNodeParticleOutput"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-particle-randomness :bind
-  "VisualShaderNodeParticleRandomness" :api :core))
+  "VisualShaderNodeParticleRandomness" :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6897,21 +7595,23 @@
 
 (defgclass
  (visual-shader-node-particle-ring-emitter :bind
-  "VisualShaderNodeParticleRingEmitter" :api :core))
+  "VisualShaderNodeParticleRingEmitter" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-particle-sphere-emitter :bind
-  "VisualShaderNodeParticleSphereEmitter" :api :core))
+  "VisualShaderNodeParticleSphereEmitter" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-proximity-fade :bind "VisualShaderNodeProximityFade" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-random-range :bind "VisualShaderNodeRandomRange" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
-(defgclass (visual-shader-node-remap :bind "VisualShaderNodeRemap" :api :core))
+(defgclass
+ (visual-shader-node-remap :bind "VisualShaderNodeRemap" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (visual-shader-node-remap+op-type :class 'visual-shader-node-remap)
@@ -6919,26 +7619,28 @@
  (:vector-3d-scalar 4) (:vector-4d 5) (:vector-4d-scalar 6) (:max 7))
 
 (defgclass
- (visual-shader-node-reroute :bind "VisualShaderNodeReroute" :api :core))
+ (visual-shader-node-reroute :bind "VisualShaderNodeReroute" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-resizable-base :bind "VisualShaderNodeResizableBase" :api
-  :core))
+  :core :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-rotation-by-axis :bind "VisualShaderNodeRotationByAxis"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-sdfraymarch :bind "VisualShaderNodeSDFRaymarch" :api
-  :core))
+ (visual-shader-node-sdfraymarch :bind "VisualShaderNodeSDFRaymarch" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-sdfto-screen-uv :bind "VisualShaderNodeSDFToScreenUV" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-sample-3d :bind "VisualShaderNodeSample3D" :api :core))
+ (visual-shader-node-sample-3d :bind "VisualShaderNodeSample3D" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6947,14 +7649,16 @@
 
 (defgclass
  (visual-shader-node-screen-normal-world-space :bind
-  "VisualShaderNodeScreenNormalWorldSpace" :api :core))
+  "VisualShaderNodeScreenNormalWorldSpace" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (visual-shader-node-screen-uvto-sdf :bind "VisualShaderNodeScreenUVToSDF" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-smooth-step :bind "VisualShaderNodeSmoothStep" :api :core))
+ (visual-shader-node-smooth-step :bind "VisualShaderNodeSmoothStep" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6963,7 +7667,9 @@
  (:scalar 0) (:vector-2d 1) (:vector-2d-scalar 2) (:vector-3d 3)
  (:vector-3d-scalar 4) (:vector-4d 5) (:vector-4d-scalar 6) (:max 7))
 
-(defgclass (visual-shader-node-step :bind "VisualShaderNodeStep" :api :core))
+(defgclass
+ (visual-shader-node-step :bind "VisualShaderNodeStep" :api :core :refcounted
+  common-lisp:t))
 
 
 (defgenum (visual-shader-node-step+op-type :class 'visual-shader-node-step)
@@ -6971,7 +7677,8 @@
  (:vector-3d-scalar 4) (:vector-4d 5) (:vector-4d-scalar 6) (:max 7))
 
 (defgclass
- (visual-shader-node-switch :bind "VisualShaderNodeSwitch" :api :core))
+ (visual-shader-node-switch :bind "VisualShaderNodeSwitch" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum (visual-shader-node-switch+op-type :class 'visual-shader-node-switch)
@@ -6979,7 +7686,8 @@
  (:boolean 6) (:transform 7) (:max 8))
 
 (defgclass
- (visual-shader-node-texture :bind "VisualShaderNodeTexture" :api :core))
+ (visual-shader-node-texture :bind "VisualShaderNodeTexture" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -6994,26 +7702,28 @@
 
 (defgclass
  (visual-shader-node-texture-2darray :bind "VisualShaderNodeTexture2DArray"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-texture-2darray-parameter :bind
-  "VisualShaderNodeTexture2DArrayParameter" :api :core))
+  "VisualShaderNodeTexture2DArrayParameter" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
  (visual-shader-node-texture-2dparameter :bind
-  "VisualShaderNodeTexture2DParameter" :api :core))
+  "VisualShaderNodeTexture2DParameter" :api :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-texture-3d :bind "VisualShaderNodeTexture3D" :api :core))
+ (visual-shader-node-texture-3d :bind "VisualShaderNodeTexture3D" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-texture-3dparameter :bind
-  "VisualShaderNodeTexture3DParameter" :api :core))
+  "VisualShaderNodeTexture3DParameter" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-texture-parameter :bind "VisualShaderNodeTextureParameter"
-  :api :core))
+  :api :core :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7048,30 +7758,32 @@
 
 (defgclass
  (visual-shader-node-texture-parameter-triplanar :bind
-  "VisualShaderNodeTextureParameterTriplanar" :api :core))
+  "VisualShaderNodeTextureParameterTriplanar" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass
- (visual-shader-node-texture-sdf :bind "VisualShaderNodeTextureSDF" :api :core))
+ (visual-shader-node-texture-sdf :bind "VisualShaderNodeTextureSDF" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-texture-sdfnormal :bind "VisualShaderNodeTextureSDFNormal"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-transform-compose :bind "VisualShaderNodeTransformCompose"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-transform-constant :bind
-  "VisualShaderNodeTransformConstant" :api :core))
+  "VisualShaderNodeTransformConstant" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-transform-decompose :bind
-  "VisualShaderNodeTransformDecompose" :api :core))
+  "VisualShaderNodeTransformDecompose" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-transform-func :bind "VisualShaderNodeTransformFunc" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7081,7 +7793,7 @@
 
 (defgclass
  (visual-shader-node-transform-op :bind "VisualShaderNodeTransformOp" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7092,11 +7804,11 @@
 
 (defgclass
  (visual-shader-node-transform-parameter :bind
-  "VisualShaderNodeTransformParameter" :api :core))
+  "VisualShaderNodeTransformParameter" :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-transform-vec-mult :bind
-  "VisualShaderNodeTransformVecMult" :api :core))
+  "VisualShaderNodeTransformVecMult" :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7106,10 +7818,11 @@
 
 (defgclass
  (visual-shader-node-uint-constant :bind "VisualShaderNodeUIntConstant" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-uint-func :bind "VisualShaderNodeUIntFunc" :api :core))
+ (visual-shader-node-uint-func :bind "VisualShaderNodeUIntFunc" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7117,7 +7830,8 @@
  (:negate 0) (:bitwise-not 1) (:max 2))
 
 (defgclass
- (visual-shader-node-uint-op :bind "VisualShaderNodeUIntOp" :api :core))
+ (visual-shader-node-uint-op :bind "VisualShaderNodeUIntOp" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7128,10 +7842,11 @@
 
 (defgclass
  (visual-shader-node-uint-parameter :bind "VisualShaderNodeUIntParameter" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-uvfunc :bind "VisualShaderNodeUVFunc" :api :core))
+ (visual-shader-node-uvfunc :bind "VisualShaderNodeUVFunc" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7140,45 +7855,47 @@
 
 (defgclass
  (visual-shader-node-uvpolar-coord :bind "VisualShaderNodeUVPolarCoord" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-varying :bind "VisualShaderNodeVarying" :api :core))
+ (visual-shader-node-varying :bind "VisualShaderNodeVarying" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-varying-getter :bind "VisualShaderNodeVaryingGetter" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-varying-setter :bind "VisualShaderNodeVaryingSetter" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-vec-2constant :bind "VisualShaderNodeVec2Constant" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-vec-2parameter :bind "VisualShaderNodeVec2Parameter" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-vec-3constant :bind "VisualShaderNodeVec3Constant" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-vec-3parameter :bind "VisualShaderNodeVec3Parameter" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-vec-4constant :bind "VisualShaderNodeVec4Constant" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-vec-4parameter :bind "VisualShaderNodeVec4Parameter" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-vector-base :bind "VisualShaderNodeVectorBase" :api :core))
+ (visual-shader-node-vector-base :bind "VisualShaderNodeVectorBase" :api :core
+  :instantiable common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7188,18 +7905,19 @@
 
 (defgclass
  (visual-shader-node-vector-compose :bind "VisualShaderNodeVectorCompose" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-vector-decompose :bind "VisualShaderNodeVectorDecompose"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-vector-distance :bind "VisualShaderNodeVectorDistance"
-  :api :core))
+  :api :core :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-vector-func :bind "VisualShaderNodeVectorFunc" :api :core))
+ (visual-shader-node-vector-func :bind "VisualShaderNodeVectorFunc" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7213,10 +7931,12 @@
  (:tanh 30) (:trunc 31) (:oneminus 32) (:max 33))
 
 (defgclass
- (visual-shader-node-vector-len :bind "VisualShaderNodeVectorLen" :api :core))
+ (visual-shader-node-vector-len :bind "VisualShaderNodeVectorLen" :api :core
+  :refcounted common-lisp:t))
 
 (defgclass
- (visual-shader-node-vector-op :bind "VisualShaderNodeVectorOp" :api :core))
+ (visual-shader-node-vector-op :bind "VisualShaderNodeVectorOp" :api :core
+  :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7226,11 +7946,12 @@
 
 (defgclass
  (visual-shader-node-vector-refract :bind "VisualShaderNodeVectorRefract" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
  (visual-shader-node-world-position-from-depth :bind
-  "VisualShaderNodeWorldPositionFromDepth" :api :core))
+  "VisualShaderNodeWorldPositionFromDepth" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (voxel-gi :bind "VoxelGI" :api :core))
 
@@ -7238,11 +7959,14 @@
 (defgenum (voxel-gi+subdiv :class 'voxel-gi) (:|64| 0) (:|128| 1) (:|256| 2)
  (:|512| 3) (:max 4))
 
-(defgclass (voxel-gidata :bind "VoxelGIData" :api :core))
+(defgclass
+ (voxel-gidata :bind "VoxelGIData" :api :core :refcounted common-lisp:t))
 
-(defgclass (weak-ref :bind "WeakRef" :api :core))
+(defgclass (weak-ref :bind "WeakRef" :api :core :refcounted common-lisp:t))
 
-(defgclass (web-rtcdata-channel :bind "WebRTCDataChannel" :api :core))
+(defgclass
+ (web-rtcdata-channel :bind "WebRTCDataChannel" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t))
 
 
 (defgenum (web-rtcdata-channel+write-mode :class 'web-rtcdata-channel)
@@ -7253,11 +7977,16 @@
  (:connecting 0) (:open 1) (:closing 2) (:closed 3))
 
 (defgclass
- (web-rtcdata-channel-extension :bind "WebRTCDataChannelExtension" :api :core))
+ (web-rtcdata-channel-extension :bind "WebRTCDataChannelExtension" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (web-rtcmultiplayer-peer :bind "WebRTCMultiplayerPeer" :api :core))
+(defgclass
+ (web-rtcmultiplayer-peer :bind "WebRTCMultiplayerPeer" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (web-rtcpeer-connection :bind "WebRTCPeerConnection" :api :core)
+(defgclass
+ (web-rtcpeer-connection :bind "WebRTCPeerConnection" :api :core :refcounted
+  common-lisp:t)
  (:signals (session-description-created type string sdp string)
   (ice-candidate-created media string index int name string)
   (data-channel-received channel web-rtcdata-channel)))
@@ -7281,12 +8010,14 @@
 
 (defgclass
  (web-rtcpeer-connection-extension :bind "WebRTCPeerConnectionExtension" :api
-  :core))
+  :core :refcounted common-lisp:t))
 
 (defgclass
- (web-socket-multiplayer-peer :bind "WebSocketMultiplayerPeer" :api :core))
+ (web-socket-multiplayer-peer :bind "WebSocketMultiplayerPeer" :api :core
+  :refcounted common-lisp:t))
 
-(defgclass (web-socket-peer :bind "WebSocketPeer" :api :core))
+(defgclass
+ (web-socket-peer :bind "WebSocketPeer" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (web-socket-peer+write-mode :class 'web-socket-peer) (:text 0)
@@ -7296,7 +8027,9 @@
 (defgenum (web-socket-peer+state :class 'web-socket-peer) (:connecting 0)
  (:open 1) (:closing 2) (:closed 3))
 
-(defgclass (web-xrinterface :bind "WebXRInterface" :api :core)
+(defgclass
+ (web-xrinterface :bind "WebXRInterface" :api :core :instantiable
+  common-lisp:nil :refcounted common-lisp:t)
  (:signals (session-supported session-mode string supported bool)
   (session-started) (session-ended) (session-failed message string)
   (selectstart input-source-id int) (select input-source-id int)
@@ -7360,21 +8093,28 @@
  (:center-other-screen 3) (:center-screen-with-mouse-focus 4)
  (:center-screen-with-keyboard-focus 5))
 
-(defgclass (worker-thread-pool :bind "WorkerThreadPool" :api :core))
+(defgclass
+ (worker-thread-pool :bind "WorkerThreadPool" :api :core :instantiable
+  common-lisp:nil))
 
-(defgclass (world-2d :bind "World2D" :api :core))
+(defgclass (world-2d :bind "World2D" :api :core :refcounted common-lisp:t))
 
-(defgclass (world-3d :bind "World3D" :api :core))
+(defgclass (world-3d :bind "World3D" :api :core :refcounted common-lisp:t))
 
-(defgclass (world-boundary-shape-2d :bind "WorldBoundaryShape2D" :api :core))
+(defgclass
+ (world-boundary-shape-2d :bind "WorldBoundaryShape2D" :api :core :refcounted
+  common-lisp:t))
 
-(defgclass (world-boundary-shape-3d :bind "WorldBoundaryShape3D" :api :core))
+(defgclass
+ (world-boundary-shape-3d :bind "WorldBoundaryShape3D" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (world-environment :bind "WorldEnvironment" :api :core))
 
-(defgclass (x509certificate :bind "X509Certificate" :api :core))
+(defgclass
+ (x509certificate :bind "X509Certificate" :api :core :refcounted common-lisp:t))
 
-(defgclass (xmlparser :bind "XMLParser" :api :core))
+(defgclass (xmlparser :bind "XMLParser" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (xmlparser+node-type :class 'xmlparser) (:none 0) (:element 1)
@@ -7394,7 +8134,8 @@
 (defgenum (xrbody-modifier-3d+bone-update :class 'xrbody-modifier-3d) (:full 0)
  (:rotation-only 1) (:max 2))
 
-(defgclass (xrbody-tracker :bind "XRBodyTracker" :api :core))
+(defgclass
+ (xrbody-tracker :bind "XRBodyTracker" :api :core :refcounted common-lisp:t))
 
 
 (defgenum
@@ -7459,11 +8200,14 @@
   (input-vector2-changed action-name string value vector-2)
   (profile-changed role string)))
 
-(defgclass (xrcontroller-tracker :bind "XRControllerTracker" :api :core))
+(defgclass
+ (xrcontroller-tracker :bind "XRControllerTracker" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (xrface-modifier-3d :bind "XRFaceModifier3D" :api :core))
 
-(defgclass (xrface-tracker :bind "XRFaceTracker" :api :core))
+(defgclass
+ (xrface-tracker :bind "XRFaceTracker" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (xrface-tracker+blend-shape-entry :class 'xrface-tracker)
@@ -7524,7 +8268,8 @@
 (defgenum (xrhand-modifier-3d+bone-update :class 'xrhand-modifier-3d) (:full 0)
  (:rotation-only 1) (:max 2))
 
-(defgclass (xrhand-tracker :bind "XRHandTracker" :api :core))
+(defgclass
+ (xrhand-tracker :bind "XRHandTracker" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (xrhand-tracker+hand-tracking-source :class 'xrhand-tracker)
@@ -7552,7 +8297,9 @@
  (:orientation-valid 1) (:orientation-tracked 2) (:position-valid 4)
  (:position-tracked 8) (:linear-velocity-valid 16) (:angular-velocity-valid 32))
 
-(defgclass (xrinterface :bind "XRInterface" :api :core)
+(defgclass
+ (xrinterface :bind "XRInterface" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t)
  (:signals (play-area-changed mode int)))
 
 
@@ -7576,20 +8323,24 @@
 (defgenum (xrinterface+vrstexture-format :class 'xrinterface) (:unified 0)
  (:fragment-shading-rate 1) (:fragment-density-map 2))
 
-(defgclass (xrinterface-extension :bind "XRInterfaceExtension" :api :core))
+(defgclass
+ (xrinterface-extension :bind "XRInterfaceExtension" :api :core :refcounted
+  common-lisp:t))
 
 (defgclass (xrnode-3d :bind "XRNode3D" :api :core)
  (:signals (tracking-changed tracking bool)))
 
 (defgclass (xrorigin-3d :bind "XROrigin3D" :api :core))
 
-(defgclass (xrpose :bind "XRPose" :api :core))
+(defgclass (xrpose :bind "XRPose" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (xrpose+tracking-confidence :class 'xrpose) (:none 0) (:low 1)
  (:high 2))
 
-(defgclass (xrpositional-tracker :bind "XRPositionalTracker" :api :core)
+(defgclass
+ (xrpositional-tracker :bind "XRPositionalTracker" :api :core :refcounted
+  common-lisp:t)
  (:signals (pose-changed pose xrpose) (pose-lost-tracking pose xrpose)
   (button-pressed action-name string) (button-released action-name string)
   (input-float-changed action-name string value float)
@@ -7617,11 +8368,13 @@
 (defgenum (xrserver+rotation-mode :class 'xrserver) (:reset-full-rotation 0)
  (:reset-but-keep-tilt 1) (:dont-reset-rotation 2))
 
-(defgclass (xrtracker :bind "XRTracker" :api :core))
+(defgclass
+ (xrtracker :bind "XRTracker" :api :core :instantiable common-lisp:nil
+  :refcounted common-lisp:t))
 
 (defgclass (xrvrs :bind "XRVRS" :api :core))
 
-(defgclass (zippacker :bind "ZIPPacker" :api :core))
+(defgclass (zippacker :bind "ZIPPacker" :api :core :refcounted common-lisp:t))
 
 
 (defgenum (zippacker+zip-append :class 'zippacker) (:create 0) (:createafter 1)
@@ -7631,4 +8384,4 @@
 (defgenum (zippacker+compression-level :class 'zippacker) (:default -1)
  (:none 0) (:fast 1) (:best 9))
 
-(defgclass (zipreader :bind "ZIPReader" :api :core))
+(defgclass (zipreader :bind "ZIPReader" :api :core :refcounted common-lisp:t))

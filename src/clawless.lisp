@@ -556,7 +556,11 @@
                                                           ("core" :core)
                                                           ("editor" :editor)))
                                               ,@(when builtin-p
-                                                  `(:size ,(gethash name *builtin-size-table*))))
+                                                  `(:size ,(gethash name *builtin-size-table*)))
+                                              ,@(when (not instantiable-p)
+                                                  `(:instantiable nil))
+                                              ,@(when refcounted-p
+                                                  `(:refcounted t)))
        ,@(a:when-let ((fields (gethash name *builtin-field-table*)))
            `((:fields ,@(loop for (field-name field-offset field-type) in fields
                               collect (list (symbolicate-gdext-snake-case field-name :skip-first nil)
@@ -577,10 +581,10 @@
      out)
     (when constants
       (loop for constant-def across constants
-                do (explode-extension-constant out constant-def
-                                               :class namesym
-                                               :builtin builtin-p
-                                               :prefix (a:symbolicate namesym '+))))
+            do (explode-extension-constant out constant-def
+                                           :class namesym
+                                           :builtin builtin-p
+                                           :prefix (a:symbolicate namesym '+))))
     (when enums
       (loop for enum-def across enums
             do (explode-extension-enum out enum-def

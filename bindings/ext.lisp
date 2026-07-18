@@ -24,6 +24,8 @@
 
            #:godot-extension-bind-name
            #:godot-extension-variant-kind
+           #:godot-extension-instantiable-p
+           #:godot-extension-refcounted-p
            #:godot-extension-method-bind-name
 
            #:godot-string-to-lisp
@@ -225,7 +227,9 @@
    (api :initarg :api :reader api-of)
    (variant-kind :initarg :variant-kind :reader variant-kind-of)
    (size :initarg :size :reader size-of)
-   (primitive :initform nil :reader primitivep)))
+   (primitive :initform nil :reader primitivep)
+   (instantiable :initform t :initarg :instantiable :reader instantiablep)
+   (refcounted :initform nil :initarg :refcounted :reader refcountedp)))
 
 
 (defun builtinp (instance)
@@ -403,11 +407,14 @@
 
 
 (defmacro defgclass (name-and-opts &body properties)
-  (destructuring-bind (name &key bind api size) (uiop:ensure-list name-and-opts)
+  (destructuring-bind (name &key bind api size (instantiable t) refcounted)
+      (uiop:ensure-list name-and-opts)
     (let* ((size (eval size))
            (api (eval api))
            (bind (eval bind))
            (builtin (eq :builtin api))
+           (instantiable-p (and (eval instantiable) t))
+           (refcounted-p (and (eval refcounted) t))
            (variant-kind (if builtin
                              (uiop:if-let ((kind (a:assoc-value *variant-name-kind-mapping* bind :test #'string=)))
                                kind
@@ -434,22 +441,22 @@
                (if (string= "bool" bind)
                    (progn
                      (assert (= size 1))
-                    `((cffi:define-foreign-type ,name ()
-                        ()
-                        (:actual-type :uint8)
-                        (:simple-parser ,name))
-                      (defmethod cffi:expand-to-foreign (value (type ,name))
-                        (declare (ignore type))
-                        (expand-to-godot-bool value))
-                      (defmethod cffi:expand-from-foreign (value (type ,name))
-                        (declare (ignore type))
-                        (expand-from-godot-bool value))
-                      (defmethod cffi:translate-to-foreign (value (type ,name))
-                        (declare (ignore type))
-                        (bool->godot value))
-                      (defmethod cffi:translate-from-foreign (value (type ,name))
-                        (declare (ignore type))
-                        (bool->lisp value))))
+                     `((cffi:define-foreign-type ,name ()
+                         ()
+                         (:actual-type :uint8)
+                         (:simple-parser ,name))
+                       (defmethod cffi:expand-to-foreign (value (type ,name))
+                         (declare (ignore type))
+                         (expand-to-godot-bool value))
+                       (defmethod cffi:expand-from-foreign (value (type ,name))
+                         (declare (ignore type))
+                         (expand-from-godot-bool value))
+                       (defmethod cffi:translate-to-foreign (value (type ,name))
+                         (declare (ignore type))
+                         (bool->godot value))
+                       (defmethod cffi:translate-from-foreign (value (type ,name))
+                         (declare (ignore type))
+                         (bool->lisp value))))
                    `((cffi:defctype ,name ,(a:switch (bind :test #'equal)
                                              ("Nil" :void)
                                              ("float" (assert (= size 8))
@@ -511,6 +518,8 @@
            (register-godot-class ',name ,bind
                                  ,variant-kind
                                  :api ,api
+                                 :refcounted ,refcounted-p
+                                 :instantiable ,instantiable-p
                                  :size ,(if (or (not size)
                                                 (= size 0))
                                             0
@@ -1022,6 +1031,12 @@
 
 (defun godot-extension-method-bind-name (class-name method-name)
   (bind-of (get-godot-method class-name method-name)))
+
+(defun godot-extension-refcounted-p (class-name)
+  (refcountedp (get-godot-class class-name)))
+
+(defun godot-extension-instantiable-p (class-name)
+  (instantiablep (get-godot-class class-name)))
 
 
 (register-godot-method-argument-metadata

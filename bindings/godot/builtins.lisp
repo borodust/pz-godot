@@ -21,7 +21,7 @@
 
 (defgclass
  (vector-2 :bind "Vector2" :api :builtin :size 8 :instantiable common-lisp:nil)
- (:fields (x float :offset 0) (y float :offset 4)))
+ (:fields (x :float :offset 0) (y :float :offset 4)))
 
 
 (defgconstant +vector-2+zero+ :bind "ZERO" :class 'vector-2 :documentation
@@ -105,7 +105,7 @@
 (defgclass
  (vector-3 :bind "Vector3" :api :builtin :size 12 :instantiable
   common-lisp:nil)
- (:fields (x float :offset 0) (y float :offset 4) (z float :offset 8)))
+ (:fields (x :float :offset 0) (y :float :offset 4) (z :float :offset 8)))
 
 
 (defgconstant +vector-3+zero+ :bind "ZERO" :class 'vector-3 :documentation
@@ -239,8 +239,8 @@
 (defgclass
  (vector-4 :bind "Vector4" :api :builtin :size 16 :instantiable
   common-lisp:nil)
- (:fields (x float :offset 0) (y float :offset 4) (z float :offset 8)
-  (w float :offset 12)))
+ (:fields (x :float :offset 0) (y :float :offset 4) (z :float :offset 8)
+  (w :float :offset 12)))
 
 
 (defgconstant +vector-4+zero+ :bind "ZERO" :class 'vector-4 :documentation
@@ -284,7 +284,7 @@
 
 (defgclass
  (plane :bind "Plane" :api :builtin :size 16 :instantiable common-lisp:nil)
- (:fields (normal vector-3 :offset 0) (d float :offset 12)))
+ (:fields (normal vector-3 :offset 0) (d :float :offset 12)))
 
 
 (defgconstant +plane+plane-yz+ :bind "PLANE_YZ" :class 'plane :documentation
@@ -301,8 +301,8 @@
 (defgclass
  (quaternion :bind "Quaternion" :api :builtin :size 16 :instantiable
   common-lisp:nil)
- (:fields (x float :offset 0) (y float :offset 4) (z float :offset 8)
-  (w float :offset 12)))
+ (:fields (x :float :offset 0) (y :float :offset 4) (z :float :offset 8)
+  (w :float :offset 12)))
 
 
 (defgconstant +quaternion+identity+ :bind "IDENTITY" :class 'quaternion
@@ -374,8 +374,8 @@
 
 (defgclass
  (color :bind "Color" :api :builtin :size 16 :instantiable common-lisp:nil)
- (:fields (r float :offset 0) (g float :offset 4) (b float :offset 8)
-  (a float :offset 12)))
+ (:fields (r :float :offset 0) (g :float :offset 4) (b :float :offset 8)
+  (a :float :offset 12)))
 
 
 (defgconstant +color+alice-blue+ :bind "ALICE_BLUE" :class 'color

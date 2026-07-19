@@ -564,7 +564,8 @@
        ,@(a:when-let ((fields (gethash name *builtin-field-table*)))
            `((:fields ,@(loop for (field-name field-offset field-type) in fields
                               collect (list (symbolicate-gdext-snake-case field-name :skip-first nil)
-                                            (parse-extension-type-string field-type)
+                                            (parse-type-string field-type
+                                                               :skip-first nil)
                                             :offset field-offset)))))
        ,@(when signals
            `((:signals ,@(loop for signal-def across signals

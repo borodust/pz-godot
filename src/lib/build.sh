@@ -5,6 +5,10 @@ LIBRARY_DIR=$WORK_DIR/godot
 BUILD_DIR=$WORK_DIR/build
 
 REST_ARGS=
+
+GODOT_CC=clang
+GODOT_CXX=clang++
+
 while [[ $# -gt 0 ]]
 do
 key="$1"
@@ -29,6 +33,16 @@ case $key in
         SCONS_ENV+=" tests=yes"
         shift
         ;;
+    --cc)
+        GODOT_CC="$2"
+        shift
+        shift
+        ;;
+    --cxx)
+        GODOT_CXX="$2"
+        shift
+        shift
+        ;;
     *)
         REST_ARGS+="$1"
         shift
@@ -40,14 +54,14 @@ done
 function build_desktop_editor {
     mkdir -p "$BUILD_DIR"
     cd "$LIBRARY_DIR/"
-    scons CC=clang CXX=clang++ library_type=executable compiledb=true $SCONS_ENV
+    scons CC="$GODOT_CC" CXX="$GODOT_CXX" library_type=executable compiledb=true $SCONS_ENV
     cp "$LIBRARY_DIR/bin/"godot*editor$DEBUG_INFIX* "$BUILD_DIR"
 }
 
 function build_desktop_library {
     mkdir -p "$BUILD_DIR"
     cd "$LIBRARY_DIR/"
-    scons CC=clang CXX=clang++ library_type=shared_library compiledb=true $SCONS_ENV
+    scons CC="$GODOT_CC" CXX="$GODOT_CXX" library_type=shared_library compiledb=true $SCONS_ENV
     cp "$LIBRARY_DIR/bin/"libgodot*editor$DEBUG_INFIX*.so "$BUILD_DIR"
     ln -fs "$BUILD_DIR"/libgodot*editor$DEBUG_INFIX*.so "$BUILD_DIR"/libgodot.so
 }
